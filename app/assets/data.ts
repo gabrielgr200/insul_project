@@ -33,12 +33,23 @@ export interface ProductCategory {
 
 export interface Specification {
   title: string;
+  summary: string;
   description: string;
 }
 
 export interface FenixImage {
   name: string;
   src: string;
+}
+export interface DescriptionText {
+  paragraphs: string[];
+}
+
+export interface VideoCardSlide {
+  src: string;
+  category: string;
+  title: string;
+  description: string;
 }
 
 const poductsCardsPages: ProductCardData[] = [
@@ -227,32 +238,38 @@ const productCategories: ProductCategory[] = [
 
 const specifications: Specification[] = [
   {
-    title: "Aço alto carfbono",
+    title: "Aço alto carbono",
+    summary: "Resistência de ruptura inigualável no mercado.",
     description:
       "Única alambrado no Brasil a possuir arames de 650kgf de carga de ruptura.",
   },
   {
     title: "Nó em X(Stiff Stay): A força da união",
+    summary: "Nó forjado que blinda a cerca contra impactos.",
     description:
       "Tecnologia exclusiva de nó forjado que não deixa rebardas e confere segurança mecânica contra impactos como nenhuma outra.",
   },
   {
     title: "Adaptação a qualquer terreno",
+    summary: "Acompanha aclives e declives sem dificuldade.",
     description:
       "A Fenix acompanha perfeitamente o terreno em aclives e declives sem dificuldades na instalação.",
   },
   {
     title: "Maior economia e instalação ultrarápida",
+    summary: "Até 50% de economia com instalação mais rápida.",
     description:
       "Seus arames de aço permitem espaçamento maior entre mourões de 5-5 até 8-8m, gerando até 50% de economia frente a outras telas.",
   },
   {
     title: "Malha bimodal: inteligente e segura",
+    summary: "Fechada embaixo, aberta em cima: proteção com economia.",
     description:
       "Proteção estratégica: malha fechada nos primeiros 60cm para contenção de animais e invasores. Restante a trama se abre para reduzir custos e manter o visual harmônico.",
   },
   {
     title: "Tecnologia neozelandesa, força brasileira",
+    summary: "Exclusividade da Insul na América do Sul.",
     description:
       "Exclusividade da Insul na América do Sul, a Fenix traz tecnologia de ponta para cercamentos urbanos e Rurais. Imbatível na comparação contra qualquer outro modelo de alambrado.",
   },
@@ -277,6 +294,55 @@ const imgFenix: FenixImage[] = [
   },
 ];
 
+const textDescription: DescriptionText[] = [
+  {
+    paragraphs: [
+      "A Tela Alambrada Fênix Insul é uma solução de cercamento em tela de simples torção, fabricada com arame de aço de alto carbono, que proporciona maior resistência mecânica, durabilidade e desempenho. Desenvolvida para oferecer segurança e confiabilidade, é ideal para projetos que exigem um cercamento eficiente e de longa vida útil.",
+      "Seu sistema construtivo permite uma instalação até 6 vezes mais rápida em comparação aos cercamentos convencionais, reduzindo o tempo de execução da obra e aumentando a produtividade. Além disso, sua estrutura possibilita a utilização de até 50% menos mourões, proporcionando economia de materiais sem comprometer a resistência do cercamento.",
+      "A Tela Alambrada Fênix Insul é indicada para o cercamento de residências, condomínios, empresas, indústrias, escolas, quadras esportivas, chácaras, sítios, áreas públicas e demais propriedades que necessitem de uma solução prática, segura e de alto desempenho.",
+      "Aliando tecnologia, resistência e excelente custo-benefício, a Tela Alambrada Fênix Insul oferece ampla visibilidade, baixa necessidade de manutenção e alta durabilidade, tornando-se uma escolha inteligente para projetos que buscam rapidez na instalação, economia e qualidade em um único sistema de cercamento.",
+    ],
+  },
+];
+
+const fenixVideoCards: VideoCardSlide[] = [
+  {
+    src: "/videos/video-1-fenix.mp4",
+    category: "MATERIAL",
+    title: "Aço Carbono",
+    description:
+      "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+  },
+  {
+    src: "/videos/video-2-fenix.mp4",
+    category: "ESTRUTURA",
+    title: "Nó em X",
+    description:
+      "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+  },
+  {
+    src: "/videos/video-3-fenix.mp4",
+    category: "TERRENO",
+    title: "Qualquer Relevo",
+    description:
+      "Acompanha aclives e declives sem dificuldade na instalação.",
+  },
+  {
+    src: "/videos/video-4-fenix.mp4",
+    category: "ECONOMIA",
+    title: "Instalação Rápida",
+    description:
+      "Espaçamento maior entre mourões gera até 50% de economia.",
+  },
+  {
+    src: "/videos/video-5-fenix.mp4",
+    category: "PROTEÇÃO",
+    title: "Malha Bimodal",
+    description:
+      "Fechada embaixo para contenção, aberta em cima para economia.",
+  },
+];
+
 export {
   poductsCardsPages,
   cercasProntasCarousel,
@@ -285,4 +351,6 @@ export {
   productCategories,
   specifications,
   imgFenix,
+  textDescription,
+  fenixVideoCards,
 };

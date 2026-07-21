@@ -8,12 +8,14 @@ import { specifications } from "../assets/data";
 interface SpecItem {
   id: number;
   title: string;
+  summary: string;
   description: string;
 }
 
 const items: SpecItem[] = specifications.map((spec, i) => ({
   id: i,
   title: spec.title,
+  summary: spec.summary,
   description: spec.description,
 }));
 
@@ -99,7 +101,7 @@ export default function Specifications() {
 
                 <motion.p
                   layoutId={`description-${active.title}-${id}`}
-                  className="mt-4 text-sm leading-relaxed text-zinc-600"
+                  className="mt-4 text-sm poppins leading-relaxed text-zinc-600"
                 >
                   {active.description}
                 </motion.p>
@@ -132,9 +134,9 @@ export default function Specifications() {
               </motion.h3>
               <motion.p
                 layoutId={`description-${item.title}-${id}`}
-                className="mt-3 text-xs font-normal leading-relaxed text-white/70"
+                className="mt-3 text-xs poppins font-normal leading-relaxed text-white/70"
               >
-                {item.description}
+                {item.summary}
               </motion.p>
             </div>
           </motion.div>

@@ -38,7 +38,7 @@
     font-family: "impact01", sans-serif !important;
 }
 .poppins {
-    font-family: "Poppins", sans-serif !important;
+    font-family: var(--font-poppins), "Poppins", sans-serif !important;
 }
 
 /* Google Fonts */
