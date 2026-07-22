@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Maximize2, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { fenixVideoCards } from "../assets/data";
+import { fenixVideoCards, videoCard } from "../assets/data";
 
 const OFFSET_STEP = 130;
 const MAX_VISIBLE_OFFSET = 2;
@@ -47,7 +47,7 @@ const VideoCardCarousel = () => {
 
   return (
     <section className="overflow-hidden py-16">
-      <h3 className="mt-4 text-2xl poppins text-center font-bold text-[#ff5500] sm:text-3xl">
+      <h3 className="mt-4 text-2xl poppins text-center mb-10 font-bold text-[#ff5500] sm:text-3xl">
         Veja alguns vídeos sobre a cerca Fenix
       </h3>
       <div
@@ -66,6 +66,7 @@ const VideoCardCarousel = () => {
           const isActive = offset === 0;
           const isVisible = absOffset <= MAX_VISIBLE_OFFSET;
           const muted = !(isActive && unmutedIndex === index);
+          const videoSrc = videoCard[index]?.src ?? card.src;
 
           return (
             <motion.div
@@ -85,7 +86,7 @@ const VideoCardCarousel = () => {
               }}
             >
               <video
-                src={card.src}
+                src={videoSrc}
                 autoPlay
                 loop
                 muted={muted}
@@ -115,7 +116,7 @@ const VideoCardCarousel = () => {
                 </button>
               ) : (
                 <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white">
+                  <span className="flex h-7 w-7 poppins items-center justify-center rounded-md bg-black/50 text-white">
                     <Maximize2 size={12} />
                   </span>
                   <span
@@ -130,7 +131,7 @@ const VideoCardCarousel = () => {
                 </div>
               )}
 
-              <div className="absolute right-0 bottom-0 left-0 p-4">
+              {/*<div className="absolute right-0 bottom-0 left-0 p-4">
                 <span className="mb-2 block h-px w-6 bg-[#ffb648]" />
                 <span className="text-[10px] font-semibold tracking-[0.2em] text-[#ffb648] uppercase">
                   {card.category}
@@ -141,7 +142,7 @@ const VideoCardCarousel = () => {
                 <p className="mt-1 text-xs leading-relaxed text-white/70">
                   {card.description}
                 </p>
-              </div>
+              </div>*/}
             </motion.div>
           );
         })}

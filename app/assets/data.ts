@@ -52,6 +52,21 @@ export interface VideoCardSlide {
   description: string;
 }
 
+export interface VideoCardCarousel {
+  src: string;
+  name: string;
+}
+
+export interface Card3DVideo {
+  src: string;
+  name: string;
+}
+
+export interface VideoExampleMaxx{
+  src: string;
+  name: string;
+}
+
 const poductsCardsPages: ProductCardData[] = [
   {
     src: "https://images.unsplash.com/photo-1571898223382-0aa3499f0f2a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -324,15 +339,13 @@ const fenixVideoCards: VideoCardSlide[] = [
     src: "/videos/video-3-fenix.mp4",
     category: "TERRENO",
     title: "Qualquer Relevo",
-    description:
-      "Acompanha aclives e declives sem dificuldade na instalação.",
+    description: "Acompanha aclives e declives sem dificuldade na instalação.",
   },
   {
     src: "/videos/video-4-fenix.mp4",
     category: "ECONOMIA",
     title: "Instalação Rápida",
-    description:
-      "Espaçamento maior entre mourões gera até 50% de economia.",
+    description: "Espaçamento maior entre mourões gera até 50% de economia.",
   },
   {
     src: "/videos/video-5-fenix.mp4",
@@ -340,6 +353,43 @@ const fenixVideoCards: VideoCardSlide[] = [
     title: "Malha Bimodal",
     description:
       "Fechada embaixo para contenção, aberta em cima para economia.",
+  },
+];
+
+const videoCard: VideoCardCarousel[] = [
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679852/video-1-fenix_y0xpoj.mp4",
+    name: "video-1-fenix",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679857/video-2-fenix_f8ymgo.mp4",
+    name: "video-2-fenix",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679905/video-3-fenix_gylgjj.mp4",
+    name: "video-3-fenix",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679873/video-4-fenix_dskpfk.mp4",
+    name: "video-4-fenix",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679856/video-5-fenix_vl1wye.mp4",
+    name: "video-5-fenix",
+  },
+];
+
+const videoCard3D: Card3DVideo[] = [
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784680849/Cerca_Comum_vs._F%C3%AAnix_Por_que_os_Invasores_N%C3%A3o_Passam_por_Ela_-_Casa_das_Cercas_480p_h264_youtube_1_pgjvm3.mp4",
+    name: "video-card-3d",
+  },
+];
+
+const videoMaxxExample: VideoExampleMaxx[] = [
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784718736/campeira_maxx_eokovt.mp4",
+    name: "Video-maxx-example",
   },
 ];
 
@@ -353,4 +403,7 @@ export {
   imgFenix,
   textDescription,
   fenixVideoCards,
+  videoCard,
+  videoCard3D,
+  videoMaxxExample,
 };

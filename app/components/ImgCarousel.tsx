@@ -12,12 +12,15 @@ interface CarouselImage {
 }
 
 const images: CarouselImage[] = [
-  { id: 1, src: null, alt: "Fenix instalada em propriedade rural" },
-  { id: 2, src: null, alt: "Detalhe do fio e da malha" },
-  { id: 3, src: null, alt: "Rolo da tela Fenix" },
-  { id: 4, src: null, alt: "Fenix em terreno com desnível" },
-  { id: 5, src: null, alt: "Acabamento galvanizado a fogo" },
-  { id: 6, src: null, alt: "Nó em X da Fenix" },
+  { id: 1, src: "/images/img_fenix_carousel/1.jpeg", alt: "Fenix instalada em propriedade rural" },
+  { id: 2, src: "/images/img_fenix_carousel/2.jpeg", alt: "Detalhe do fio e da malha" },
+  { id: 3, src: "/images/img_fenix_carousel/3.jpeg", alt: "Rolo da tela Fenix" },
+  { id: 4, src: "/images/img_fenix_carousel/4.jpeg", alt: "Fenix em terreno com desnível" },
+  { id: 5, src: "/images/img_fenix_carousel/5.jpeg", alt: "Acabamento galvanizado a fogo" },
+  { id: 6, src: "/images/img_fenix_carousel/6.jpeg", alt: "Nó em X da Fenix" },
+  { id: 7, src: "/images/img_fenix_carousel/7.jpeg", alt: "Cerca Fenix Insul" },
+  { id: 8, src: "/images/img_fenix_carousel/8.jpeg", alt: "Cerca Fenix Insul" },
+  { id: 9, src: "/images/img_fenix_carousel/9.jpeg", alt: "Cerca Fenix Insul" },
 ];
 
 const LOOPS = 3;

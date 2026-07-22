@@ -15,7 +15,7 @@ const PageFenix = () => {
     <div className="min-h-screen overflow-clip">
       <Header />
 
-      <main className="pt-44 pb-20">
+      <main className="pb-20 pt-30">
         <FenixDetails />
         <Specifications />
         <ImgCarousel />
