@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ImageIcon, X } from "lucide-react";
-import { specifications } from "../assets/data";
+import type { Specification } from "../assets/data";
 
 interface SpecItem {
   id: number;
@@ -12,20 +12,24 @@ interface SpecItem {
   description: string;
 }
 
-const items: SpecItem[] = specifications.map((spec, i) => ({
-  id: i,
-  title: spec.title,
-  summary: spec.summary,
-  description: spec.description,
-}));
-
 const ImagePlaceholder = ({ iconSize = 22 }: { iconSize?: number }) => (
   <div className="flex flex-col items-center gap-1 text-zinc-400">
     <ImageIcon size={iconSize} />
   </div>
 );
 
-export default function Specifications() {
+interface SpecificationsProps {
+  specifications: Specification[];
+  color: string;
+}
+
+export default function Specifications({ specifications, color }: SpecificationsProps) {
+  const items: SpecItem[] = specifications.map((spec, i) => ({
+    id: i,
+    title: spec.title,
+    summary: spec.summary,
+    description: spec.description,
+  }));
   const [active, setActive] = useState<SpecItem | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -55,7 +59,10 @@ export default function Specifications() {
   }, []);
 
   return (
-    <section className="mx-auto max-w-full bg-[#b2020d] px-4 py-16 sm:px-8">
+    <section
+      className="mx-auto max-w-full px-4 py-16 sm:px-8"
+      style={{ backgroundColor: color }}
+    >
       <AnimatePresence>
         {active && (
           <motion.div

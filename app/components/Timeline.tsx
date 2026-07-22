@@ -21,7 +21,7 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
   const cardClasses = isGlass
     ? "border-white/10 bg-black/85 backdrop-blur-md shadow-lg"
     : isLight
-      ? "border-black/10 bg-neutral-100 shadow-sm"
+      ? "border-black/10 bg-white/30 backdrop-blur-md shadow-sm"
       : "border-white/10 bg-neutral-900/95 backdrop-blur-md";
   const titleClasses = isLight && !isGlass ? "text-neutral-900" : "text-white";
   const descClasses =
@@ -80,7 +80,7 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               className={`group w-[85%] overflow-hidden rounded-2xl border px-8 py-7 ${cardClasses} ${
                 i % 2 === 0 ? "mr-auto" : "ml-auto"

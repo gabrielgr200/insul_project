@@ -3,16 +3,16 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Maximize2, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { fenixVideoCards, videoCard } from "../assets/data";
+import type { VideoCardData } from "../assets/data";
 
 const OFFSET_STEP = 130;
 const MAX_VISIBLE_OFFSET = 2;
 
-const VideoCardCarousel = () => {
+const VideoCardCarousel = ({ cards }: { cards: VideoCardData[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [unmutedIndex, setUnmutedIndex] = useState<number | null>(null);
 
-  const length = fenixVideoCards.length;
+  const length = cards.length;
   const drag = useRef({ active: false, moved: false, startX: 0 });
 
   const getOffset = (index: number) => {
@@ -60,13 +60,13 @@ const VideoCardCarousel = () => {
           <div className="h-72 w-72 rounded-full bg-black/5 blur-3xl sm:h-96 sm:w-96" />
         </div>
 
-        {fenixVideoCards.map((card, index) => {
+        {cards.map((card, index) => {
           const offset = getOffset(index);
           const absOffset = Math.abs(offset);
           const isActive = offset === 0;
           const isVisible = absOffset <= MAX_VISIBLE_OFFSET;
           const muted = !(isActive && unmutedIndex === index);
-          const videoSrc = videoCard[index]?.src ?? card.src;
+          const videoSrc = card.src;
 
           return (
             <motion.div

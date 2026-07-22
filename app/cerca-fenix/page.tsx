@@ -1,5 +1,5 @@
-import PageFenix from "../pages/PageFenix";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <PageFenix />;
+  redirect("/cercas-prontas/fenix");
 }

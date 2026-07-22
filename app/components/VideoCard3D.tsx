@@ -8,7 +8,6 @@ import {
   useTransform,
 } from "framer-motion";
 import { Maximize2, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { videoCard3D } from "../assets/data";
 
 const MAX_TILT = 10;
 const TICK_COUNT = 46;
@@ -35,7 +34,7 @@ const CornerBracket = ({
   />
 );
 
-const VideoCard3D = () => {
+const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const volumeRef = useRef<HTMLDivElement>(null);
@@ -153,8 +152,6 @@ const VideoCard3D = () => {
 
   const progress = duration > 0 ? currentTime / duration : 0;
   const filledTicks = Math.round(progress * TICK_COUNT);
-  const videoSrc = videoCard3D[0]?.src ?? "/videos/video-card-3d.mp4";
-
   return (
     <section className="px-4 py-16 sm:px-8">
       <div

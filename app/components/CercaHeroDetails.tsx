@@ -2,44 +2,17 @@
 
 import { useRef, useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import { videoMaxxExample } from "../assets/data";
-
-const VIDEO_SRC = videoMaxxExample[0].src;
+import type { CercaFeature } from "../assets/data";
 
 const INTRO_END = 4.5;
 
-const features = [
-  {
-    title: "Fio 2,50 mm",
-    description:
-      "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
-    start: 63.5,
-    end: 68,
-  },
-  {
-    title: "Instalação",
-    description:
-      "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
-    start: 36.3,
-    end: 43.8,
-  },
-  {
-    title: "Malha bifásica",
-    description:
-      "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
-    start: 57,
-    end: 61.5,
-  },
-  {
-    title: "Nó em X (stiff stay)",
-    description:
-      "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
-    start: 61.5,
-    end: 64,
-  },
-];
+interface CercaHeroDetailsProps {
+  name: string;
+  videoSrc: string;
+  features: CercaFeature[];
+}
 
-const FenixDetails = () => {
+const CercaHeroDetails = ({ name, videoSrc, features }: CercaHeroDetailsProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const stopHandlerRef = useRef<(() => void) | null>(null);
@@ -86,7 +59,7 @@ const FenixDetails = () => {
     <section className="relative h-[100vh] min-h-[480px] max-h-[820px] w-full overflow-hidden bg-zinc-100">
       <video
         ref={videoRef}
-        src={VIDEO_SRC}
+        src={videoSrc}
         muted
         playsInline
         preload="auto"
@@ -98,12 +71,12 @@ const FenixDetails = () => {
       <div className="absolute inset-0 flex items-center pt-36">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
           <div className="lg:ml-auto lg:w-1/3">
-            <div className="pl-14 ">
+            <div className="pl-14">
               <span className="inline-block rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium text-white">
                 Cerca Pronta
               </span>
               <h2 className="poppins mt-3 text-5xl font-bold text-[#ff5500]">
-                FENIX
+                {name}
               </h2>
             </div>
 
@@ -159,4 +132,4 @@ const FenixDetails = () => {
   );
 };
 
-export default FenixDetails;
+export default CercaHeroDetails;

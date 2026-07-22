@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, X } from "lucide-react";
+import type { GalleryImage } from "../assets/data";
 
 interface CarouselImage {
   id: number;
@@ -11,22 +12,7 @@ interface CarouselImage {
   alt: string;
 }
 
-const images: CarouselImage[] = [
-  { id: 1, src: "/images/img_fenix_carousel/1.jpeg", alt: "Fenix instalada em propriedade rural" },
-  { id: 2, src: "/images/img_fenix_carousel/2.jpeg", alt: "Detalhe do fio e da malha" },
-  { id: 3, src: "/images/img_fenix_carousel/3.jpeg", alt: "Rolo da tela Fenix" },
-  { id: 4, src: "/images/img_fenix_carousel/4.jpeg", alt: "Fenix em terreno com desnível" },
-  { id: 5, src: "/images/img_fenix_carousel/5.jpeg", alt: "Acabamento galvanizado a fogo" },
-  { id: 6, src: "/images/img_fenix_carousel/6.jpeg", alt: "Nó em X da Fenix" },
-  { id: 7, src: "/images/img_fenix_carousel/7.jpeg", alt: "Cerca Fenix Insul" },
-  { id: 8, src: "/images/img_fenix_carousel/8.jpeg", alt: "Cerca Fenix Insul" },
-  { id: 9, src: "/images/img_fenix_carousel/9.jpeg", alt: "Cerca Fenix Insul" },
-];
-
 const LOOPS = 3;
-const loopedImages = Array.from({ length: LOOPS }, (_, copy) =>
-  images.map((image) => ({ ...image, loopKey: `${copy}-${image.id}` }))
-).flat();
 
 const Thumb = ({
   image,
@@ -53,7 +39,16 @@ const Thumb = ({
   </div>
 );
 
-const ImgCarousel = () => {
+const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
+  const images: CarouselImage[] = sourceImages.map((image, i) => ({
+    id: i,
+    src: image.src,
+    alt: image.alt,
+  }));
+  const loopedImages = Array.from({ length: LOOPS }, (_, copy) =>
+    images.map((image) => ({ ...image, loopKey: `${copy}-${image.id}` }))
+  ).flat();
+
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const isOpen = lightboxIndex !== null;
 

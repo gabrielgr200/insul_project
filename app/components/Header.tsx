@@ -55,6 +55,13 @@ const Header = () => {
     onClick: () => scrollToSection("produtos"),
   });
 
+  const cercaSlugByLabel: Record<string, string> = {
+    "Cerca Fenix": "fenix",
+    "Cerca Campeira Maxx": "campeira-maxx",
+    "Cerca Campeira": "campeira",
+    "Cerca Campeira Boi": "campeira-boi",
+  };
+
   const produtosColumns = productCategories.map((col) =>
     col.title === "Cercas Prontas"
       ? {
@@ -63,9 +70,7 @@ const Header = () => {
             label,
             onClick: () => {
               beginPageTransition();
-              router.push(
-                label === "Cerca Fenix" ? "/cerca-fenix" : "/cercas-prontas"
-              );
+              router.push(`/cercas-prontas/${cercaSlugByLabel[label]}`);
             },
           })),
         }

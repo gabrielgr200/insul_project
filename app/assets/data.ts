@@ -67,6 +67,35 @@ export interface VideoExampleMaxx{
   name: string;
 }
 
+export interface CercaFeature {
+  title: string;
+  description: string;
+  start: number;
+  end: number;
+}
+
+export interface CercaProntaInfo {
+  slug: string;
+  name: string;
+  color: string;
+  paragraphs: string[];
+  features: CercaFeature[];
+  videoSrc: string;
+  videoCards: VideoCardData[];
+}
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+export interface VideoCardData {
+  src: string;
+  category: string;
+  title: string;
+  description: string;
+}
+
 const poductsCardsPages: ProductCardData[] = [
   {
     src: "https://images.unsplash.com/photo-1571898223382-0aa3499f0f2a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -76,7 +105,7 @@ const poductsCardsPages: ProductCardData[] = [
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
     description:
       "A Tela Fenix Insul oferece resistência, durabilidade e excelente acabamento para cercamentos rurais. Ideal para proteger propriedades com segurança e praticidade.",
-    to: "/cerca-fenix",
+    to: "/cercas-prontas/fenix",
   },
   {
     src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -86,6 +115,7 @@ const poductsCardsPages: ProductCardData[] = [
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
     description:
       "A Campeira Maxx Insul foi desenvolvida para oferecer máxima resistência e longa vida útil, sendo ideal para cercas que exigem alta durabilidade e desempenho no campo.",
+    to: "/cercas-prontas/campeira-maxx",
   },
   {
     src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -95,6 +125,7 @@ const poductsCardsPages: ProductCardData[] = [
       "Fio 2,30 mm, Aço galvanizado a fogo, Malha bifásica, Nó tradicional",
     description:
       "A Tela Campeira Insul é uma solução prática e confiável para cercamentos rurais. Proporciona segurança, fácil instalação e excelente custo-benefício para diversas aplicações.",
+    to: "/cercas-prontas/campeira",
   },
   {
     src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -104,6 +135,7 @@ const poductsCardsPages: ProductCardData[] = [
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha 30 cm x 20 cm, Nó em X (stiff stay)",
     description:
       "Projetada para o manejo bovino, a Campeira Boi Insul garante resistência e firmeza, oferecendo um cercamento seguro para contenção e proteção do rebanho.",
+    to: "/cercas-prontas/campeira-boi",
   },
 ];
 
@@ -213,8 +245,8 @@ const productCategories: ProductCategory[] = [
     items: [
       "Cerca Fenix",
       "Cerca Campeira Maxx",
-      "Cerca Campeira Boi",
       "Cerca Campeira",
+      "Cerca Campeira Boi",
     ],
   },
   {
@@ -393,6 +425,189 @@ const videoMaxxExample: VideoExampleMaxx[] = [
   },
 ];
 
+const cercasProntasInfo: CercaProntaInfo[] = [
+  {
+    slug: "fenix",
+    name: "FENIX",
+    color: "#b2020d",
+    paragraphs: textDescription[0].paragraphs,
+    features: [
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
+    ],
+    videoSrc: videoMaxxExample[0].src,
+    videoCards: fenixVideoCards.map((card, i) => ({
+      ...card,
+      src: videoCard[i]?.src ?? card.src,
+    })),
+  },
+  {
+    slug: "campeira-maxx",
+    name: "CAMPEIRA MAXX",
+    color: "#0a325a",
+    paragraphs: [poductsCardsPages[1].description],
+    features: [
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha superior",
+        description: "Malha de 25cm x 20cm com acabamento em aço galvanizado a fogo.",
+        start: 52,
+        end: 57,
+      },
+      {
+        title: "Malha inferior",
+        description: "Malha de 25cm x 10cm, mais fechada para contenção de animais.",
+        start: 58,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 63.5,
+        end: 68,
+      },
+    ],
+    videoSrc: videoMaxxExample[0].src,
+    // TODO: colar aqui os vídeos dos cards específicos da Campeira Maxx.
+    // Enquanto estiver vazio, a página usa os vídeos da Fenix como placeholder.
+    videoCards: [],
+  },
+  {
+    slug: "campeira-boi",
+    name: "CAMPEIRA BOI",
+    color: "#959e24",
+    paragraphs: [poductsCardsPages[3].description],
+    features: [
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
+    ],
+    // TODO: colar aqui o link do vídeo principal (hero, perto das opções) da Campeira Boi.
+    // Enquanto estiver vazio, a página usa o vídeo da Campeira Maxx como placeholder.
+    videoSrc: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730616/Campeira_Boi_cohowf.mp4",
+    // TODO: colar aqui os vídeos dos cards da Campeira Boi, um objeto por vídeo:
+    // { src: "...", category: "...", title: "...", description: "..." }
+    videoCards: [],
+  },
+  {
+    slug: "campeira",
+    name: "CAMPEIRA",
+    color: "#ff711b",
+    paragraphs: [poductsCardsPages[2].description],
+    features: [
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
+    ],
+    // TODO: colar aqui o link do vídeo principal (hero, perto das opções) da Campeira.
+    // Enquanto estiver vazio, a página usa o vídeo da Campeira Maxx como placeholder.
+    videoSrc: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730448/Campeira_prw8et.mp4",
+    // TODO: colar aqui os vídeos dos cards da Campeira, um objeto por vídeo:
+    // { src: "...", category: "...", title: "...", description: "..." }
+    videoCards: [],
+  },
+];
+
+const cercasGalleryImages: GalleryImage[] = [
+  { src: "/images/img_fenix_carousel/1.jpeg", alt: "Cerca instalada em propriedade rural" },
+  { src: "/images/img_fenix_carousel/2.jpeg", alt: "Detalhe do fio e da malha" },
+  { src: "/images/img_fenix_carousel/3.jpeg", alt: "Rolo da tela" },
+  { src: "/images/img_fenix_carousel/4.jpeg", alt: "Cerca em terreno com desnível" },
+  { src: "/images/img_fenix_carousel/5.jpeg", alt: "Acabamento galvanizado a fogo" },
+  { src: "/images/img_fenix_carousel/6.jpeg", alt: "Nó em X da cerca" },
+  { src: "/images/img_fenix_carousel/7.jpeg", alt: "Cerca Insul" },
+  { src: "/images/img_fenix_carousel/8.jpeg", alt: "Cerca Insul" },
+  { src: "/images/img_fenix_carousel/9.jpeg", alt: "Cerca Insul" },
+];
+
+const cercasVideoCards: VideoCardData[] = fenixVideoCards.map((card, i) => ({
+  ...card,
+  src: videoCard[i]?.src ?? card.src,
+}));
+
 export {
   poductsCardsPages,
   cercasProntasCarousel,
@@ -406,4 +621,7 @@ export {
   videoCard,
   videoCard3D,
   videoMaxxExample,
+  cercasProntasInfo,
+  cercasGalleryImages,
+  cercasVideoCards,
 };
