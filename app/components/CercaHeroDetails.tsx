@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useRef, useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
@@ -12,7 +12,11 @@ interface CercaHeroDetailsProps {
   features: CercaFeature[];
 }
 
-const CercaHeroDetails = ({ name, videoSrc, features }: CercaHeroDetailsProps) => {
+const CercaHeroDetails = ({
+  name,
+  videoSrc,
+  features,
+}: CercaHeroDetailsProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const stopHandlerRef = useRef<(() => void) | null>(null);
@@ -35,7 +39,10 @@ const CercaHeroDetails = ({ name, videoSrc, features }: CercaHeroDetailsProps) =
         if (video.currentTime >= INTRO_END) {
           phase = "feature";
           introPlayedRef.current = true;
-          video.currentTime = start;
+
+          if (start > video.currentTime) {
+            video.currentTime = start;
+          }
         }
       } else if (video.currentTime >= end) {
         video.pause();
@@ -52,8 +59,7 @@ const CercaHeroDetails = ({ name, videoSrc, features }: CercaHeroDetailsProps) =
 
   const goPrev = () =>
     playFeature(((activeIndex ?? 0) - 1 + features.length) % features.length);
-  const goNext = () =>
-    playFeature(((activeIndex ?? 0) + 1) % features.length);
+  const goNext = () => playFeature(((activeIndex ?? 0) + 1) % features.length);
 
   return (
     <section className="relative h-[100vh] min-h-[480px] max-h-[820px] w-full overflow-hidden bg-zinc-100">

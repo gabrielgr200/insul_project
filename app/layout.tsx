@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import RouteTransition from "./components/RouteTransition";
+import ThemeProvider from "./components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,10 +33,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-br"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <RouteTransition>{children}</RouteTransition>
+        <ThemeProvider>
+          <RouteTransition>{children}</RouteTransition>
+        </ThemeProvider>
       </body>
     </html>
   );

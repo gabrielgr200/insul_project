@@ -81,7 +81,7 @@ const TextReveal = () => {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 h-screen overflow-hidden bg-white px-4 sm:px-8"
+      className="relative z-10 h-screen overflow-hidden bg-white dark:bg-background px-4 sm:px-8"
     >
       <div className="relative mx-auto h-full max-w-5xl">
         {PARAGRAPHS.map((text, i) => (
@@ -96,7 +96,7 @@ const TextReveal = () => {
               ref={(el) => {
                 textRefs.current[i] = el;
               }}
-              className="text-center text-[#002d4d] poppins font-normal text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight"
+              className="text-center text-[#002d4d] dark:text-white poppins font-normal text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight"
             >
               {text}
             </p>

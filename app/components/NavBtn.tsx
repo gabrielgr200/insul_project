@@ -31,7 +31,7 @@ const NavBtn = ({ children, to, active = false, onNavigate, onClick }: NavBtnPro
       hover:text-[#ff5500] ${
         active
           ? "border-[#ff5500] font-bold text-[#ff5500] hover:border-[#ff5500]"
-          : "border-transparent text-zinc-600 hover:border-zinc-400"
+          : "border-transparent text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
       }`}
     >
       {children}

@@ -1,4 +1,5 @@
 import { BRAZIL_STATES } from "../constants/brazilStates";
+import { LATAM_COUNTRIES, LATAM_CAPITALS } from "../constants/latamCountries";
 
 const ORANGE_STATES = new Set(["SP", "MG", "PR", "SC", "RS"]);
 
@@ -32,6 +33,9 @@ const ARROWS: Arrow[] = [
   { from: HUB_BOTTOM, to: [400, 465], bend: -30 },
   { from: HUB_BOTTOM, to: [569, 355], bend: -20 },
   { from: HUB_BOTTOM, to: [795, 428], bend: 55 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.URY, bend: -20 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.ARG, bend: 30 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.PRY, bend: -25 },
 ];
 
 const curve = ([x1, y1]: Point, [x2, y2]: Point, bend: number) => {
@@ -72,9 +76,9 @@ const CORRIDOR_D = smoothPath(CORRIDOR_POINTS);
 
 const BrazilMap = () => {
   return (
-    <div className="mx-auto h-[450px] lg:h-[700px] aspect-[662/689] rounded-2xl overflow-hidden bg-white">
+    <div className="mx-auto h-[560px] lg:h-[850px] aspect-[780/1230] rounded-2xl overflow-hidden bg-white dark:bg-background">
       <svg
-        viewBox="209 196 662 689"
+        viewBox="90 30 780 1230"
         preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full block"
@@ -111,15 +115,15 @@ const BrazilMap = () => {
             viewBox="0 0 10 10"
             refX="7.5"
             refY="5"
-            markerWidth="5.5"
-            markerHeight="5.5"
+            markerWidth="6.5"
+            markerHeight="6.5"
             orient="auto-start-reverse"
           >
-            <path d="M0,0 L10,5 L0,10 z" fill="#ffffff" />
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--map-path)" />
           </marker>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--map-path)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--map-path)" stopOpacity="0" />
           </radialGradient>
           <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
             <feGaussianBlur stdDeviation="1.6" result="blur" />
@@ -130,7 +134,20 @@ const BrazilMap = () => {
           </filter>
         </defs>
 
-        <rect x="209" y="196" width="662" height="689" fill="url(#mapDots)" />
+        <rect x="90" y="30" width="780" height="1230" fill="url(#mapDots)" />
+
+        <g>
+          {LATAM_COUNTRIES.map((c) => (
+            <path
+              key={c.code}
+              d={c.d}
+              fill="var(--map-state)"
+              stroke="var(--map-line)"
+              strokeWidth="1.4"
+              strokeOpacity="0.8"
+            />
+          ))}
+        </g>
 
         <g>
           {BRAZIL_STATES.map((s) => (
@@ -138,9 +155,10 @@ const BrazilMap = () => {
               <path
                 transform={`translate(${s.tx} ${s.ty})`}
                 d={s.d}
-                fill={ORANGE_STATES.has(s.code) ? "#ff5500" : "#002d4d"}
-                stroke="#00203a"
-                strokeWidth="0.6"
+                fill={ORANGE_STATES.has(s.code) ? "#ff5500" : "var(--map-state)"}
+                stroke="var(--map-line)"
+                strokeWidth="0.8"
+                strokeOpacity="0.8"
               />
             </g>
           ))}
@@ -149,19 +167,19 @@ const BrazilMap = () => {
         <path
           d={CORRIDOR_D}
           fill="none"
-          stroke="#ffffff"
-          strokeWidth="1.6"
-          strokeDasharray="1 4.5"
+          stroke="var(--map-path)"
+          strokeWidth="2"
+          strokeDasharray="1.3 5.5"
           strokeLinecap="round"
           opacity="0.9"
           className="flow-dash"
         />
 
         <g filter="url(#dotGlow)">
-          <circle r="2.8" fill="#ffffff">
+          <circle r="3.2" fill="var(--map-path)">
             <animateMotion dur="3.2s" repeatCount="indefinite" path={CORRIDOR_D} />
           </circle>
-          <circle r="2.8" fill="#ffffff">
+          <circle r="3.2" fill="var(--map-path)">
             <animateMotion
               dur="3.2s"
               begin="1.1s"
@@ -174,7 +192,7 @@ const BrazilMap = () => {
           </circle>
         </g>
 
-        <g fill="none" stroke="#ffffff" strokeWidth="1.4" strokeDasharray="1 4.5" strokeLinecap="round">
+        <g fill="none" stroke="var(--map-path)" strokeWidth="1.8" strokeDasharray="1.3 5.5" strokeLinecap="round">
           {ARROW_PATHS.map((a, i) => (
             <path
               key={i}
@@ -189,7 +207,7 @@ const BrazilMap = () => {
 
         <g filter="url(#dotGlow)">
           {ARROW_PATHS.map((a, i) => (
-            <circle key={i} r="2.6" fill="#ffffff">
+            <circle key={i} r="3" fill="var(--map-path)">
               <animateMotion
                 dur="2.2s"
                 begin={`${i * 0.22}s`}
@@ -202,8 +220,8 @@ const BrazilMap = () => {
 
         {[HUB_TOP, HUB_BOTTOM].map(([x, y], i) => (
           <g key={i}>
-            <circle cx={x} cy={y} r="26" fill="url(#hubGlow)" className="hub-pulse" />
-            <circle cx={x} cy={y} r="7" fill="#ffffff" />
+            <circle cx={x} cy={y} r="32" fill="url(#hubGlow)" className="hub-pulse" />
+            <circle cx={x} cy={y} r="9" fill="var(--map-path)" />
           </g>
         ))}
       </svg>

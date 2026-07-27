@@ -28,7 +28,7 @@ const TextArrowCTA = ({
           <ArrowRight size={18} className="text-[#ff5500] shrink-0" />
         </span>
 
-        <span className="text-sm lg:text-base font-medium text-[#002d4d] poppins">
+        <span className="text-sm lg:text-base font-medium text-[#002d4d] dark:text-white poppins">
           {children}
         </span>
 

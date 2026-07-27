@@ -106,8 +106,8 @@ const NavDropdown = ({
         onNavigate?.(navId);
         setOpen(false);
       }}
-      className="flex items-center gap-2 text-sm text-zinc-600 font-medium
-      hover:text-[#ff5500] hover:bg-zinc-50 transition-colors duration-150
+      className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300 font-medium
+      hover:text-[#ff5500] hover:bg-zinc-50 dark:hover:bg-white/5 transition-colors duration-150
       px-3 py-1.5 rounded-lg leading-snug"
     >
       {item.icon && <item.icon size={14} className="shrink-0" />}
@@ -130,7 +130,7 @@ const NavDropdown = ({
         hover:text-[#ff5500] ${
           active
             ? "border-[#ff5500] font-bold text-[#ff5500] hover:border-[#ff5500]"
-            : "border-transparent text-zinc-600 hover:border-zinc-400"
+            : "border-transparent text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
         }`}
       >
         {label}
@@ -153,7 +153,7 @@ const NavDropdown = ({
             style={{ originY: 0 }}
           >
             <div
-              className="bg-white border border-zinc-200 rounded-2xl shadow-xl p-5
+              className="bg-white dark:bg-background border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-xl p-5
               grid grid-cols-7
               gap-x-6 gap-y-3 w-[94vw] max-w-[1120px] normal-case"
             >
@@ -184,7 +184,7 @@ const NavDropdown = ({
             exit="exit"
             className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
           >
-            <div className="bg-white border border-zinc-200 rounded-2xl shadow-xl p-3 flex flex-col gap-1 min-w-[220px] normal-case">
+            <div className="bg-white dark:bg-background border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-xl p-3 flex flex-col gap-1 min-w-[220px] normal-case">
               {items.map((item) => renderLink(item))}
             </div>
           </motion.div>

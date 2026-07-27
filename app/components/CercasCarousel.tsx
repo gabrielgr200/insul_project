@@ -108,7 +108,7 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
                   slide.hotspot.x > 60 ? "right-0" : "left-0"
                 }`}
               >
-                <p className="font-semibold text-[#002d4d] text-sm">
+                <p className="font-semibold text-[#002d4d] dark:text-white text-sm">
                   {slide.hotspot.title}
                 </p>
                 <p className="text-zinc-500 text-xs mt-1 leading-relaxed">

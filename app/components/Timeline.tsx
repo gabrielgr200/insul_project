@@ -21,11 +21,12 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
   const cardClasses = isGlass
     ? "border-white/10 bg-black/85 backdrop-blur-md shadow-lg"
     : isLight
-      ? "border-black/10 bg-white/30 backdrop-blur-md shadow-sm"
+      ? "border-black/10 dark:border-white/10 bg-white/30 dark:bg-white/5 backdrop-blur-md shadow-sm"
       : "border-white/10 bg-neutral-900/95 backdrop-blur-md";
-  const titleClasses = isLight && !isGlass ? "text-neutral-900" : "text-white";
+  const titleClasses =
+    isLight && !isGlass ? "text-neutral-900 dark:text-white" : "text-white";
   const descClasses =
-    isLight && !isGlass ? "text-neutral-600" : "text-white/60";
+    isLight && !isGlass ? "text-neutral-600 dark:text-white/60" : "text-white/60";
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 0.85", "end 0.6"],

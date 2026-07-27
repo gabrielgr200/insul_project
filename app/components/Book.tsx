@@ -198,7 +198,7 @@ const Book = () => {
       id="catalogo"
       className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
-      <h3 className="BOOK-LABEL text-[#002d4d] font-semibold text-2xl poppins py-3">
+      <h3 className="BOOK-LABEL text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         Telas e acessórios
       </h3>
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-10 gap-4">
@@ -206,7 +206,7 @@ const Book = () => {
           CATÁLOGO DE <br /> PRODUTOS
         </h2>
         <div className="BOOK-TEXT flex flex-col items-center w-full lg:w-auto lg:max-w-[400px] lg:mr-14">
-          <p className="text-base lg:text-[22px] text-[#002d4d] text-left ">
+          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-left ">
             Baixe nosso catálogo de produtos e conheça em detalhes toda a
             nossa linha de produtos.
           </p>

@@ -2,18 +2,18 @@ import { notFound } from "next/navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CercaHeroDetails from "../components/CercaHeroDetails";
-import Specifications from "../components/Specifications";
+import { ExpandableCardExample } from "../components/Specifications";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import VideoCardCarousel from "../components/VideoCardCarousel";
 import VideoCard3D from "../components/VideoCard3D";
+import SimilarProducts from "../components/SimilarProducts";
 import {
   cercasProntasInfo,
   cercasGalleryImages,
   cercasVideoCards,
-  specifications,
   videoMaxxExample,
-  videoCard3D,
+  videoCard3DSlides,
 } from "../assets/data";
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
@@ -30,16 +30,18 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
           videoSrc={cerca.videoSrc || videoMaxxExample[0].src}
           features={cerca.features}
         />
-        <Specifications specifications={specifications} color={cerca.color} />
-        <ImgCarousel images={cercasGalleryImages} />
+        <ExpandableCardExample color={cerca.color} />
+        <ImgCarousel images={cerca.gallery.length > 0 ? cerca.gallery : cercasGalleryImages} />
         <BlurRevealText
           text={cerca.paragraphs}
-          className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] sm:px-8"
+          className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
         />
         <VideoCardCarousel
           cards={cerca.videoCards.length > 0 ? cerca.videoCards : cercasVideoCards}
+          fenceName={cerca.name}
         />
-        <VideoCard3D videoSrc={videoCard3D[0].src} />
+        <VideoCard3D videoSrc={cerca.video3D || videoCard3DSlides.fenix} />
+        <SimilarProducts currentSlug={cerca.slug} />
       </main>
 
       <Footer />

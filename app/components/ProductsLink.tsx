@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const linkClassName = `group flex justify-between items-center text-2xl
-      font-light py-4 border-b cursor-pointer border-zinc-200
-      hover:text-zinc-900 hover:font-semibold duration-200 ease-in transition-colors`;
+      font-light py-4 border-b cursor-pointer border-zinc-200 dark:border-zinc-700
+      hover:text-zinc-900 dark:hover:text-[#ff5500] hover:font-semibold duration-200 ease-in transition-colors`;
 
 const arrow = (
   <ArrowRight

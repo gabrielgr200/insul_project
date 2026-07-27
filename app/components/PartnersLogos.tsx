@@ -29,7 +29,7 @@ const PartnersLogos = () => {
   }, []);
 
   return (
-    <section className="py-16 overflow-x-clip bg-white">
+    <section className="py-16 overflow-x-clip bg-white dark:bg-background">
       <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div
           ref={containerRef}
@@ -44,7 +44,7 @@ const PartnersLogos = () => {
                 <img
                   src={logo.image}
                   alt={logo.name}
-                  className="h-full w-full object-contain grayscale transition-all duration-300 hover:grayscale-0"
+                  className="h-full w-full object-contain grayscale dark:grayscale-0 transition-all duration-300 hover:grayscale-0"
                 />
               </div>
             ) : (

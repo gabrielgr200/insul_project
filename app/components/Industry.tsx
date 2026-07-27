@@ -79,7 +79,7 @@ export const IndustryHeader = () => {
       id="industria"
       className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
-      <h3 className="INDUSTRY-LABEL text-[#002d4d] font-semibold text-2xl poppins py-3">
+      <h3 className="INDUSTRY-LABEL text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         Conheça nossa história
       </h3>
       <div className="relative flex justify-between items-end mb-12">
@@ -95,7 +95,7 @@ export const IndustryHeader = () => {
         </button>*/}
       </div>
 
-      <p className="INDUSTRY-TEXT text-base lg:text-lg text-[#002d4d] lg:w-full">
+      <p className="INDUSTRY-TEXT text-base lg:text-lg text-[#002d4d] dark:text-white lg:w-full">
         Somos especializados na fabricação de uma ampla linha de produtos
         derivados do arame, como: telas hexagonais, telas soldadas, telas
         alambrado, cercas prontas, gradis e acessórios para cercamentos em geral
@@ -108,7 +108,7 @@ export const IndustryHeader = () => {
 
 export const IndustryTimeline = () => {
   return (
-    <section className="relative isolate z-0 min-h-[200vh] bg-white">
+    <section className="relative isolate z-0 min-h-[200vh] bg-white dark:bg-background">
       <ScrollTimeline items={steps} />
     </section>
   );

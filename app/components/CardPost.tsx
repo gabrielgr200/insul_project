@@ -61,13 +61,13 @@ const CardPost = () => {
   return (
     <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8">
       <div className="relative mx-auto max-w-xl text-center">
-        <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d]">
+        <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
           Vídeos
         </span>
         <h3 className="mt-4 text-2xl font-bold poppins text-[#ff5500] sm:text-3xl">
           Veja sobre as cercas prontas
         </h3>
-        <p className="mt-2 text-sm text-[#002d4d] poppins">
+        <p className="mt-2 text-sm text-[#002d4d] dark:text-white poppins">
           <span className="font-bold">Especificações e detalhes: </span>acompanhe de perto como cada
           cerca pronta Insul se comporta no campo.
         </p>

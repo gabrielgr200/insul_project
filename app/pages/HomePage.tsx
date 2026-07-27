@@ -72,7 +72,7 @@ const HomePage = () => {
         <main id="smooth-content" ref={contentRef}>
           <hr className="text-zinc-800 -mt-2" />
           <Hero ready={!loading} />
-          <h3 className="text-center text-[#002d4d] font-bold text-2xl poppins py-20">
+          <h3 className="text-center text-[#002d4d] dark:text-white font-bold text-2xl poppins py-20">
             Nossos números e parceiros
           </h3>
           <Partners />

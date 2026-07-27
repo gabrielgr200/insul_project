@@ -9,6 +9,8 @@ import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { productCategories } from "../assets/data";
+import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
+import FillButton from "./FillButton";
 
 const contatoItems = [
   {
@@ -106,16 +108,16 @@ const Header = () => {
   }, [isHome]);
 
   return (
-    <header className="fixed border-b border-b-zinc-300 bg-white/50 backdrop-blur-lg min-w-full py-6 lg:py-7 px-4 sm:px-8 max-w-7xl overflow-x-clip z-99">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link href="/">
+    <header className="fixed border-b border-b-zinc-300 dark:border-b-zinc-700 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-lg min-w-full py-6 lg:py-7 px-4 sm:px-8 max-w-7xl overflow-x-clip z-99">
+      <div className="w-full flex items-center justify-between">
+        <Link href="/" className="shrink-0">
           <img
             src="/images/logos.png"
             alt="Insul"
             className="h-20 w-auto"
           />
         </Link>
-        <nav className="hidden lg:flex items-center text-xs space-x-8">
+        <nav className="hidden xl:flex items-center text-xs space-x-4 2xl:space-x-8">
           <NavBtn
             active={isHome && activeId === "inicio"}
             onClick={goHome}
@@ -151,21 +153,22 @@ const Header = () => {
             active={activeId === "contato"}
             onNavigate={handleNavigate}
           />
-          <a
+          <FillButton
             href="https://www.casadascercas.com.br"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center space-x-2 bg-[#ff5500]
-            text-white text-sm py-4 px-6 rounded-full cursor-pointer
-            transition-all duration-150 ease-in ml-4 hover:bg-transparent
-            border border-[#FF6A1A] hover:text-[#ff5500]"
+            className="whitespace-nowrap bg-[#ff5500] text-white text-sm py-4 px-4
+            2xl:px-6 rounded-full cursor-pointer ml-2 2xl:ml-4 border border-[#FF6A1A]"
+            overlayClassName="bg-white dark:bg-background text-[#ff5500]"
           >
             <ShoppingBag size={16} />
             <span>Loja virtual</span>
-          </a>
+          </FillButton>
+          <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
         </nav>
-        <div className="lg:hidden">
-          <Menu className="size-10 text-zinc-900" />
+        <div className="xl:hidden flex items-center gap-3">
+          <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
+          <Menu className="size-10 text-zinc-900 dark:text-zinc-100" />
         </div>
       </div>
     </header>

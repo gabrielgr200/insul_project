@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { gsap } from "gsap";
 import BrazilMap from "./BrazilMap";
+import GuilhermeChatbot from "./GuilhermeChatbot";
 
 const distributionCenters = [
   { state: "Rio Grande do Sul", city: "Cachoeira do Sul" },
@@ -46,9 +47,9 @@ const Distribution = () => {
     <section
       ref={sectionRef}
       id="distribuicao"
-      className="max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
-      <h3 className="DISTRIBUTION-LABEL text-[#002d4d] font-semibold text-2xl poppins py-3">
+      <h3 className="DISTRIBUTION-LABEL text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         Centros de distribuição
       </h3>
 
@@ -60,7 +61,7 @@ const Distribution = () => {
 
       <div className="flex flex-col lg:flex-row lg:space-x-20">
         <div className="lg:w-1/3">
-          <p className="DISTRIBUTION-TEXT text-base lg:text-lg text-[#002d4d]">
+          <p className="DISTRIBUTION-TEXT text-base lg:text-lg text-[#002d4d] dark:text-white">
             Com nossos centros de distribuição no Rio Grande do Sul e em
             Minas Gerais, alcançamos todos os estados do país com rapidez e
             garantia de entrega.
@@ -70,8 +71,8 @@ const Distribution = () => {
             {distributionCenters.map((center) => (
               <div
                 key={center.state}
-                className="DISTRIBUTION-CARD flex items-center gap-2 bg-white border border-zinc-200 rounded-2xl shadow-sm p-2 max-w-xs
-                transition-[box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-zinc-300 cursor-pointer"
+                className="DISTRIBUTION-CARD flex items-center gap-2 bg-white dark:bg-white/5 dark:backdrop-blur-md border border-zinc-200 dark:border-white/10 rounded-2xl shadow-sm p-2 max-w-xs
+                transition-[box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-zinc-300 dark:hover:border-white/20 cursor-pointer"
               >
                 <div className="w-20 h-20 shrink-0 rounded-xl bg-gradient-to-br from-[#002d4d] to-[#0a5c9c] flex items-center justify-center">
                   <MapPin className="text-white" size={28} />
@@ -80,7 +81,7 @@ const Distribution = () => {
                   <p className="text-[#ff5500] text-xs font-semibold uppercase tracking-wide">
                     Centro de distribuição
                   </p>
-                  <p className="text-[#002d4d] font-bold text-lg leading-tight">
+                  <p className="text-[#002d4d] dark:text-white font-bold text-lg leading-tight">
                     {center.state}
                   </p>
                   <p className="text-zinc-500 text-sm flex items-center gap-1">
@@ -90,6 +91,8 @@ const Distribution = () => {
               </div>
             ))}
           </div>
+
+          <GuilhermeChatbot />
         </div>
 
         <div className="DISTRIBUTION-MAP lg:w-2/3 mt-10 lg:mt-0">

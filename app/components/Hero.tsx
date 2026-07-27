@@ -6,6 +6,7 @@ import { heroImage } from "../assets/data";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
+import FillButton from "./FillButton";
 
 const Hero = ({ ready = true }) => {
   const rootRef = useRef(null);
@@ -69,23 +70,23 @@ const Hero = ({ ready = true }) => {
                 DURADOURO
               </span>
             </h1>
-            <div className="text-base lg:text-lg text-[#002d4d] max-w-md lg:w-full mb-8 py-2 HERO-SUBTEXT">
+            <div className="text-base lg:text-lg text-[#002d4d] dark:text-white max-w-md lg:w-full mb-8 py-2 HERO-SUBTEXT">
               A Insul é líder na fabricação de telas, gradis, alambrados e
               cercas prontas com maior mix de produtos do mercado.
             </div>
-            <button
+            <FillButton
               onClick={() => scrollToSection("produtos")}
-              className="HERO-CTA group flex items-center space-x-3 bg-[#ff5500] text-white
-              text-sm font-semibold py-4 px-6 rounded-full transition-colors duration-150
-              hover:bg-white/10 hover:backdrop-blur-md border border-[#FF6A1A] hover:text-[#ff5500] ease-in lg:absolute
+              className="HERO-CTA group bg-[#ff5500] text-white text-sm font-semibold
+              py-4 px-6 rounded-full border border-[#FF6A1A] ease-in lg:absolute
               lg:text-lg lg:py-5 lg:px-10 bottom-10 right-10 hover:animate-wiggle cursor-pointer z-20"
+              overlayClassName="bg-white dark:bg-background text-[#ff5500]"
             >
               <span>Nossos produtos</span>
               <ArrowRight
                 size={20}
                 className="group-hover:rotate-360 -routae-35 transition-all duration-500 ease-in"
               />
-            </button>
+            </FillButton>
           </div>
         </div>
       </section>
