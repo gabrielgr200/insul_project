@@ -209,7 +209,7 @@ const CercaHeroDetails = ({
         </div>
       )}
 
-      <div className="absolute inset-0 flex items-center pt-36">
+      <div className="absolute inset-0 flex items-center pt-2">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
           <div className="lg:ml-auto lg:w-1/3">
             <div className="pl-14">
