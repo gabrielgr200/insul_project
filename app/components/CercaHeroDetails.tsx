@@ -87,15 +87,13 @@ const CercaHeroDetails = ({
       const target = checkpointTargetsRef.current[idx];
       if (video.currentTime >= target) {
         video.pause();
-        const isLast = idx >= checkpointTargetsRef.current.length - 1;
-        if (isLast) {
+        checkpointIndexRef.current = idx + 1;
+        setWaitingAtCheckpoint(true);
+        setCardOpen(false);
+        setArrowUnlocked(false);
+        if (idx >= checkpointTargetsRef.current.length - 1) {
           video.removeEventListener("timeupdate", handleTimeUpdate);
           stopHandlerRef.current = null;
-        } else {
-          checkpointIndexRef.current = idx + 1;
-          setWaitingAtCheckpoint(true);
-          setCardOpen(false);
-          setArrowUnlocked(false);
         }
       }
     };
@@ -116,11 +114,15 @@ const CercaHeroDetails = ({
   };
 
   const resumeAtCheckpoint = () => {
-    setWaitingAtCheckpoint(false);
     setCardOpen(false);
     setArrowUnlocked(false);
-    setStageIndex(checkpointIndexRef.current);
-    videoRef.current?.play();
+    setWaitingAtCheckpoint(false);
+    const nextIdx = checkpointIndexRef.current;
+    const hasMore = nextIdx < checkpointTargetsRef.current.length;
+    if (hasMore) {
+      setStageIndex(nextIdx);
+      videoRef.current?.play();
+    }
   };
 
   const activeFeature = activeIndex !== null ? features[activeIndex] : null;
@@ -130,7 +132,6 @@ const CercaHeroDetails = ({
   const checkpointCaption = isCheckpointFeature
     ? activeFeature!.captions![stageIndex]
     : undefined;
-  const plainCaption = !isCheckpointFeature ? activeFeature?.caption : undefined;
 
   const goPrev = () =>
     playFeature(((activeIndex ?? 0) - 1 + features.length) % features.length);
@@ -198,14 +199,6 @@ const CercaHeroDetails = ({
               <ArrowRight size={16} />
             </button>
           </div>
-        </div>
-      )}
-
-      {plainCaption && (
-        <div className="absolute bottom-10 left-4 z-10 max-w-sm sm:left-8">
-          <p className="poppins rounded-xl bg-black/40 px-4 py-3 text-sm leading-relaxed text-white backdrop-blur-sm">
-            {plainCaption}
-          </p>
         </div>
       )}
 

@@ -61,8 +61,6 @@ export interface CercaFeature {
   // índice); captions[0] cobre start->checkpoints[0], captions[1] cobre
   // checkpoints[0]->checkpoints[1], e assim por diante.
   captions?: string[];
-  // Texto exibido durante o trecho inteiro start-end, para features sem checkpoints.
-  caption?: string;
 }
 
 export interface CercaProntaInfo {
@@ -687,19 +685,23 @@ const cercasProntasInfo: CercaProntaInfo[] = [
       },
       {
         title: "Malha superior",
-        description:
-          "Malha de 25cm x 20cm com acabamento em aço galvanizado a fogo.",
+        description: "Malha de 22cm x 20cm com acabamento em aço galvanizado a fogo.",
         start: 21,
         end: 34,
-        caption:
-          "Malha superior mais aberta: reduz o custo de material e mantém o visual limpo, sem abrir mão da resistência.",
+        checkpoints: [34],
+        captions: [
+          "Malha superior de 22cm x 20cm: mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
+        ],
       },
       {
         title: "Malha inferior",
-        description:
-          "Malha de 25cm x 10cm, mais fechada para contenção de animais.",
+        description: "Malha de 22cm x 10cm, mais fechada para contenção de animais.",
         start: 35,
         end: 37,
+        checkpoints: [37],
+        captions: [
+          "Malha inferior de 22cm x 10cm: mais fechada para reforçar a contenção de animais e barrar invasores menores.",
+        ],
       },
       {
         title: "Nó em X (stiff stay)",
@@ -707,6 +709,10 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
         start: 38,
         end: 44,
+        checkpoints: [44],
+        captions: [
+          "O fio de aço e o nó em X (stiff stay) se travam entre si, mantendo a tensão e a rigidez da cerca por muito mais tempo.",
+        ],
       },
     ],
     videoSrc: videoMaxxExample[0].src,
