@@ -1,4 +1,4 @@
-const REELS = ["/videos/video_1.mp4", "/videos/video_2.mp4", "/videos/video_3.mp4"];
+import { videoShowcaseMain, videoShowcaseReels } from "../assets/data";
 
 const VideoShowcase = () => {
   return (
@@ -7,7 +7,7 @@ const VideoShowcase = () => {
       <div className="w-full aspect-video rounded-3xl overflow-hidden bg-transparent">
         <video
           className="h-full w-full object-cover"
-          src="/videos/insul.mp4"
+          src={videoShowcaseMain}
           autoPlay
           muted
           loop
@@ -16,14 +16,14 @@ const VideoShowcase = () => {
       </div>
 
       <div className="mt-6 grid grid-cols-3 gap-4 md:gap-6">
-        {REELS.map((src) => (
+        {videoShowcaseReels.map((reel) => (
           <div
-            key={src}
+            key={reel.name}
             className="aspect-[9/16] rounded-2xl overflow-hidden bg-transparent"
           >
             <video
               className="h-full w-full object-cover"
-              src={src}
+              src={reel.src}
               autoPlay
               muted
               loop

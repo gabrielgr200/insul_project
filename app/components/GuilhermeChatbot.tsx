@@ -111,7 +111,7 @@ const GuilhermeChatbot = () => {
             className="relative block"
           >
             <video
-              src="/videos/guilherme-chatbot.mp4"
+              src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
               autoPlay
               loop
               muted
@@ -149,7 +149,7 @@ const GuilhermeChatbot = () => {
               <div className="flex items-center gap-2.5 bg-[#002d4d] px-4 pb-3 pt-6">
                 <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30">
                   <video
-                    src="/videos/guilherme-chatbot.mp4"
+                    src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
                     autoPlay
                     loop
                     muted

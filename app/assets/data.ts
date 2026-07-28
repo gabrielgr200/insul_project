@@ -53,6 +53,16 @@ export interface CercaFeature {
   description: string;
   start: number;
   end: number;
+  // Pontos de pausa (em segundos) dentro do trecho start-end. Quando presente,
+  // o vídeo para em cada checkpoint e espera o usuário clicar no botão "+"
+  // para continuar até o próximo, em vez de tocar start-end de uma vez.
+  checkpoints?: number[];
+  // Texto exibido sobre o vídeo durante cada trecho de checkpoints[i] (mesmo
+  // índice); captions[0] cobre start->checkpoints[0], captions[1] cobre
+  // checkpoints[0]->checkpoints[1], e assim por diante.
+  captions?: string[];
+  // Texto exibido durante o trecho inteiro start-end, para features sem checkpoints.
+  caption?: string;
 }
 
 export interface CercaProntaInfo {
@@ -77,6 +87,11 @@ export interface VideoCardData {
   category: string;
   title: string;
   description: string;
+}
+
+export interface ShowcaseReel {
+  src: string;
+  name: string;
 }
 
 const poductsCardsPages: ProductCardData[] = [
@@ -488,7 +503,8 @@ const videoCard3DSlides: Record<
   "campeira-maxx":
     "https://res.cloudinary.com/kcqitv3l/video/upload/v1784831301/Instala%C3%A7%C3%A3o_Campeira_Maxx_wu8gpj.mp4",
 
-  "campeira-boi": "",
+  "campeira-boi":
+    "https://res.cloudinary.com/kcqitv3l/video/upload/v1785241129/campeira-boi-3d_vst8rh.mp4",
 
   campeira:
     "https://res.cloudinary.com/kcqitv3l/video/upload/v1785175010/video-campeira-3d_patgvc.mp4",
@@ -661,6 +677,13 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
         start: 1,
         end: 21,
+        checkpoints: [5, 9, 16, 21],
+        captions: [
+          "Tela pronta e esticada entre os mourões — sai de fábrica pronta para instalar, sem montar arame por arame.",
+          "Arames de aço permitem espaçamento de 5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
+          "Ideal para conter bovinos e equinos de grande porte, e barra a entrada de javalis, javaporcos e capivaras.",
+          "Se adapta a qualquer relevo — aclives, declives e terrenos irregulares — protegendo a propriedade rural inteira.",
+        ],
       },
       {
         title: "Malha superior",
@@ -668,6 +691,8 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           "Malha de 25cm x 20cm com acabamento em aço galvanizado a fogo.",
         start: 21,
         end: 34,
+        caption:
+          "Malha superior mais aberta: reduz o custo de material e mantém o visual limpo, sem abrir mão da resistência.",
       },
       {
         title: "Malha inferior",
@@ -724,8 +749,6 @@ const cercasProntasInfo: CercaProntaInfo[] = [
         end: 64,
       },
     ],
-    // TODO: colar aqui o link do vídeo principal (hero, perto das opções) da Campeira Boi.
-    // Enquanto estiver vazio, a página usa o vídeo da Campeira Maxx como placeholder.
     videoSrc:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730616/Campeira_Boi_cohowf.mp4",
     videoCards: videoCardSlides["campeira-boi"],
@@ -767,8 +790,7 @@ const cercasProntasInfo: CercaProntaInfo[] = [
         end: 64,
       },
     ],
-    // TODO: colar aqui o link do vídeo principal (hero, perto das opções) da Campeira.
-    // Enquanto estiver vazio, a página usa o vídeo da Campeira Maxx como placeholder.
+
     videoSrc:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730448/Campeira_prw8et.mp4",
     videoCards: videoCardSlides.campeira,
@@ -780,6 +802,24 @@ const cercasProntasInfo: CercaProntaInfo[] = [
 const cercasGalleryImages: GalleryImage[] = cercaGalleryImages.fenix;
 
 const cercasVideoCards: VideoCardData[] = videoCardSlides.fenix;
+
+const videoShowcaseMain =
+  "https://res.cloudinary.com/kcqitv3l/video/upload/v1785179127/insul_at5bs6.mp4";
+
+const videoShowcaseReels: ShowcaseReel[] = [
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785179124/video_1_jdmtln.mp4",
+    name: "reel-1",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785179126/video_2_vtigrr.mp4",
+    name: "reel-2",
+  },
+  {
+    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785179133/video_3_pteuoi.mp4",
+    name: "reel-3",
+  },
+];
 
 export {
   poductsCardsPages,
@@ -797,4 +837,6 @@ export {
   cercaGalleryImages,
   cercasGalleryImages,
   cercasVideoCards,
+  videoShowcaseMain,
+  videoShowcaseReels,
 };

@@ -364,6 +364,7 @@ a.active hr {
     --map-state: #002d4d;
     --map-line: #ffffff;
     --map-path: #ffffff;
+    --map-brazil-line: #ffffff;
 }
 
 .dark {
@@ -402,6 +403,7 @@ a.active hr {
     --map-state: #ffffff;
     --map-line: #002d4d;
     --map-path: #000000;
+    --map-brazil-line: #0a3d62;
 }
 
 @layer base {
