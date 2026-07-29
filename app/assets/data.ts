@@ -58,6 +58,9 @@ export interface CercaCaption {
   zoom?: { scale: number; origin: string };
   // Imagem exibida no card ao abrir esse checkpoint (ex: referência do detalhe técnico).
   image?: string;
+  // Quando presente, esse checkpoint mostra um botão por opção (em vez do único "+")
+  // — cada botão abre o card com o label/value daquela opção.
+  options?: { label: string; value: string }[];
 }
 
 export interface CercaFeature {
@@ -687,7 +690,7 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
         start: 1,
         end: 21,
-        checkpoints: [5, 9, 11, 16, 21],
+        checkpoints: [5, 9, 11],
         captions: [
           {
             label: "Instalação",
@@ -705,39 +708,36 @@ const cercasProntasInfo: CercaProntaInfo[] = [
             zoom: { scale: 1.8, origin: "50% 50%" },
             image: "/images/no-em-x.png",
           },
-          {
-            label: "Animais",
-            value:
-              "Contém bovinos e equinos de grande porte, e barra a entrada de javalis, javaporcos e capivaras.",
-          },
-          {
-            label: "Onde instalar",
-            value:
-              "Qualquer relevo — aclives, declives e terrenos irregulares — protegendo a propriedade rural inteira.",
-          },
         ],
       },
       {
         title: "Malha superior",
         description: "Malha de 22cm x 20cm com acabamento em aço galvanizado a fogo.",
         start: 21,
-        end: 34,
-        checkpoints: [34],
+        end: 37,
+        checkpoints: [24, 34, 37],
         captions: [
+          {
+            label: "Malha",
+            value: "",
+            options: [
+              {
+                label: "Malha superior",
+                value:
+                  "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
+              },
+              {
+                label: "Malha inferior",
+                value:
+                  "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
+              },
+            ],
+          },
           {
             label: "Malha superior",
             value:
               "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
           },
-        ],
-      },
-      {
-        title: "Malha inferior",
-        description: "Malha de 22cm x 10cm, mais fechada para contenção de animais.",
-        start: 35,
-        end: 37,
-        checkpoints: [37],
-        captions: [
           {
             label: "Malha inferior",
             value: "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",

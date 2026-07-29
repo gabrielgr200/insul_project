@@ -7,7 +7,7 @@ import type { CercaFeature } from "../assets/data";
 
 const INTRO_END = 4.5;
 
-const KNOT_LINE = { x1: 16, y1: 190, x2: 75, y2: 144 };
+const KNOT_LINE = { x1: 16, y1: 190, x2: 80, y2: 133 };
 
 interface CercaHeroDetailsProps {
   name: string;
@@ -25,6 +25,7 @@ const CercaHeroDetails = ({
   const [cardOpen, setCardOpen] = useState(false);
   const [arrowUnlocked, setArrowUnlocked] = useState(false);
   const [stageIndex, setStageIndex] = useState(0);
+  const [activeOptionIndex, setActiveOptionIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const knotLineRef = useRef<SVGLineElement>(null);
@@ -60,6 +61,7 @@ const CercaHeroDetails = ({
     setCardOpen(false);
     setArrowUnlocked(false);
     setStageIndex(0);
+    setActiveOptionIndex(null);
     const video = videoRef.current;
     if (!video) return;
 
@@ -113,6 +115,12 @@ const CercaHeroDetails = ({
     setArrowUnlocked(true);
   };
 
+  const openOption = (idx: number) => {
+    setActiveOptionIndex(idx);
+    setCardOpen(true);
+    setArrowUnlocked(true);
+  };
+
   const closeCard = () => {
     setCardOpen(false);
   };
@@ -121,6 +129,7 @@ const CercaHeroDetails = ({
     setCardOpen(false);
     setArrowUnlocked(false);
     setWaitingAtCheckpoint(false);
+    setActiveOptionIndex(null);
     const nextIdx = checkpointIndexRef.current;
     const hasMore = nextIdx < checkpointTargetsRef.current.length;
     if (hasMore) {
@@ -146,6 +155,9 @@ const CercaHeroDetails = ({
     const circle = knotCircleRef.current;
     if (!line || !circle) return;
 
+    gsap.killTweensOf([line, circle]);
+    gsap.set(line, { attr: { x2: KNOT_LINE.x1, y2: KNOT_LINE.y1 } });
+
     const tl = gsap.timeline();
     tl.to(line, {
       attr: { x2: KNOT_LINE.x2, y2: KNOT_LINE.y2 },
@@ -162,6 +174,15 @@ const CercaHeroDetails = ({
       tl.kill();
     };
   }, [showKnotCallout]);
+
+  const checkpointOptions = checkpointCaption?.options;
+  const hasOptions = !!checkpointOptions?.length;
+  const selectedOption =
+    hasOptions && activeOptionIndex !== null
+      ? checkpointOptions![activeOptionIndex]
+      : undefined;
+  const displayLabel = selectedOption?.label ?? checkpointCaption?.label;
+  const displayValue = selectedOption?.value ?? checkpointCaption?.value;
 
   const goPrev = () =>
     playFeature(((activeIndex ?? 0) - 1 + features.length) % features.length);
@@ -186,17 +207,38 @@ const CercaHeroDetails = ({
 
       {waitingAtCheckpoint && !cardOpen && (
         <div className="pointer-events-none absolute inset-0 z-10 flex -translate-x-24 items-start justify-center gap-3 pt-[19rem]">
-          <div className="relative flex h-9 w-9 items-center justify-center">
-            <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
-            <button
-              type="button"
-              onClick={openCard}
-              aria-label="Mostrar informações"
-              className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
-            >
-              <Plus size={16} />
-            </button>
-          </div>
+          {hasOptions ? (
+            <div className="flex flex-col gap-3">
+              {checkpointOptions!.map((option, idx) => (
+                <div
+                  key={option.label}
+                  className={`relative flex h-9 w-9 items-center justify-center ${idx === 0 ? "-translate-y-20" : "translate-y-8"}`}
+                >
+                  <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
+                  <button
+                    type="button"
+                    onClick={() => openOption(idx)}
+                    aria-label={option.label}
+                    className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+                  >
+                    <Plus size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="relative flex h-9 w-9 items-center justify-center">
+              <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
+              <button
+                type="button"
+                onClick={openCard}
+                aria-label="Mostrar informações"
+                className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+              >
+                <Plus size={16} />
+              </button>
+            </div>
+          )}
           {arrowUnlocked && (
             <div className="relative flex h-9 w-9 items-center justify-center">
               <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
@@ -249,15 +291,15 @@ const CercaHeroDetails = ({
             )}
             <div
               ref={cardRef}
-              className="invisible relative flex w-[min(22rem,85vw)] items-center gap-3 rounded-2xl bg-black/70 p-4 opacity-0 shadow-2xl backdrop-blur-md"
+              className="invisible relative flex w-[min(22rem,85vw)] items-center gap-3 rounded-2xl bg-[#ff5500]/90 p-4 opacity-0 shadow-2xl backdrop-blur-md"
             >
-              {checkpointCaption && (
+              {displayLabel && (
                 <div className="pointer-events-auto flex-1">
                   <p className="poppins text-sm font-bold tracking-wide text-white/90 uppercase">
-                    {checkpointCaption.label}
+                    {displayLabel}
                   </p>
                   <p className="poppins mt-1 text-sm leading-relaxed text-white/80">
-                    {checkpointCaption.value}
+                    {displayValue}
                   </p>
                 </div>
               )}
