@@ -48,6 +48,18 @@ export interface VideoExampleMaxx {
   name: string;
 }
 
+export interface CercaCaption {
+  // Rótulo curto exibido em destaque (ex: "COMPRIMENTO"), como uma etiqueta de ficha técnica.
+  label: string;
+  // Texto/valor exibido abaixo do rótulo (ex: "5x5 até 8x8 metros entre mourões").
+  value: string;
+  // Zoom aplicado no vídeo enquanto esse checkpoint está ativo. `origin` é o
+  // ponto de foco do zoom em "x% y%" (posição do detalhe dentro do frame).
+  zoom?: { scale: number; origin: string };
+  // Imagem exibida no card ao abrir esse checkpoint (ex: referência do detalhe técnico).
+  image?: string;
+}
+
 export interface CercaFeature {
   title: string;
   description: string;
@@ -57,10 +69,10 @@ export interface CercaFeature {
   // o vídeo para em cada checkpoint e espera o usuário clicar no botão "+"
   // para continuar até o próximo, em vez de tocar start-end de uma vez.
   checkpoints?: number[];
-  // Texto exibido sobre o vídeo durante cada trecho de checkpoints[i] (mesmo
-  // índice); captions[0] cobre start->checkpoints[0], captions[1] cobre
+  // Rótulo + valor exibidos sobre o vídeo durante cada trecho de checkpoints[i]
+  // (mesmo índice); captions[0] cobre start->checkpoints[0], captions[1] cobre
   // checkpoints[0]->checkpoints[1], e assim por diante.
-  captions?: string[];
+  captions?: CercaCaption[];
 }
 
 export interface CercaProntaInfo {
@@ -666,7 +678,7 @@ const cercasProntasInfo: CercaProntaInfo[] = [
   {
     slug: "campeira-maxx",
     name: "CAMPEIRA MAXX",
-    color: "#0a325a",
+    color: "#042c53",
     paragraphs: cercaDescriptions["campeira-maxx"],
     features: [
       {
@@ -675,12 +687,34 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
         start: 1,
         end: 21,
-        checkpoints: [5, 9, 16, 21],
+        checkpoints: [5, 9, 11, 16, 21],
         captions: [
-          "Tela pronta e esticada entre os mourões — sai de fábrica pronta para instalar, sem montar arame por arame.",
-          "Arames de aço permitem espaçamento de 5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
-          "Ideal para conter bovinos e equinos de grande porte, e barra a entrada de javalis, javaporcos e capivaras.",
-          "Se adapta a qualquer relevo — aclives, declives e terrenos irregulares — protegendo a propriedade rural inteira.",
+          {
+            label: "Instalação",
+            value:
+              "Tela pronta e esticada entre os mourões — sai de fábrica pronta para instalar, sem montar arame por arame.",
+          },
+          {
+            label: "Comprimento",
+            value: "5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
+          },
+          {
+            label: "Nó em X",
+            value:
+              "O fio de aço e o nó em X (stiff stay) se travam entre si, mantendo a tensão e a rigidez da cerca por muito mais tempo.",
+            zoom: { scale: 1.8, origin: "50% 50%" },
+            image: "/images/no-em-x.png",
+          },
+          {
+            label: "Animais",
+            value:
+              "Contém bovinos e equinos de grande porte, e barra a entrada de javalis, javaporcos e capivaras.",
+          },
+          {
+            label: "Onde instalar",
+            value:
+              "Qualquer relevo — aclives, declives e terrenos irregulares — protegendo a propriedade rural inteira.",
+          },
         ],
       },
       {
@@ -690,7 +724,11 @@ const cercasProntasInfo: CercaProntaInfo[] = [
         end: 34,
         checkpoints: [34],
         captions: [
-          "Malha superior de 22cm x 20cm: mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
+          {
+            label: "Malha superior",
+            value:
+              "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
+          },
         ],
       },
       {
@@ -700,18 +738,10 @@ const cercasProntasInfo: CercaProntaInfo[] = [
         end: 37,
         checkpoints: [37],
         captions: [
-          "Malha inferior de 22cm x 10cm: mais fechada para reforçar a contenção de animais e barrar invasores menores.",
-        ],
-      },
-      {
-        title: "Nó em X (stiff stay)",
-        description:
-          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
-        start: 38,
-        end: 44,
-        checkpoints: [44],
-        captions: [
-          "O fio de aço e o nó em X (stiff stay) se travam entre si, mantendo a tensão e a rigidez da cerca por muito mais tempo.",
+          {
+            label: "Malha inferior",
+            value: "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
+          },
         ],
       },
     ],

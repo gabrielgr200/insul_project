@@ -7,6 +7,8 @@ import type { CercaFeature } from "../assets/data";
 
 const INTRO_END = 4.5;
 
+const KNOT_LINE = { x1: 16, y1: 190, x2: 75, y2: 144 };
+
 interface CercaHeroDetailsProps {
   name: string;
   videoSrc: string;
@@ -25,6 +27,8 @@ const CercaHeroDetails = ({
   const [stageIndex, setStageIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const knotLineRef = useRef<SVGLineElement>(null);
+  const knotCircleRef = useRef<HTMLDivElement>(null);
   const stopHandlerRef = useRef<(() => void) | null>(null);
   const introPlayedRef = useRef(false);
   const checkpointTargetsRef = useRef<number[]>([]);
@@ -122,6 +126,8 @@ const CercaHeroDetails = ({
     if (hasMore) {
       setStageIndex(nextIdx);
       videoRef.current?.play();
+    } else {
+      goNext();
     }
   };
 
@@ -132,6 +138,30 @@ const CercaHeroDetails = ({
   const checkpointCaption = isCheckpointFeature
     ? activeFeature!.captions![stageIndex]
     : undefined;
+  const showKnotCallout = cardOpen && !!checkpointCaption?.image;
+
+  useEffect(() => {
+    if (!showKnotCallout) return;
+    const line = knotLineRef.current;
+    const circle = knotCircleRef.current;
+    if (!line || !circle) return;
+
+    const tl = gsap.timeline();
+    tl.to(line, {
+      attr: { x2: KNOT_LINE.x2, y2: KNOT_LINE.y2 },
+      duration: 0.35,
+      ease: "power2.out",
+    }).fromTo(
+      circle,
+      { autoAlpha: 0, scale: 0.4 },
+      { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.7)" },
+      "-=0.05",
+    );
+
+    return () => {
+      tl.kill();
+    };
+  }, [showKnotCallout]);
 
   const goPrev = () =>
     playFeature(((activeIndex ?? 0) - 1 + features.length) % features.length);
@@ -145,71 +175,121 @@ const CercaHeroDetails = ({
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-[center_80%] transition-transform duration-700 ease-out"
+        style={{
+          transform: checkpointCaption?.zoom
+            ? `scale(${checkpointCaption.zoom.scale})`
+            : "scale(1)",
+          transformOrigin: checkpointCaption?.zoom?.origin ?? "center",
+        }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-black/20 to-transparent" />
-
       {waitingAtCheckpoint && !cardOpen && (
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={openCard}
-            aria-label="Mostrar informações"
-            className="pointer-events-auto flex h-9 w-9 animate-pulse items-center justify-center rounded-full border-2 border-white bg-white/20 text-white backdrop-blur-sm transition-transform hover:scale-110 hover:bg-white/30"
-          >
-            <Plus size={16} />
-          </button>
-          {arrowUnlocked && (
+        <div className="pointer-events-none absolute inset-0 z-10 flex -translate-x-24 items-start justify-center gap-3 pt-[19rem]">
+          <div className="relative flex h-9 w-9 items-center justify-center">
+            <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
             <button
               type="button"
-              onClick={resumeAtCheckpoint}
-              aria-label="Avançar vídeo"
-              className="pointer-events-auto flex h-9 w-9 animate-pulse items-center justify-center rounded-full border-2 border-white bg-white/20 text-white backdrop-blur-sm transition-transform hover:scale-110 hover:bg-white/30"
+              onClick={openCard}
+              aria-label="Mostrar informações"
+              className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
             >
-              <ArrowRight size={16} />
+              <Plus size={16} />
             </button>
+          </div>
+          {arrowUnlocked && (
+            <div className="relative flex h-9 w-9 items-center justify-center">
+              <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
+              <button
+                type="button"
+                onClick={resumeAtCheckpoint}
+                aria-label="Avançar vídeo"
+                className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+              >
+                <ArrowRight size={16} />
+              </button>
+            </div>
           )}
         </div>
       )}
 
       {waitingAtCheckpoint && isCheckpointFeature && (
-        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4">
-          <div
-            ref={cardRef}
-            className="invisible relative w-[min(22rem,90vw)] rounded-2xl bg-black/70 p-5 opacity-0 shadow-2xl backdrop-blur-md"
-          >
-            <button
-              type="button"
-              onClick={closeCard}
-              aria-label="Fechar"
-              className="pointer-events-auto absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full border border-white/60 bg-black text-white transition-colors hover:bg-white/20"
+        <div className="pointer-events-none absolute inset-0 z-10 flex -translate-x-24 items-start justify-center pt-[19rem]">
+          <div className="relative">
+            {showKnotCallout && (
+              <div className="absolute bottom-full left-1/2 mb-8 h-[220px] w-[220px] -translate-x-1/2">
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  viewBox="0 0 220 220"
+                  fill="none"
+                >
+                  <line
+                    ref={knotLineRef}
+                    x1={KNOT_LINE.x1}
+                    y1={KNOT_LINE.y1}
+                    x2={KNOT_LINE.x1}
+                    y2={KNOT_LINE.y1}
+                    stroke="#002d4d"
+                    strokeWidth="4"
+                    strokeDasharray="2 16"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div
+                  ref={knotCircleRef}
+                  className="invisible absolute right-0 top-0 flex h-40 w-40 items-center justify-center overflow-hidden rounded-full bg-white/90 opacity-0 shadow-xl"
+                >
+                  <img
+                    src={checkpointCaption.image}
+                    alt={checkpointCaption.label}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+            <div
+              ref={cardRef}
+              className="invisible relative flex w-[min(22rem,85vw)] items-center gap-3 rounded-2xl bg-black/70 p-4 opacity-0 shadow-2xl backdrop-blur-md"
             >
-              <X size={14} />
-            </button>
-            <p className="poppins pointer-events-auto text-sm leading-relaxed text-white">
-              {checkpointCaption}
-            </p>
-            <button
-              type="button"
-              onClick={resumeAtCheckpoint}
-              aria-label="Avançar vídeo"
-              className="pointer-events-auto mt-4 flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-white/20 text-white transition-transform hover:scale-110 hover:bg-white/30"
-            >
-              <ArrowRight size={16} />
-            </button>
+              {checkpointCaption && (
+                <div className="pointer-events-auto flex-1">
+                  <p className="poppins text-sm font-bold tracking-wide text-white/90 uppercase">
+                    {checkpointCaption.label}
+                  </p>
+                  <p className="poppins mt-1 text-sm leading-relaxed text-white/80">
+                    {checkpointCaption.value}
+                  </p>
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={resumeAtCheckpoint}
+                aria-label="Avançar vídeo"
+                className="pointer-events-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white/20 text-white transition-transform hover:scale-110 hover:bg-white/30"
+              >
+                <ArrowRight size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={closeCard}
+                aria-label="Fechar"
+                className="pointer-events-auto absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full border border-white/60 bg-black text-white transition-colors hover:bg-white/20"
+              >
+                <X size={14} />
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       <div className="absolute inset-0 flex items-center pt-2">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
-          <div className="lg:ml-auto lg:w-1/3">
-            <div className="pl-14">
-              <span className="inline-block rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium text-white">
+          <div className="rounded-3xl bg-black/10 p-6 shadow-2xl backdrop-blur-lg lg:ml-auto lg:w-1/3">
+            <div className="pl-6 lg:pl-10 xl:pl-14">
+              <span className="inline-block rounded-full border border-[#002d4d]/40 px-4 py-1.5 text-sm font-medium text-[#002d4d]">
                 Cerca Pronta
               </span>
-              <h2 className="poppins mt-3 text-5xl font-bold text-[#ff5500]">
+              <h2 className="poppins mt-3 text-3xl font-bold text-[#ff5500] lg:text-4xl xl:text-5xl">
                 {name}
               </h2>
             </div>
@@ -220,7 +300,7 @@ const CercaHeroDetails = ({
                   type="button"
                   onClick={goPrev}
                   aria-label="Item anterior"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronUp size={16} />
                 </button>
@@ -228,7 +308,7 @@ const CercaHeroDetails = ({
                   type="button"
                   onClick={goNext}
                   aria-label="Próximo item"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronDown size={16} />
                 </button>
@@ -243,14 +323,14 @@ const CercaHeroDetails = ({
                       type="button"
                       onClick={() => playFeature(i)}
                       className={`rounded-2xl px-4 py-3 text-left transition-colors ${
-                        active ? "bg-white/10" : "hover:bg-white/5"
+                        active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
                       }`}
                     >
-                      <span className="text-sm font-medium text-white">
+                      <span className="text-sm font-medium text-[#002d4d]">
                         {feature.title}
                       </span>
                       {active && (
-                        <p className="mt-1.5 text-sm leading-relaxed text-white/70">
+                        <p className="mt-1.5 text-sm leading-relaxed text-[#002d4d]/70">
                           {feature.description}
                         </p>
                       )}

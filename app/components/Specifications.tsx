@@ -8,7 +8,7 @@ interface ExpandableCardExampleProps {
 export function ExpandableCardExample({ color }: ExpandableCardExampleProps) {
   return (
     <section
-      className="mx-auto max-w-full px-4 py-16 sm:px-8"
+      className="mx-auto max-w-full px-4 py-10 sm:px-8"
       style={{ backgroundColor: color }}
     >
       <ExpandableCard items={fenceSpecifications} />

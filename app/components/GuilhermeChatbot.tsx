@@ -1,14 +1,42 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import type { RefObject } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, Send, X } from "lucide-react";
+
+const INTRO_END = 4;
+const MESSAGE_SEGMENT_START = 10;
 
 interface Message {
   id: number;
   from: "bot" | "user";
   text: string;
 }
+
+const useIntroFreeze = (
+  videoRef: RefObject<HTMLVideoElement | null>,
+  mounted: boolean,
+) => {
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !mounted) return;
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= INTRO_END) {
+        video.pause();
+        video.currentTime = INTRO_END;
+        video.removeEventListener("timeupdate", handleTimeUpdate);
+      }
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.currentTime = 0;
+    video.play().catch(() => {});
+
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [videoRef, mounted]);
+};
 
 const INITIAL_MESSAGE: Message = {
   id: 0,
@@ -64,6 +92,12 @@ const GuilhermeChatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const nextId = useRef(1);
+  const avatarVideoRef = useRef<HTMLVideoElement | null>(null);
+  const headerVideoRef = useRef<HTMLVideoElement | null>(null);
+  const hasSentMessageRef = useRef(false);
+
+  useIntroFreeze(avatarVideoRef, !isOpen);
+  useIntroFreeze(headerVideoRef, isOpen);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -72,6 +106,15 @@ const GuilhermeChatbot = () => {
   const sendMessage = () => {
     const trimmed = input.trim();
     if (!trimmed || isTyping) return;
+
+    if (!hasSentMessageRef.current) {
+      hasSentMessageRef.current = true;
+      const video = headerVideoRef.current;
+      if (video) {
+        video.currentTime = MESSAGE_SEGMENT_START;
+        video.play().catch(() => {});
+      }
+    }
 
     const userMessage: Message = { id: nextId.current++, from: "user", text: trimmed };
     setMessages((prev) => [...prev, userMessage]);
@@ -111,9 +154,8 @@ const GuilhermeChatbot = () => {
             className="relative block"
           >
             <video
+              ref={avatarVideoRef}
               src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
-              autoPlay
-              loop
               muted
               playsInline
               className="h-56 w-40 rounded-3xl object-cover shadow-xl sm:h-64 sm:w-48"
@@ -149,9 +191,8 @@ const GuilhermeChatbot = () => {
               <div className="flex items-center gap-2.5 bg-[#002d4d] px-4 pb-3 pt-6">
                 <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30">
                   <video
+                    ref={headerVideoRef}
                     src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
-                    autoPlay
-                    loop
                     muted
                     playsInline
                     className="h-full w-full object-cover"
