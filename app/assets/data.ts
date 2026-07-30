@@ -551,7 +551,44 @@ const cercaGalleryImages: Record<
     { src: "/images/img_fenix_carousel/8.jpeg", alt: "Cerca Insul" },
     { src: "/images/img_fenix_carousel/9.jpeg", alt: "Cerca Insul" },
   ],
-  "campeira-maxx": [], //colocar imagens da Maxx
+  "campeira-maxx": [
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350969/img_maxx_1_qcsdsq.jpg",
+      alt: "Cerca instalada em propriedade rural",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350989/img_maxx_2_nznoip.jpg",
+      alt: "Detalhe do fio e da malha",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350969/img_maxx_3_mzdjvg.jpg",
+      alt: "Rolo da tela",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350969/img_maxx_4_bywfst.jpg",
+      alt: "Cerca em terreno com desnível",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785351497/img_maxx_5_duburt.jpg",
+      alt: "Acabamento galvanizado a fogo",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785351559/img_maxx_6_phqgqj.jpg",
+      alt: "Nó em X da cerca",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350983/img_maxx_7_tdnprf.png",
+      alt: "Cerca Insul",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350971/img_maxx_8_zvbgxr.webp",
+      alt: "Cerca Insul",
+    },
+    {
+      src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350970/img_maxx_9_pjq87v.jpg",
+      alt: "Cerca Insul",
+    },
+  ], //colocar imagens da Maxx
   "campeira-boi": [
     {
       src: "/images/img_campeiraBoi_carousel/campeira-img-1.jpg",
@@ -699,7 +736,8 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           },
           {
             label: "Comprimento",
-            value: "5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
+            value:
+              "5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
           },
           {
             label: "Nó em X",
@@ -711,8 +749,9 @@ const cercasProntasInfo: CercaProntaInfo[] = [
         ],
       },
       {
-        title: "Malha superior",
-        description: "Malha de 22cm x 20cm com acabamento em aço galvanizado a fogo.",
+        title: "Malha superior | inferior",
+        description:
+          "Malha de 22cm x 20cm com acabamento em aço galvanizado a fogo.",
         start: 21,
         end: 37,
         checkpoints: [24, 34, 37],
@@ -740,7 +779,8 @@ const cercasProntasInfo: CercaProntaInfo[] = [
           },
           {
             label: "Malha inferior",
-            value: "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
+            value:
+              "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
           },
         ],
       },

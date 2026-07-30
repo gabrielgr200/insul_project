@@ -2,12 +2,37 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronUp, ChevronDown, Plus, X } from "lucide-react";
 import type { CercaFeature } from "../assets/data";
 
 const INTRO_END = 4.5;
 
+const MALHA_HOVER_OPTIONS = [
+  { name: "Fenix", image: "/images/malha_hover_icons/fenix.png" },
+  { name: "Campeira", image: "/images/malha_hover_icons/campeira.png" },
+  { name: "Campeira Boi", image: "/images/malha_hover_icons/campeira-boi.png" },
+];
+const MALHA_HOVER_INTERVAL = 1100;
+
+const MALHA_BUTTON_RADIUS = 19;
+const MALHA_BUTTON_HEIGHT = 40;
+
+const getMalhaButtonPath = (width: number) => {
+  const r = MALHA_BUTTON_RADIUS;
+  const h = MALHA_BUTTON_HEIGHT;
+  const leftX = r + 1;
+  const rightArcStartX = Math.max(width - r - 1, leftX);
+  const rightEdgeX = Math.max(width - 1, leftX + 1);
+  const midY = h / 2;
+  const botY = h - 1;
+  return `M ${leftX} 1 H ${rightArcStartX} A ${r} ${r} 0 0 1 ${rightEdgeX} ${midY} A ${r} ${r} 0 0 1 ${rightArcStartX} ${botY} H ${leftX} A ${r} ${r} 0 0 1 1 ${midY} A ${r} ${r} 0 0 1 ${leftX} 1 Z`;
+};
+
 const KNOT_LINE = { x1: 16, y1: 190, x2: 80, y2: 133 };
+
+const MALHA_GLOW_DURATION = 4.5;
+const MALHA_GLOW_COMET_FRACTION = 0.12;
 
 interface CercaHeroDetailsProps {
   name: string;
@@ -30,6 +55,17 @@ const CercaHeroDetails = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const knotLineRef = useRef<SVGLineElement>(null);
   const knotCircleRef = useRef<HTMLDivElement>(null);
+  const malhaButtonBoxRef = useRef<HTMLDivElement>(null);
+  const malhaBorderPathRef = useRef<SVGPathElement>(null);
+  const malhaGlowPathRef = useRef<SVGPathElement>(null);
+  const malhaGlowLengthRef = useRef(0);
+  const [malhaButtonWidth, setMalhaButtonWidth] = useState(220);
+  const [malhaHovering, setMalhaHovering] = useState(false);
+  const [malhaOptionIndex, setMalhaOptionIndex] = useState(0);
+  const malhaCycleIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const malhaRotateTweenRef = useRef<gsap.core.Tween | null>(null);
+  const malhaFillTweenRef = useRef<gsap.core.Tween | null>(null);
+  const malhaFillProxyRef = useRef({ frac: MALHA_GLOW_COMET_FRACTION });
   const stopHandlerRef = useRef<(() => void) | null>(null);
   const introPlayedRef = useRef(false);
   const checkpointTargetsRef = useRef<number[]>([]);
@@ -183,6 +219,105 @@ const CercaHeroDetails = ({
       : undefined;
   const displayLabel = selectedOption?.label ?? checkpointCaption?.label;
   const displayValue = selectedOption?.value ?? checkpointCaption?.value;
+  const isMalhaInferiorStage = checkpointCaption?.label === "Malha inferior";
+
+  useEffect(() => {
+    if (!isMalhaInferiorStage) return;
+    const box = malhaButtonBoxRef.current;
+    if (!box) return;
+
+    const updateWidth = () => setMalhaButtonWidth(box.getBoundingClientRect().width);
+    updateWidth();
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, [isMalhaInferiorStage]);
+
+  useEffect(() => {
+    const glow = malhaGlowPathRef.current;
+    if (!glow || !isMalhaInferiorStage) return;
+
+    const length = glow.getTotalLength();
+    if (!length) return;
+    malhaGlowLengthRef.current = length;
+    malhaFillProxyRef.current.frac = MALHA_GLOW_COMET_FRACTION;
+    const segment = length * MALHA_GLOW_COMET_FRACTION;
+    glow.setAttribute("stroke-dasharray", `${segment} ${length - segment}`);
+    gsap.set(glow, { strokeDashoffset: 0 });
+
+    const tween = gsap.to(glow, {
+      strokeDashoffset: -length,
+      duration: MALHA_GLOW_DURATION,
+      repeat: -1,
+      ease: "none",
+    });
+    malhaRotateTweenRef.current = tween;
+    return () => {
+      tween.kill();
+      malhaRotateTweenRef.current = null;
+      malhaFillTweenRef.current?.kill();
+      malhaFillTweenRef.current = null;
+    };
+  }, [isMalhaInferiorStage, malhaButtonWidth]);
+
+  const handleMalhaButtonEnter = () => {
+    const glow = malhaGlowPathRef.current;
+    const length = malhaGlowLengthRef.current;
+    if (!glow || !length) return;
+    malhaRotateTweenRef.current?.pause();
+    malhaFillTweenRef.current?.kill();
+    malhaFillTweenRef.current = gsap.to(malhaFillProxyRef.current, {
+      frac: 1,
+      duration: 0.9,
+      ease: "power2.out",
+      onUpdate: () => {
+        const dash = length * malhaFillProxyRef.current.frac;
+        glow.setAttribute("stroke-dasharray", `${dash} ${Math.max(length - dash, 0)}`);
+      },
+    });
+  };
+
+  const handleMalhaButtonLeave = () => {
+    const glow = malhaGlowPathRef.current;
+    const length = malhaGlowLengthRef.current;
+    if (!glow || !length) return;
+    malhaFillTweenRef.current?.kill();
+    malhaFillTweenRef.current = gsap.to(malhaFillProxyRef.current, {
+      frac: MALHA_GLOW_COMET_FRACTION,
+      duration: 0.9,
+      ease: "power2.out",
+      onUpdate: () => {
+        const dash = length * malhaFillProxyRef.current.frac;
+        glow.setAttribute("stroke-dasharray", `${dash} ${Math.max(length - dash, 0)}`);
+      },
+      onComplete: () => {
+        malhaRotateTweenRef.current?.play();
+      },
+    });
+  };
+
+  const startMalhaHoverCycle = () => {
+    setMalhaHovering(true);
+    setMalhaOptionIndex(0);
+    if (malhaCycleIntervalRef.current) clearInterval(malhaCycleIntervalRef.current);
+    malhaCycleIntervalRef.current = setInterval(() => {
+      setMalhaOptionIndex((i) => (i + 1) % MALHA_HOVER_OPTIONS.length);
+    }, MALHA_HOVER_INTERVAL);
+  };
+
+  const stopMalhaHoverCycle = () => {
+    setMalhaHovering(false);
+    if (malhaCycleIntervalRef.current) {
+      clearInterval(malhaCycleIntervalRef.current);
+      malhaCycleIntervalRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (malhaCycleIntervalRef.current) clearInterval(malhaCycleIntervalRef.current);
+    };
+  }, []);
 
   const goPrev = () =>
     playFeature(((activeIndex ?? 0) - 1 + features.length) % features.length);
@@ -359,24 +494,117 @@ const CercaHeroDetails = ({
               <div className="flex flex-1 flex-col gap-2">
                 {features.map((feature, i) => {
                   const active = i === activeIndex;
+                  const showMalhaInferiorButton = active && isMalhaInferiorStage;
                   return (
-                    <button
-                      key={feature.title}
-                      type="button"
-                      onClick={() => playFeature(i)}
-                      className={`rounded-2xl px-4 py-3 text-left transition-colors ${
-                        active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
-                      }`}
-                    >
-                      <span className="text-sm font-medium text-[#002d4d]">
-                        {feature.title}
-                      </span>
-                      {active && (
-                        <p className="mt-1.5 text-sm leading-relaxed text-[#002d4d]/70">
-                          {feature.description}
-                        </p>
+                    <div key={feature.title} className="flex flex-col">
+                      <button
+                        type="button"
+                        onClick={() => playFeature(i)}
+                        className={`rounded-2xl px-4 py-3 text-left transition-colors ${
+                          active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
+                        }`}
+                      >
+                        <span className="text-sm font-medium text-[#002d4d]">
+                          {feature.title}
+                        </span>
+                        {active && (
+                          <p className="mt-1.5 text-sm leading-relaxed text-[#002d4d]/70">
+                            {feature.description}
+                          </p>
+                        )}
+                      </button>
+                      {showMalhaInferiorButton && (
+                        <div className="mt-4">
+                          <div
+                            ref={malhaButtonBoxRef}
+                            className="relative h-10 w-full"
+                          >
+                            <button
+                              type="button"
+                              onClick={resumeAtCheckpoint}
+                              onMouseEnter={() => {
+                                handleMalhaButtonEnter();
+                                startMalhaHoverCycle();
+                              }}
+                              onMouseLeave={() => {
+                                handleMalhaButtonLeave();
+                                stopMalhaHoverCycle();
+                              }}
+                              aria-label="Avançar vídeo"
+                              className="relative flex h-10 w-full items-center justify-between gap-2 rounded-full bg-transparent pl-5 pr-2 text-xs font-semibold text-[#002d4d]"
+                            >
+                              <span className="relative block h-4 flex-1 overflow-hidden text-left">
+                                <AnimatePresence mode="wait" initial={false}>
+                                  {malhaHovering ? (
+                                    <motion.span
+                                      key={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                      initial={{ y: 14, opacity: 0 }}
+                                      animate={{ y: 0, opacity: 1 }}
+                                      exit={{ y: -14, opacity: 0 }}
+                                      transition={{ duration: 0.3, ease: "easeOut" }}
+                                      className="absolute inset-0 block whitespace-nowrap"
+                                    >
+                                      {MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                    </motion.span>
+                                  ) : (
+                                    <motion.span
+                                      key="default"
+                                      initial={{ y: 14, opacity: 0 }}
+                                      animate={{ y: 0, opacity: 1 }}
+                                      exit={{ y: -14, opacity: 0 }}
+                                      transition={{ duration: 0.3, ease: "easeOut" }}
+                                      className="absolute inset-0 block whitespace-nowrap"
+                                    >
+                                      Conheça outras opções
+                                    </motion.span>
+                                  )}
+                                </AnimatePresence>
+                              </span>
+                              <span className="relative block h-7 w-7 shrink-0 overflow-hidden rounded-full bg-transparent">
+                                <AnimatePresence mode="wait" initial={false}>
+                                  {malhaHovering && (
+                                    <motion.img
+                                      key={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                      src={MALHA_HOVER_OPTIONS[malhaOptionIndex].image}
+                                      alt={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                      initial={{ y: 14, opacity: 0 }}
+                                      animate={{ y: 0, opacity: 1 }}
+                                      exit={{ y: -14, opacity: 0 }}
+                                      transition={{ duration: 0.3, ease: "easeOut" }}
+                                      className="absolute inset-0 h-full w-full object-contain p-0.5"
+                                    />
+                                  )}
+                                </AnimatePresence>
+                              </span>
+                            </button>
+                            <svg
+                              className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+                              viewBox={`0 0 ${malhaButtonWidth} ${MALHA_BUTTON_HEIGHT}`}
+                              fill="none"
+                            >
+                              <path
+                                ref={malhaBorderPathRef}
+                                d={getMalhaButtonPath(malhaButtonWidth)}
+                                stroke="#002d4d"
+                                strokeWidth="1.5"
+                                opacity="0.3"
+                              />
+                              <path
+                                ref={malhaGlowPathRef}
+                                d={getMalhaButtonPath(malhaButtonWidth)}
+                                stroke="#ffb877"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                style={{
+                                  filter:
+                                    "drop-shadow(0 0 3px #ffb877) drop-shadow(0 0 10px #ff9a45) drop-shadow(0 0 24px #ff9a45) drop-shadow(0 0 42px rgba(255,154,69,0.6))",
+                                }}
+                              />
+                            </svg>
+                          </div>
+                        </div>
                       )}
-                    </button>
+                    </div>
                   );
                 })}
               </div>
