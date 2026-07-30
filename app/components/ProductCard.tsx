@@ -7,12 +7,131 @@ import gsap from "gsap";
 import { ChevronDown } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
 
+const ANIMAL_IMAGES: Record<string, string> = {
+  Avestruz:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/avestruz_xtomjl.png",
+  Bovino:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/bovino_wfmv7a.png",
+  Cães: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/canino_iqehpt.png",
+  Capivara:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/capivara_evbsqe.png",
+  Galinha:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/galinha_xvnuit.png",
+  Javaporco:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/javaporco_b7wa7q.png",
+  Suínos:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/suino_crqvl0.png",
+  Ganso:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/ganso_c7esfh.png",
+  Caprino:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435864/cabrino_rdycfa.png",
+  Ovinos:
+    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785436247/ovino_ov_lboqma.png",
+};
+
+const AnimalThumb = ({ animal }: { animal: string }) => {
+  const [broken, setBroken] = useState(false);
+  const src = ANIMAL_IMAGES[animal] ?? null;
+
+  return (
+    <div
+      title={animal}
+      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15"
+    >
+      {src && !broken ? (
+        <img
+          src={src}
+          alt={animal}
+          className="h-full w-full object-contain p-0.5"
+          onError={() => setBroken(true)}
+        />
+      ) : (
+        <span className="text-[10px] font-semibold text-[#002d4d]/70">
+          {animal.charAt(0)}
+        </span>
+      )}
+    </div>
+  );
+};
+
+const PostSpacingDiagram = ({ value }: { value: string }) => (
+  <div className="flex flex-col items-center gap-1.5">
+    <svg width="176" height="66" viewBox="0 0 176 66" fill="none">
+      <rect x="4" y="4" width="7" height="52" fill="#8a94a3" />
+      <rect x="165" y="4" width="7" height="52" fill="#8a94a3" />
+      <g stroke="#4a5568" strokeWidth="1">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <line
+            key={`v-${i}`}
+            className="mesh-v"
+            x1={19 + i * 17}
+            y1="6"
+            x2={19 + i * 17}
+            y2="58"
+          />
+        ))}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <line
+            key={`h-${i}`}
+            className="mesh-h"
+            x1="12"
+            y1={8 + i * 12}
+            x2="164"
+            y2={8 + i * 12}
+          />
+        ))}
+      </g>
+      <line
+        className="dim-arrow"
+        x1="12"
+        y1="62"
+        x2="164"
+        y2="62"
+        stroke="#ff5500"
+        strokeWidth="1.5"
+        markerStart="url(#dimStart)"
+        markerEnd="url(#dimEnd)"
+      />
+      <defs>
+        <marker
+          id="dimStart"
+          markerWidth="8"
+          markerHeight="8"
+          refX="4"
+          refY="4"
+          orient="auto"
+        >
+          <path d="M8,0 L0,4 L8,8" fill="none" stroke="#ff5500" strokeWidth="1.5" />
+        </marker>
+        <marker
+          id="dimEnd"
+          markerWidth="8"
+          markerHeight="8"
+          refX="4"
+          refY="4"
+          orient="auto"
+        >
+          <path d="M0,0 L8,4 L0,8" fill="none" stroke="#ff5500" strokeWidth="1.5" />
+        </marker>
+      </defs>
+    </svg>
+    <p className="mourao-label text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60">
+      Espaçamento entre mourões
+    </p>
+    <p className="mourao-value poppins text-xl font-bold text-[#ff5500]">
+      {value}
+    </p>
+  </div>
+);
+
 const ProductCard = ({
   src,
   title,
   name,
   paragraph,
-  description,
+  shortDescription,
+  postSpacing,
+  animals,
   to,
 }: ProductCardData) => {
   const [open, setOpen] = useState(false);
@@ -21,6 +140,135 @@ const ProductCard = ({
   const panelInnerRef = useRef<HTMLDivElement>(null);
   const chevronRef = useRef<SVGSVGElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
+  const diagramRef = useRef<HTMLDivElement>(null);
+  const animalRowRef = useRef<HTMLDivElement>(null);
+  const hoverTlRef = useRef<gsap.core.Timeline | null>(null);
+
+  const handleInfoPanelEnter = () => {
+    hoverTlRef.current?.kill();
+
+    const posts = diagramRef.current?.querySelectorAll("rect");
+    const hLines = diagramRef.current?.querySelectorAll(".mesh-h");
+    const vLines = diagramRef.current?.querySelectorAll(".mesh-v");
+    const dimArrow = diagramRef.current?.querySelector(".dim-arrow");
+    const label = diagramRef.current?.querySelector(".mourao-label");
+    const valueEl = diagramRef.current?.querySelector(".mourao-value");
+    const animalEls = animalRowRef.current?.children;
+
+    const tl = gsap.timeline();
+    hoverTlRef.current = tl;
+
+    if (posts?.length) {
+      tl.fromTo(
+        posts,
+        { attr: { y: -24 }, opacity: 0 },
+        {
+          attr: { y: 4 },
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: "bounce.out",
+        },
+      );
+    }
+
+    if (hLines?.length) {
+      // the fence wires stretching out from the middle to both posts
+      tl.fromTo(
+        hLines,
+        { attr: { x1: 88, x2: 88 }, opacity: 0 },
+        {
+          attr: { x1: 12, x2: 164 },
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.15",
+      );
+    }
+
+    if (vLines?.length) {
+      tl.fromTo(
+        vLines,
+        { attr: { y1: 32, y2: 32 }, opacity: 0 },
+        {
+          attr: { y1: 6, y2: 58 },
+          opacity: 1,
+          duration: 0.3,
+          stagger: 0.02,
+          ease: "power2.out",
+        },
+        "-=0.25",
+      );
+    }
+
+    if (dimArrow) {
+      // the measurement arrow stretching out to span the gap
+      tl.fromTo(
+        dimArrow,
+        { attr: { x1: 88, x2: 88 }, opacity: 0 },
+        {
+          attr: { x1: 12, x2: 164 },
+          opacity: 1,
+          duration: 0.4,
+          ease: "power3.out",
+        },
+        "-=0.15",
+      );
+    }
+
+    if (label) {
+      tl.fromTo(
+        label,
+        { y: 8, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" },
+        "-=0.15",
+      );
+    }
+
+    if (valueEl) {
+      tl.fromTo(
+        valueEl,
+        { y: 8, opacity: 0, scale: 0.8 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: "back.out(2)",
+        },
+        "-=0.15",
+      );
+    }
+
+    const indicadoLabel = animalRowRef.current?.parentElement?.querySelector(
+      ".indicado-label",
+    );
+    if (indicadoLabel) {
+      tl.fromTo(
+        indicadoLabel,
+        { y: 8, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" },
+        "-=0.1",
+      );
+    }
+
+    if (animalEls?.length) {
+      tl.fromTo(
+        animalEls,
+        { scale: 0, y: 16, opacity: 0 },
+        {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          duration: 0.45,
+          stagger: 0.05,
+          ease: "back.out(2.5)",
+        },
+        "-=0.1",
+      );
+    }
+  };
 
   useGSAP(() => {
     if (firstRender.current) {
@@ -80,38 +328,68 @@ const ProductCard = ({
   }, [open]);
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5">
-      <div className="relative h-56 sm:h-64">
-        <img
-          src={src}
-          alt={name}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+    <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 cursor-pointer">
+      <div
+        className="group relative h-56 overflow-hidden bg-[#f5f5f5] sm:h-64"
+        onMouseEnter={handleInfoPanelEnter}
+      >
+        {/* Panel 1: product photo — shrinks to the left on hover instead of leaving */}
+        <div className="absolute inset-y-0 left-0 w-full transition-[width] duration-500 ease-in-out group-hover:w-2/5">
+          <img
+            src={src}
+            alt={name}
+            className="absolute inset-0 h-full w-full object-contain"
+          />
+          <div className="absolute bottom-4 left-5">
+            <p className="font-semibold text-[#ff5500]">{name}</p>
+            <p className="text-xs text-[#002d4d]/70">{title}</p>
+          </div>
 
-        <div className="absolute bottom-4 left-5 text-white">
-          <p className="font-semibold">{name}</p>
-          <p className="text-xs text-white/80">{title}</p>
+          {to && (
+            <Link
+              ref={ctaRef}
+              href={to}
+              className="group/cta absolute bottom-4 right-4 rounded-full bg-[#002d4d]/10 px-6 py-2 text-xs font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20"
+            >
+              <span className="relative block h-4 overflow-hidden">
+                <span className="block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4">
+                  Gostou da tela?
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-4 block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4"
+                >
+                  Veja os detalhes
+                </span>
+              </span>
+            </Link>
+          )}
         </div>
 
-        {to && (
-          <Link
-            ref={ctaRef}
-            href={to}
-            className="group absolute bottom-4 right-4 rounded-full bg-white/20 px-6 py-2 text-xs font-medium text-white opacity-0 ring-1 ring-white/30 backdrop-blur transition-colors hover:bg-white/30"
-          >
-            <span className="relative block h-4 overflow-hidden">
-              <span className="block whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-4">
-                Gostou da tela?
-              </span>
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 top-4 block whitespace-nowrap transition-transform duration-300 ease-out group-hover:-translate-y-4"
-              >
-                Veja os detalhes
-              </span>
-            </span>
-          </Link>
+        {/* Panel 2: post spacing + animals — slides in from the right, alongside the shrunk photo */}
+        {(postSpacing || animals?.length > 0) && (
+          <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0">
+            {postSpacing && (
+              <div ref={diagramRef}>
+                <PostSpacingDiagram value={postSpacing} />
+              </div>
+            )}
+            {animals?.length > 0 && (
+              <div>
+                <p className="indicado-label mb-1.5 text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60">
+                  Indicado para
+                </p>
+                <div
+                  ref={animalRowRef}
+                  className="flex flex-wrap items-center justify-center gap-1.5"
+                >
+                  {animals.map((animal) => (
+                    <AnimalThumb key={animal} animal={animal} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         )}
       </div>
 
@@ -127,7 +405,7 @@ const ProductCard = ({
               </span>
             ))}
           </div>
-          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500">{description}</p>
+          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500">{shortDescription}</p>
         </div>
       </div>
 
@@ -136,7 +414,7 @@ const ProductCard = ({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`}
-        className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600"
+        className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer"
       >
         <ChevronDown ref={chevronRef} size={18} />
         <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs font-medium opacity-0 transition-all duration-200 ease-out group-hover:max-w-[3rem] group-hover:opacity-100">

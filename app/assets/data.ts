@@ -5,7 +5,10 @@ export interface ProductCardData {
   title: string;
   name: string;
   paragraph: string;
+  shortDescription: string;
   description: string;
+  postSpacing: string;
+  animals: string[];
   to?: string;
 }
 
@@ -49,17 +52,10 @@ export interface VideoExampleMaxx {
 }
 
 export interface CercaCaption {
-  // Rótulo curto exibido em destaque (ex: "COMPRIMENTO"), como uma etiqueta de ficha técnica.
   label: string;
-  // Texto/valor exibido abaixo do rótulo (ex: "5x5 até 8x8 metros entre mourões").
   value: string;
-  // Zoom aplicado no vídeo enquanto esse checkpoint está ativo. `origin` é o
-  // ponto de foco do zoom em "x% y%" (posição do detalhe dentro do frame).
   zoom?: { scale: number; origin: string };
-  // Imagem exibida no card ao abrir esse checkpoint (ex: referência do detalhe técnico).
   image?: string;
-  // Quando presente, esse checkpoint mostra um botão por opção (em vez do único "+")
-  // — cada botão abre o card com o label/value daquela opção.
   options?: { label: string; value: string }[];
 }
 
@@ -68,13 +64,7 @@ export interface CercaFeature {
   description: string;
   start: number;
   end: number;
-  // Pontos de pausa (em segundos) dentro do trecho start-end. Quando presente,
-  // o vídeo para em cada checkpoint e espera o usuário clicar no botão "+"
-  // para continuar até o próximo, em vez de tocar start-end de uma vez.
   checkpoints?: number[];
-  // Rótulo + valor exibidos sobre o vídeo durante cada trecho de checkpoints[i]
-  // (mesmo índice); captions[0] cobre start->checkpoints[0], captions[1] cobre
-  // checkpoints[0]->checkpoints[1], e assim por diante.
   captions?: CercaCaption[];
 }
 
@@ -109,48 +99,81 @@ export interface ShowcaseReel {
 
 const poductsCardsPages: ProductCardData[] = [
   {
-    src: "https://images.unsplash.com/photo-1571898223382-0aa3499f0f2a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Cerca Pronta",
+    src: "https://res.cloudinary.com/kcqitv3l/image/upload/w_800,q_auto,f_auto/v1784917804/FENX_grkczf.png",
+    title: "Cerca Pronta(rurais)",
     name: "Cerca Fenix Insul",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+    shortDescription:
+      "Tela de simples torção em aço de alto carbono, com instalação até 6x mais rápida e até 50% menos mourões. Segurança e durabilidade para qualquer propriedade.",
+    postSpacing: "5 - 6m",
+    animals: [
+      "Bovino",
+      "Capivara",
+      "Cães",
+      "Avestruz",
+      "Ovinos",
+      "Suínos",
+      "Javaporco",
+      "Galinha",
+      "Ganso",
+    ],
     description:
       "A Tela Alambrada Fênix Insul é uma solução de cercamento em tela de simples torção, fabricada com arame de aço de alto carbono, que proporciona maior resistência mecânica, durabilidade e desempenho. Desenvolvida para oferecer segurança e confiabilidade, é ideal para projetos que exigem um cercamento eficiente e de longa vida útil.\n\nSeu sistema construtivo permite uma instalação até 6 vezes mais rápida em comparação aos cercamentos convencionais, reduzindo o tempo de execução da obra e aumentando a produtividade. Além disso, sua estrutura possibilita a utilização de até 50% menos mourões, proporcionando economia de materiais sem comprometer a resistência do cercamento.\n\nA Tela Alambrada Fênix Insul é indicada para o cercamento de residências, condomínios, empresas, indústrias, escolas, quadras esportivas, chácaras, sítios, áreas públicas e demais propriedades que necessitem de uma solução prática, segura e de alto desempenho.\n\nAliando tecnologia, resistência e excelente custo-benefício, a Tela Alambrada Fênix Insul oferece ampla visibilidade, baixa necessidade de manutenção e alta durabilidade, tornando-se uma escolha inteligente para projetos que buscam rapidez na instalação, economia e qualidade em um único sistema de cercamento.",
     to: "/cercas-prontas/fenix",
   },
   {
-    src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Cerca Pronta",
+    src: "https://res.cloudinary.com/kcqitv3l/image/upload/w_800,q_auto,f_auto/v1785176359/cerca-maxx_srpi3h.png",
+    title: "Cerca Pronta(rurais)",
     name: "Cerca Campeira Maxx Insul",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+    shortDescription:
+      "Nó em X exclusivo da Insul, feito para conter bovinos e equinos e proteger a lavoura contra grandes animais. Ruptura de até 700 kgf e 5 anos de garantia.",
+    postSpacing: "6 - 8m",
+    animals: [
+      "Bovino",
+      "Capivara",
+      "Cães",
+      "Avestruz",
+      "Ovinos",
+      "Suínos",
+      "Javaporco",
+    ],
     description:
       "A cerca pronta Campeira Maxx Insul é a escolha definitiva para quem busca o máximo em resistência, durabilidade e praticidade. Este produto exclusivo da Insul se destaca por ser o único no mercado com o revolucionário nó em X (stiff stay), uma inovação que garante uma estrutura mais robusta e segura, ideal para enfrentar as condições mais exigentes no campo. A Campeira Maxx Insul é a indicação ideal para a contenção de animais de grande e médio porte, como bovinos e equinos, além de ser uma barreira extremamente eficaz contra invasores. Ela protege lavouras e propriedades rurais de ataques de javalis, javaporcos, capivaras e outros grandes animais que podem causar danos significativos. Além disso, a Campeira Maxx se adequa perfeitamente ao relevo do terreno, garantindo uma instalação eficiente e uma proteção contínua, independentemente das variações de topografia.\n\nCom sua robustez e durabilidade, a Campeira Maxx oferece a segurança necessária para manter seus animais contidos e sua terra protegida. Os arames que compõem a Campeira Maxx são de 2,50 mm de espessura, galvanizados a fogo e produzidos com a renomada qualidade Gerdau, proporcionando uma resistência superior à corrosão e uma carga de ruptura de até 700 kgf. Isso se traduz em uma cerca que mantém sua integridade e funcionalidade por muitos anos, mesmo nas condições mais adversas. Além disso, o design com nó em X assegura maior firmeza e estabilidade, garantindo que a cerca permaneça intacta mesmo sob pressões externas.\n\nA Campeira Maxx também se destaca pela sua praticidade na instalação. A cerca vem pronta para uso, o que facilita o processo de instalação e economiza tempo e mão de obra. Esta praticidade, combinada com a alta durabilidade do produto, resulta em uma solução de cercamento que exige menor manutenção ao longo do tempo, proporcionando economia a longo prazo. Outro grande diferencial da Campeira Maxx é a garantia de 5 anos que a Insul oferece, refletindo a confiança na qualidade e na durabilidade do produto. Além disso, a harmonia estética da cerca é um ponto importante, pois, além de funcional, ela se integra perfeitamente ao ambiente, conferindo uma aparência organizada e profissional à propriedade.\n\nPara varejistas e revendedores, a cerca pronta Campeira Maxx Insul representa uma oportunidade única de agregar valor ao seu mix de produtos. Sua exclusividade e diferenciais de qualidade aumentam o potencial de vendas e fortalecem a reputação da loja como fornecedora de produtos de alta qualidade e também de oferecer uma alternativa mais moderna, prática e resistente à cerca de confecção manual de arame ovalado. A alta demanda por cercas resistentes e duradouras, aliada à exclusividade da tecnologia de nó em X e toda qualidade oferecida pela cerca pronta Campeira Maxx Insul, garante um alto potencial de vendas e fidelização de clientes. Com um produto tão completo, a satisfação do cliente é garantida, reduzindo reclamações, aumentando a fidelização e seus lucros. Escolha a cerca pronta Campeira Maxx Insul e descubra como uma cerca pode fazer a diferença em sua propriedade, unindo inovação, qualidade e praticidade em um só produto.",
     to: "/cercas-prontas/campeira-maxx",
   },
   {
-    src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Cerca Pronta",
+    src: "https://res.cloudinary.com/kcqitv3l/image/upload/w_800,q_auto,f_auto/v1784917794/CAMPEIRA_t68olb.png",
+    title: "Cerca Pronta(rurais)",
     name: "Cerca Campeira Insul",
     paragraph:
       "Fio 2,30 mm, Aço galvanizado a fogo, Malha bifásica, Nó tradicional",
+    shortDescription:
+      "Modelo tradicional e consagrado da Insul, ideal para contenção de ovinos, caprinos e suínos. Fio galvanizado a fogo com 5 anos de garantia.",
+    postSpacing: "6 - 8m",
+    animals: ["Bovino", "Cães", "Caprino", "Suínos", "Ovinos"],
     description:
       "A cerca pronta Campeira Insul é sinônimo de tradição e excelência no mercado de cercas prontas, sendo amplamente reconhecida entre consumidores pela sua eficiência e confiabilidade. Desenvolvida para a contenção de animais de médio porte, como ovinos, caprinos e suínos, a Campeira Insul se destaca não apenas por sua popularidade, mas também pelos diferenciais de qualidade que fazem toda a diferença. A qualidade Insul é o que coloca a Campeira à frente dos demais produtos do mercado.\n\nCada cerca é fabricada com rigorosos padrões de qualidade, utilizando arames Gerdau de alta qualidade, que recebem galvanização a fogo para garantir resistência superior à corrosão. Esse processo assegura uma maior resistência e alta durabilidade, proporcionando uma cerca que mantém sua integridade e funcionalidade por muitos anos, mesmo nas condições mais adversas.\n\nAlém de sua resistência, a Campeira Insul se destaca pela praticidade na instalação. Ela já vem pronta para uso, o que facilita o trabalho no campo e reduz significativamente o tempo de instalação. Essa praticidade, aliada a um menor custo de manutenção, torna a Campeira Insul uma escolha econômica e eficiente para proprietários rurais que buscam otimizar seus investimentos sem abrir mão da qualidade. A Insul oferece uma garantia de 5 anos para a Campeira, refletindo a confiança na durabilidade e no desempenho superior do produto.\n\nOutro diferencial importante é a adaptação ao relevo do terreno, permitindo que a cerca se integre de forma contínua e eficaz, independentemente das variações topográficas. Essa característica garante uma contenção segura e estável, adaptada às necessidades específicas de cada propriedade. A harmonia estética é outro ponto de destaque da Campeira Insul. Além de funcional, a cerca confere uma aparência organizada e profissional à propriedade, valorizando o ambiente rural e demonstrando cuidado e atenção aos detalhes.\n\nPara lojistas e revendedores, incluir a cerca pronta Campeira Insul em seu mix de produtos é uma decisão estratégica que agrega valor ao portfólio. Ao oferecer um produto de alta qualidade, que é reconhecido e confiado pelos consumidores, você atrai um público exigente e fideliza clientes que buscam soluções duradouras e eficientes. Com a crescente demanda por cercas prontas, a Campeira Insul garante um alto potencial de vendas e contribui para o fortalecimento da reputação do seu estabelecimento.",
     to: "/cercas-prontas/campeira",
   },
   {
-    src: "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Cerca Pronta",
+    src: "https://res.cloudinary.com/kcqitv3l/image/upload/w_800,q_auto,f_auto/v1784917794/CAMPEIRA-BOI_qyuhzs.png",
+    title: "Cerca Pronta(rurais)",
     name: "Cerca Campeira Boi Insul",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha 30 cm x 20 cm, Nó em X (stiff stay)",
+    shortDescription:
+      "Nó em X exclusivo e malha 30x20cm para contenção de bovinos e animais de grande porte, com ruptura de até 700 kgf mesmo em terrenos irregulares.",
+    postSpacing: "6 - 8m",
+    animals: ["Bovino"],
     description:
       "A cerca pronta Campeira Boi Insul é a solução ideal para quem precisa de segurança e durabilidade na contenção de animais de médio e grande porte. Este produto exclusivo da Insul é o único no mercado com o inovador nó em X (stiff stay), uma tecnologia que proporciona maior resistência e estabilidade, assegurando que a cerca permaneça firme e funcional mesmo sob pressão intensa. Desenvolvida para enfrentar as condições mais desafiadoras, a Campeira Boi Insul se destaca por sua carga de ruptura de 700kgf, o que a torna altamente eficaz para conter bovinos, equinos e outros animais de grande porte.\n\nSua construção robusta e materiais de alta qualidade garantem uma cerca que não apenas cumpre seu papel de contenção, mas que também resiste ao desgaste do tempo. A durabilidade é um dos pilares da Campeira Boi Insul. Fabricada pela Insul com arames Gerdau de alta qualidade, que recebem galvanização a fogo, essa cerca oferece resistência superior à corrosão e longevidade, resultando em um produto que mantém sua integridade por anos, mesmo em ambientes adversos. Além disso, a cerca é projetada para se adequar ao relevo do terreno, garantindo uma instalação eficiente e proteção contínua, independentemente das variações topográficas.\n\nA praticidade na instalação é outro ponto forte da Campeira Boi Insul. A cerca vem pronta para uso, o que reduz significativamente o tempo e o esforço necessários para a montagem. Isso, combinado com seu menor custo de manutenção, faz da Campeira Boi uma escolha econômica e eficiente para proprietários rurais que buscam otimizar seus investimentos.\n\nPara varejistas e revendedores, a inclusão da cerca pronta Campeira Boi Insul no mix de produtos representa uma excelente oportunidade de negócio. Este produto exclusivo e de alta qualidade atrai um público qualificado, composto por proprietários rurais que buscam soluções robustas e duráveis. Ao disponibilizar a Campeira Boi em sua loja, você não apenas oferece um produto diferenciado que atende às necessidades do mercado, mas também oferece uma alternativa mais moderna, prática e resistente à cerca de confecção manual de arame ovalado, além de fortalece a reputação do seu estabelecimento como um fornecedor de itens de primeira linha. A alta demanda por cercas resistentes e duradouras, aliada à exclusividade da tecnologia de nó em X e toda qualidade oferecida pela cerca pronta Campeira Boi Insul, garante um alto potencial de vendas e fidelização de clientes.\n\nA Insul oferece uma garantia de 5 anos para a Campeira Boi, refletindo nossa confiança na qualidade e na durabilidade deste produto. Além de sua funcionalidade superior, a cerca também se integra de maneira harmoniosa ao ambiente, proporcionando uma estética organizada e profissional para sua propriedade. A cerca pronta Campeira Boi Insul é, portanto, a escolha ideal para quem precisa de uma solução de cercamento confiável, resistente e duradoura, que ofereça segurança tanto para os animais quanto para a propriedade. Com a combinação única de inovação, qualidade e praticidade, a Campeira Boi Insul é um investimento seguro e eficaz para o seu negócio.",
     to: "/cercas-prontas/campeira-boi",
   },
 ];
 
-// TODO: trocar pelas fotos reais de cada modelo e ajustar as descrições dos hotspots
 const cercasProntasCarousel: CercaSlide[] = [
   {
     src: "https://images.unsplash.com/photo-1571898223382-0aa3499f0f2a?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0",
@@ -588,7 +611,7 @@ const cercaGalleryImages: Record<
       src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350970/img_maxx_9_pjq87v.jpg",
       alt: "Cerca Insul",
     },
-  ], //colocar imagens da Maxx
+  ],
   "campeira-boi": [
     {
       src: "/images/img_campeiraBoi_carousel/campeira-img-1.jpg",

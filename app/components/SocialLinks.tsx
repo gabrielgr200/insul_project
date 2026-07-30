@@ -17,8 +17,8 @@ const socials = [
     Icon: FaWhatsapp,
     color: "#25D366",
   },
-  { label: "Youtube", href: "https://www.youtube.com/@CasadasCercas", Icon: FaYoutube, color: "#FF0000" },
-  { label: "Instagram", href: "https://www.instagram.com/casadascercas/", Icon: FaInstagram, gradient: true },
+  { label: "Youtube", href: "https://www.youtube.com/@insultelas", Icon: FaYoutube, color: "#FF0000" },
+  { label: "Instagram", href: "https://www.instagram.com/insultelas/", Icon: FaInstagram, gradient: true },
   { label: "Casa das Cercas", href: "https://www.casadascercas.com.br", Icon: FaGlobe, color: "#1b76bc" },
 ];
 

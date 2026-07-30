@@ -38,13 +38,23 @@ const HomePage = () => {
       content: "#smooth-content",
       smooth: 1.8,
       effects: true,
+      normalizeScroll: true,
     });
 
     const handleLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", handleLoad);
 
+    let refreshTimeout: ReturnType<typeof setTimeout>;
+    const resizeObserver = new ResizeObserver(() => {
+      clearTimeout(refreshTimeout);
+      refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    if (contentRef.current) resizeObserver.observe(contentRef.current);
+
     return () => {
       window.removeEventListener("load", handleLoad);
+      clearTimeout(refreshTimeout);
+      resizeObserver.disconnect();
       smoother && smoother.kill();
     };
   }, []);
@@ -69,7 +79,7 @@ const HomePage = () => {
       </AnimatePresence>
       <Header />
       <div id="smooth-wrapper">
-        <main id="smooth-content" ref={contentRef}>
+        <main id="smooth-content" ref={contentRef} className="pt-px">
           <hr className="text-zinc-800 -mt-2" />
           <Hero ready={!loading} />
           <h3 className="text-center text-[#002d4d] dark:text-white font-bold text-2xl poppins py-20">

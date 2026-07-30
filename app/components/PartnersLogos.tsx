@@ -11,18 +11,31 @@ const partnerLogos = [
   { name: "Empresa 5", image: "/images/Braskem.webp" },
 ];
 
-const allLogos = [...partnerLogos, ...partnerLogos];
+const REPEAT_COUNT = 8;
+const allLogos = Array.from({ length: REPEAT_COUNT }, () => partnerLogos).flat();
+
+const PIXELS_PER_SECOND = 60;
 
 const PartnersLogos = () => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const repeatStartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    const repeatStart = repeatStartRef.current;
+    if (!container || !repeatStart) return;
+
     const ctx = gsap.context(() => {
-      gsap.to(containerRef.current, {
-        xPercent: -50,
-        duration: 25,
+      const distance =
+        repeatStart.getBoundingClientRect().left -
+        container.getBoundingClientRect().left;
+
+      gsap.to(container, {
+        x: -distance,
+        duration: distance / PIXELS_PER_SECOND,
         repeat: -1,
         ease: "linear",
+        force3D: true,
       });
     }, containerRef);
     return () => ctx.revert();
@@ -33,12 +46,13 @@ const PartnersLogos = () => {
       <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div
           ref={containerRef}
-          className="flex gap-16 pr-16 w-max items-center"
+          className="flex gap-16 w-max items-center will-change-transform"
         >
           {allLogos.map((logo, i) =>
             logo.image ? (
               <div
                 key={`${logo.name}-${i}`}
+                ref={i === partnerLogos.length ? repeatStartRef : undefined}
                 className="flex h-16 w-36 flex-shrink-0 items-center justify-center"
               >
                 <img
@@ -50,6 +64,7 @@ const PartnersLogos = () => {
             ) : (
               <div
                 key={`${logo.name}-${i}`}
+                ref={i === partnerLogos.length ? repeatStartRef : undefined}
                 className="h-16 w-36 flex items-center justify-center bg-zinc-100 rounded-md text-zinc-400 text-sm font-medium flex-shrink-0"
               >
                 {logo.name}

@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 
 const reels = [
-  { src: "/videos/fenix.mp4", name: "Cerca Fênix Insul" },
-  { src: "/videos/campeira.mp4", name: "Cerca Campeira Insul" },
-  { src: "/videos/campeira-maxx.mp4", name: "Cerca Campeira Maxx Insul" },
-  { src: "/videos/campeira-boi.mp4", name: "Cerca Campeira Boi Insul" },
-  { src: "/videos/produtorRural.mp4", name: "Produtor Rural" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433064/fenix_xuz2jb.mp4", name: "Cerca Fênix Insul" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433078/campeira_adheng.mp4", name: "Cerca Campeira Insul" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433212/campeira-maxx_rykqie.mp4", name: "Cerca Campeira Maxx Insul" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433065/campeira-boi_insdku.mp4", name: "Cerca Campeira Boi Insul" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433133/produtorRural_ov2xht.mp4", name: "Produtor Rural" },
 ];
 
 const setAt = <T,>(arr: T[], i: number, value: T): T[] =>
