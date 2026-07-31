@@ -59,7 +59,7 @@ const CardPost = () => {
   };
 
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8">
+    <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8 dark:bg-white/5">
       <div className="relative mx-auto max-w-xl text-center">
         <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
           Vídeos

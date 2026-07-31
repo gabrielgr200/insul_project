@@ -36,7 +36,7 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
   return (
     <div
       title={animal}
-      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15"
+      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
     >
       {src && !broken ? (
         <img
@@ -46,7 +46,7 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
           onError={() => setBroken(true)}
         />
       ) : (
-        <span className="text-[10px] font-semibold text-[#002d4d]/70">
+        <span className="text-[10px] font-semibold text-[#002d4d]/70 dark:text-white/70">
           {animal.charAt(0)}
         </span>
       )}
@@ -57,9 +57,15 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
 const PostSpacingDiagram = ({ value }: { value: string }) => (
   <div className="flex flex-col items-center gap-1.5">
     <svg width="176" height="66" viewBox="0 0 176 66" fill="none">
-      <rect x="4" y="4" width="7" height="52" fill="#8a94a3" />
-      <rect x="165" y="4" width="7" height="52" fill="#8a94a3" />
-      <g stroke="#4a5568" strokeWidth="1">
+      <g className="text-[#8a94a3] dark:text-white/50" fill="currentColor">
+        <rect x="4" y="4" width="7" height="52" />
+        <rect x="165" y="4" width="7" height="52" />
+      </g>
+      <g
+        className="text-[#4a5568] dark:text-white/30"
+        stroke="currentColor"
+        strokeWidth="1"
+      >
         {Array.from({ length: 9 }).map((_, i) => (
           <line
             key={`v-${i}`}
@@ -115,7 +121,7 @@ const PostSpacingDiagram = ({ value }: { value: string }) => (
         </marker>
       </defs>
     </svg>
-    <p className="mourao-label text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60">
+    <p className="mourao-label text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/60">
       Espaçamento entre mourões
     </p>
     <p className="mourao-value poppins text-xl font-bold text-[#ff5500]">
@@ -328,9 +334,9 @@ const ProductCard = ({
   }, [open]);
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 cursor-pointer">
+    <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 cursor-pointer dark:bg-white/5 dark:ring-white/10">
       <div
-        className="group relative h-56 overflow-hidden bg-[#f5f5f5] sm:h-64"
+        className="group relative h-56 overflow-hidden bg-[#f5f5f5] dark:bg-white/5 sm:h-64"
         onMouseEnter={handleInfoPanelEnter}
       >
         {/* Panel 1: product photo — shrinks to the left on hover instead of leaving */}
@@ -342,14 +348,14 @@ const ProductCard = ({
           />
           <div className="absolute bottom-4 left-5">
             <p className="font-semibold text-[#ff5500]">{name}</p>
-            <p className="text-xs text-[#002d4d]/70">{title}</p>
+            <p className="text-xs text-[#002d4d]/70 dark:text-white/70">{title}</p>
           </div>
 
           {to && (
             <Link
               ref={ctaRef}
               href={to}
-              className="group/cta absolute bottom-4 right-4 rounded-full bg-[#002d4d]/10 px-6 py-2 text-xs font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20"
+              className="group/cta absolute bottom-4 right-4 rounded-full bg-[#002d4d]/10 px-6 py-2 text-xs font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:ring-white/20 dark:hover:bg-white/20"
             >
               <span className="relative block h-4 overflow-hidden">
                 <span className="block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4">
@@ -368,7 +374,7 @@ const ProductCard = ({
 
         {/* Panel 2: post spacing + animals — slides in from the right, alongside the shrunk photo */}
         {(postSpacing || animals?.length > 0) && (
-          <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0">
+          <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0 dark:bg-white/5">
             {postSpacing && (
               <div ref={diagramRef}>
                 <PostSpacingDiagram value={postSpacing} />
@@ -376,7 +382,7 @@ const ProductCard = ({
             )}
             {animals?.length > 0 && (
               <div>
-                <p className="indicado-label mb-1.5 text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60">
+                <p className="indicado-label mb-1.5 text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/60">
                   Indicado para
                 </p>
                 <div
@@ -399,13 +405,13 @@ const ProductCard = ({
             {paragraph.split(", ").map((spec) => (
               <span
                 key={spec}
-                className="inline-block rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600"
+                className="inline-block rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-white/10 dark:text-white/70"
               >
                 {spec.trim()}
               </span>
             ))}
           </div>
-          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500">{shortDescription}</p>
+          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500 dark:text-white/60">{shortDescription}</p>
         </div>
       </div>
 
@@ -414,7 +420,7 @@ const ProductCard = ({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`}
-        className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer"
+        className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer dark:text-white/40 dark:hover:text-white/70"
       >
         <ChevronDown ref={chevronRef} size={18} />
         <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs font-medium opacity-0 transition-all duration-200 ease-out group-hover:max-w-[3rem] group-hover:opacity-100">
