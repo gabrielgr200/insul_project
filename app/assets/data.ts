@@ -111,6 +111,7 @@ const poductsCardsPages: ProductCardData[] = [
       "Bovino",
       "Capivara",
       "Cães",
+      "Caprino",
       "Avestruz",
       "Ovinos",
       "Suínos",
@@ -224,7 +225,7 @@ const cercasProntasCarousel: CercaSlide[] = [
 const roomDetails: RoomDetail[] = [
   {
     src: "https://i.postimg.cc/mkF4GvBv/DSC-4281.jpg",
-    name: "Cercas Prontas",
+    name: "Cercas Prontas(rurais)",
     to: "/cercas-prontas",
   },
   {

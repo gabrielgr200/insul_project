@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ChevronDown } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
 
-const ANIMAL_IMAGES: Record<string, string> = {
+export const ANIMAL_IMAGES: Record<string, string> = {
   Avestruz:
     "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/avestruz_xtomjl.png",
   Bovino:

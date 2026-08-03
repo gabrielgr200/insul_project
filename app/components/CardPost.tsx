@@ -15,7 +15,7 @@ const reels = [
   { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433078/campeira_adheng.mp4", name: "Cerca Campeira Insul" },
   { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433212/campeira-maxx_rykqie.mp4", name: "Cerca Campeira Maxx Insul" },
   { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433065/campeira-boi_insdku.mp4", name: "Cerca Campeira Boi Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433133/produtorRural_ov2xht.mp4", name: "Produtor Rural" },
+  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785496903/queda-da-arvore_tzvcoq.mp4", name: "A resistência das cercas" },
 ];
 
 const setAt = <T,>(arr: T[], i: number, value: T): T[] =>

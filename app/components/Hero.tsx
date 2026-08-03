@@ -46,8 +46,21 @@ const Hero = ({ ready = true }) => {
       <section
         id="inicio"
         ref={rootRef}
-        className="max-w-7xl mt-30 mx-auto p-4 sm:p-8 pb-0 mb-0"
+        className="relative max-w-7xl mt-30 mx-auto p-4 sm:p-8 pb-0 mb-0"
       >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 text-black/[0.05] dark:text-white/[0.06]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+            backgroundSize: "200px 200px",
+            maskImage:
+              "radial-gradient(ellipse 75% 70% at 45% 40%, black 35%, transparent 78%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 75% 70% at 45% 40%, black 35%, transparent 78%)",
+          }}
+        />
         <div className="flex relative flex-col lg:flex-row lg:space-x-12 overflow-clip">
           <div className="lg:w-1/2">
             <h1 className="text-7xl sm:text-8xl font-medium leading-none mb-6">
