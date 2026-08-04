@@ -19,13 +19,13 @@ import Footer from "../components/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-
-let hasShownLoader = false;
+import { scrollToSection } from "../utils/ScrollToSection";
+import { hasSiteLoaded, markSiteLoaded } from "../utils/siteLoaded";
 
 const HomePage = () => {
-  const [loading, setLoading] = useState(() => !hasShownLoader);
+  const [loading, setLoading] = useState(() => !hasSiteLoaded());
   const handleComplete = useCallback(() => {
-    hasShownLoader = true;
+    markSiteLoaded();
     setLoading(false);
   }, []);
   const contentRef = useRef(null);
@@ -61,7 +61,11 @@ const HomePage = () => {
 
   useEffect(() => {
     if (loading) return;
-    const timeout = setTimeout(() => ScrollTrigger.refresh(), 950);
+    const timeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+      const hash = window.location.hash.replace("#", "");
+      if (hash) scrollToSection(hash);
+    }, 950);
     return () => clearTimeout(timeout);
   }, [loading]);
 

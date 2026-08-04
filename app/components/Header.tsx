@@ -8,6 +8,7 @@ import NavBtn from "./NavBtn";
 import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
+import { markSiteLoaded } from "../utils/siteLoaded";
 import { productCategories } from "../assets/data";
 import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
 import FillButton from "./FillButton";
@@ -39,6 +40,10 @@ const Header = () => {
   const beginPageTransition = useBeginPageTransition();
   const isHome = pathname === "/";
 
+  useEffect(() => {
+    markSiteLoaded();
+  }, []);
+
   const goHome = () => {
     if (isHome) {
       scrollToSection("inicio");
@@ -48,13 +53,24 @@ const Header = () => {
     }
   };
 
+  const goToSection = (id: string) => {
+    if (isHome) {
+      scrollToSection(id);
+    } else {
+      beginPageTransition();
+      // scroll:false evita o scroll nativo do Next para o hash, que briga
+      // com o ScrollSmoother (baseado em transform) e "puxa" de volta pro topo
+      router.push(`/#${id}`, { scroll: false });
+    }
+  };
+
   const handleNavigate = (id?: string) => {
     if (id) setActiveId(id);
   };
 
   const toProdutos = (label: string) => ({
     label,
-    onClick: () => scrollToSection("produtos"),
+    onClick: () => goToSection("produtos"),
   });
 
   const cercaSlugByLabel: Record<string, string> = {
@@ -131,11 +147,13 @@ const Header = () => {
             columns={produtosColumns}
             active={activeId === "produtos"}
             onNavigate={handleNavigate}
+            onLabelClick={() => goToSection("produtos")}
           />
           <NavBtn
             to="catalogo"
             active={activeId === "catalogo"}
             onNavigate={handleNavigate}
+            onClick={() => goToSection("catalogo")}
           >
             Catálogo
           </NavBtn>
@@ -143,6 +161,7 @@ const Header = () => {
             to="industria"
             active={activeId === "industria"}
             onNavigate={handleNavigate}
+            onClick={() => goToSection("industria")}
           >
             Indústria
           </NavBtn>

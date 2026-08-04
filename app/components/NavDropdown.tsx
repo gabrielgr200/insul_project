@@ -60,6 +60,7 @@ interface NavDropdownProps {
   columns?: NavDropdownColumn[];
   active?: boolean;
   onNavigate?: (id?: string) => void;
+  onLabelClick?: () => void;
 }
 
 const NavDropdown = ({
@@ -70,6 +71,7 @@ const NavDropdown = ({
   columns,
   active = false,
   onNavigate,
+  onLabelClick,
 }: NavDropdownProps) => {
   const [open, setOpen] = useState(false);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -86,7 +88,11 @@ const NavDropdown = ({
 
   const handleLabelClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (to) scrollToSection(to);
+    if (onLabelClick) {
+      onLabelClick();
+    } else if (to) {
+      scrollToSection(to);
+    }
     onNavigate?.(navId);
     setOpen(false);
   };

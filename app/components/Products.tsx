@@ -30,7 +30,7 @@ const Products = () => {
 
       tl.from(".PRODUCTS-TITLE", { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" })
         .from(
-          ".PRODUCTS-LIST > p",
+          ".PRODUCTS-LIST > *",
           { y: 20, opacity: 0, duration: 0.5, stagger: 0.08 },
           "-=0.3",
         )
