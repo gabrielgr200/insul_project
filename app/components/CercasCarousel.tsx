@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, Plus, X } from "lucide-react";
 import {
   poductsCardsPages,
   cercasProntasInfo,
@@ -390,16 +390,36 @@ const InstalledMeshOverlay = ({
   );
 };
 
-// animal que colide com a tela na animação, por produto
-const SLIDE_ANIMAL: Record<string, string> = {
-  "Cerca Fenix Insul": "Javaporco",
-  "Cerca Campeira Maxx Insul": "Javaporco",
-  "Cerca Campeira Insul": "Caprino",
-  "Cerca Campeira Boi Insul": "Bovino",
+const SLIDE_ANIMALS: Record<
+  string,
+  { animal: string; mode: "collide" | "escape" }[]
+> = {
+  "Cerca Fenix Insul": [
+    { animal: "Javaporco", mode: "collide" },
+    { animal: "Ganso", mode: "escape" },
+  ],
+  "Cerca Campeira Maxx Insul": [
+    { animal: "Javaporco", mode: "collide" },
+    { animal: "Avestruz", mode: "escape" },
+  ],
+  "Cerca Campeira Insul": [{ animal: "Ovinos", mode: "collide" }],
+  "Cerca Campeira Boi Insul": [{ animal: "Bovino", mode: "collide" }],
 };
 
-// ordem crescente de abrangência: cada tela seguinte contém os animais da
-// anterior + novos animais (mesma lógica da tabela comparativa de referência)
+const ESCAPE_ANIMAL_HEIGHT: Record<string, string> = {
+  Ganso: "h-[13%]",
+  Avestruz: "h-[36%]",
+};
+
+const COLLIDE_ANIMAL_HEIGHT: Record<string, string> = {
+  Ovinos: "h-[27%]",
+  Bovino: "h-[60%]",
+};
+
+const COLLIDE_ANIMAL_BOTTOM: Record<string, string> = {
+  Bovino: "-2%",
+};
+
 const TELA_ORDER = [
   "Cerca Campeira Boi Insul",
   "Cerca Campeira Insul",
@@ -420,52 +440,140 @@ const TELA_META: Record<string, { name: string; color: string }> =
     }),
   );
 
-// lista de todos os animais, em ordem de "primeira aparição" subindo de tela
-// em tela — a Fenix é a única que cobre todos, por isso fica no topo
-const ALL_ANIMALS = (() => {
-  const ordered: string[] = [];
-  const seen = new Set<string>();
-  TELA_ORDER.forEach((telaLabel) => {
-    const product = poductsCardsPages.find((p) => p.name === telaLabel);
-    product?.animals.forEach((animal) => {
-      if (!seen.has(animal)) {
-        seen.add(animal);
-        ordered.push(animal);
-      }
-    });
-  });
-  return ordered;
-})();
+const ANIMAL_BASE_HEIGHT: Record<string, number> = {
+  Bovino: 100,
+  Cães: 76,
+  Caprino: 64,
+  Suínos: 90,
+  Ovinos: 90,
+  Capivara: 96,
+  Avestruz: 86,
+  Javaporco: 96,
+  Galinha: 40,
+  Ganso: 46,
+};
 
-const COV_CHART_W = 640;
-const COV_CHART_H = 240;
-const COV_PAD_L = 112;
-const COV_PAD_R = 24;
-const COV_PAD_T = 26;
-const COV_PAD_B = 56;
-const COV_PLOT_W = COV_CHART_W - COV_PAD_L - COV_PAD_R;
-const COV_PLOT_H = COV_CHART_H - COV_PAD_T - COV_PAD_B;
+const TELA_ANIMAL_HEIGHT_OVERRIDE: Record<string, Record<string, number>> = {
+  "Cerca Campeira Insul": {
+    Ovinos: 80,
+    Suínos: 80,
+    Caprino: 80,
+    Bovino: 92,
+  },
+  "Cerca Campeira Maxx Insul": {
+    Bovino: ANIMAL_BASE_HEIGHT.Javaporco,
+  },
+};
 
-// eixo x = todos os animais; eixo y = as 4 telas (Boi embaixo, Fenix no topo)
-const covX = (i: number) =>
-  COV_PAD_L + (i / (ALL_ANIMALS.length - 1)) * COV_PLOT_W;
+const getAnimalBarHeight = (animal: string, telaLabel: string) =>
+  TELA_ANIMAL_HEIGHT_OVERRIDE[telaLabel]?.[animal] ??
+  ANIMAL_BASE_HEIGHT[animal];
 
-const covY = (tier: number) =>
-  COV_PAD_T + (1 - (tier - 1) / (TELA_ORDER.length - 1)) * COV_PLOT_H;
+const telaContainsAnimal = (telaLabel: string, animal: string) => {
+  const product = poductsCardsPages.find((p) => p.name === telaLabel);
+  return product?.animals.includes(animal) ?? false;
+};
 
-// para cada animal, a tela mais simples que já é suficiente para contê-lo —
-// um único ponto por animal, mostrando qual tela é a indicada para cada bicho
-const ANIMAL_BEST_TELA = ALL_ANIMALS.map((animal, i) => {
-  const tierIdx = TELA_ORDER.findIndex((telaLabel) => {
-    const product = poductsCardsPages.find((p) => p.name === telaLabel);
-    return product?.animals.includes(animal);
-  });
-  const tier = tierIdx + 1;
-  const telaLabel = TELA_ORDER[tierIdx];
-  return { animal, telaLabel, x: covX(i), y: covY(tier) };
+const ANIMAL_CLASSES: {
+  label: string;
+  animals: string[];
+  collapseIcon?: string;
+}[] = [
+  { label: "Bovinos", animals: ["Bovino"] },
+  { label: "Caprinos", animals: ["Caprino"] },
+  { label: "Ovinos", animals: ["Ovinos"] },
+  { label: "Suínos", animals: ["Suínos", "Javaporco"] },
+  {
+    label: "Aves",
+    animals: ["Avestruz", "Galinha", "Ganso"],
+    collapseIcon: "Avestruz",
+  },
+  { label: "Cães e silvestres", animals: ["Cães", "Capivara"] },
+];
+
+interface ChartItem {
+  key: string;
+  displayLabel: string;
+  iconAnimal: string;
+  coverageAnimals: string[];
+  baseHeight: number;
+  classLabel: string;
+}
+
+const ANIMAL_DISPLAY_NAME: Record<string, string> = {
+  Bovino: "Bovinos",
+  Caprino: "Caprinos",
+};
+
+const CHART_ITEMS: ChartItem[] = ANIMAL_CLASSES.flatMap((c) => {
+  if (c.collapseIcon) {
+    return [
+      {
+        key: c.label,
+        displayLabel: c.label,
+        iconAnimal: c.collapseIcon,
+        coverageAnimals: c.animals,
+        baseHeight: Math.max(...c.animals.map((a) => ANIMAL_BASE_HEIGHT[a])),
+        classLabel: c.label,
+      },
+    ];
+  }
+  return c.animals.map((animal) => ({
+    key: animal,
+    displayLabel: ANIMAL_DISPLAY_NAME[animal] ?? animal,
+    iconAnimal: animal,
+    coverageAnimals: [animal],
+    baseHeight: ANIMAL_BASE_HEIGHT[animal],
+    classLabel: c.label,
+  }));
 });
 
-const ANIMAL_PATH = ANIMAL_BEST_TELA.map((p) => `${p.x},${p.y}`).join(" ");
+const BAR_MAX_VALUE = Math.max(
+  ...CHART_ITEMS.map((i) => i.baseHeight),
+  ...Object.values(TELA_ANIMAL_HEIGHT_OVERRIDE).flatMap((o) =>
+    Object.values(o),
+  ),
+);
+
+const BAR_MIN_VALUE = 5;
+
+const ANIMAL_CLASS_RANGES = (() => {
+  let idx = 0;
+  return ANIMAL_CLASSES.map((c) => {
+    const start = idx;
+    idx += c.collapseIcon ? 1 : c.animals.length;
+    return { label: c.label, start, end: idx - 1 };
+  });
+})();
+
+const BAR_CHART_W = 640;
+const BAR_CHART_H = 276;
+const BAR_PAD_L = 46;
+const BAR_PAD_R = 20;
+const BAR_PAD_T = 24;
+const BAR_PAD_B = 76;
+const BAR_PLOT_W = BAR_CHART_W - BAR_PAD_L - BAR_PAD_R;
+const BAR_PLOT_H = BAR_CHART_H - BAR_PAD_T - BAR_PAD_B;
+const BAR_PLOT_BOTTOM = BAR_PAD_T + BAR_PLOT_H;
+
+const BAR_SLOT_W = BAR_PLOT_W / CHART_ITEMS.length;
+const BAR_WIDTH = BAR_SLOT_W * 0.55;
+
+const barX = (i: number) => BAR_PAD_L + BAR_SLOT_W * i + BAR_SLOT_W / 2;
+const slotEdgeX = (i: number) => BAR_PAD_L + BAR_SLOT_W * i;
+
+const BAR_PALETTE = [
+  "#b5c327",
+  "#4fc1c1",
+  "#1f3d5c",
+  "#e0575b",
+  "#f5a623",
+  "#8a6fbe",
+  "#2fb6a5",
+  "#d94f70",
+];
+
+const BAR_GRID_TICKS = [0, 0.25, 0.5, 0.75, 1];
 
 const JavaliCollision = ({
   activeLabel,
@@ -474,39 +582,80 @@ const JavaliCollision = ({
   activeLabel: string;
   trigger: boolean;
 }) => {
-  const animalSrc = ANIMAL_IMAGES[SLIDE_ANIMAL[activeLabel]] ?? null;
   const rootRef = useRef<HTMLDivElement>(null);
+  const slideAnimals = SLIDE_ANIMALS[activeLabel] ?? [];
 
   useGSAP(() => {
     const root = rootRef.current;
     if (!root) return;
-    const javali = root.querySelector<HTMLImageElement>(".javali-img");
+    const collideImgs = root.querySelectorAll<HTMLImageElement>(".collide-img");
+    const escapeImgs = root.querySelectorAll<HTMLImageElement>(".escape-img");
 
     if (!trigger) {
-      gsap.set(javali, { left: "90%", xPercent: -50, scale: 1, opacity: 0 });
+      gsap.set(collideImgs, {
+        left: "90%",
+        xPercent: -50,
+        scaleX: -1,
+        scaleY: 1,
+        opacity: 0,
+      });
+      gsap.set(escapeImgs, {
+        left: "25%",
+        xPercent: -50,
+        rotate: 0,
+        opacity: 0,
+      });
       return;
     }
 
     const tl = gsap.timeline({ delay: 0.15 });
-    tl.to(javali, { opacity: 1, duration: 0.1 })
-      .to(javali, {
+    tl.to(collideImgs, { opacity: 1, duration: 0.1 })
+      .to(collideImgs, {
         left: "47%",
         duration: 0.55,
         ease: "power1.in",
       })
-      .to(javali, {
-        scaleX: 0.75,
+      .to(collideImgs, {
+        scaleX: -0.75,
         scaleY: 1.2,
         duration: 0.08,
         ease: "power1.out",
       })
-      .to(javali, {
+      .to(collideImgs, {
         left: "63%",
-        scaleX: 1,
+        scaleX: -1,
         scaleY: 1,
         duration: 0.5,
         ease: "power3.out",
       });
+
+    if (escapeImgs.length) {
+      tl.to(escapeImgs, { opacity: 1, duration: 0.1 }, 0.3)
+        .to(
+          escapeImgs,
+          { left: "46%", duration: 0.5, ease: "power1.out" },
+          "-=0.05",
+        )
+        .to(escapeImgs, { rotate: -8, duration: 0.12, ease: "power1.out" })
+        .to(escapeImgs, {
+          left: "38%",
+          rotate: 5,
+          duration: 0.35,
+          ease: "power2.out",
+        })
+        .to(escapeImgs, {
+          left: "45%",
+          rotate: -6,
+          duration: 0.35,
+          ease: "power2.inOut",
+        })
+        .to(escapeImgs, {
+          left: "39%",
+          rotate: 0,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+    }
 
     return () => {
       tl.kill();
@@ -514,18 +663,45 @@ const JavaliCollision = ({
   }, [trigger]);
 
   return (
-    <div
-      ref={rootRef}
-      className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
-    >
-      {animalSrc && (
-        <img
-          src={animalSrc}
-          alt={`${SLIDE_ANIMAL[activeLabel]} colidindo com a tela`}
-          className="javali-img absolute h-[21%] w-auto drop-shadow-md"
-          style={{ bottom: "15%" }}
-        />
-      )}
+    <div ref={rootRef} className="pointer-events-none absolute inset-0">
+      <div className="absolute inset-0 z-[5] overflow-hidden">
+        {slideAnimals
+          .filter(({ mode }) => mode === "escape")
+          .map(({ animal }) => {
+            const src = ANIMAL_IMAGES[animal];
+            if (!src) return null;
+            const heightClass = ESCAPE_ANIMAL_HEIGHT[animal] ?? "h-[13%]";
+            return (
+              <img
+                key={animal}
+                src={src}
+                alt={`${animal} tentando escapar pelo cercamento`}
+                className={`escape-img absolute w-auto drop-shadow-md ${heightClass}`}
+                style={{ bottom: "15%" }}
+              />
+            );
+          })}
+      </div>
+
+      <div className="absolute inset-0 z-10 overflow-hidden">
+        {slideAnimals
+          .filter(({ mode }) => mode === "collide")
+          .map(({ animal }) => {
+            const src = ANIMAL_IMAGES[animal];
+            if (!src) return null;
+            const heightClass = COLLIDE_ANIMAL_HEIGHT[animal] ?? "h-[21%]";
+            const bottom = COLLIDE_ANIMAL_BOTTOM[animal] ?? "6%";
+            return (
+              <img
+                key={animal}
+                src={src}
+                alt={`${animal} colidindo com a tela`}
+                className={`collide-img absolute w-auto drop-shadow-md ${heightClass}`}
+                style={{ bottom }}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };
@@ -536,58 +712,22 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
   useGSAP(() => {
     const root = rootRef.current;
     if (!root) return;
-    const paths = root.querySelectorAll<SVGPolylineElement>(".coverage-path");
-    const points = root.querySelectorAll<SVGCircleElement>(".coverage-point");
-    const icons = root.querySelectorAll<SVGImageElement>(".coverage-icon");
+    const bars = root.querySelectorAll<SVGRectElement>(".coverage-bar");
 
-    gsap.set(paths, {
+    gsap.to(bars, {
       attr: {
-        strokeDasharray: (_i: number, target: SVGPolylineElement) =>
-          target.getTotalLength(),
-        strokeDashoffset: (_i: number, target: SVGPolylineElement) =>
-          target.getTotalLength(),
+        height: (_i: number, target: SVGRectElement) =>
+          Number(target.dataset.targetH ?? 0),
+        y: (_i: number, target: SVGRectElement) =>
+          Number(target.dataset.targetY ?? BAR_PLOT_BOTTOM),
       },
-    });
-    gsap.set(points, { attr: { r: 0 } });
-    gsap.set(icons, { attr: { opacity: 0 } });
-
-    const tl = gsap.timeline({ delay: 0.2 });
-    tl.to(paths, {
-      attr: { strokeDashoffset: 0 },
-      duration: 0.9,
+      duration: 0.7,
+      stagger: 0.04,
       ease: "power2.out",
-    })
-      .to(
-        points,
-        {
-          attr: {
-            r: (_i: number, target: SVGCircleElement) =>
-              Number(target.dataset.r ?? 4),
-          },
-          duration: 0.35,
-          stagger: 0.04,
-          ease: "back.out(2.5)",
-        },
-        "-=0.5",
-      )
-      .to(
-        icons,
-        {
-          attr: {
-            opacity: (_i: number, target: SVGImageElement) =>
-              Number(target.dataset.opacity ?? 1),
-          },
-          duration: 0.35,
-          stagger: 0.04,
-          ease: "power1.out",
-        },
-        "-=0.3",
-      );
+    });
+  }, [activeLabel]);
 
-    return () => {
-      tl.kill();
-    };
-  }, []);
+  const activeName = TELA_META[activeLabel]?.name ?? activeLabel;
 
   return (
     <div
@@ -595,108 +735,116 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
       className="mt-4 w-full rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:p-6"
     >
       <p className="poppins mb-3 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:text-lg">
-        Qual tela é melhor para conter cada animal
+        {activeName}: capacidade de conter cada animal
       </p>
       <svg
-        viewBox={`0 0 ${COV_CHART_W} ${COV_CHART_H}`}
+        viewBox={`0 0 ${BAR_CHART_W} ${BAR_CHART_H}`}
         className="h-64 w-full overflow-visible sm:h-72"
       >
-        <rect
-          x={COV_PAD_L}
-          y={COV_PAD_T}
-          width={COV_PLOT_W}
-          height={COV_PLOT_H}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1}
-          className="text-black/20 dark:text-white/20"
-        />
-
-        {TELA_ORDER.map((telaLabel, tierIdx) => {
-          const tier = tierIdx + 1;
-          const y = covY(tier);
-          const isActive = telaLabel === activeLabel;
-          const meta = TELA_META[telaLabel];
+        {BAR_GRID_TICKS.map((t) => {
+          const y = BAR_PLOT_BOTTOM - t * BAR_PLOT_H;
           return (
-            <g key={telaLabel}>
-              <line
-                x1={COV_PAD_L}
-                y1={y}
-                x2={COV_CHART_W - COV_PAD_R}
-                y2={y}
-                strokeWidth={1}
-                stroke={isActive ? meta.color : "currentColor"}
-                strokeOpacity={isActive ? 0.35 : 1}
-                className="text-black/10 transition-all duration-300 dark:text-white/10"
-              />
-              <text
-                x={COV_PAD_L - 10}
-                y={y}
-                textAnchor="end"
-                dominantBaseline="middle"
-                fill={isActive ? meta.color : "currentColor"}
-                className={`text-[#002d4d] transition-all duration-300 dark:text-white ${
-                  isActive ? "font-bold" : "font-medium opacity-45"
-                }`}
-                style={{ fontSize: 10 }}
-              >
-                {meta.name}
-              </text>
-            </g>
+            <line
+              key={t}
+              x1={BAR_PAD_L}
+              y1={y}
+              x2={BAR_CHART_W - BAR_PAD_R}
+              y2={y}
+              strokeWidth={1}
+              strokeDasharray="2 3"
+              className="text-black/15 dark:text-white/15"
+              stroke="currentColor"
+            />
           );
         })}
 
-        <polyline
-          className="coverage-path"
-          points={ANIMAL_PATH}
-          fill="none"
-          stroke="#002d4d"
-          strokeWidth={2}
-          strokeLinejoin="round"
-          strokeLinecap="round"
-          opacity={0.55}
-        />
+        {ANIMAL_CLASS_RANGES.slice(1).map((range) => (
+          <line
+            key={range.label}
+            x1={slotEdgeX(range.start)}
+            y1={BAR_PAD_T}
+            x2={slotEdgeX(range.start)}
+            y2={BAR_PLOT_BOTTOM}
+            strokeWidth={1}
+            strokeDasharray="2 3"
+            className="text-black/15 dark:text-white/15"
+            stroke="currentColor"
+          />
+        ))}
 
-        {ANIMAL_BEST_TELA.map((p) => {
-          const isActive = p.telaLabel === activeLabel;
-          const meta = TELA_META[p.telaLabel];
-          const src = ANIMAL_IMAGES[p.animal];
-          const iconSize = isActive ? 24 : 17;
+        {ANIMAL_CLASS_RANGES.filter((range) => range.end > range.start).map(
+          (range) => (
+            <text
+              key={range.label}
+              x={(slotEdgeX(range.start) + slotEdgeX(range.end + 1)) / 2}
+              y={BAR_PLOT_BOTTOM + 62}
+              textAnchor="middle"
+              className="fill-[#002d4d]/55 font-bold uppercase tracking-wide dark:fill-white/55"
+              style={{ fontSize: 8 }}
+            >
+              {range.label}
+            </text>
+          ),
+        )}
+
+        {CHART_ITEMS.map((item, i) => {
+          const supported = item.coverageAnimals.every((a) =>
+            telaContainsAnimal(activeLabel, a),
+          );
+          const isFenix = activeLabel === "Cerca Fenix Insul";
+          const itemHeight = Math.max(
+            ...item.coverageAnimals.map((a) =>
+              getAnimalBarHeight(a, activeLabel),
+            ),
+          );
+          const value = !supported
+            ? BAR_MIN_VALUE
+            : isFenix
+              ? BAR_MAX_VALUE
+              : itemHeight;
+          const targetH = (value / BAR_MAX_VALUE) * BAR_PLOT_H;
+          const targetY = BAR_PLOT_BOTTOM - targetH;
+          const x = barX(i);
+          const color = BAR_PALETTE[i % BAR_PALETTE.length];
+          const src = ANIMAL_IMAGES[item.iconAnimal];
+
           return (
-            <g key={p.animal}>
-              <circle
-                className="coverage-point"
-                data-r={isActive ? 6 : 4}
-                cx={p.x}
-                cy={p.y}
-                r={0}
-                fill={meta.color}
-                opacity={isActive ? 1 : 0.55}
+            <g key={item.key}>
+              <rect
+                className="coverage-bar transition-[fill-opacity] duration-300"
+                data-target-h={targetH}
+                data-target-y={targetY}
+                x={x - BAR_WIDTH / 2}
+                y={BAR_PLOT_BOTTOM}
+                width={BAR_WIDTH}
+                height={0}
+                rx={3}
+                fill={color}
+                fillOpacity={supported ? 1 : 0.35}
               />
               {src && (
                 <image
-                  className="coverage-icon transition-[opacity] duration-300"
-                  data-opacity={isActive ? 1 : 0.6}
                   href={src}
-                  x={p.x - iconSize / 2}
-                  y={COV_CHART_H - COV_PAD_B + 10}
-                  width={iconSize}
-                  height={iconSize}
-                  opacity={isActive ? 1 : 0.6}
+                  x={x - 10}
+                  y={BAR_PLOT_BOTTOM + 8}
+                  width={20}
+                  height={20}
+                  className="transition-opacity duration-300"
+                  opacity={supported ? 1 : 0.5}
                   preserveAspectRatio="xMidYMid meet"
                 />
               )}
               <text
-                x={p.x}
-                y={COV_CHART_H - COV_PAD_B + 40}
+                x={x}
+                y={BAR_PLOT_BOTTOM + 40}
                 textAnchor="middle"
-                fill={isActive ? meta.color : "currentColor"}
-                className={`text-[#002d4d] transition-all duration-300 dark:text-white ${
-                  isActive ? "font-bold" : "font-medium opacity-55"
+                fill="currentColor"
+                className={`text-[#002d4d] transition-opacity duration-300 dark:text-white ${
+                  supported ? "font-bold opacity-100" : "font-medium opacity-45"
                 }`}
                 style={{ fontSize: 9 }}
               >
-                {p.animal}
+                {item.displayLabel}
               </text>
             </g>
           );
@@ -739,10 +887,83 @@ const RuralBackdrop = () => (
   </div>
 );
 
+const ANIMALS_BUTTON_LEFT_PCT = 70;
+const ANIMALS_BUTTON_TOP_PCT = 40;
+const ANIMALS_CIRCLE_RADIUS_PX = 105;
+
+const AnimalCirclesReveal = ({
+  activeLabel,
+  open,
+}: {
+  activeLabel: string;
+  open: boolean;
+}) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const product = poductsCardsPages.find((p) => p.name === activeLabel);
+  const animals = product?.animals ?? [];
+
+  useGSAP(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const circles = root.querySelectorAll<HTMLDivElement>(".animal-circle");
+    gsap.fromTo(
+      circles,
+      { opacity: 0, scale: 0 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.35,
+        stagger: 0.06,
+        ease: "back.out(1.7)",
+      },
+    );
+  }, [open, activeLabel]);
+
+  if (!open) return null;
+
+  const angleStep = (2 * Math.PI) / animals.length;
+
+  return (
+    <div ref={rootRef} className="absolute inset-0 z-10">
+      {animals.map((animal, i) => {
+        const src = ANIMAL_IMAGES[animal];
+        const angle = -Math.PI / 2 + i * angleStep;
+        const dx = ANIMALS_CIRCLE_RADIUS_PX * Math.cos(angle);
+        const dy = ANIMALS_CIRCLE_RADIUS_PX * Math.sin(angle);
+        return (
+          <div
+            key={animal}
+            className="absolute flex flex-col items-center gap-1"
+            style={{
+              left: `calc(${ANIMALS_BUTTON_LEFT_PCT}% + ${dx}px)`,
+              top: `calc(${ANIMALS_BUTTON_TOP_PCT}% + ${dy}px)`,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <div className="animal-circle w-10 h-10 rounded-full bg-white/90 shadow-md ring-1 ring-black/5 flex items-center justify-center overflow-hidden dark:bg-white/10 dark:ring-white/10">
+              {src && (
+                <img
+                  src={src}
+                  alt={animal}
+                  className="w-7 h-7 object-contain"
+                />
+              )}
+            </div>
+            <span className="whitespace-nowrap rounded bg-white/70 px-1 text-[8px] font-medium text-[#002d4d] dark:bg-black/40 dark:text-white">
+              {animal}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [postLanded, setPostLanded] = useState(false);
+  const [showAnimals, setShowAnimals] = useState(false);
 
   const slide = slides[index];
   const mesh = getMeshConfig(slide.label);
@@ -761,6 +982,7 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
     if (nextIndex === index) return;
     setIndex(nextIndex);
     setPostLanded(false);
+    setShowAnimals(false);
   };
   const goNext = () => goTo(index + 1);
 
@@ -788,24 +1010,36 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
           trigger={postLanded}
         />
 
+        {/* botão que revela os animais que a tela contém */}
+        <button
+          type="button"
+          onClick={() => setShowAnimals((v) => !v)}
+          aria-label={
+            showAnimals
+              ? "Esconder animais que a tela contém"
+              : "Mostrar animais que a tela contém"
+          }
+          className="absolute z-20 w-7 h-7 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-[#002d4d]/10 hover:bg-[#002d4d]/20 text-[#002d4d] transition-colors duration-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white"
+          style={{
+            left: `${ANIMALS_BUTTON_LEFT_PCT}%`,
+            top: `${ANIMALS_BUTTON_TOP_PCT}%`,
+          }}
+        >
+          {showAnimals ? <X size={14} /> : <Plus size={14} />}
+        </button>
+        <AnimalCirclesReveal activeLabel={slide.label} open={showAnimals} />
+
         <p
           ref={titleRef}
-          className="absolute poppins left-1/4 top-[22%] z-10 -translate-x-1/2 text-[22px] font-bold tracking-widest text-[#ff5500] dark:text-white"
+          className="absolute poppins left-1/4 top-[22%] z-10 -translate-x-1/2 text-[26px] font-bold tracking-widest text-[#ff5500] dark:text-white"
         >
-          Variedade de animais <br /> que cada tela contém
-        </p>
-
-        {/* label */}
-        <p className="absolute top-4 left-5 z-10 font-medium text-[#002d4d] dark:text-white">
           {slide.label}
         </p>
 
-        {/* counter */}
         <p className="absolute top-5 right-14 z-10 text-sm font-medium text-[#002d4d]/70 dark:text-white/70">
           {index + 1}/{slides.length}
         </p>
 
-        {/* play/pause */}
         <button
           type="button"
           onClick={() => setIsPlaying((v) => !v)}
@@ -815,7 +1049,6 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
           {isPlaying ? <Pause size={14} /> : <Play size={14} />}
         </button>
 
-        {/* thumbnails */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 max-w-[92%]">
           <div className="flex items-center gap-3 bg-white/80 shadow-lg ring-1 ring-black/5 backdrop-blur rounded-2xl px-3 py-3 overflow-x-auto dark:bg-white/10 dark:ring-white/10">
             {slides.map((s, i) => (

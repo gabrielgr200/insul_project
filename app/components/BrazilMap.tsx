@@ -50,6 +50,11 @@ const ARROWS: Arrow[] = [
   { from: HUB_BOTTOM, to: LATAM_CAPITALS.PRY, bend: -25 }, // Paraguai
 ];
 
+// arredondado para evitar mismatch de hidratação: engines JS diferentes
+// (V8 no servidor vs SpiderMonkey no Firefox) podem serializar o mesmo
+// double para string com um dígito de diferença no fim
+const round = (n: number) => Math.round(n * 100) / 100;
+
 const curve = ([x1, y1]: Point, [x2, y2]: Point, bend: number) => {
   const mx = (x1 + x2) / 2;
   const my = (y1 + y2) / 2;
@@ -58,8 +63,8 @@ const curve = ([x1, y1]: Point, [x2, y2]: Point, bend: number) => {
   const len = Math.hypot(dx, dy) || 1;
   const px = -dy / len;
   const py = dx / len;
-  const cx = mx + px * bend;
-  const cy = my + py * bend;
+  const cx = round(mx + px * bend);
+  const cy = round(my + py * bend);
   return `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`;
 };
 
@@ -75,10 +80,10 @@ const smoothPath = (points: Point[]) => {
     const p1 = points[i];
     const p2 = points[i + 1];
     const p3 = points[i + 2] || p2;
-    const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
-    const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
-    const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
-    const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+    const cp1x = round(p1[0] + (p2[0] - p0[0]) / 6);
+    const cp1y = round(p1[1] + (p2[1] - p0[1]) / 6);
+    const cp2x = round(p2[0] - (p3[0] - p1[0]) / 6);
+    const cp2y = round(p2[1] - (p3[1] - p1[1]) / 6);
     d += `C ${cp1x} ${cp1y} ${cp2x} ${cp2y} ${p2[0]} ${p2[1]} `;
   }
   return d.trim();
