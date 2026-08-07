@@ -23,6 +23,8 @@ import { markSiteLoaded } from "../utils/siteLoaded";
 import { productCategories, soldadasHexagonais } from "../assets/data";
 import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
 import FillButton from "./FillButton";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "./LanguageProvider";
 
 const contatoItems = [
   {
@@ -91,6 +93,7 @@ const MobileMenuItem = ({
 };
 
 const Header = () => {
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState("inicio");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("main");
@@ -250,10 +253,10 @@ const Header = () => {
             active={isHome && activeId === "inicio"}
             onClick={goHome}
           >
-            Ínicio
+            {t("nav.inicio")}
           </NavBtn>
           <NavDropdown
-            label="Produtos"
+            label={t("nav.produtos")}
             to="produtos"
             id="produtos"
             columns={produtosColumns}
@@ -267,7 +270,7 @@ const Header = () => {
             onNavigate={handleNavigate}
             onClick={() => goToSection("catalogo")}
           >
-            Catálogo
+            {t("nav.catalogo")}
           </NavBtn>
           <NavBtn
             to="industria"
@@ -275,10 +278,10 @@ const Header = () => {
             onNavigate={handleNavigate}
             onClick={() => goToSection("industria")}
           >
-            Indústria
+            {t("nav.industria")}
           </NavBtn>
           <NavDropdown
-            label="Contato"
+            label={t("nav.contato")}
             id="contato"
             items={contatoItems}
             active={activeId === "contato"}
@@ -293,18 +296,24 @@ const Header = () => {
             overlayClassName="bg-white dark:bg-background text-[#ff5500]"
           >
             <ShoppingBag size={16} />
-            <span>Loja virtual</span>
+            <span>{t("nav.lojaVirtual")}</span>
           </FillButton>
+          <LanguageSwitcher />
           <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
         </nav>
         <div className="min-[1244px]:hidden flex items-center gap-3">
+          <LanguageSwitcher />
           <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
           <div className="relative">
             <button
               type="button"
               onClick={toggleMobile}
               aria-label={
-                !mobileOpen ? "Abrir menu" : mobileView !== "main" ? "Voltar" : "Fechar menu"
+                !mobileOpen
+                  ? t("aria.abrirMenu")
+                  : mobileView !== "main"
+                    ? t("aria.voltar")
+                    : t("aria.fecharMenu")
               }
               className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#ff5500] text-[#002d4d] dark:text-white"
             >
@@ -366,38 +375,38 @@ const Header = () => {
                         className="flex flex-col p-1.5"
                       >
                         <MobileMenuItem
-                          label="Início"
+                          label={t("nav.inicio")}
                           onClick={() => {
                             goHome();
                             closeMobile();
                           }}
                         />
                         <MobileMenuItem
-                          label="Produtos"
+                          label={t("nav.produtos")}
                           drill
                           onClick={() => setMobileView("produtos")}
                         />
                         <MobileMenuItem
-                          label="Catálogo"
+                          label={t("nav.catalogo")}
                           onClick={() => {
                             goToSection("catalogo");
                             closeMobile();
                           }}
                         />
                         <MobileMenuItem
-                          label="Indústria"
+                          label={t("nav.industria")}
                           onClick={() => {
                             goToSection("industria");
                             closeMobile();
                           }}
                         />
                         <MobileMenuItem
-                          label="Contato"
+                          label={t("nav.contato")}
                           drill
                           onClick={() => setMobileView("contato")}
                         />
                         <MobileMenuItem
-                          label="Loja virtual"
+                          label={t("nav.lojaVirtual")}
                           href="https://www.casadascercas.com.br"
                           onClick={closeMobile}
                         />

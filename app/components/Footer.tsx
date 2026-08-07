@@ -3,46 +3,7 @@
 import { ArrowUp } from "lucide-react";
 import { scrollToSection } from "../utils/ScrollToSection";
 import SocialLinks from "./SocialLinks";
-
-const footerColumns = [
-  {
-    title: "PRODUTOS",
-    items: [
-      { label: "Telas Soldadas", id: "produtos" },
-      { label: "Telas Hexagonais", id: "produtos" },
-      { label: "Cercas Prontas", id: "produtos" },
-      { label: "Gradil", id: "produtos" },
-      { label: "Arames", id: "produtos" },
-    ],
-  },
-  {
-    title: "EMPRESA",
-    items: [
-      { label: "Início", id: "inicio" },
-      { label: "Indústria", id: "industria" },
-      { label: "Distribuição", id: "distribuicao" },
-      { label: "Dúvidas", id: "duvidas" },
-    ],
-  },
-  {
-    title: "CONTATO",
-    items: [
-      { label: "(51) 3723-1519", href: "tel:+555137231519" },
-      { label: "WhatsApp", href: "https://wa.me/5551995098453" },
-      {
-        label: "contato@casadascercas.com.br",
-        href: "mailto:contato@casadascercas.com.br",
-      },
-    ],
-  },
-  {
-    title: "LOJA",
-    items: [
-      { label: "Casa das Cercas", href: "https://www.casadascercas.com.br" },
-      { label: "Catálogo", id: "catalogo" },
-    ],
-  },
-];
+import { useTranslation } from "./LanguageProvider";
 
 interface FooterItem {
   label: string;
@@ -75,6 +36,49 @@ const FooterLink = ({ item }: { item: FooterItem }) => {
 };
 
 const Footer = () => {
+  const { t, dict } = useTranslation();
+  const l = dict.footer.links;
+
+  const footerColumns = [
+    {
+      title: dict.footer.cols.produtos,
+      items: [
+        { label: l.telasSoldadas, id: "produtos" },
+        { label: l.telasHexagonais, id: "produtos" },
+        { label: l.cercasProntas, id: "produtos" },
+        { label: l.gradil, id: "produtos" },
+        { label: l.arames, id: "produtos" },
+      ],
+    },
+    {
+      title: dict.footer.cols.empresa,
+      items: [
+        { label: l.inicio, id: "inicio" },
+        { label: l.industria, id: "industria" },
+        { label: l.distribuicao, id: "distribuicao" },
+        { label: l.duvidas, id: "duvidas" },
+      ],
+    },
+    {
+      title: dict.footer.cols.contato,
+      items: [
+        { label: "(51) 3723-1519", href: "tel:+555137231519" },
+        { label: "WhatsApp", href: "https://wa.me/5551995098453" },
+        {
+          label: "contato@casadascercas.com.br",
+          href: "mailto:contato@casadascercas.com.br",
+        },
+      ],
+    },
+    {
+      title: dict.footer.cols.loja,
+      items: [
+        { label: "Casa das Cercas", href: "https://www.casadascercas.com.br" },
+        { label: l.catalogo, id: "catalogo" },
+      ],
+    },
+  ];
+
   return (
     <footer className="relative bg-[#001b30] text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-20 pb-6 relative z-10">
@@ -84,8 +88,7 @@ const Footer = () => {
               Insul
             </p>
             <p className="text-sm text-white/50 leading-relaxed mt-4">
-              Fabricamos telas, cercas e gradis com qualidade industrial e
-              entrega para todo o Brasil.
+              {t("footer.descricao")}
             </p>
 
             <SocialLinks />
@@ -110,12 +113,12 @@ const Footer = () => {
         </div>
 
         <div className="mt-16 pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} Insul. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} Insul. {t("footer.direitos")}</p>
           <button
             onClick={() => scrollToSection("inicio")}
             className="flex items-center gap-1 hover:text-[#ff5500] transition-colors cursor-pointer"
           >
-            <ArrowUp size={14} /> Voltar ao topo
+            <ArrowUp size={14} /> {t("footer.voltarTopo")}
           </button>
         </div>
       </div>

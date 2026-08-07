@@ -235,7 +235,7 @@ html {
     }
 
     .heading-2 {
-        @apply text-6xl lg:text-9xl uppercase leading-tight mb-12;
+        @apply text-[clamp(2.5rem,11vw,4.75rem)] lg:text-9xl uppercase leading-tight mb-12;
     }
 
     .col {

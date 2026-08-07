@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import RouteTransition from "./components/RouteTransition";
 import ThemeProvider from "./components/ThemeProvider";
+import LanguageProvider from "./components/LanguageProvider";
 import "./globals.css";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -41,7 +42,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <RouteTransition>{children}</RouteTransition>
+          <LanguageProvider>
+            <RouteTransition>{children}</RouteTransition>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
       {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}

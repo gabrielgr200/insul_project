@@ -3,39 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const faqs = [
-  {
-    question: "O que preciso para ser revendedor Insul?",
-    answer:
-      "Basta você possuir um CNPJ válido no segmento de atacado, indústria ou revenda de materiais de construção, ferragens ou produtos agropecuários e fazer contato com nosso time de atendimento.",
-  },
-  {
-    question: "A Insul atende em todo Brasil?",
-    answer:
-      "Sim, atendemos todo o Brasil, porém, com maior foco na Região Sul e Sudeste. Para clientes de outras regiões do país, geralmente operamos com frete até SP, onde acontece o redespacho por uma transportadora da escolha do cliente, ou ainda com coleta de material na fábrica.",
-  },
-  {
-    question: "A Insul atende construtoras diretamente?",
-    answer:
-      "Sim, atendemos construtoras em todo o Brasil que precisarem de nossos produtos, basta entrar em contato com nosso time de atendimento.",
-  },
-  {
-    question: "A Insul vende para consumidor final (CPF)?",
-    answer:
-      "Sim, para isso criamos nossa loja virtual, a Casa das Cercas, com atendimento especial para todo tipo de consumidor final. Acesse: www.casadascercas.com.br.",
-  },
-  {
-    question: "Qual matéria-prima é utilizada?",
-    answer:
-      "A Insul utiliza basicamente matérias-primas nacionais de primeira qualidade e têm a Gerdau como sua principal fornecedora, sendo o seu maior cliente de arames galvanizados no Sul do Brasil.",
-  },
-  {
-    question: "Qual a garantia dos produtos Insul?",
-    answer:
-      "Todos produtos tem garantia de fábrica e elas variam em 5, 2 ou 1 ano(s), desde que utilizados de maneira correta em ambiente apropriado. Independente disso, as telas galvanizadas a fogo, em sua maioria, são produzidas para durar mais de 15 anos em ambientes não litorâneos.",
-  },
-];
+import { useTranslation } from "./LanguageProvider";
 
 const FaqTitle = ({ text, isOpen }: { text: string; isOpen: boolean }) => (
   <h3 className="text-lg sm:text-2xl font-semibold uppercase tracking-tight">
@@ -101,6 +69,8 @@ const FaqItem = ({ index, question, answer, isOpen, onToggle }: FaqItemProps) =>
 );
 
 const Frequently = () => {
+  const { t, dict } = useTranslation();
+  const faqs = dict.faq.items;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -110,16 +80,15 @@ const Frequently = () => {
           <div>
             <div className="flex items-center gap-2 text-xs text-white/50 tracking-[0.2em] mb-4">
               <span className="w-2 h-2 rounded-full border border-white/50" />
-              PERGUNTAS FREQUENTES
+              {t("faq.eyebrow")}
             </div>
             <h2 className="text-5xl sm:text-7xl font-bold uppercase tracking-tight">
-              Dúvidas
+              {t("faq.titulo")}
             </h2>
           </div>
 
           <p className="text-xs sm:text-sm text-white/40 uppercase tracking-wide max-w-xs sm:text-right">
-            Tudo o que você precisa saber sobre nossos produtos, matéria e
-            empresa.
+            {t("faq.subtitulo")}
           </p>
         </div>
 

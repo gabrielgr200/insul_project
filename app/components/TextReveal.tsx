@@ -4,15 +4,13 @@ import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { SplitText } from "gsap/SplitText";
+import { useTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const PARAGRAPHS = [
-  "Desde 2010, a Insul Arames e Telas investe em tecnologia de ponta para oferecer produtos de alta qualidade e garantir a satisfação e confiança de nossos clientes.",
-  "Para nós, qualidade não é um objetivo, é uma prática diária. Seguimos comprometidos em ser referência no setor e em contribuir para o crescimento sustentável de nossos clientes e parceiros.",
-];
-
 const TextReveal = () => {
+  const { dict } = useTranslation();
+  const PARAGRAPHS = dict.textReveal.paragrafos;
   const containerRef = useRef<HTMLElement>(null);
   const wrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
@@ -23,7 +21,14 @@ const TextReveal = () => {
     const ctx = gsap.context(() => {
       const wrappers = wrapperRefs.current;
       splits = textRefs.current.map(
-        (el) => new SplitText(el, { type: "words", wordsClass: "word" }),
+        (el) =>
+          new SplitText(el, {
+            type: "words",
+            wordsClass: "word",
+            // Preserva o espaço inquebrável (nbsp) entre "prática" e "diária";
+            // com o padrão true, o SplitText converteria o nbsp em espaço comum.
+            reduceWhiteSpace: false,
+          }),
       );
 
       wrappers.forEach((w, i) => {
@@ -76,7 +81,7 @@ const TextReveal = () => {
       ctx.revert();
       splits.forEach((s) => s.revert());
     };
-  }, []);
+  }, [PARAGRAPHS]);
 
   return (
     <section
@@ -96,7 +101,7 @@ const TextReveal = () => {
               ref={(el) => {
                 textRefs.current[i] = el;
               }}
-              className="text-center text-[#002d4d] dark:text-white poppins font-normal text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight"
+              className="text-center text-[#002d4d] dark:text-white poppins font-normal text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight max-w-md mx-auto sm:max-w-none"
             >
               {text}
             </p>

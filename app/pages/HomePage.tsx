@@ -21,6 +21,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { hasSiteLoaded, markSiteLoaded } from "../utils/siteLoaded";
+import { useTranslation } from "../components/LanguageProvider";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(() => !hasSiteLoaded());
@@ -29,6 +30,7 @@ const HomePage = () => {
     setLoading(false);
   }, []);
   const contentRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -87,7 +89,7 @@ const HomePage = () => {
           <hr className="text-zinc-800 -mt-2" />
           <Hero ready={!loading} />
           <h3 className="text-center text-[#002d4d] dark:text-white font-bold text-2xl poppins py-20">
-            Nossos números e parceiros
+            {t("home.numerosTitulo")}
           </h3>
           <Partners />
           <PartnersLogos />

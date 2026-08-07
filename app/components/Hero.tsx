@@ -7,6 +7,7 @@ import { scrollToSection } from "../utils/ScrollToSection";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import FillButton from "./FillButton";
+import { useTranslation } from "./LanguageProvider";
 import styles from "./Hero.module.css";
 
 const GRID_COLS = 10;
@@ -15,6 +16,7 @@ const GRID_CELL_SIZE = 200;
 const GRID_SQUARES = Array.from({ length: GRID_COLS * GRID_ROWS });
 
 const Hero = ({ ready = true }) => {
+  const { t } = useTranslation();
   const rootRef = useRef(null);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const Hero = ({ ready = true }) => {
             ))}
           </div>
         </div>
-        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(680px,calc(65vw_-_10px),850px)] lg:space-x-12 overflow-clip">
+        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(560px,calc(50vw_-_10px),640px)] lg:space-x-12 overflow-clip">
           <div className="lg:w-1/2">
             <div className={styles.heroIndent}>
               <h1 className="font-medium leading-none mb-6">
@@ -100,7 +102,7 @@ const Hero = ({ ready = true }) => {
                   className={`inline-block impact lg:text-[250px] text-transparent
                   bg-clip-text bg-gradient-to-r from-[#8a2e00] to-[#ff5500] FIRME ${styles.heroTitle}`}
                 >
-                  FIRME
+                  {t("hero.firme")}
                 </span>
               </h1>
               <h1 className="font-medium leading-none -mt-4 lg:-mt-10">
@@ -109,12 +111,11 @@ const Hero = ({ ready = true }) => {
                   whitespace-nowrap text-transparent bg-clip-text
                   bg-gradient-to-r from-[#8a2e00] to-[#ff5500] DURADOURO ${styles.heroTitle}`}
                 >
-                  DURADOURO
+                  {t("hero.duradouro")}
                 </span>
               </h1>
               <div className={`lg:text-lg text-[#002d4d] dark:text-white max-w-md lg:w-full mb-8 py-2 HERO-SUBTEXT ${styles.heroSubtext}`}>
-                A Insul é líder na fabricação de telas, gradis, alambrados e
-                cercas prontas com maior mix de produtos do mercado.
+                {t("hero.subtitulo")}
               </div>
               <FillButton
                 onClick={() => scrollToSection("produtos")}
@@ -123,7 +124,7 @@ const Hero = ({ ready = true }) => {
                 lg:text-lg lg:py-5 lg:px-10 lg:bottom-10 lg:right-10 hover:animate-wiggle cursor-pointer z-20 ${styles.heroButton}`}
                 overlayClassName="bg-white dark:bg-background text-[#ff5500]"
               >
-                <span>Nossos produtos</span>
+                <span>{t("hero.cta")}</span>
                 <ArrowRight
                   size={20}
                   className="group-hover:rotate-360 -routae-35 transition-all duration-500 ease-in"

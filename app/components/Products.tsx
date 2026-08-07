@@ -5,8 +5,10 @@ import { gsap } from "gsap";
 import { roomDetails } from "../assets/data";
 import ProductsLink from "./ProductsLink";
 import DynamicImg from "./DynamicImg";
+import { useTranslation } from "./LanguageProvider";
 
 const Products = () => {
+  const { t, dict } = useTranslation();
   const sectionRef = useRef(null);
   const initialImageSrc = roomDetails[0]?.src || "";
   const [currentImageSrc, setCurrentImageSrc] = useState(initialImageSrc);
@@ -46,12 +48,12 @@ const Products = () => {
       id="produtos"
       className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
-      <h2 className="PRODUCTS-TITLE heading-2 impact text-[#ff5500]">
-        NOSSOS <br /> PRODUTOS
+      <h2 className="PRODUCTS-TITLE heading-2 impact text-[#ff5500] text-center sm:text-left">
+        {t("products.tituloLinha1")} <br /> {t("products.tituloLinha2")}
       </h2>
 
       <div className="flex flex-col lg:flex-row lg:space-x-20">
-        <div className="PRODUCTS-LIST lg:w-1/3">
+        <div className="PRODUCTS-LIST w-full max-w-xl mx-auto lg:mx-0 lg:max-w-none lg:w-1/3">
           {roomDetails.map((room) => (
             <ProductsLink
               key={room.name}
@@ -59,7 +61,7 @@ const Products = () => {
               onMouseEnter={() => handleMouseEnter(room.src)}
               onMouseLeave={handleMouseLeave}
             >
-              {room.name}
+              {dict.products.rooms[room.name] ?? room.name}
             </ProductsLink>
           ))}
         </div>

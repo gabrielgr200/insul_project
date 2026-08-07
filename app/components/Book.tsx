@@ -9,6 +9,7 @@ import TextArrowCTA from "./TextArrowCTA";
 import { productCategories } from "../assets/data";
 import type { ProductCategory } from "../assets/data";
 import { scrollToSection } from "../utils/ScrollToSection";
+import { useTranslation } from "./LanguageProvider";
 
 const findCategory = (title: string): ProductCategory =>
   productCategories.find((category) => category.title === title)!;
@@ -70,6 +71,7 @@ const itemVariants = {
 };
 
 const CategoryToggle = ({ category }: { category: ProductCategory }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -100,7 +102,7 @@ const CategoryToggle = ({ category }: { category: ProductCategory }) => {
               whitespace-nowrap bg-[#ff5500] text-white text-xs font-medium
             px-3 py-2 rounded-lg shadow-lg pointer-events-none"
           >
-            Clique no botão para escolher um produto
+            {t("book.tooltip")}
           </motion.div>
         )}
       </AnimatePresence>
@@ -137,7 +139,7 @@ const CategoryToggle = ({ category }: { category: ProductCategory }) => {
         onClick={() => setOpen((o) => !o)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        aria-label={`Ver ${category.title}`}
+        aria-label={`${t("book.ver")} ${category.title}`}
         className="flex items-center justify-center w-11 h-11 rounded-full
         bg-[#ff5500] text-white shadow-xl border border-[#FF6A1A] cursor-pointer
         transition-colors duration-150 ease-in hover:bg-white hover:text-[#ff5500]"
@@ -159,6 +161,7 @@ interface FlipBookHandle {
 }
 
 const Book = () => {
+  const { t } = useTranslation();
   const bookRef = useRef<FlipBookHandle>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -198,26 +201,26 @@ const Book = () => {
       id="catalogo"
       className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
-      <h3 className="BOOK-LABEL text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
-        Telas e acessórios
+      <h3 className="BOOK-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
+        {t("book.label")}
       </h3>
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-10 gap-4">
-        <h2 className="BOOK-TITLE heading-2 impact text-[#ff5500]">
-          CATÁLOGO DE <br /> PRODUTOS
+        <h2 className="BOOK-TITLE heading-2 impact text-[#ff5500] text-center sm:text-left">
+          {t("book.tituloLinha1")} <br /> {t("book.tituloLinha2")}
         </h2>
         <div className="BOOK-TEXT flex flex-col items-center w-full lg:w-auto lg:max-w-[400px] lg:mr-14">
-          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-left ">
-            Baixe nosso catálogo de produtos e conheça em detalhes toda a
-            nossa linha de produtos.
+          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-center sm:text-left ">
+            {t("book.texto")}
           </p>
         </div>
       </div>
-      <div className="BOOK-CONTENT flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
+      <div className="BOOK-CONTENT mt-20 flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
         <TextArrowCTA
           onClick={() => bookRef.current?.pageFlip().flipNext()}
           className="lg:mr-6"
         />
 
+        <div className="w-full max-w-[250px] sm:max-w-[340px] lg:max-w-[420px]">
         <HTMLFlipBook
           className=""
           style={{}}
@@ -249,7 +252,7 @@ const Book = () => {
             <div key={i} className="page relative bg-white shadow-2xl @container">
               <img
                 src={src}
-                alt={`Página ${i + 1}`}
+                alt={`${t("book.pagina")} ${i + 1}`}
                 className="w-full h-full object-contain"
               />
               {categories.length > 0 && (
@@ -276,7 +279,7 @@ const Book = () => {
                   </div>
 
                   <p className="absolute left-[11.7%] top-[17%] w-[85%] whitespace-nowrap text-white font-extrabold poppins leading-[1.05] text-[6.4cqw]">
-                    Ficou interessado?
+                    {t("book.interessado")}
                   </p>
 
                   <a
@@ -290,13 +293,14 @@ const Book = () => {
                     text-white font-semibold poppins text-[3.4cqw] text-center
                     shadow-lg transition-colors duration-150 hover:bg-[#e64d00]"
                   >
-                    Clique aqui e saiba mais
+                    {t("book.ctaSaibaMais")}
                   </a>
                 </div>
               )}
             </div>
           ))}
         </HTMLFlipBook>
+        </div>
       </div>
     </section>
   );

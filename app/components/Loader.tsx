@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "./LanguageProvider";
 
-const TYPE_WORDS = ["QUALIDADE", "PROTEÇÃO", "RESISTÊNCIA", "DURABILIDADE", "SEGURANÇA"];
 const TYPE_SPEED = 90;
 const DELETE_SPEED = 45;
 const HOLD_TIME = 1200;
 const PAUSE_TIME = 300;
 
 const TypewriterWord = () => {
+  const { t, dict } = useTranslation();
+  const TYPE_WORDS = dict.loader.palavras;
   const [wordIndex, setWordIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -38,7 +40,7 @@ const TypewriterWord = () => {
   return (
     <div className="flex flex-col gap-1">
       <span className="text-xs font-medium tracking-tight text-foreground md:text-sm">
-        NOSSA GARANTIA
+        {t("loader.garantia")}
       </span>
       <p className="flex items-center">
         <span className="text-xl font-extrabold text-[#ff5500] md:text-3xl">

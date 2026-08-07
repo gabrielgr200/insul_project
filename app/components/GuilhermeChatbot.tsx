@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2, Mail, MessageCircle, Send, X } from "lucide-react";
+import { useTranslation } from "./LanguageProvider";
+import type { Dictionary } from "../i18n";
 
 type NewsletterStatus = "idle" | "submitting" | "success" | "error";
 
@@ -40,79 +42,25 @@ const useIntroFreeze = (
   }, [videoRef, mounted]);
 };
 
-const INITIAL_MESSAGE: Message = {
-  id: 0,
-  from: "bot",
-  text:
-    "Oi, eu sou o Guilherme! 👋 Faço parte do time Insul e posso te ajudar a tirar dúvidas sobre nossas cercas, entregas e distribuição. Pergunta aí!",
-};
-
-const RULES: { keywords: string[]; reply: string }[] = [
-  {
-    keywords: ["frete", "entrega", "prazo", "envio", "envia", "chega"],
-    reply:
-      "Enviamos para todo o Brasil a partir dos nossos centros de distribuição no Rio Grande do Sul (Cachoeira do Sul) e em Minas Gerais (Divinópolis). O prazo varia conforme o estado, mas a gente sempre busca a rota mais rápida até você.",
-  },
-  {
-    keywords: ["cerca", "produto", "fenix", "fênix", "campeira", "modelo", "catalogo", "catálogo"],
-    reply:
-      "Temos várias linhas de cercas, como a Fênix e a Campeira, com opções para diferentes tipos de propriedade. Dá uma olhada na seção de produtos aqui na página ou me conta o que você precisa que eu te indico o modelo certo.",
-  },
-  {
-    keywords: ["preço", "preco", "valor", "orçamento", "orcamento", "quanto custa"],
-    reply:
-      "Os valores variam conforme o modelo e a quantidade. Para um orçamento certinho, fala com nosso time comercial pelo WhatsApp ou pelo formulário de contato — assim conseguimos calcular direitinho pra sua região.",
-  },
-  {
-    keywords: ["oi", "olá", "ola", "bom dia", "boa tarde", "boa noite"],
-    reply: "Olá! Tudo bem? Me conta o que você gostaria de saber sobre a Insul.",
-  },
-  {
-    keywords: ["obrigado", "obrigada", "valeu", "thanks"],
-    reply: "Por nada! Qualquer outra dúvida, é só chamar. 😉",
-  },
-  {
-    keywords: ["canil"],
-    reply:
-      "Pra canil, indicamos telas soldadas como a Tela Titan e a Tela Morada — resistentes e seguras pra manter cães de pequeno e médio porte. Dá uma olhada na seção de telas soldadas e hexagonais aqui no site!",
-  },
-  {
-    keywords: ["indústria", "industria", "industrial"],
-    reply:
-      "Pra uso industrial, temos telas soldadas mais robustas, como a Tela Titan e a Tela Morada, ideais pra cercamento de indústrias, centros logísticos e estacionamentos — além do gradil e das cercas prontas pra áreas maiores.",
-  },
-  {
-    keywords: ["gradil"],
-    reply:
-      "O Gradil é um painel de aço soldado modular (temos nos modelos G4, G5 e G12), fixado com catracas em postes — instalação rápida e ótima resistência. Ideal pra indústrias, condomínios e áreas comerciais.",
-  },
-];
-
-const TOPIC_PILLS = [
-  "Tela para canil",
-  "Tela para indústrias",
-  "Como funciona o gradil",
-];
-
-const FALLBACK_REPLIES = [
-  "Boa pergunta! Posso te passar mais detalhes sobre nossas cercas, entregas ou centros de distribuição. O que você quer saber?",
-  "Ainda estou aprendendo a responder tudo, mas nosso time comercial consegue te ajudar com isso direto pelo contato da Insul.",
-];
-
-const findReply = (input: string) => {
+const findReply = (input: string, chatbot: Dictionary["chatbot"]) => {
   const normalized = input.toLowerCase();
-  const match = RULES.find((rule) =>
+  const match = chatbot.rules.find((rule) =>
     rule.keywords.some((keyword) => normalized.includes(keyword)),
   );
   if (match) return match.reply;
-  return FALLBACK_REPLIES[Math.floor(Math.random() * FALLBACK_REPLIES.length)];
+  return chatbot.fallback[
+    Math.floor(Math.random() * chatbot.fallback.length)
+  ];
 };
 
 const randomTypingDelay = () => 500 + Math.random() * 700;
 
 const GuilhermeChatbot = () => {
+  const { t, dict, locale } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [messages, setMessages] = useState<Message[]>(() => [
+    { id: 0, from: "bot", text: dict.chatbot.inicial },
+  ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -165,6 +113,13 @@ const GuilhermeChatbot = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, isTyping, isOpen]);
 
+  // Atualiza a saudação inicial ao trocar de idioma, enquanto a conversa não começou.
+  useEffect(() => {
+    if (!hasSentMessageRef.current) {
+      setMessages([{ id: 0, from: "bot", text: dict.chatbot.inicial }]);
+    }
+  }, [locale, dict.chatbot.inicial]);
+
   const sendMessage = (presetText?: string) => {
     const trimmed = (presetText ?? input).trim();
     if (!trimmed || isTyping) return;
@@ -185,7 +140,7 @@ const GuilhermeChatbot = () => {
 
     const delay = randomTypingDelay();
     setTimeout(() => {
-      const reply = findReply(trimmed);
+      const reply = findReply(trimmed, dict.chatbot);
       setMessages((prev) => [
         ...prev,
         { id: nextId.current++, from: "bot", text: reply },
@@ -226,7 +181,7 @@ const GuilhermeChatbot = () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setNewsletterError(data.error || "Não foi possível enviar. Tente novamente.");
+        setNewsletterError(data.error || t("chatbot.newsletter.erroGenerico"));
         setNewsletterStatus("error");
         return;
       }
@@ -236,39 +191,41 @@ const GuilhermeChatbot = () => {
       setNewsletterEmail("");
       setNewsletterPhone("");
     } catch {
-      setNewsletterError("Falha de conexão. Tente novamente.");
+      setNewsletterError(t("chatbot.newsletter.erroConexao"));
       setNewsletterStatus("error");
     }
   };
 
   return (
-    <div className="GUILHERME-CHAT mt-48 flex flex-col items-start">
+    <div className="GUILHERME-CHAT mt-48 flex flex-col items-center lg:items-start">
       <AnimatePresence mode="wait" initial={false}>
         {!isOpen ? (
           <motion.button
             key="avatar"
             type="button"
             onClick={() => setIsOpen(true)}
-            aria-label="Conversar com o Guilherme"
+            aria-label={t("chatbot.abrirAria")}
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="relative block"
+            className="flex items-center gap-3"
           >
-            <video
-              ref={avatarVideoRef}
-              src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
-              muted
-              playsInline
-              className="h-56 w-40 rounded-3xl object-cover shadow-xl sm:h-64 sm:w-48"
-            />
-            <span className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5500] text-white shadow-lg ring-4 ring-white dark:ring-background">
-              <MessageCircle size={15} />
+            <span className="relative block shrink-0">
+              <video
+                ref={avatarVideoRef}
+                src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
+                muted
+                playsInline
+                className="h-20 w-20 rounded-full object-cover object-top shadow-xl ring-2 ring-white dark:ring-background sm:h-24 sm:w-24"
+              />
+              <span className="absolute -right-0.5 -top-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#ff5500] text-white shadow-lg ring-4 ring-white dark:ring-background">
+                <MessageCircle size={14} />
+              </span>
             </span>
-            <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#002d4d] px-3 py-1 text-xs font-medium text-white shadow dark:bg-white dark:text-[#002d4d]">
-              Fale com o Guilherme
+            <span className="whitespace-nowrap rounded-full bg-[#002d4d] px-3 py-1 text-xs font-medium text-white shadow dark:bg-white dark:text-[#002d4d]">
+              {t("chatbot.tooltip")}
             </span>
           </motion.button>
         ) : (
@@ -285,7 +242,7 @@ const GuilhermeChatbot = () => {
             <button
               type="button"
               onClick={closeChat}
-              aria-label="Fechar conversa"
+              aria-label={t("chatbot.fecharAria")}
               className="absolute -right-2.5 -top-2.5 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#002d4d] shadow-lg"
             >
               <X size={15} />
@@ -306,7 +263,7 @@ const GuilhermeChatbot = () => {
                   <p className="text-sm font-bold leading-tight text-white">Guilherme</p>
                   <p className="flex items-center gap-1 text-[11px] leading-tight text-white/70">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-                    Consultor Insul
+                    {t("chatbot.consultor")}
                   </p>
                 </div>
               </div>
@@ -340,20 +297,19 @@ const GuilhermeChatbot = () => {
                         <button
                           type="button"
                           onClick={() => setNewsletterOpen(false)}
-                          aria-label="Fechar"
+                          aria-label={t("chatbot.newsletter.fecharAria")}
                           className="absolute cursor-pointer right-0 top-0 text-[#002d4d]/50 hover:text-[#002d4d] dark:text-white/50 dark:hover:text-white"
                         >
                           <X size={15} />
                         </button>
                         <span className="text-xs font-semibold uppercase tracking-widest text-[#ff5500]">
-                          Newsletter
+                          {t("chatbot.newsletter.eyebrow")}
                         </span>
                         <h4 className="poppins text-xl font-bold leading-tight text-[#002d4d] dark:text-white">
-                          Receber novidades e promoções
+                          {t("chatbot.newsletter.titulo")}
                         </h4>
                         <p className="text-xs leading-relaxed text-[#002d4d]/70 dark:text-white/70">
-                          Cadastre abaixo para receber em primeira mão todas as
-                          novidades e promoções
+                          {t("chatbot.newsletter.texto")}
                         </p>
                       </motion.div>
                     )
@@ -406,7 +362,7 @@ const GuilhermeChatbot = () => {
                       transition={{ duration: 0.25 }}
                       className="rounded-xl bg-emerald-50 px-3 py-2 text-xs text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-300"
                     >
-                      Cadastro enviado! Em breve você recebe nossas novidades.
+                      {t("chatbot.newsletter.sucesso")}
                     </motion.p>
                   ) : !newsletterOpen ? (
                     <motion.div
@@ -428,9 +384,9 @@ const GuilhermeChatbot = () => {
                         className="flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full bg-[#002d4d]/5 px-3 py-1.5 text-left text-[10px] font-medium text-[#002d4d] transition-colors hover:bg-[#002d4d]/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
                       >
                         <Mail size={12} className="shrink-0 text-[#ff5500]" />
-                        Quer receber novidades e promoções?
+                        {t("chatbot.newsletter.cta")}
                       </button>
-                      {TOPIC_PILLS.map((topic) => (
+                      {dict.chatbot.pills.map((topic) => (
                         <button
                           key={topic}
                           type="button"
@@ -457,7 +413,7 @@ const GuilhermeChatbot = () => {
                         required
                         value={newsletterName}
                         onChange={(e) => setNewsletterName(e.target.value)}
-                        placeholder="Nome"
+                        placeholder={t("chatbot.newsletter.nome")}
                         className="min-w-0 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-[#002d4d] outline-none focus:border-[#ff5500] dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                       <input
@@ -465,7 +421,7 @@ const GuilhermeChatbot = () => {
                         required
                         value={newsletterEmail}
                         onChange={(e) => setNewsletterEmail(e.target.value)}
-                        placeholder="E-mail"
+                        placeholder={t("chatbot.newsletter.email")}
                         className="min-w-0 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-[#002d4d] outline-none focus:border-[#ff5500] dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                       <input
@@ -473,7 +429,7 @@ const GuilhermeChatbot = () => {
                         required
                         value={newsletterPhone}
                         onChange={(e) => setNewsletterPhone(e.target.value)}
-                        placeholder="Celular com DDD"
+                        placeholder={t("chatbot.newsletter.celular")}
                         className="min-w-0 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-[#002d4d] outline-none focus:border-[#ff5500] dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                       {newsletterStatus === "error" && (
@@ -487,11 +443,11 @@ const GuilhermeChatbot = () => {
                         className="flex items-center justify-center gap-1.5 rounded-full bg-[#ff5500] px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:bg-[#e64d00] disabled:opacity-60"
                       >
                         {newsletterStatus === "submitting" ? (
-                          "Enviando..."
+                          t("chatbot.newsletter.enviando")
                         ) : (
                           <>
                             <Send size={13} />
-                            Receber novidades!
+                            {t("chatbot.newsletter.enviar")}
                           </>
                         )}
                       </button>
@@ -508,14 +464,14 @@ const GuilhermeChatbot = () => {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Escreva sua pergunta..."
+                  placeholder={t("chatbot.placeholder")}
                   autoFocus
                   className="min-w-0 flex-1 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm text-[#002d4d] outline-none focus:border-[#ff5500] dark:border-white/10 dark:bg-white/5 dark:text-white"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isTyping}
-                  aria-label="Enviar mensagem"
+                  aria-label={t("chatbot.enviarAria")}
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#ff5500] text-white transition-opacity disabled:opacity-40"
                 >
                   <Send size={16} />
