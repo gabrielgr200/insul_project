@@ -4,11 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Pause, Play, Plus, X } from "lucide-react";
-import {
-  poductsCardsPages,
-  cercasProntasInfo,
-  type CercaSlide,
-} from "../assets/data";
+import { cercasProntas, type CercaSlide } from "../assets/data";
 import { ANIMAL_IMAGES } from "./ProductCard";
 
 const AUTOPLAY_INTERVAL = 5000;
@@ -95,9 +91,7 @@ const MESH_SPECS: Record<string, MeshSpec> = {
 };
 
 const getMeshConfig = (label: string) => {
-  const product = poductsCardsPages.find((p) => p.name === label);
-  const slug = product?.to?.split("/").pop();
-  const info = cercasProntasInfo.find((c) => c.slug === slug);
+  const info = cercasProntas.find((c) => c.name === label);
   const spec = MESH_SPECS[label] ?? MESH_SPECS["Cerca Campeira Insul"];
 
   const unitsPerCm = MESH_HEIGHT / FENCE_HEIGHT_CM;
@@ -430,9 +424,7 @@ const TELA_ORDER = [
 const TELA_META: Record<string, { name: string; color: string }> =
   Object.fromEntries(
     TELA_ORDER.map((label) => {
-      const product = poductsCardsPages.find((p) => p.name === label);
-      const slug = product?.to?.split("/").pop();
-      const info = cercasProntasInfo.find((c) => c.slug === slug);
+      const info = cercasProntas.find((c) => c.name === label);
       return [
         label,
         { name: info?.name ?? label, color: info?.color ?? DEFAULT_MESH_COLOR },
@@ -470,8 +462,8 @@ const getAnimalBarHeight = (animal: string, telaLabel: string) =>
   ANIMAL_BASE_HEIGHT[animal];
 
 const telaContainsAnimal = (telaLabel: string, animal: string) => {
-  const product = poductsCardsPages.find((p) => p.name === telaLabel);
-  return product?.animals.includes(animal) ?? false;
+  const info = cercasProntas.find((c) => c.name === telaLabel);
+  return info?.animals.includes(animal) ?? false;
 };
 
 const ANIMAL_CLASSES: {
@@ -899,8 +891,8 @@ const AnimalCirclesReveal = ({
   open: boolean;
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
-  const product = poductsCardsPages.find((p) => p.name === activeLabel);
-  const animals = product?.animals ?? [];
+  const info = cercasProntas.find((c) => c.name === activeLabel);
+  const animals = info?.animals ?? [];
 
   useGSAP(() => {
     const root = rootRef.current;

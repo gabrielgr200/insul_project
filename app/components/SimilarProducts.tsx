@@ -5,29 +5,15 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
-import {
-  poductsCardsPages,
-  cercasProntasInfo,
-  type ProductCardData,
-} from "../assets/data";
+import type { ProductCardData } from "../assets/data";
 
-const CUTOUT_IMAGES: Record<string, string> = {
-  fenix: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917804/FENX_grkczf.png",
-  campeira: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA_t68olb.png",
-  "campeira-boi": "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA-BOI_qyuhzs.png",
-  "campeira-maxx": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785176359/cerca-maxx_srpi3h.png",
-};
-
-const BACKGROUND_IMAGES: Record<string, string> = {
-  fenix: "/images/img_fenix_carousel/1.jpeg",
-  campeira: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784911999/ovino_pdivdh.jpg",
-  "campeira-boi": "https://res.cloudinary.com/kcqitv3l/image/upload/v1784912387/boi_zlfbxt.jpg",
-};
-
-interface SimilarCardProps extends ProductCardData {
+export interface SimilarProductItem
+  extends Pick<ProductCardData, "src" | "title" | "name" | "to"> {
   color: string;
   cutout?: string;
 }
+
+type SimilarCardProps = SimilarProductItem;
 
 const SimilarProductCard = ({
   src,
@@ -141,20 +127,8 @@ const SimilarProductCard = ({
   );
 };
 
-const SimilarProducts = ({ currentSlug }: { currentSlug: string }) => {
-  const products = poductsCardsPages
-    .filter((p) => p.to !== `/cercas-prontas/${currentSlug}`)
-    .slice(0, 3)
-    .map((p) => {
-      const slug = p.to?.split("/").pop() || "";
-      const cerca = cercasProntasInfo.find((c) => c.slug === slug);
-      return {
-        ...p,
-        src: BACKGROUND_IMAGES[slug] || p.src,
-        color: cerca?.color || "#002d4d",
-        cutout: CUTOUT_IMAGES[slug],
-      };
-    });
+const SimilarProducts = ({ products }: { products: SimilarProductItem[] }) => {
+  if (products.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8">

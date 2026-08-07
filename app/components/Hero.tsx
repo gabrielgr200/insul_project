@@ -7,6 +7,12 @@ import { scrollToSection } from "../utils/ScrollToSection";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import FillButton from "./FillButton";
+import styles from "./Hero.module.css";
+
+const GRID_COLS = 10;
+const GRID_ROWS = 6;
+const GRID_CELL_SIZE = 200;
+const GRID_SQUARES = Array.from({ length: GRID_COLS * GRID_ROWS });
 
 const Hero = ({ ready = true }) => {
   const rootRef = useRef(null);
@@ -15,6 +21,17 @@ const Hero = ({ ready = true }) => {
     if (!ready) return;
 
     const ctx = gsap.context(() => {
+      const squareFills = gsap.utils.shuffle(
+        gsap.utils.toArray<HTMLElement>(".hero-square-fill"),
+      );
+      const squaresTl = gsap.timeline({ repeat: -1 });
+      squareFills.forEach((el) => {
+        squaresTl
+          .to(el, { opacity: 1, duration: 0.25, ease: "power1.inOut" })
+          .to(el, { opacity: 1, duration: 0.25 })
+          .to(el, { opacity: 0, duration: 0.25, ease: "power1.inOut" });
+      });
+
       const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
 
       tl.from(".FIRME", { x: -120, opacity: 0, duration: 0.9 }).from(
@@ -46,64 +63,80 @@ const Hero = ({ ready = true }) => {
       <section
         id="inicio"
         ref={rootRef}
-        className="relative max-w-7xl mt-30 mx-auto p-4 sm:p-8 pb-0 mb-0"
+        className="relative max-w-7xl mt-30 mx-auto px-4 sm:px-8 pt-4 sm:pt-8 mb-0"
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 text-black/[0.05] dark:text-white/[0.06]"
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-black/[0.05] dark:text-white/[0.06]"
           style={{
-            backgroundImage:
-              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-            backgroundSize: "200px 200px",
             maskImage:
               "radial-gradient(ellipse 75% 70% at 45% 40%, black 35%, transparent 78%)",
             WebkitMaskImage:
               "radial-gradient(ellipse 75% 70% at 45% 40%, black 35%, transparent 78%)",
           }}
-        />
-        <div className="flex relative flex-col lg:flex-row lg:space-x-12 overflow-clip">
-          <div className="lg:w-1/2">
-            <h1 className="text-7xl sm:text-8xl font-medium leading-none mb-6">
-              <span
-                className="inline-block impact lg:text-[250px] text-transparent
-                bg-clip-text bg-gradient-to-r from-[#8a2e00] to-[#ff5500] FIRME"
+        >
+          <div
+            className="grid"
+            style={{
+              gridTemplateColumns: `repeat(${GRID_COLS}, ${GRID_CELL_SIZE}px)`,
+              gridTemplateRows: `repeat(${GRID_ROWS}, ${GRID_CELL_SIZE}px)`,
+            }}
+          >
+            {GRID_SQUARES.map((_, i) => (
+              <div
+                key={i}
+                className="hero-square relative border-r border-b border-current"
               >
-                FIRME
-              </span>
-            </h1>
-            <div className="absolute right-0 top-0 lg:-top-[2%] w-full lg:w-[65%] max-h-full z-10">
+                <div className="hero-square-fill absolute inset-0 bg-zinc-400/60 opacity-0 dark:bg-white/10" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(680px,calc(65vw_-_10px),850px)] lg:space-x-12 overflow-clip">
+          <div className="lg:w-1/2">
+            <div className={styles.heroIndent}>
+              <h1 className="font-medium leading-none mb-6">
+                <span
+                  className={`inline-block impact lg:text-[250px] text-transparent
+                  bg-clip-text bg-gradient-to-r from-[#8a2e00] to-[#ff5500] FIRME ${styles.heroTitle}`}
+                >
+                  FIRME
+                </span>
+              </h1>
+              <h1 className="font-medium leading-none -mt-4 lg:-mt-10">
+                <span
+                  className={`inline-block impact lg:text-[250px] tracking-tight
+                  whitespace-nowrap text-transparent bg-clip-text
+                  bg-gradient-to-r from-[#8a2e00] to-[#ff5500] DURADOURO ${styles.heroTitle}`}
+                >
+                  DURADOURO
+                </span>
+              </h1>
+              <div className={`lg:text-lg text-[#002d4d] dark:text-white max-w-md lg:w-full mb-8 py-2 HERO-SUBTEXT ${styles.heroSubtext}`}>
+                A Insul é líder na fabricação de telas, gradis, alambrados e
+                cercas prontas com maior mix de produtos do mercado.
+              </div>
+              <FillButton
+                onClick={() => scrollToSection("produtos")}
+                className={`HERO-CTA group bg-[#ff5500] text-white font-semibold
+                rounded-full border border-[#FF6A1A] ease-in lg:absolute
+                lg:text-lg lg:py-5 lg:px-10 lg:bottom-10 lg:right-10 hover:animate-wiggle cursor-pointer z-20 ${styles.heroButton}`}
+                overlayClassName="bg-white dark:bg-background text-[#ff5500]"
+              >
+                <span>Nossos produtos</span>
+                <ArrowRight
+                  size={20}
+                  className="group-hover:rotate-360 -routae-35 transition-all duration-500 ease-in"
+                />
+              </FillButton>
+            </div>
+            <div className={`lg:absolute lg:right-0 lg:top-auto lg:bottom-0 lg:w-[65%] max-h-full z-10 ${styles.heroImage}`}>
               <HeroImages src={heroImage} />
             </div>
-            <h1 className="font-medium leading-none -mt-4 lg:-mt-10">
-              <span
-                className="inline-block impact text-7xl sm:text-8xl lg:text-[250px] tracking-tight
-                whitespace-nowrap text-transparent bg-clip-text
-                bg-gradient-to-r from-[#8a2e00] to-[#ff5500] DURADOURO"
-              >
-                DURADOURO
-              </span>
-            </h1>
-            <div className="text-base lg:text-lg text-[#002d4d] dark:text-white max-w-md lg:w-full mb-8 py-2 HERO-SUBTEXT">
-              A Insul é líder na fabricação de telas, gradis, alambrados e
-              cercas prontas com maior mix de produtos do mercado.
-            </div>
-            <FillButton
-              onClick={() => scrollToSection("produtos")}
-              className="HERO-CTA group bg-[#ff5500] text-white text-sm font-semibold
-              py-4 px-6 rounded-full border border-[#FF6A1A] ease-in lg:absolute
-              lg:text-lg lg:py-5 lg:px-10 bottom-10 right-10 hover:animate-wiggle cursor-pointer z-20"
-              overlayClassName="bg-white dark:bg-background text-[#ff5500]"
-            >
-              <span>Nossos produtos</span>
-              <ArrowRight
-                size={20}
-                className="group-hover:rotate-360 -routae-35 transition-all duration-500 ease-in"
-              />
-            </FillButton>
           </div>
         </div>
       </section>
-      <hr className="text-zinc-300 -mt-8" />
+      <hr className="text-zinc-300 lg:mt-0" />
     </>
   );
 };

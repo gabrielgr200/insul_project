@@ -54,7 +54,7 @@ const VideoCardCarousel = ({
   return (
     <section className="overflow-hidden py-16">
       <h3 className="mt-4 text-2xl poppins text-center mb-10 font-bold text-[#ff5500] sm:text-3xl">
-        Veja alguns vídeos sobre a cerca {fenceName}
+        Veja alguns vídeos sobre a {fenceName}
       </h3>
       <div
         className="relative mx-auto flex h-[380px] max-w-6xl cursor-grab items-center justify-center touch-pan-y select-none active:cursor-grabbing sm:h-[440px]"

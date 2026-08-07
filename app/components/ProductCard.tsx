@@ -107,7 +107,12 @@ const PostSpacingDiagram = ({ value }: { value: string }) => (
           refY="4"
           orient="auto"
         >
-          <path d="M8,0 L0,4 L8,8" fill="none" stroke="#ff5500" strokeWidth="1.5" />
+          <path
+            d="M8,0 L0,4 L8,8"
+            fill="none"
+            stroke="#ff5500"
+            strokeWidth="1.5"
+          />
         </marker>
         <marker
           id="dimEnd"
@@ -117,7 +122,12 @@ const PostSpacingDiagram = ({ value }: { value: string }) => (
           refY="4"
           orient="auto"
         >
-          <path d="M0,0 L8,4 L0,8" fill="none" stroke="#ff5500" strokeWidth="1.5" />
+          <path
+            d="M0,0 L8,4 L0,8"
+            fill="none"
+            stroke="#ff5500"
+            strokeWidth="1.5"
+          />
         </marker>
       </defs>
     </svg>
@@ -138,6 +148,7 @@ const ProductCard = ({
   shortDescription,
   postSpacing,
   animals,
+  indicatedFor,
   to,
 }: ProductCardData) => {
   const [open, setOpen] = useState(false);
@@ -179,7 +190,6 @@ const ProductCard = ({
     }
 
     if (hLines?.length) {
-      // the fence wires stretching out from the middle to both posts
       tl.fromTo(
         hLines,
         { attr: { x1: 88, x2: 88 }, opacity: 0 },
@@ -209,7 +219,6 @@ const ProductCard = ({
     }
 
     if (dimArrow) {
-      // the measurement arrow stretching out to span the gap
       tl.fromTo(
         dimArrow,
         { attr: { x1: 88, x2: 88 }, opacity: 0 },
@@ -247,9 +256,8 @@ const ProductCard = ({
       );
     }
 
-    const indicadoLabel = animalRowRef.current?.parentElement?.querySelector(
-      ".indicado-label",
-    );
+    const indicadoLabel =
+      animalRowRef.current?.parentElement?.querySelector(".indicado-label");
     if (indicadoLabel) {
       tl.fromTo(
         indicadoLabel,
@@ -339,7 +347,6 @@ const ProductCard = ({
         className="group relative h-56 overflow-hidden bg-[#f5f5f5] dark:bg-white/5 sm:h-64"
         onMouseEnter={handleInfoPanelEnter}
       >
-        {/* Panel 1: product photo — shrinks to the left on hover instead of leaving */}
         <div className="absolute inset-y-0 left-0 w-full transition-[width] duration-500 ease-in-out group-hover:w-2/5">
           <img
             src={src}
@@ -348,7 +355,9 @@ const ProductCard = ({
           />
           <div className="absolute bottom-4 left-5">
             <p className="font-semibold text-[#ff5500]">{name}</p>
-            <p className="text-xs text-[#002d4d]/70 dark:text-white/70">{title}</p>
+            <p className="text-xs text-[#002d4d]/70 dark:text-white/70">
+              {title}
+            </p>
           </div>
 
           {to && (
@@ -372,15 +381,14 @@ const ProductCard = ({
           )}
         </div>
 
-        {/* Panel 2: post spacing + animals — slides in from the right, alongside the shrunk photo */}
-        {(postSpacing || animals?.length > 0) && (
+        {(postSpacing || animals?.length > 0 || indicatedFor?.length) && (
           <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0 dark:bg-white/5">
             {postSpacing && (
               <div ref={diagramRef}>
                 <PostSpacingDiagram value={postSpacing} />
               </div>
             )}
-            {animals?.length > 0 && (
+            {(animals?.length > 0 || indicatedFor?.length) && (
               <div>
                 <p className="indicado-label mb-1.5 text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/60">
                   Indicado para
@@ -389,8 +397,21 @@ const ProductCard = ({
                   ref={animalRowRef}
                   className="flex flex-wrap items-center justify-center gap-1.5"
                 >
-                  {animals.map((animal) => (
+                  {animals?.map((animal) => (
                     <AnimalThumb key={animal} animal={animal} />
+                  ))}
+                  {indicatedFor?.map((use) => (
+                    <div
+                      key={use.name}
+                      title={use.name}
+                      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
+                    >
+                      <img
+                        src={use.src}
+                        alt={use.name}
+                        className="h-full w-full object-contain p-0.5"
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -411,7 +432,9 @@ const ProductCard = ({
               </span>
             ))}
           </div>
-          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500 dark:text-white/60">{shortDescription}</p>
+          <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500 dark:text-white/60">
+            {shortDescription}
+          </p>
         </div>
       </div>
 
@@ -419,7 +442,9 @@ const ProductCard = ({
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-label={open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`}
+        aria-label={
+          open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`
+        }
         className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer dark:text-white/40 dark:hover:text-white/70"
       >
         <ChevronDown ref={chevronRef} size={18} />

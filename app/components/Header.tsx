@@ -3,13 +3,24 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, ShoppingBag, Phone, MessageCircle, Mail } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Menu,
+  Minus,
+  ArrowLeft,
+  ArrowUpRight,
+  ChevronsRight,
+  ShoppingBag,
+  Phone,
+  MessageCircle,
+  Mail,
+} from "lucide-react";
 import NavBtn from "./NavBtn";
 import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
-import { productCategories } from "../assets/data";
+import { productCategories, soldadasHexagonais } from "../assets/data";
 import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
 import FillButton from "./FillButton";
 
@@ -33,12 +44,76 @@ const contatoItems = [
 
 const sectionIds = ["inicio", "industria", "produtos", "catalogo"];
 
+type MobileView = "main" | "produtos" | "contato";
+
+const MobileMenuItem = ({
+  label,
+  onClick,
+  href,
+  drill,
+}: {
+  label: string;
+  onClick?: () => void;
+  href?: string;
+  drill?: boolean;
+}) => {
+  const Icon = drill ? ChevronsRight : ArrowUpRight;
+  const content = (
+    <>
+      <span className="truncate">{label}</span>
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-zinc-100 dark:bg-white/10">
+        <Icon size={13} />
+      </span>
+    </>
+  );
+  const className =
+    "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 dark:text-zinc-200 transition-colors hover:bg-zinc-100 dark:hover:bg-white/10";
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        onClick={onClick}
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {content}
+    </button>
+  );
+};
+
 const Header = () => {
   const [activeId, setActiveId] = useState("inicio");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileView, setMobileView] = useState<MobileView>("main");
   const pathname = usePathname();
   const router = useRouter();
   const beginPageTransition = useBeginPageTransition();
   const isHome = pathname === "/";
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setMobileView("main");
+  };
+
+  const toggleMobile = () => {
+    if (!mobileOpen) {
+      setMobileOpen(true);
+      setMobileView("main");
+    } else if (mobileView !== "main") {
+      setMobileView("main");
+    } else {
+      closeMobile();
+    }
+  };
 
   useEffect(() => {
     markSiteLoaded();
@@ -80,23 +155,60 @@ const Header = () => {
     "Cerca Campeira Boi": "campeira-boi",
   };
 
-  const produtosColumns = productCategories.map((col) =>
-    col.title === "Cercas Prontas"
-      ? {
-          title: col.title,
-          items: col.items.map((label) => ({
-            label,
-            onClick: () => {
-              beginPageTransition();
-              router.push(`/cercas-prontas/${cercaSlugByLabel[label]}`);
-            },
-          })),
-        }
-      : {
-          title: col.title,
-          items: col.items.map(toProdutos),
-        }
+  const soldadaSlugByLabel: Record<string, string> = Object.fromEntries(
+    soldadasHexagonais.map((item) => [item.name, item.slug])
   );
+
+  const goToProductCategory = (title: string) => {
+    if (title === "Soldada" || title === "Hexagonal") {
+      beginPageTransition();
+      router.push("/soldadas-hexagonais");
+    } else if (title === "Cercas Prontas") {
+      beginPageTransition();
+      router.push("/cercas-prontas");
+    } else {
+      goToSection("produtos");
+    }
+    closeMobile();
+  };
+
+  const produtosColumns = productCategories.map((col) => {
+    if (col.title === "Cercas Prontas") {
+      return {
+        title: col.title,
+        items: col.items.map((label) => ({
+          label,
+          onClick: () => {
+            beginPageTransition();
+            router.push(`/cercas-prontas/${cercaSlugByLabel[label]}`);
+          },
+        })),
+      };
+    }
+
+    if (col.title === "Soldada" || col.title === "Hexagonal") {
+      return {
+        title: col.title,
+        items: col.items.map((label) => {
+          const slug = soldadaSlugByLabel[label];
+          return {
+            label,
+            onClick: slug
+              ? () => {
+                  beginPageTransition();
+                  router.push(`/soldadas-hexagonais/${slug}`);
+                }
+              : () => goToSection("produtos"),
+          };
+        }),
+      };
+    }
+
+    return {
+      title: col.title,
+      items: col.items.map(toProdutos),
+    };
+  });
 
   useEffect(() => {
     if (!isHome) return;
@@ -130,10 +242,10 @@ const Header = () => {
           <img
             src="/images/logos.png"
             alt="Insul"
-            className="h-20 w-auto"
+            className="h-20 w-auto max-[453px]:h-14"
           />
         </Link>
-        <nav className="hidden xl:flex items-center text-xs space-x-4 2xl:space-x-8">
+        <nav className="hidden min-[1244px]:flex items-center text-xs space-x-4 2xl:space-x-8">
           <NavBtn
             active={isHome && activeId === "inicio"}
             onClick={goHome}
@@ -185,9 +297,156 @@ const Header = () => {
           </FillButton>
           <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
         </nav>
-        <div className="xl:hidden flex items-center gap-3">
+        <div className="min-[1244px]:hidden flex items-center gap-3">
           <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
-          <Menu className="size-10 text-zinc-900 dark:text-zinc-100" />
+          <div className="relative">
+            <button
+              type="button"
+              onClick={toggleMobile}
+              aria-label={
+                !mobileOpen ? "Abrir menu" : mobileView !== "main" ? "Voltar" : "Fechar menu"
+              }
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#ff5500] text-[#002d4d] dark:text-white"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {!mobileOpen ? (
+                  <motion.span
+                    key="menu"
+                    initial={{ opacity: 0, rotate: -45 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.15 }}
+                    className="flex"
+                  >
+                    <Menu size={18} />
+                  </motion.span>
+                ) : mobileView !== "main" ? (
+                  <motion.span
+                    key="back"
+                    initial={{ opacity: 0, rotate: -45 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.15 }}
+                    className="flex"
+                  >
+                    <ArrowLeft size={18} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="minus"
+                    initial={{ opacity: 0, rotate: -45 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.15 }}
+                    className="flex"
+                  >
+                    <Minus size={18} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+
+            <AnimatePresence>
+              {mobileOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {mobileView === "main" && (
+                      <motion.div
+                        key="main"
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 8 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex flex-col p-1.5"
+                      >
+                        <MobileMenuItem
+                          label="Início"
+                          onClick={() => {
+                            goHome();
+                            closeMobile();
+                          }}
+                        />
+                        <MobileMenuItem
+                          label="Produtos"
+                          drill
+                          onClick={() => setMobileView("produtos")}
+                        />
+                        <MobileMenuItem
+                          label="Catálogo"
+                          onClick={() => {
+                            goToSection("catalogo");
+                            closeMobile();
+                          }}
+                        />
+                        <MobileMenuItem
+                          label="Indústria"
+                          onClick={() => {
+                            goToSection("industria");
+                            closeMobile();
+                          }}
+                        />
+                        <MobileMenuItem
+                          label="Contato"
+                          drill
+                          onClick={() => setMobileView("contato")}
+                        />
+                        <MobileMenuItem
+                          label="Loja virtual"
+                          href="https://www.casadascercas.com.br"
+                          onClick={closeMobile}
+                        />
+                      </motion.div>
+                    )}
+
+                    {mobileView === "produtos" && (
+                      <motion.div
+                        key="produtos"
+                        initial={{ opacity: 0, x: 8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -8 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex flex-col p-1.5"
+                      >
+                        {produtosColumns.map((col) => (
+                          <MobileMenuItem
+                            key={col.title}
+                            label={col.title}
+                            onClick={() => goToProductCategory(col.title)}
+                          />
+                        ))}
+                      </motion.div>
+                    )}
+
+                    {mobileView === "contato" && (
+                      <motion.div
+                        key="contato"
+                        initial={{ opacity: 0, x: 8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -8 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex flex-col p-1.5"
+                      >
+                        {contatoItems.map((item) => (
+                          <MobileMenuItem
+                            key={item.label}
+                            label={item.label}
+                            href={item.href}
+                            onClick={closeMobile}
+                          />
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </header>

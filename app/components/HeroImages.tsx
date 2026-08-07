@@ -3,7 +3,7 @@ const HeroImages = ({ src }: { src: string }) => {
     <img
       src={src}
       alt="Rolos de tela soldada Insul"
-      className="w-full h-auto object-contain saturate-120 HERO-IMAGE-WRAPPER"
+      className="block w-full h-auto object-contain saturate-120 HERO-IMAGE-WRAPPER"
     />
   );
 };

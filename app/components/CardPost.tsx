@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   Play,
   Pause,
@@ -10,19 +10,22 @@ import {
   SkipForward,
 } from "lucide-react";
 
-const reels = [
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433064/fenix_xuz2jb.mp4", name: "Cerca Fênix Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433078/campeira_adheng.mp4", name: "Cerca Campeira Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433212/campeira-maxx_rykqie.mp4", name: "Cerca Campeira Maxx Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785433065/campeira-boi_insdku.mp4", name: "Cerca Campeira Boi Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785850079/campeira-java_ynluat.mp4", name: "Cerca Campeira Java Insul" },
-  { src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785496903/queda-da-arvore_tzvcoq.mp4", name: "A resistência das cercas" },
-];
+export interface CardPostReel {
+  src: string;
+  name: string;
+}
 
 const setAt = <T,>(arr: T[], i: number, value: T): T[] =>
   arr.map((v, idx) => (idx === i ? value : v));
 
-const CardPost = () => {
+interface CardPostProps {
+  badge?: string;
+  title: string;
+  description: ReactNode;
+  reels: CardPostReel[];
+}
+
+const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProps) => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [playing, setPlaying] = useState(() => reels.map(() => false));
   const [muted, setMuted] = useState(() => reels.map(() => true));
@@ -59,18 +62,38 @@ const CardPost = () => {
     }
   };
 
+  if (reels.length === 0) {
+    return (
+      <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8 dark:bg-white/5">
+        <div className="relative mx-auto max-w-xl text-center">
+          <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
+            {badge}
+          </span>
+          <h3 className="mt-4 text-2xl font-bold poppins text-[#ff5500] sm:text-3xl">
+            {title}
+          </h3>
+          <p className="mt-2 text-sm text-[#002d4d] dark:text-white poppins">
+            {description}
+          </p>
+          <p className="mt-6 rounded-xl bg-amber-100 px-4 py-3 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-300">
+            Vídeos de exemplo — conteúdo real ainda não foi cadastrado.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8 dark:bg-white/5">
       <div className="relative mx-auto max-w-xl text-center">
         <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
-          Vídeos
+          {badge}
         </span>
         <h3 className="mt-4 text-2xl font-bold poppins text-[#ff5500] sm:text-3xl">
-          Veja sobre as cercas prontas
+          {title}
         </h3>
         <p className="mt-2 text-sm text-[#002d4d] dark:text-white poppins">
-          <span className="font-bold">Especificações e detalhes: </span>acompanhe de perto como cada
-          cerca pronta Insul se comporta no campo.
+          {description}
         </p>
       </div>
 
@@ -78,7 +101,7 @@ const CardPost = () => {
         {reels.map((reel, i) => (
           <div
             key={reel.src}
-            className="group relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-black sm:w-44"
+            className="group relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-black shadow-md transition-transform duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl sm:w-44"
           >
             <video
               ref={(el) => {

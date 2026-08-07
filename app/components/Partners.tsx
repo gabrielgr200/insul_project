@@ -29,30 +29,30 @@ const Partners = () => {
 
   return (
     <div ref={sectionRef} className="px-2.5 py-2">
-      <div className="grid grid-cols-4 text-center px-20 divide-x divide-zinc-300">
+      <div className="grid grid-cols-2 gap-y-8 border-zinc-300 [&>*:nth-child(2)]:border-l [&>*:nth-child(4)]:border-l px-[clamp(1rem,5vw,5rem)] text-center min-[1213px]:grid-cols-4 min-[1213px]:gap-y-0 min-[1213px]:divide-x min-[1213px]:divide-zinc-300">
         <div>
-          <h2 className="text-6xl impact font-bold text-[#ff5500]">
+          <h2 className="impact text-[clamp(1.25rem,5vw,3.75rem)] font-bold text-[#ff5500]">
             {area}
           </h2>
-          <p className="py-2 text-[#002d4d] dark:text-white font-normal">m² area fabril</p>
+          <p className="py-2 text-[clamp(0.7rem,2vw,1rem)] text-[#002d4d] dark:text-white font-normal">m² area fabril</p>
         </div>
         <div>
-          <h2 className="text-6xl impact font-bold text-[#ff5500]">
+          <h2 className="impact text-[clamp(1.25rem,5vw,3.75rem)] font-bold text-[#ff5500]">
             +{milhao}Milhão
           </h2>
-          <p className="py-2 text-[#002d4d] dark:text-white font-normal">m² de telas / mês</p>
+          <p className="py-2 text-[clamp(0.7rem,2vw,1rem)] text-[#002d4d] dark:text-white font-normal">m² de telas / mês</p>
         </div>
         <div>
-          <h2 className="text-6xl impact font-bold text-[#ff5500]">
+          <h2 className="impact text-[clamp(1.25rem,5vw,3.75rem)] font-bold text-[#ff5500]">
             {anos}
           </h2>
-          <p className="py-2 text-[#002d4d] dark:text-white font-normal">Anos de mercado</p>
+          <p className="py-2 text-[clamp(0.7rem,2vw,1rem)] text-[#002d4d] dark:text-white font-normal">Anos de mercado</p>
         </div>
         <div>
-          <h2 className="text-6xl impact font-bold text-[#ff5500]">
+          <h2 className="impact text-[clamp(1.25rem,5vw,3.75rem)] font-bold text-[#ff5500]">
             +{toneladas}
           </h2>
-          <p className="py-2 text-[#002d4d] dark:text-white font-normal">
+          <p className="py-2 text-[clamp(0.7rem,2vw,1rem)] text-[#002d4d] dark:text-white font-normal">
             Ton. processadas / mês
           </p>
         </div>

@@ -9,7 +9,7 @@ const DELETE_SPEED = 45;
 const HOLD_TIME = 1200;
 const PAUSE_TIME = 300;
 
-const TypewriterWord = ({ textColor }: { textColor: string }) => {
+const TypewriterWord = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -37,10 +37,7 @@ const TypewriterWord = ({ textColor }: { textColor: string }) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <span
-        style={{ color: textColor }}
-        className="text-xs font-medium tracking-tight md:text-sm"
-      >
+      <span className="text-xs font-medium tracking-tight text-foreground md:text-sm">
         NOSSA GARANTIA
       </span>
       <p className="flex items-center">
@@ -60,18 +57,10 @@ const TypewriterWord = ({ textColor }: { textColor: string }) => {
 interface LoaderProps {
   brandName?: string;
   duration?: number;
-  background?: string;
-  textColor?: string;
   onComplete?: () => void;
 }
 
-const Loader = ({
-  brandName = "INSUL",
-  duration = 3,
-  background = "#ffffff",
-  textColor = "#111111",
-  onComplete,
-}: LoaderProps) => {
+const Loader = ({ brandName = "INSUL", duration = 3, onComplete }: LoaderProps) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -99,8 +88,7 @@ const Loader = ({
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
       transition={{ duration: 0.9, ease: [0.83, 0.05, 0.25, 0.98] }}
-      style={{ backgroundColor: background }}
-      className="fixed inset-0 z-[999] flex flex-col justify-between p-8 md:p-16"
+      className="fixed inset-0 z-[999] flex flex-col justify-between bg-background p-8 md:p-16"
     >
       <motion.div
         initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
@@ -113,7 +101,7 @@ const Loader = ({
           alt={brandName}
           className="h-16 w-auto md:h-8"
         />
-        <div className="h-4 w-px bg-black/20 md:h-5" />
+        <div className="h-4 w-px bg-foreground/20 md:h-5" />
         <img
           src="/images/logo_casa_das_cercas.png"
           alt="Casa das Cercas"
@@ -121,33 +109,27 @@ const Loader = ({
         />
       </motion.div>
 
-      <div className="relative h-px w-full overflow-hidden bg-black/10">
-        <motion.div
-          className="absolute inset-y-0 left-0"
-          style={{ backgroundColor: textColor }}
-          initial={{ width: "0%" }}
-          animate={{ width: `${progress}%` }}
-          transition={{ ease: "linear", duration: 0.1 }}
-        />
-      </div>
-
-      <div className="flex items-end justify-between">
-        <TypewriterWord textColor={textColor} />
-
-        <div className="flex items-end">
-          <span
-            style={{ color: textColor, fontWeight: 300 }}
-            className="text-[18vw] leading-[0.8] tracking-tighter tabular-nums md:text-[12rem]"
-          >
-            {progress}
-          </span>
-          <span
-            style={{ color: textColor }}
-            className="mb-2 text-2xl font-light md:text-4xl"
-          >
-            %
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="relative h-36 w-36 md:h-44 md:w-44">
+          <motion.span
+            className="absolute inset-0 border border-foreground"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.span
+            className="absolute inset-0 border border-foreground"
+            initial={{ rotate: 15 }}
+            animate={{ rotate: -345 }}
+            transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+          />
+          <span className="poppins relative flex h-full w-full items-center justify-center text-2xl font-light tabular-nums text-foreground md:text-3xl">
+            {progress}%
           </span>
         </div>
+      </div>
+
+      <div className="flex items-end">
+        <TypewriterWord />
       </div>
     </motion.div>
   );

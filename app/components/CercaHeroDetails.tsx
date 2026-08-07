@@ -38,12 +38,14 @@ interface CercaHeroDetailsProps {
   name: string;
   videoSrc: string;
   features: CercaFeature[];
+  badge?: string;
 }
 
 const CercaHeroDetails = ({
   name,
   videoSrc,
   features,
+  badge = "Cerca Pronta(rurais)",
 }: CercaHeroDetailsProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [waitingAtCheckpoint, setWaitingAtCheckpoint] = useState(false);
@@ -464,7 +466,7 @@ const CercaHeroDetails = ({
           <div className="rounded-3xl bg-black/10 p-6 shadow-2xl backdrop-blur-lg lg:ml-auto lg:w-1/3">
             <div className="pl-6 lg:pl-10 xl:pl-14">
               <span className="inline-block rounded-full border border-[#002d4d]/40 px-4 py-1.5 text-sm font-medium text-[#002d4d]">
-                Cerca Pronta(rurais)
+                {badge}
               </span>
               <h2 className="poppins mt-3 text-3xl font-bold text-[#ff5500] lg:text-4xl xl:text-5xl">
                 {name}
