@@ -15,17 +15,17 @@ import { cercasProntas } from "../assets/data";
 const FALLBACK_CERCA = cercasProntas.find((c) => c.slug === "fenix")!;
 
 const CUTOUT_IMAGES: Record<string, string> = {
-  fenix: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917804/FENX_grkczf.png",
-  campeira: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA_t68olb.png",
-  "campeira-boi": "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA-BOI_qyuhzs.png",
-  "campeira-maxx": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785176359/cerca-maxx_srpi3h.png",
+  fenix: "/images/CercasProntas/Campeira_fenix.png",
+  campeira: "/images/CercasProntas/Campeira.png",
+  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
+  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
   fenix: "/images/img_fenix_carousel/1.jpeg",
-  campeira: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784911999/ovino_pdivdh.jpg",
-  "campeira-boi": "https://res.cloudinary.com/kcqitv3l/image/upload/v1784912387/boi_zlfbxt.jpg",
-  "campeira-maxx": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785350971/img_maxx_8_zvbgxr.webp",
+  campeira: "/images/img-similares/img-similar-campeira.jpg",
+  "campeira-boi": "/images/img-similares/img-similar-boi.jpg",
+  "campeira-maxx": "/images/img-similares/img-similar-maxx.HEIC",
 };
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
@@ -48,17 +48,19 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
     <div className="min-h-screen overflow-clip">
       <Header />
 
-      <main className="pb-20 pt-30">
-        <CercaHeroDetails
-          name={cerca.name}
-          videoSrc={cerca.videoSrc || FALLBACK_CERCA.videoSrc}
-          features={cerca.features}
-        />
+      <main className="space-y-24 pb-20 pt-30">
+        <div className="mb-0">
+          <CercaHeroDetails
+            name={cerca.name}
+            videoSrc={cerca.videoSrc || FALLBACK_CERCA.videoSrc}
+            features={cerca.features}
+          />
+        </div>
         <ExpandableCardExample color={cerca.color} />
         <ImgCarousel images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
         <BlurRevealText
           text={cerca.paragraphs}
-          className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
+          className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
         />
         <VideoCardCarousel
           cards={cerca.videoCards.length > 0 ? cerca.videoCards : FALLBACK_CERCA.videoCards}

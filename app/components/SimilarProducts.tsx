@@ -15,7 +15,7 @@ export interface SimilarProductItem
 
 type SimilarCardProps = SimilarProductItem;
 
-const SimilarProductCard = ({
+export const SimilarProductCard = ({
   src,
   title,
   name,

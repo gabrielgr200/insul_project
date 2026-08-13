@@ -28,8 +28,6 @@ const BACKGROUND_IMAGES: Record<string, string> = {
   "tela-morada-leve": "https://res.cloudinary.com/kcqitv3l/image/upload/v1786025112/morada-leve-similares_cluxwd.jpg",
 };
 
-// Segunda palavra do nome ("Tela Morada Open" -> "morada") identifica a
-// família do produto, pra priorizar variantes (leve, open...) nos similares.
 const familyKey = (name: string) => name.split(" ")[1]?.toLowerCase() ?? "";
 
 const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {

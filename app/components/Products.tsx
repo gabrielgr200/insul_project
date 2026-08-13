@@ -52,7 +52,7 @@ const Products = () => {
         {t("products.tituloLinha1")} <br /> {t("products.tituloLinha2")}
       </h2>
 
-      <div className="flex flex-col lg:flex-row lg:space-x-20">
+      <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
         <div className="PRODUCTS-LIST w-full max-w-xl mx-auto lg:mx-0 lg:max-w-none lg:w-1/3">
           {roomDetails.map((room) => (
             <ProductsLink

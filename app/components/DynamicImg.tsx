@@ -11,7 +11,7 @@ const DynamicImg = ({ src }: { src?: string }) => {
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
-        className="PRODUCTS-IMAGE lg:w-2/3 mt-10 lg:mt-0 saturate-130 overflow-clip
+        className="PRODUCTS-IMAGE lg:w-[60%] mt-10 lg:mt-0 saturate-130 overflow-clip
         transition-all duration-700 ease-in-out rounded-2xl"
       >
         <div

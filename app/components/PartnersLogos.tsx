@@ -9,6 +9,7 @@ const partnerLogos = [
   { name: "Empresa 3", image: "/images/Voestalpine.webp" },
   { name: "Empresa 4", image: "/images/tambasa.png" },
   { name: "Empresa 5", image: "/images/Braskem.webp" },
+  { name: "Empresa 6", image: "/images/MLA.webp" },
 ];
 
 const REPEAT_COUNT = 8;

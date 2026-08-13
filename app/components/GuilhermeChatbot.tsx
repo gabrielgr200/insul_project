@@ -210,7 +210,7 @@ const GuilhermeChatbot = () => {
             exit={{ opacity: 0, scale: 0.85 }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 lg:relative lg:block"
           >
             <span className="relative block shrink-0">
               <video
@@ -218,13 +218,13 @@ const GuilhermeChatbot = () => {
                 src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
                 muted
                 playsInline
-                className="h-20 w-20 rounded-full object-cover object-top shadow-xl ring-2 ring-white dark:ring-background sm:h-24 sm:w-24"
+                className="h-20 w-20 rounded-full object-cover object-top shadow-xl ring-2 ring-white dark:ring-background sm:h-24 sm:w-24 lg:h-64 lg:w-48 lg:rounded-3xl lg:object-center lg:ring-0"
               />
-              <span className="absolute -right-0.5 -top-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#ff5500] text-white shadow-lg ring-4 ring-white dark:ring-background">
-                <MessageCircle size={14} />
+              <span className="absolute -right-0.5 -top-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#ff5500] text-white shadow-lg ring-4 ring-white dark:ring-background lg:-right-2 lg:-top-2 lg:h-8 lg:w-8">
+                <MessageCircle size={15} />
               </span>
             </span>
-            <span className="whitespace-nowrap rounded-full bg-[#002d4d] px-3 py-1 text-xs font-medium text-white shadow dark:bg-white dark:text-[#002d4d]">
+            <span className="whitespace-nowrap rounded-full bg-[#002d4d] px-3 py-1 text-xs font-medium text-white shadow dark:bg-white dark:text-[#002d4d] lg:absolute lg:-bottom-3 lg:left-1/2 lg:-translate-x-1/2">
               {t("chatbot.tooltip")}
             </span>
           </motion.button>

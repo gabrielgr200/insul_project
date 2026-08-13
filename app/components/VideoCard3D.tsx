@@ -19,18 +19,26 @@ const formatTime = (seconds: number) => {
   return `${m}:${s.toString().padStart(2, "0")}`;
 };
 
+const MIN_WIDTH = 320;
+const MAX_WIDTH = 1100;
+
 const CornerBracket = ({
   className,
+  cursor,
   x,
   y,
+  onPointerDown,
 }: {
   className: string;
+  cursor: string;
   x: ReturnType<typeof useTransform<number, number>>;
   y: ReturnType<typeof useTransform<number, number>>;
+  onPointerDown: (e: React.PointerEvent<HTMLSpanElement>) => void;
 }) => (
   <motion.span
     style={{ x, y }}
-    className={`pointer-events-none absolute h-5 w-5 border-cyan-300/80 drop-shadow-[0_0_6px_rgba(103,232,249,0.7)] ${className}`}
+    onPointerDown={onPointerDown}
+    className={`absolute z-10 h-5 w-5 touch-none border-cyan-300/80 drop-shadow-[0_0_6px_rgba(103,232,249,0.7)] ${cursor} ${className}`}
   />
 );
 
@@ -39,12 +47,14 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const volumeRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [cardWidth, setCardWidth] = useState<number | null>(null);
 
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
@@ -65,6 +75,27 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
   const handleMouseLeave = () => {
     rotateX.set(0);
     rotateY.set(0);
+  };
+
+  // dirX: +1 para cantos da direita, -1 para cantos da esquerda.
+  // O card é centralizado, então cresce dos dois lados (dx * 2).
+  const startResize = (dirX: number) => (e: React.PointerEvent<HTMLSpanElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const startX = e.clientX;
+    const startWidth = outerRef.current?.getBoundingClientRect().width ?? 672;
+    const upperBound = Math.min(MAX_WIDTH, window.innerWidth * 0.95);
+    const onMove = (ev: PointerEvent) => {
+      const dx = ev.clientX - startX;
+      const next = Math.min(upperBound, Math.max(MIN_WIDTH, startWidth + dirX * dx * 2));
+      setCardWidth(next);
+    };
+    const onUp = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
   };
 
   const togglePlay = () => {
@@ -155,30 +186,43 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
   return (
     <section className="px-4 py-16 sm:px-8">
       <div
-        className="relative mx-auto max-w-2xl p-5"
-        style={{ perspective: 1200 }}
+        ref={outerRef}
+        className="relative mx-auto w-full p-5"
+        style={{
+          perspective: 1200,
+          width: cardWidth ?? undefined,
+          maxWidth: cardWidth ? undefined : "42rem",
+        }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
         <CornerBracket
           className="top-0 left-0 rounded-tl-md border-t-2 border-l-2"
+          cursor="cursor-nwse-resize"
           x={bracketX}
           y={bracketYFromTiltX}
+          onPointerDown={startResize(-1)}
         />
         <CornerBracket
           className="top-0 right-0 rounded-tr-md border-t-2 border-r-2"
+          cursor="cursor-nesw-resize"
           x={bracketX}
           y={bracketYFromTiltX}
+          onPointerDown={startResize(1)}
         />
         <CornerBracket
           className="bottom-0 left-0 rounded-bl-md border-b-2 border-l-2"
+          cursor="cursor-nesw-resize"
           x={bracketX}
           y={bracketYFromTiltX}
+          onPointerDown={startResize(-1)}
         />
         <CornerBracket
           className="right-0 bottom-0 rounded-br-md border-r-2 border-b-2"
+          cursor="cursor-nwse-resize"
           x={bracketX}
           y={bracketYFromTiltX}
+          onPointerDown={startResize(1)}
         />
 
         <motion.div

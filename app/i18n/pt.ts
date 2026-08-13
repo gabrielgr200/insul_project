@@ -112,7 +112,7 @@ const pt = {
     tituloLinha1: "CATÁLOGO DE",
     tituloLinha2: "PRODUTOS",
     texto:
-      "Baixe nosso catálogo de produtos e conheça em detalhes toda a nossa linha de produtos.",
+      "Veja nosso catálogo de produtos e\nconheça em detalhes toda a nossa\nlinha de produtos.",
     tooltip: "Clique no botão para escolher um produto",
     interessado: "Ficou interessado?",
     ctaSaibaMais: "Clique aqui e saiba mais",
@@ -282,6 +282,135 @@ const pt = {
           "O Gradil é um painel de aço soldado modular (temos nos modelos G4, G5 e G12), fixado com catracas em postes — instalação rápida e ótima resistência. Ideal pra indústrias, condomínios e áreas comerciais.",
       },
     ],
+  },
+
+  gradil: {
+    hero: {
+      title1: "Segurança que cerca",
+      title2: "sua propriedade",
+      subtitleLead: "Modelos G4, G5 e G12",
+      subtitleRest:
+        " — painel de aço soldado modular, instalação rápida e alta resistência.",
+      scroll: "role para baixo",
+      galleryAlt: "Gradil Insul instalado",
+    },
+    showcase: {
+      title: "Gradil",
+      left: "A linha de gradis Insul: painéis de aço soldado modulares para cercar e proteger o seu espaço.",
+      modelsLead: "Modelos ",
+      models: "G4, G5 e G12",
+      modelsRest:
+        " — do residencial leve ao industrial de alta resistência, com instalação rápida e acabamento durável.",
+      securityLead:
+        "Segurança que valoriza indústrias, condomínios e residências, sem abrir mão do ",
+      design: "design",
+      words: ["Design", "Qualidade", "Resistência"],
+    },
+    cards: [
+      { title: "Malha", description: "5 cm x 20 cm | 2,5 cm x 20 cm | 2,0 cm x 20 cm" },
+      { title: "Alturas", description: "1,03 m | 1,53 m | 2,03 m | 2,43 m" },
+      { title: "Comprimento", description: "2,5 m" },
+      { title: "Bitola", description: "4,0 mm | 4,8 mm" },
+    ],
+    reveal:
+      "Desenvolvidos para proporcionar segurança e durabilidade, os gradis são indicados para diferentes tipos de terrenos e aplicações. Uma solução prática e eficiente para proteger sua propriedade, garantindo resistência e um acabamento de qualidade.",
+    process: {
+      label: "Processo de produção",
+      title: "Processo de produção",
+      capacityLead: "Capacidade de produção por turno de ",
+      capacityM2: "4.000 m²",
+      capacityMid: " de Gradil ",
+      capacityModels: "G4, G5 ou G12",
+      steps: [
+        { num: "01", title: "Processo", desc: "Processo de Solda / Dobra e Armazenagem 100% automatizado" },
+        { num: "02", title: "Tratamento", desc: "Tratamento pré-pintura por imersão com fosfatização tricatiônica" },
+        { num: "03", title: "Linha de pintura", desc: "Linha de pintura Erzinger, 100% automatizada e robotizada com pistolas Wagner" },
+        { num: "04", title: "Tintas", desc: "Tintas Poliéster Premium com garantia de brilho e resistência por mais tempo." },
+      ],
+    },
+    colors: {
+      label: "Linha Residencial | Cores sob demanda",
+      title1: "Tamanhos",
+      title2: "medidas e cores",
+      descriptions: [
+        "Matéria prima arame galvanizado da GERDAU com camada de zindo à fogo de 70 g/m2",
+        "Tintas poliéster premium das marcas WEG ou MEKAL com garantia de brilho e resistência por mais tempo.",
+      ],
+      names: { PRETO: "Preto", VERDE: "Verde", BRANCO: "Branco", AMARELO: "Amarelo", AZUL: "Azul", CINZA: "Cinza" },
+    },
+    products: {
+      title: "Gradil",
+      cards: [
+        {
+          name: "Gradil G4",
+          paragraph: "Bitola 4,0 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+          shortDescription:
+            "Painel de aço soldado modular para cercamento residencial e comercial leve. Instalação rápida, boa visibilidade e acabamento durável.",
+          description:
+            "O Gradil G4 Insul é um painel de aço soldado modular, ideal para residências, condomínios e áreas comerciais. Une leveza, design e segurança, com instalação rápida e baixa manutenção.",
+          indicated: ["Residências", "Condomínios"],
+        },
+        {
+          name: "Gradil G5",
+          paragraph: "Bitola 4,8 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+          shortDescription:
+            "Painel intermediário com maior bitola, indicado para condomínios, empresas e áreas que exigem mais robustez sem abrir mão do design.",
+          description:
+            "O Gradil G5 Insul aumenta a resistência com arame de maior bitola, mantendo o sistema modular de instalação rápida. Perfeito para condomínios, empresas e espaços que pedem mais segurança.",
+          indicated: ["Condomínios", "Indústrias"],
+        },
+        {
+          name: "Gradil G12",
+          paragraph: "Bitola 4,8 mm, Malha 2,5 cm x 20 cm, Aço soldado reforçado, Alta resistência",
+          shortDescription:
+            "Painel de alta resistência com malha mais fechada, desenvolvido para uso industrial e áreas que exigem o máximo em segurança e durabilidade.",
+          description:
+            "O Gradil G12 Insul é a solução mais robusta da linha, com malha fechada e estrutura reforçada. Indicado para indústrias, centros logísticos e perímetros que exigem alta segurança.",
+          indicated: ["Indústrias", "Portões e perímetros"],
+        },
+      ],
+    },
+    pipes: {
+      label: "Linha Residencial",
+      title1: "Tubos",
+      title2: "e acessórios",
+      text: "Matéria prima arame galvanizado da Gerdau com camada de zindo à fogo de 70 g/m2",
+      imgAlt: "Poste com tampa, fixador, parafuso e tampinha",
+      cards: [
+        { title: "Tampa", desc: "Acabamento superior que protege o interior do poste." },
+        { title: "Fixador", desc: "Prende a tela ao poste com firmeza e praticidade." },
+        { title: "Parafuso", desc: "Sextavado com vedação para uma fixação segura." },
+        { title: "Acabamento", desc: "Finaliza o conjunto ocultando o parafuso." },
+      ],
+      features: [
+        ["Espessura da chapa", "Tubos de até 2,08m: 125mm.", "Tubos a partir de 2,48m: 145mm."],
+        ["Poste retangulares", "metálicos 4x6cm."],
+        ["Acessórios com", "proteção anti-UV."],
+        ["Poste galvanizado a", "quente com camada de", "zinco média de 275g/m."],
+        ["Fosfatização", "microcristalina tricatiônica"],
+        ["Pintura eletrostática", "Thermo-plastic poliéster."],
+      ],
+    },
+    coating: {
+      label: "Linha Residencial",
+      title: "Revestimento do arame",
+      subtitle:
+        "Matéria prima arame galvanizado da Gerdau com camada de zindo à fogo de 70 g/m2",
+      prev: "Camada anterior",
+      next: "Próxima camada",
+      layers: ["Pintura eletrostática", "Fosfato tricatiônico", "Galvanização a fogo", "Aço Gerdau"],
+    },
+    guarantee: {
+      title1: "Qualidade comprovada",
+      title2: "com 5 anos de garantia!",
+      note: "*em ambientes não litorâneos",
+      side: "Tintas Poliéster Premium das marcas com garantia de brilho e resistência por mais tempo.",
+    },
+    other: {
+      title: "Outros produtos",
+      productTitle: "Cerca pronta",
+      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+    },
   },
 };
 

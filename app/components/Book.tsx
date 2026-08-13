@@ -209,18 +209,18 @@ const Book = () => {
           {t("book.tituloLinha1")} <br /> {t("book.tituloLinha2")}
         </h2>
         <div className="BOOK-TEXT flex flex-col items-center w-full lg:w-auto lg:max-w-[400px] lg:mr-14">
-          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-center sm:text-left ">
+          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-center sm:text-left lg:whitespace-pre-line">
             {t("book.texto")}
           </p>
         </div>
       </div>
-      <div className="BOOK-CONTENT mt-20 flex flex-col items-center gap-6 lg:flex-row lg:justify-center">
+      <div className="BOOK-CONTENT mt-20 lg:mt-0 flex flex-col items-center gap-6 lg:gap-20 lg:flex-row lg:justify-between">
         <TextArrowCTA
           onClick={() => bookRef.current?.pageFlip().flipNext()}
           className="lg:mr-6"
         />
 
-        <div className="w-full max-w-[250px] sm:max-w-[340px] lg:max-w-[420px]">
+        <div className="w-full max-w-[250px] sm:max-w-[340px] lg:max-w-[800px] lg:flex lg:justify-end">
         <HTMLFlipBook
           className=""
           style={{}}

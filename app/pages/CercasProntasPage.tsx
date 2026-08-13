@@ -16,8 +16,15 @@ import {
 } from "../assets/data";
 import CardPost from "../components/CardPost";
 
+const LOCAL_CARD_SRC: Record<string, string> = {
+  fenix: "/images/CercasProntas/Campeira_fenix.png",
+  campeira: "/images/CercasProntas/Campeira.png",
+  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
+  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
+};
+
 const cercasProntasCardsPages: ProductCardData[] = cercasProntas.map((c) => ({
-  src: c.src,
+  src: LOCAL_CARD_SRC[c.slug] ?? c.src,
   title: c.title,
   name: c.name,
   paragraph: c.paragraph,

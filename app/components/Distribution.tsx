@@ -89,7 +89,7 @@ const Distribution = () => {
           </div>
         </div>
 
-        <div className="DISTRIBUTION-MAP mt-10 lg:mt-0 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2">
+        <div className="DISTRIBUTION-MAP mt-10 lg:mt-0 lg:translate-x-32 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2">
           <BrazilMap />
         </div>
 

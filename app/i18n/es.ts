@@ -114,7 +114,7 @@ const es: Dictionary = {
     tituloLinha1: "CATÁLOGO DE",
     tituloLinha2: "PRODUCTOS",
     texto:
-      "Descarga nuestro catálogo de productos y conoce en detalle toda nuestra línea de productos.",
+      "Mira nuestro catálogo de productos y conoce en detalle toda nuestra línea de productos.",
     tooltip: "Haz clic en el botón para elegir un producto",
     interessado: "¿Te interesó?",
     ctaSaibaMais: "Haz clic aquí y conoce más",
@@ -298,6 +298,135 @@ const es: Dictionary = {
           "La Reja (Gradil) es un panel de acero soldado modular (disponible en los modelos G4, G5 y G12), fijado con trinquetes en postes — instalación rápida y excelente resistencia. Ideal para industrias, condominios y áreas comerciales.",
       },
     ],
+  },
+
+  gradil: {
+    hero: {
+      title1: "Seguridad que rodea",
+      title2: "tu propiedad",
+      subtitleLead: "Modelos G4, G5 y G12",
+      subtitleRest:
+        " — panel de acero soldado modular, instalación rápida y alta resistencia.",
+      scroll: "desliza hacia abajo",
+      galleryAlt: "Reja Insul instalada",
+    },
+    showcase: {
+      title: "Reja",
+      left: "La línea de rejas Insul: paneles de acero soldado modulares para cercar y proteger tu espacio.",
+      modelsLead: "Modelos ",
+      models: "G4, G5 y G12",
+      modelsRest:
+        " — del residencial ligero al industrial de alta resistencia, con instalación rápida y acabado duradero.",
+      securityLead:
+        "Seguridad que valoriza industrias, condominios y viviendas, sin renunciar al ",
+      design: "diseño",
+      words: ["Diseño", "Calidad", "Resistencia"],
+    },
+    cards: [
+      { title: "Malla", description: "5 cm x 20 cm | 2,5 cm x 20 cm | 2,0 cm x 20 cm" },
+      { title: "Alturas", description: "1,03 m | 1,53 m | 2,03 m | 2,43 m" },
+      { title: "Longitud", description: "2,5 m" },
+      { title: "Calibre", description: "4,0 mm | 4,8 mm" },
+    ],
+    reveal:
+      "Desarrolladas para brindar seguridad y durabilidad, las rejas son indicadas para diferentes tipos de terreno y aplicaciones. Una solución práctica y eficiente para proteger tu propiedad, garantizando resistencia y un acabado de calidad.",
+    process: {
+      label: "Proceso de producción",
+      title: "Proceso de producción",
+      capacityLead: "Capacidad de producción por turno de ",
+      capacityM2: "4.000 m²",
+      capacityMid: " de Reja ",
+      capacityModels: "G4, G5 o G12",
+      steps: [
+        { num: "01", title: "Proceso", desc: "Proceso de soldadura / doblado y almacenaje 100% automatizado" },
+        { num: "02", title: "Tratamiento", desc: "Tratamiento prepintura por inmersión con fosfatizado tricatiónico" },
+        { num: "03", title: "Línea de pintura", desc: "Línea de pintura Erzinger, 100% automatizada y robotizada con pistolas Wagner" },
+        { num: "04", title: "Pinturas", desc: "Pinturas Poliéster Premium con garantía de brillo y resistencia por más tiempo." },
+      ],
+    },
+    colors: {
+      label: "Línea Residencial | Colores a pedido",
+      title1: "Tamaños,",
+      title2: "medidas y colores",
+      descriptions: [
+        "Materia prima: alambre galvanizado GERDAU con capa de zinc en caliente de 70 g/m²",
+        "Pinturas poliéster premium de las marcas WEG o MEKAL, con garantía de brillo y resistencia por más tiempo.",
+      ],
+      names: { PRETO: "Negro", VERDE: "Verde", BRANCO: "Blanco", AMARELO: "Amarillo", AZUL: "Azul", CINZA: "Gris" },
+    },
+    products: {
+      title: "Reja",
+      cards: [
+        {
+          name: "Reja G4",
+          paragraph: "Calibre 4,0 mm, malla 5 cm x 20 cm, acero soldado, galvanizado + pintura",
+          shortDescription:
+            "Panel de acero soldado modular para cercado residencial y comercial ligero. Instalación rápida, buena visibilidad y acabado duradero.",
+          description:
+            "La Reja G4 Insul es un panel de acero soldado modular, ideal para viviendas, condominios y áreas comerciales. Une ligereza, diseño y seguridad, con instalación rápida y bajo mantenimiento.",
+          indicated: ["Viviendas", "Condominios"],
+        },
+        {
+          name: "Reja G5",
+          paragraph: "Calibre 4,8 mm, malla 5 cm x 20 cm, acero soldado, galvanizado + pintura",
+          shortDescription:
+            "Panel intermedio con mayor calibre, indicado para condominios, empresas y áreas que exigen más robustez sin renunciar al diseño.",
+          description:
+            "La Reja G5 Insul aumenta la resistencia con alambre de mayor calibre, manteniendo el sistema modular de instalación rápida. Perfecta para condominios, empresas y espacios que piden más seguridad.",
+          indicated: ["Condominios", "Industrias"],
+        },
+        {
+          name: "Reja G12",
+          paragraph: "Calibre 4,8 mm, malla 2,5 cm x 20 cm, acero soldado reforzado, alta resistencia",
+          shortDescription:
+            "Panel de alta resistencia con malla más cerrada, desarrollado para uso industrial y áreas que exigen lo máximo en seguridad y durabilidad.",
+          description:
+            "La Reja G12 Insul es la solución más robusta de la línea, con malla cerrada y estructura reforzada. Indicada para industrias, centros logísticos y perímetros que exigen alta seguridad.",
+          indicated: ["Industrias", "Portones y perímetros"],
+        },
+      ],
+    },
+    pipes: {
+      label: "Línea Residencial",
+      title1: "Tubos",
+      title2: "y accesorios",
+      text: "Materia prima: alambre galvanizado Gerdau con capa de zinc en caliente de 70 g/m²",
+      imgAlt: "Poste con tapa, fijador, tornillo y tapón",
+      cards: [
+        { title: "Tapa", desc: "Acabado superior que protege el interior del poste." },
+        { title: "Fijador", desc: "Sujeta el panel al poste con firmeza y practicidad." },
+        { title: "Tornillo", desc: "Hexagonal con sellado para una fijación segura." },
+        { title: "Tapón", desc: "Finaliza el conjunto ocultando el tornillo." },
+      ],
+      features: [
+        ["Espesor de la chapa", "Tubos de hasta 2,08 m: 125 mm.", "Tubos desde 2,48 m: 145 mm."],
+        ["Postes rectangulares", "metálicos 4x6 cm."],
+        ["Accesorios con", "protección anti-UV."],
+        ["Poste galvanizado en", "caliente con capa de", "zinc media de 275 g/m."],
+        ["Fosfatizado", "microcristalino tricatiónico"],
+        ["Pintura electrostática", "poliéster Thermo-plastic."],
+      ],
+    },
+    coating: {
+      label: "Línea Residencial",
+      title: "Recubrimiento del alambre",
+      subtitle:
+        "Materia prima: alambre galvanizado Gerdau con capa de zinc en caliente de 70 g/m²",
+      prev: "Capa anterior",
+      next: "Capa siguiente",
+      layers: ["Pintura electrostática", "Fosfato tricatiónico", "Galvanizado en caliente", "Acero Gerdau"],
+    },
+    guarantee: {
+      title1: "Calidad comprobada",
+      title2: "¡con 5 años de garantía!",
+      note: "*en ambientes no costeros",
+      side: "Pinturas Poliéster Premium de las mejores marcas, con garantía de brillo y resistencia por más tiempo.",
+    },
+    other: {
+      title: "Otros productos",
+      productTitle: "Cerca lista",
+      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+    },
   },
 };
 

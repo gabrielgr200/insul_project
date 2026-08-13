@@ -114,7 +114,7 @@ const en: Dictionary = {
     tituloLinha1: "PRODUCT",
     tituloLinha2: "CATALOG",
     texto:
-      "Download our product catalog and learn in detail about our entire product line.",
+      "See our product catalog and learn in detail about our entire product line.",
     tooltip: "Click the button to choose a product",
     interessado: "Interested?",
     ctaSaibaMais: "Click here to learn more",
@@ -284,6 +284,135 @@ const en: Dictionary = {
           "The Railing (Gradil) is a modular welded steel panel (available in G4, G5 and G12 models), fixed with ratchets on posts — quick installation and great strength. Ideal for industries, condominiums and commercial areas.",
       },
     ],
+  },
+
+  gradil: {
+    hero: {
+      title1: "Security that surrounds",
+      title2: "your property",
+      subtitleLead: "G4, G5 and G12 models",
+      subtitleRest:
+        " — modular welded steel panel, quick installation and high strength.",
+      scroll: "scroll down",
+      galleryAlt: "Insul fence panel installed",
+    },
+    showcase: {
+      title: "Fence panel",
+      left: "The Insul fence panel line: modular welded steel panels to enclose and protect your space.",
+      modelsLead: "Models ",
+      models: "G4, G5 and G12",
+      modelsRest:
+        " — from light residential to high-strength industrial, with quick installation and a durable finish.",
+      securityLead:
+        "Security that adds value to industries, condominiums and homes, without compromising on ",
+      design: "design",
+      words: ["Design", "Quality", "Strength"],
+    },
+    cards: [
+      { title: "Mesh", description: "5 cm x 20 cm | 2.5 cm x 20 cm | 2.0 cm x 20 cm" },
+      { title: "Heights", description: "1.03 m | 1.53 m | 2.03 m | 2.43 m" },
+      { title: "Length", description: "2.5 m" },
+      { title: "Wire gauge", description: "4.0 mm | 4.8 mm" },
+    ],
+    reveal:
+      "Designed to provide safety and durability, the fence panels are suited to different types of terrain and applications. A practical and efficient solution to protect your property, ensuring strength and a quality finish.",
+    process: {
+      label: "Production process",
+      title: "Production process",
+      capacityLead: "Production capacity per shift of ",
+      capacityM2: "4,000 m²",
+      capacityMid: " of fence panels ",
+      capacityModels: "G4, G5 or G12",
+      steps: [
+        { num: "01", title: "Process", desc: "Welding / bending and storage process, 100% automated" },
+        { num: "02", title: "Treatment", desc: "Pre-paint immersion treatment with tri-cationic phosphating" },
+        { num: "03", title: "Paint line", desc: "Erzinger paint line, fully automated and robotized with Wagner guns" },
+        { num: "04", title: "Paints", desc: "Premium Polyester paints with a longer-lasting gloss and resistance warranty." },
+      ],
+    },
+    colors: {
+      label: "Residential Line | Colors on demand",
+      title1: "Sizes,",
+      title2: "measures and colors",
+      descriptions: [
+        "Raw material: GERDAU galvanized wire with a 70 g/m² hot-dip zinc layer",
+        "Premium polyester paints from WEG or MEKAL, with a longer-lasting gloss and resistance warranty.",
+      ],
+      names: { PRETO: "Black", VERDE: "Green", BRANCO: "White", AMARELO: "Yellow", AZUL: "Blue", CINZA: "Gray" },
+    },
+    products: {
+      title: "Fence panel",
+      cards: [
+        {
+          name: "G4 Panel",
+          paragraph: "4.0 mm gauge, 5 cm x 20 cm mesh, welded steel, galvanized + painted",
+          shortDescription:
+            "Modular welded steel panel for light residential and commercial fencing. Quick installation, good visibility and a durable finish.",
+          description:
+            "The Insul G4 Panel is a modular welded steel panel, ideal for homes, condominiums and commercial areas. It combines lightness, design and safety, with quick installation and low maintenance.",
+          indicated: ["Homes", "Condominiums"],
+        },
+        {
+          name: "G5 Panel",
+          paragraph: "4.8 mm gauge, 5 cm x 20 cm mesh, welded steel, galvanized + painted",
+          shortDescription:
+            "Intermediate panel with a heavier gauge, recommended for condominiums, businesses and areas that require more robustness without giving up design.",
+          description:
+            "The Insul G5 Panel increases strength with heavier-gauge wire while keeping the modular quick-install system. Perfect for condominiums, businesses and spaces that demand more security.",
+          indicated: ["Condominiums", "Industries"],
+        },
+        {
+          name: "G12 Panel",
+          paragraph: "4.8 mm gauge, 2.5 cm x 20 cm mesh, reinforced welded steel, high strength",
+          shortDescription:
+            "High-strength panel with a tighter mesh, developed for industrial use and areas that demand the utmost in security and durability.",
+          description:
+            "The Insul G12 Panel is the most robust solution in the line, with a tight mesh and reinforced structure. Recommended for industries, logistics centers and perimeters that require high security.",
+          indicated: ["Industries", "Gates and perimeters"],
+        },
+      ],
+    },
+    pipes: {
+      label: "Residential Line",
+      title1: "Posts",
+      title2: "and accessories",
+      text: "Raw material: Gerdau galvanized wire with a 70 g/m² hot-dip zinc layer",
+      imgAlt: "Post with cap, clamp, screw and end cap",
+      cards: [
+        { title: "Cap", desc: "Top finish that protects the inside of the post." },
+        { title: "Clamp", desc: "Fastens the panel to the post firmly and easily." },
+        { title: "Screw", desc: "Hex head with sealing washer for a secure fastening." },
+        { title: "End cap", desc: "Finishes the assembly, hiding the screw." },
+      ],
+      features: [
+        ["Sheet thickness", "Posts up to 2.08 m: 125 mm.", "Posts from 2.48 m: 145 mm."],
+        ["Rectangular metal", "posts, 4x6 cm."],
+        ["Accessories with", "anti-UV protection."],
+        ["Hot-dip galvanized", "post with an average", "zinc layer of 275 g/m."],
+        ["Micro-crystalline", "tri-cationic phosphating"],
+        ["Electrostatic", "Thermo-plastic polyester paint."],
+      ],
+    },
+    coating: {
+      label: "Residential Line",
+      title: "Wire coating",
+      subtitle:
+        "Raw material: Gerdau galvanized wire with a 70 g/m² hot-dip zinc layer",
+      prev: "Previous layer",
+      next: "Next layer",
+      layers: ["Electrostatic paint", "Tri-cationic phosphate", "Hot-dip galvanizing", "Gerdau steel"],
+    },
+    guarantee: {
+      title1: "Proven quality",
+      title2: "with a 5-year warranty!",
+      note: "*in non-coastal environments",
+      side: "Premium Polyester paints from top brands, with a longer-lasting gloss and resistance warranty.",
+    },
+    other: {
+      title: "Other products",
+      productTitle: "Ready-made fence",
+      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+    },
   },
 };
 
