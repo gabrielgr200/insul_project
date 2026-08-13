@@ -1,8 +1,3 @@
-// Brazil state borders (source: IBGE malhas territoriais API, low-resolution
-// mesh, single shared topology so adjacent states' borders coincide exactly).
-// Projected to SVG space with x = 15.497911642411406 * lon + 1383.1075276995393,
-// y = -17.238350589861575 * lat + 273.821238852059 (same affine transform used
-// for LATAM_COUNTRIES, so both layers share one coordinate frame).
 export interface BrazilState {
   code: string;
   name: string;

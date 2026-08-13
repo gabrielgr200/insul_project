@@ -34,8 +34,6 @@ function resolve(dict: unknown, path: string): string | undefined {
 }
 
 const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  // Sempre começa em "pt" para o HTML do servidor bater com o primeiro
-  // render do cliente; a preferência salva é aplicada depois no useEffect.
   const [locale, setLocaleState] = useState<Locale>("pt");
 
   useEffect(() => {

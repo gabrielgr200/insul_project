@@ -77,8 +77,6 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
     rotateY.set(0);
   };
 
-  // dirX: +1 para cantos da direita, -1 para cantos da esquerda.
-  // O card é centralizado, então cresce dos dois lados (dx * 2).
   const startResize = (dirX: number) => (e: React.PointerEvent<HTMLSpanElement>) => {
     e.preventDefault();
     e.stopPropagation();

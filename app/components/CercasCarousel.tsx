@@ -780,12 +780,27 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
         )}
 
         {CHART_ITEMS.map((item, i) => {
-          const supported = item.coverageAnimals.every((a) =>
+          const isCollapsedGroup = item.coverageAnimals.length > 1;
+          const contained = item.coverageAnimals.filter((a) =>
             telaContainsAnimal(activeLabel, a),
           );
+          const effectiveCoverage =
+            isCollapsedGroup && contained.length > 0
+              ? contained
+              : item.coverageAnimals;
+          const supported = effectiveCoverage.every((a) =>
+            telaContainsAnimal(activeLabel, a),
+          );
+          const isPartialGroup =
+            isCollapsedGroup &&
+            supported &&
+            contained.length < item.coverageAnimals.length;
+          const displayLabel = isPartialGroup
+            ? contained.map((a) => ANIMAL_DISPLAY_NAME[a] ?? a).join(" / ")
+            : item.displayLabel;
           const isFenix = activeLabel === "Cerca Fenix Insul";
           const itemHeight = Math.max(
-            ...item.coverageAnimals.map((a) =>
+            ...effectiveCoverage.map((a) =>
               getAnimalBarHeight(a, activeLabel),
             ),
           );
@@ -836,7 +851,7 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
                 }`}
                 style={{ fontSize: 9 }}
               >
-                {item.displayLabel}
+                {displayLabel}
               </text>
             </g>
           );
@@ -1002,7 +1017,6 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
           trigger={postLanded}
         />
 
-        {/* botão que revela os animais que a tela contém */}
         <button
           type="button"
           onClick={() => setShowAnimals((v) => !v)}

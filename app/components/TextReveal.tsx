@@ -25,8 +25,6 @@ const TextReveal = () => {
           new SplitText(el, {
             type: "words",
             wordsClass: "word",
-            // Preserva o espaço inquebrável (nbsp) entre "prática" e "diária";
-            // com o padrão true, o SplitText converteria o nbsp em espaço comum.
             reduceWhiteSpace: false,
           }),
       );

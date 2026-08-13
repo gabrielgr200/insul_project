@@ -116,7 +116,6 @@ const LayerLabel = ({
   );
 
   const scale = useTransform(big, [0, 1], [0.72, 1]);
-  // Camada atual = bold; ao mostrar o próximo texto, o anterior fica font-light.
   const weight = useTransform(big, [0, 1], [300, 700]);
 
   return (

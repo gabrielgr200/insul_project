@@ -45,10 +45,6 @@ export interface ShowcaseReel {
   name: string;
 }
 
-// ============================================================================
-// CERCAS PRONTAS (fenix, campeira-maxx, campeira, campeira-boi)
-// ============================================================================
-
 export interface VideoCardData {
   src: string;
   category: string;
@@ -724,10 +720,6 @@ const cercasProntasReels: ShowcaseReel[] = [
   },
 ];
 
-// ============================================================================
-// SOLDADAS E HEXAGONAIS
-// ============================================================================
-
 export interface SoldadaIndicatedUse {
   name: string;
   src: string;
@@ -888,7 +880,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ],
     video3D:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1785948806/video-3d-brava_ddlo3s.mp4",
-  }, //Brava
+  },
   {
     slug: "tela-titan",
     name: "Tela Titan",
@@ -988,7 +980,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ],
     video3D:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1786019339/video-card-3d-titan_b5ytlp.mp4",
-  }, //Titan
+  },
   {
     slug: "tela-morada",
     name: "Tela Morada",
@@ -1060,7 +1052,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ],
     video3D:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1786022898/video-morada-3d_iynkql.mp4",
-  }, //Morada
+  },
   {
     slug: "tela-morada-open",
     name: "Tela Morada Open",
@@ -1129,7 +1121,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ],
     video3D:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1786026512/video-card-morada-open-3d_xl2ira.mp4",
-  }, //MoradaOpen
+  },
   {
     slug: "tela-morada-leve",
     name: "Tela Morada Leve",
@@ -1201,7 +1193,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     video3D:
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1786035903/video-card-morada-leve-3d_kozstr.mp4",
-  }, //MoradaLeve
+  },
   {
     slug: "tela-multi-uso",
     name: "Tela Multi Uso",
@@ -1252,7 +1244,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  }, //MultyUso
+  },
   {
     slug: "tela-fachanet",
     name: "Tela Fachanet",
@@ -1303,7 +1295,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  }, //FachaNet
+  },
   {
     slug: "tela-multymax",
     name: "Tela MultyMax",
@@ -1354,7 +1346,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  }, //MultyMax
+  },
   {
     slug: "tela-fachanetmax",
     name: "Tela FachaNetMax",
@@ -1405,7 +1397,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  }, //FachaNetMax
+  },
   {
     slug: "tela-brava-leve",
     name: "Tela Brava Leve",
@@ -1457,7 +1449,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  }, //BravaLeve
+  },
   {
     slug: "tela-mangueirao-16",
     name: "Tela Mangueirão 16",

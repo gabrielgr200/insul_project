@@ -12,26 +12,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Dark-Mode Toggle manually */
 @variant dark (&:where(.dark, .dark *));
-
-/* on-special-cases */
-/* body {
-  background: #1b1b1b;
-  scroll-behavior: smooth;
-} */
-
-/* FONTS */
-
-/* Custom Fonts */
-/* @font-face {
-  font-family: "poppins";
-  src: url(/fonts/Poppins-Regular.ttf);
-}
-
-/* .clash-display {
-  font-family: "clash01", sans-serif !important;
-} */
 
 @font-face {
     font-family: "impact01";
@@ -45,22 +26,13 @@
     font-family: var(--font-poppins), "Poppins", sans-serif !important;
 }
 
-/* Google Fonts */
 * {
     font-family: "Plus Jakarta Sans", "poppins", "inter", sans-serif;
 }
 
-/* h1,
-h2,
-h3,
-h4 {
-  font-family: "poppins";
-} */
-
 .playfair-display {
     font-family: "Playfair Display", serif;
     font-weight: 400;
-    /* font-style: normal; */
 }
 
 .cookie-font {
@@ -109,19 +81,6 @@ html {
     background-color: #e64d00;
 }
 
-/*@utility text-outline {
-    -webkit-text-stroke: 1.5px #002d4d;
-}
-
-@utility text-outline-white {
-    -webkit-text-stroke: 2px #002d4d;
-}
-
-@utility text-outline-black {
-    -webkit-text-stroke: 2px #002d4d;
-}*/
-
-/* 🔷  Marquee Effect*/
 @keyframes marquee {
     from {
         transform: translateX(0);
@@ -137,17 +96,12 @@ html {
     animation-play-state: var(--marquee-play-state, running);
 }
 
-/* --drop-shadow-3xl: 0 35px 35px rgba(0, 0, 0, 0.25);  */
-
 .color {
     background-color: #ffebf5;
     border-color: #c586a5;
     color: #cc1379;
 }
 
-/* Git-Hub Black:  #0d1117 */
-
-/* Extending themes-example */
 @theme {
     --color-prime-brown: #532822;
     --color-prime-white: #fff4e9;
@@ -156,7 +110,6 @@ html {
 
     --drop-shadow-3xl: 0 35px 35px rgba(0, 0, 0, 0.25);
 
-    /* Animations Extension */
     --animate-wiggle: wiggle 2s ease-out infinite;
     @keyframes wiggle {
         0%,
@@ -171,7 +124,7 @@ html {
     --animate-border: border 5s linear infinite;
     @keyframes border {
         0% {
-            border-color: rgb(56, 189, 248); /* Tailwind CSS sky-400 */
+            border-color: rgb(56, 189, 248);
         }
         50% {
             border-color: rgb(236, 72, 153);
@@ -214,12 +167,6 @@ html {
         }
     }
 }
-
-/* CUSTOM_UTIITIES */
-/* @utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-} */
 
 @utility centered-row {
     @apply flex items-center;
@@ -279,15 +226,12 @@ html {
     }
 }
 
-/* If Needed try: Small-Screen SpecialCase Fix */
 @media (max-width: 380px) {
     .test {
-        /* background: salmon; */
         font-size: 75px;
     }
 
     .something {
-        /* background: chocolate; */
         font-size: 16px;
         width: 340px;
         position: absolute;
@@ -297,10 +241,8 @@ html {
     }
 }
 
-/* Full HD Layout Tweaks: special-case */
 @media (min-width: 1920px) {
     .hero-img {
-        /* background-color: #fff; */
         width: 1024px;
     }
 }

@@ -1,6 +1,3 @@
-// South America country borders (source: johan/world.geo.json, MIT).
-// Projected to SVG space with x = 15.497911642411406 * lon + 1383.1075276995393,
-// y = -17.238350589861575 * lat + 273.821238852059, matched to BRAZIL_STATES.
 export interface LatamCountry {
   code: string;
   name: string;
@@ -22,10 +19,6 @@ export const LATAM_COUNTRIES: LatamCountry[] = [
   { code: "GUF", name: "Guiana Francesa", d: "M 568.59 230.64 L 562.65 237.19 L 555.23 238.42 L 553.12 233.57 L 549.65 232.85 L 544.86 237.52 L 538.09 233.97 L 542.02 226.61 L 543.36 218.76 L 546.04 211.37 L 540.03 201.20 L 538.80 189.41 L 546.87 174.59 L 552.13 176.48 L 563.54 180.56 L 579.95 195.11 L 582.52 202.17 L 573.35 217.95 L 568.59 230.64 Z" },
 ];
 
-// Pole of inaccessibility of each country (the point deepest inside the
-// shape, farthest from any border) — used as the arrival point for delivery
-// arrows so they land visibly centered inside the shape, not pulled toward a
-// thin/elongated tail (e.g. Argentina's Patagonia) like a plain centroid would.
 export const LATAM_CAPITALS: Record<string, [number, number]> = {
   ARG: [392.37, 801.28],
   URY: [514.27, 839.82],

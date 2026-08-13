@@ -136,8 +136,6 @@ const Header = () => {
       scrollToSection(id);
     } else {
       beginPageTransition();
-      // scroll:false evita o scroll nativo do Next para o hash, que briga
-      // com o ScrollSmoother (baseado em transform) e "puxa" de volta pro topo
       router.push(`/#${id}`, { scroll: false });
     }
   };

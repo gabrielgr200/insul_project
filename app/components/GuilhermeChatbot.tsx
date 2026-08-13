@@ -113,7 +113,6 @@ const GuilhermeChatbot = () => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, isTyping, isOpen]);
 
-  // Atualiza a saudação inicial ao trocar de idioma, enquanto a conversa não começou.
   useEffect(() => {
     if (!hasSentMessageRef.current) {
       setMessages([{ id: 0, from: "bot", text: dict.chatbot.inicial }]);
@@ -215,7 +214,7 @@ const GuilhermeChatbot = () => {
             <span className="relative block shrink-0">
               <video
                 ref={avatarVideoRef}
-                src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
+                src="/videos/guilherme-chatbot.mp4"
                 muted
                 playsInline
                 className="h-20 w-20 rounded-full object-cover object-top shadow-xl ring-2 ring-white dark:ring-background sm:h-24 sm:w-24 lg:h-64 lg:w-48 lg:rounded-3xl lg:object-center lg:ring-0"
@@ -253,7 +252,7 @@ const GuilhermeChatbot = () => {
                 <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30">
                   <video
                     ref={headerVideoRef}
-                    src="https://res.cloudinary.com/kcqitv3l/video/upload/v1785178703/video_guilherme_jhd3c3.mp4"
+                    src="/videos/guilherme-chatbot.mp4"
                     muted
                     playsInline
                     className="h-full w-full object-cover"

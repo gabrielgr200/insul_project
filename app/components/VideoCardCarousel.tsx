@@ -136,19 +136,6 @@ const VideoCardCarousel = ({
                   </span>
                 </div>
               )}
-
-              {/*<div className="absolute right-0 bottom-0 left-0 p-4">
-                <span className="mb-2 block h-px w-6 bg-[#ffb648]" />
-                <span className="text-[10px] font-semibold tracking-[0.2em] text-[#ffb648] uppercase">
-                  {card.category}
-                </span>
-                <h3 className="playfair-display mt-1 text-xl text-white">
-                  {card.title}
-                </h3>
-                <p className="mt-1 text-xs leading-relaxed text-white/70">
-                  {card.description}
-                </p>
-              </div>*/}
             </motion.div>
           );
         })}

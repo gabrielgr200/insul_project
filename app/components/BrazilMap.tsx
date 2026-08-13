@@ -5,15 +5,15 @@ const ORANGE_STATES = new Set(["SP", "MG", "PR", "SC", "RS"]);
 
 type Point = [number, number];
 
-const HUB_TOP: Point = [690.75, 591.96]; // Minas Gerais
-const HUB_BOTTOM: Point = [556.83, 785.97]; // Rio Grande do Sul
+const HUB_TOP: Point = [690.75, 591.96];
+const HUB_BOTTOM: Point = [556.83, 785.97];
 
 const CORRIDOR_POINTS: Point[] = [
-  HUB_TOP, // MG
-  [627.83, 657.64], // SP
-  [583.13, 698.49], // PR
-  [600.89, 743.5], // SC
-  HUB_BOTTOM, // RS
+  HUB_TOP,
+  [627.83, 657.64],
+  [583.13, 698.49],
+  [600.89, 743.5],
+  HUB_BOTTOM,
 ];
 
 interface Arrow {
@@ -23,36 +23,33 @@ interface Arrow {
 }
 
 const ARROWS: Arrow[] = [
-  { from: HUB_TOP, to: [614.02, 550.34], bend: -20 }, // Goiás (GO)
-  { from: HUB_TOP, to: [642.31, 545.87], bend: -15 }, // Distrito Federal (DF)
-  { from: HUB_TOP, to: [381.12, 345.42], bend: -45 }, // Amazonas (AM)
-  { from: HUB_TOP, to: [431.69, 237.89], bend: -50 }, // Roraima (RR)
-  { from: HUB_TOP, to: [634.1, 448.75], bend: -30 }, // Tocantins (TO)
-  { from: HUB_TOP, to: [577.7, 248.93], bend: 30 }, // Amapá (AP)
-  { from: HUB_TOP, to: [681.2, 361.39], bend: 35 }, // Maranhão (MA)
-  { from: HUB_TOP, to: [717.17, 401.15], bend: 25 }, // Piauí (PI)
-  { from: HUB_TOP, to: [769.21, 361.63], bend: 40 }, // Ceará (CE)
-  { from: HUB_TOP, to: [736.52, 488.88], bend: 25 }, // Bahia (BA)
-  { from: HUB_TOP, to: [814.77, 374.46], bend: 45 }, // Rio Grande do Norte (RN)
-  { from: HUB_TOP, to: [812.28, 396.59], bend: 40 }, // Paraíba (PB)
-  { from: HUB_TOP, to: [815.53, 437.86], bend: 45 }, // Alagoas (AL)
-  { from: HUB_TOP, to: [802.82, 456.21], bend: 35 }, // Sergipe (SE)
-  { from: HUB_TOP, to: [752.74, 611.25], bend: 15 }, // Espírito Santo (ES)
-  { from: HUB_TOP, to: [721.92, 656.39], bend: 20 }, // Rio de Janeiro (RJ)
-  { from: HUB_BOTTOM, to: [290.9, 432.67], bend: -45 }, // Acre (AC)
-  { from: HUB_BOTTOM, to: [409.2, 461.9], bend: -30 }, // Rondônia (RO)
-  { from: HUB_BOTTOM, to: [516.58, 497.04], bend: -25 }, // Mato Grosso (MT)
-  { from: HUB_BOTTOM, to: [533.12, 624.24], bend: 12 }, // Mato Grosso do Sul (MS)
-  { from: HUB_BOTTOM, to: [560.58, 342.48], bend: -20 }, // Pará (PA)
-  { from: HUB_BOTTOM, to: [794.1, 417.38], bend: 55 }, // Pernambuco (PE)
-  { from: HUB_BOTTOM, to: LATAM_CAPITALS.URY, bend: -20 }, // Uruguai
-  { from: HUB_BOTTOM, to: LATAM_CAPITALS.ARG, bend: 30 }, // Argentina
-  { from: HUB_BOTTOM, to: LATAM_CAPITALS.PRY, bend: -25 }, // Paraguai
+  { from: HUB_TOP, to: [614.02, 550.34], bend: -20 },
+  { from: HUB_TOP, to: [642.31, 545.87], bend: -15 },
+  { from: HUB_TOP, to: [381.12, 345.42], bend: -45 },
+  { from: HUB_TOP, to: [431.69, 237.89], bend: -50 },
+  { from: HUB_TOP, to: [634.1, 448.75], bend: -30 },
+  { from: HUB_TOP, to: [577.7, 248.93], bend: 30 },
+  { from: HUB_TOP, to: [681.2, 361.39], bend: 35 },
+  { from: HUB_TOP, to: [717.17, 401.15], bend: 25 },
+  { from: HUB_TOP, to: [769.21, 361.63], bend: 40 },
+  { from: HUB_TOP, to: [736.52, 488.88], bend: 25 },
+  { from: HUB_TOP, to: [814.77, 374.46], bend: 45 },
+  { from: HUB_TOP, to: [812.28, 396.59], bend: 40 },
+  { from: HUB_TOP, to: [815.53, 437.86], bend: 45 },
+  { from: HUB_TOP, to: [802.82, 456.21], bend: 35 },
+  { from: HUB_TOP, to: [752.74, 611.25], bend: 15 },
+  { from: HUB_TOP, to: [721.92, 656.39], bend: 20 },
+  { from: HUB_BOTTOM, to: [290.9, 432.67], bend: -45 },
+  { from: HUB_BOTTOM, to: [409.2, 461.9], bend: -30 },
+  { from: HUB_BOTTOM, to: [516.58, 497.04], bend: -25 },
+  { from: HUB_BOTTOM, to: [533.12, 624.24], bend: 12 },
+  { from: HUB_BOTTOM, to: [560.58, 342.48], bend: -20 },
+  { from: HUB_BOTTOM, to: [794.1, 417.38], bend: 55 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.URY, bend: -20 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.ARG, bend: 30 },
+  { from: HUB_BOTTOM, to: LATAM_CAPITALS.PRY, bend: -25 },
 ];
 
-// arredondado para evitar mismatch de hidratação: engines JS diferentes
-// (V8 no servidor vs SpiderMonkey no Firefox) podem serializar o mesmo
-// double para string com um dígito de diferença no fim
 const round = (n: number) => Math.round(n * 100) / 100;
 
 const curve = ([x1, y1]: Point, [x2, y2]: Point, bend: number) => {

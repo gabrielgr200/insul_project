@@ -45,13 +45,6 @@ export const IndustryHeader = () => {
         <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-9xl impact uppercase text-nowrap leading-tight">
           {t("industry.titulo")}
         </h2>
-        {/* <button
-          className="text-sm lg:text-lg absolute right-0 font-medium
-          border border-zinc-900 text-zinc-900 px-5 lg:px-8 py-3 rounded-full
-          cursor-pointer hover:bg-zinc-900 hover:text-zinc-50 transition-all duration-200 ease-in"
-        >
-          See All
-        </button>*/}
       </div>
 
       <p className="INDUSTRY-TEXT text-center sm:text-left text-base lg:text-lg text-[#002d4d] dark:text-white max-w-sm mx-auto sm:mx-0 sm:max-w-none lg:w-full">

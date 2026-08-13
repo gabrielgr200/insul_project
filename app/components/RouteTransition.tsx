@@ -74,11 +74,6 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
   const beginTransition = useCallback(() => {
     if (phaseRef.current !== "idle" || isReducedMotion()) return;
 
-    // `coverStartPathname` already holds the last confirmed pathname (kept in
-    // sync below whenever we're idle). Don't re-read window.location here:
-    // for a browser back/forward navigation, the URL has already changed by
-    // the time the popstate handler runs, which would make us compare against
-    // the new pathname and never notice navigation "finished".
     minElapsedRef.current = false;
     navigatedRef.current = false;
     setPhase("covering");
@@ -97,10 +92,6 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
     }, MAX_COVER_MS);
   }, [maybeReveal]);
 
-  // Keeps `coverStartPathname` in sync with the settled pathname (runs again
-  // once `phase` returns to "idle", not just when `pathname` itself changes -
-  // otherwise it goes stale and a later back/forward nav is never detected),
-  // and confirms navigation completed once the URL actually changes.
   useEffect(() => {
     if (phase === "idle") {
       coverStartPathname.current = pathname;
@@ -117,8 +108,6 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timeout);
   }, [phase]);
 
-  // Fires the cover the instant the user clicks a link or navigates back/forward,
-  // instead of waiting for the route change to actually resolve.
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (isInternalNavClick(e)) beginTransition();
