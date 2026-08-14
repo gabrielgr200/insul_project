@@ -8,7 +8,7 @@ import SearchBarShowcase from "../components/SearchBarShowcase";
 import { IndustryHeader, IndustryTimeline } from "../components/Industry";
 import Products from "../components/Products";
 import Loader from "../components/Loader";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import Book from "../components/Book";
@@ -33,7 +33,7 @@ const HomePage = () => {
   const contentRef = useRef(null);
   const { t } = useTranslation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
     const smoother = ScrollSmoother.create({
@@ -55,17 +55,10 @@ const HomePage = () => {
     if (contentRef.current) resizeObserver.observe(contentRef.current);
 
     return () => {
-      console.log("[HomePage] unmount, killing smoother", {
-        t: performance.now(),
-      });
       window.removeEventListener("load", handleLoad);
       clearTimeout(refreshTimeout);
       resizeObserver.disconnect();
       smoother && smoother.kill();
-      console.log("[HomePage] smoother killed", {
-        stillExists: !!ScrollSmoother.get(),
-        t: performance.now(),
-      });
     };
   }, []);
 
