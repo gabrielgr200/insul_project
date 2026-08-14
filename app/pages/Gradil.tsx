@@ -66,6 +66,15 @@ const Gradil = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    console.log("[Gradil] mount", {
+      scrollYBefore: window.scrollY,
+      existingSmoother: !!ScrollSmoother.get(),
+      existingTriggers: ScrollTrigger.getAll().length,
+      contentTransform: document.getElementById("smooth-content")?.style
+        .transform,
+      t: performance.now(),
+    });
+
     window.scrollTo(0, 0);
 
     const smoother = ScrollSmoother.create({
@@ -73,6 +82,12 @@ const Gradil = () => {
       content: "#smooth-content",
       smooth: 1.8,
       effects: true,
+    });
+
+    console.log("[Gradil] smoother created", {
+      scrollYAfter: window.scrollY,
+      triggersAfterCreate: ScrollTrigger.getAll().length,
+      t: performance.now(),
     });
 
     const doRefresh = () => smoother.refresh();

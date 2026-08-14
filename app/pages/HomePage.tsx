@@ -55,10 +55,17 @@ const HomePage = () => {
     if (contentRef.current) resizeObserver.observe(contentRef.current);
 
     return () => {
+      console.log("[HomePage] unmount, killing smoother", {
+        t: performance.now(),
+      });
       window.removeEventListener("load", handleLoad);
       clearTimeout(refreshTimeout);
       resizeObserver.disconnect();
       smoother && smoother.kill();
+      console.log("[HomePage] smoother killed", {
+        stillExists: !!ScrollSmoother.get(),
+        t: performance.now(),
+      });
     };
   }, []);
 
