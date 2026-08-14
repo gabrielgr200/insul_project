@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -22,66 +22,17 @@ const GradilProcess = () => {
       const cells = rowRef.current
         ? (Array.from(rowRef.current.children) as HTMLElement[])
         : [];
-      console.log("[GradilProcess] mount", {
-        label: p.label,
-        title: p.title,
-        cellsCount: cells.length,
-        rootTop: rootRef.current?.getBoundingClientRect().top,
-        rootHeight: rootRef.current?.getBoundingClientRect().height,
-        labelOpacity: rootRef.current
-          ? getComputedStyle(rootRef.current.querySelector(".INDUSTRY-LABEL") as Element)?.opacity
-          : undefined,
-        t: performance.now(),
-      });
       gsap.from(cells, {
         y: 50,
         autoAlpha: 0,
         duration: 0.7,
         stagger: 0.12,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top 78%",
-          onRefresh: (self) =>
-            console.log("[GradilProcess] scrollTrigger onRefresh", {
-              start: self.start,
-              t: performance.now(),
-            }),
-          onEnter: () =>
-            console.log("[GradilProcess] scrollTrigger onEnter", {
-              t: performance.now(),
-            }),
-        },
+        scrollTrigger: { trigger: rootRef.current, start: "top 78%" },
       });
     },
     { scope: rootRef },
   );
-
-  useEffect(() => {
-    let count = 0;
-    const id = setInterval(() => {
-      count++;
-      const labelEl = rootRef.current?.querySelector(".INDUSTRY-LABEL");
-      const titleEl = rootRef.current?.querySelector(".INDUSTRY-TITLE");
-      if (labelEl && titleEl) {
-        const lcs = getComputedStyle(labelEl);
-        const tcs = getComputedStyle(titleEl);
-        console.log("[GradilProcess] sample", count, {
-          labelOpacity: lcs.opacity,
-          labelColor: lcs.color,
-          labelRect: labelEl.getBoundingClientRect(),
-          titleOpacity: tcs.opacity,
-          titleColor: tcs.color,
-          titleRect: titleEl.getBoundingClientRect(),
-          t: performance.now(),
-        });
-      } else {
-        console.log("[GradilProcess] sample", count, "elements not found yet");
-      }
-      if (count >= 10) clearInterval(id);
-    }, 300);
-    return () => clearInterval(id);
-  }, []);
 
   useGSAP(
     () => {

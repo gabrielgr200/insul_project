@@ -71,7 +71,6 @@ const Gradil = () => {
       content: "#smooth-content",
       smooth: 1.8,
       effects: true,
-      normalizeScroll: true,
     });
 
     // Use the smoother's OWN refresh() (not the bare ScrollTrigger.refresh())
