@@ -236,7 +236,7 @@ const cercasProntas: CercaProntaInfo[] = [
     name: "Cerca Campeira Maxx Insul",
     title: "Cerca Pronta(rurais)",
     color: "#042c53",
-    src: "/videos/campeira maxx.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos/campeira-maxx.mp4",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
     shortDescription:
@@ -332,38 +332,38 @@ const cercasProntas: CercaProntaInfo[] = [
         ],
       },
     ],
-    videoSrc: "/videos/campeira%20maxx.mp4",
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/campeira-maxx.mp4",
     videoCards: [
       {
-        src: "/videos/videos-maxx/video-maxx-1.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-1.mp4",
         category: "MATERIAL",
         title: "Fio 2,50 mm",
         description:
           "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
       },
       {
-        src: "/videos/videos-maxx/video-maxx-2.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-2.mp4",
         category: "ACABAMENTO",
         title: "Aço Galvanizado a Fogo",
         description:
           "Proteção contra corrosão e maior durabilidade em qualquer ambiente.",
       },
       {
-        src: "/videos/videos-maxx/video-maxx-3.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-3.mp4",
         category: "ESTRUTURA",
         title: "Malha Bifásica",
         description:
           "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
       },
       {
-        src: "/videos/videos-maxx/video-maxx-4.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-4.mp4",
         category: "ESTRUTURA",
         title: "Nó em X (stiff stay)",
         description:
           "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
       },
       {
-        src: "/videos/videos-maxx/video-maxx-5.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-5.mp4",
         category: "PROTEÇÃO",
         title: "Malha Bimodal",
         description:
@@ -371,42 +371,42 @@ const cercasProntas: CercaProntaInfo[] = [
       },
     ],
     video3D:
-      "/videos/videos-maxx/video-maxx-3d.mp4",
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-3d.mp4",
     gallery: [
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-1.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-1.jpeg",
         alt: "Cerca instalada em propriedade rural",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-2.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-2.jpeg",
         alt: "Detalhe do fio e da malha",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-3.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-3.png",
         alt: "Rolo da tela",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-4.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-4.jpeg",
         alt: "Cerca em terreno com desnível",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-5.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-5.jpg",
         alt: "Acabamento galvanizado a fogo",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-6.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-6.jpeg",
         alt: "Nó em X da cerca",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-7.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-7.png",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-8.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-8.jpg",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeiraMaxx_carousel/img-maxx-9.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-9.jpeg",
         alt: "Cerca Insul",
       },
     ],
@@ -1788,6 +1788,11 @@ const roomDetails: RoomDetail[] = [
   },
 ];
 
+const gradilGallery: GalleryImage[] = Array.from({ length: 9 }, (_, i) => ({
+  src: `https://d2c3kthzw0ta10.cloudfront.net/img_gradil/img-gradil-${i + 1}.jpg`,
+  alt: `Gradil Insul instalado ${i + 1}`,
+}));
+
 const heroImage = "/images/telas_img.png";
 
 const productCategories: ProductCategory[] = [
@@ -1861,19 +1866,19 @@ const productCategories: ProductCategory[] = [
 ];
 
 const videoShowcaseMain =
-  "/videos/videos-home/insul.mp4";
+  "https://d2c3kthzw0ta10.cloudfront.net/videos-home/insul.mp4";
 
 const videoShowcaseReels: ShowcaseReel[] = [
   {
-    src: "/videos/videos-home/video_1.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-home/video_1.mp4",
     name: "reel-1",
   },
   {
-    src: "/videos/videos-home/video_2.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-home/video_2.mp4",
     name: "reel-2",
   },
   {
-    src: "/videos/videos-home/video_3.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-home/video_3.mp4",
     name: "reel-3",
   },
 ];
@@ -1886,6 +1891,7 @@ export {
   soldadasHexagonaisCarousel,
   soldadasHexagonaisReels,
   roomDetails,
+  gradilGallery,
   heroImage,
   productCategories,
   videoShowcaseMain,

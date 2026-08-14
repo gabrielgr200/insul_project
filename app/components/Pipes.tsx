@@ -3,10 +3,10 @@
 import { useTranslation } from "./LanguageProvider";
 
 const CARD_MEDIA = [
-  { src: "/images/poste/tampa.png", imgClass: "h-24 lg:h-28" },
-  { src: "/images/poste/fixador.png", imgClass: "h-28 lg:h-32" },
-  { src: "/images/poste/parafuso.png", imgClass: "h-28 lg:h-32" },
-  { src: "/images/poste/tampinha-fixador.png", imgClass: "h-28 lg:h-32" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampa.png", imgClass: "h-24 lg:h-28" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/fixador.png", imgClass: "h-28 lg:h-32" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png", imgClass: "h-28 lg:h-32" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampinha-fixador.png", imgClass: "h-28 lg:h-32" },
 ];
 
 const svgStroke = {
@@ -80,7 +80,7 @@ const Pipes = () => {
 
         <div className="-mb-8 -mt-16 flex items-end justify-center self-end sm:-mb-12 lg:-mt-24 lg:justify-end">
           <img
-            src="/images/poste/conjunto.webp"
+            src="https://d2c3kthzw0ta10.cloudfront.net/poste/conjunto.webp"
             alt={p.imgAlt}
             draggable={false}
             className="h-[520px] w-auto object-contain lg:h-[680px]"

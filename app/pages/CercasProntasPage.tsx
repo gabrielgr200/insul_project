@@ -17,10 +17,10 @@ import {
 import CardPost from "../components/CardPost";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
-  fenix: "/images/CercasProntas/Campeira_fenix.png",
-  campeira: "/images/CercasProntas/Campeira.png",
-  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
-  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
+  fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
+  campeira: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
+  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_maxx.png",
+  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
 };
 
 const cercasProntasCardsPages: ProductCardData[] = cercasProntas.map((c) => ({

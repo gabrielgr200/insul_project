@@ -7,24 +7,24 @@ const OTHER_MEDIA = [
   {
     to: "/cercas-prontas/fenix",
     color: "#b2020d",
-    src: "/images/img_fenix_carousel/1.jpeg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg",
     cutout:
-      "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917804/FENX_grkczf.png",
+      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
   },
   {
     to: "/cercas-prontas/campeira",
     color: "#ff711b",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784911999/ovino_pdivdh.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-campeira.jpg",
     cutout:
-      "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA_t68olb.png",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
+  }, //colocar imagens de uma tela soldada
   {
     to: "/cercas-prontas/campeira-boi",
     color: "#959e24",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1784912387/boi_zlfbxt.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-boi.jpg",
     cutout:
-      "https://res.cloudinary.com/kcqitv3l/image/upload/v1784917794/CAMPEIRA-BOI_qyuhzs.png",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
+  }, // colocar imagens de uma tela hexagonal
 ];
 
 const OtherProducts = () => {

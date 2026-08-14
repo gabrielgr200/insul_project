@@ -15,17 +15,17 @@ import { cercasProntas } from "../assets/data";
 const FALLBACK_CERCA = cercasProntas.find((c) => c.slug === "fenix")!;
 
 const CUTOUT_IMAGES: Record<string, string> = {
-  fenix: "/images/CercasProntas/Campeira_fenix.png",
-  campeira: "/images/CercasProntas/Campeira.png",
-  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
-  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
+  fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
+  campeira: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
+  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
+  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_maxx.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
-  fenix: "/images/img_fenix_carousel/1.jpeg",
-  campeira: "/images/img-similares/img-similar-campeira.jpg",
-  "campeira-boi": "/images/img-similares/img-similar-boi.jpg",
-  "campeira-maxx": "/images/img-similares/img-similar-maxx.HEIC",
+  fenix: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg",
+  campeira: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-campeira.jpg",
+  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-boi.jpg",
+  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-maxx.HEIC",
 };
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {

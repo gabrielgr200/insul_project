@@ -214,7 +214,7 @@ const GuilhermeChatbot = () => {
             <span className="relative block shrink-0">
               <video
                 ref={avatarVideoRef}
-                src="/videos/guilherme-chatbot.mp4"
+                src="https://d2c3kthzw0ta10.cloudfront.net/guilherme-chatbot.mp4"
                 muted
                 playsInline
                 className="h-20 w-20 rounded-full object-cover object-top shadow-xl ring-2 ring-white dark:ring-background sm:h-24 sm:w-24 lg:h-64 lg:w-48 lg:rounded-3xl lg:object-center lg:ring-0"

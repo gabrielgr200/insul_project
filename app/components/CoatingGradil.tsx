@@ -18,21 +18,21 @@ type Layer = {
 
 const LAYERS: Layer[] = [
   {
-    src: "/images/img-arame/ARAME-1_st.webp",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arame/ARAME-1_st.webp",
     label: "Pintura eletrostática",
     n: "01",
   },
   {
-    src: "/images/img-arame/ARAME-2_st.webp",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arame/ARAME-2_st.webp",
     label: "Fosfato tricatiônico",
     n: "02",
   },
   {
-    src: "/images/img-arame/ARAME-3_st.webp",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arame/ARAME-3_st.webp",
     label: "Galvanização a fogo",
     n: "03",
   },
-  { src: "/images/img-arame/ARAME-4_st.webp", label: "Aço Gerdau", n: "04" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/img-arame/ARAME-4_st.webp", label: "Aço Gerdau", n: "04" },
 ];
 
 const N = LAYERS.length;

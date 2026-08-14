@@ -10,7 +10,7 @@ import GradilCards from "../components/GradilCards";
 import TextRevealColor from "../components/TextRevealColor";
 import ImgCarousel from "../components/ImgCarousel";
 import GradilProcess from "../components/GradilProcess";
-import type { GalleryImage } from "../assets/data";
+import { gradilGallery } from "../assets/data";
 import GradilColors from "../components/GradilColors";
 import ProductsCardGradil from "../components/ProductsCardGradil";
 import CoatingGradil from "../components/CoatingGradil";
@@ -21,16 +21,17 @@ import { useTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-const GRADIL_GALLERY: GalleryImage[] = Array.from({ length: 9 }, (_, i) => ({
-  src: `/images/img_gradil/img-gradil-${i + 1}.jpg`,
-  alt: `Gradil Insul instalado ${i + 1}`,
-}));
-
 const LAYERS = [
-  { src: "/images/parallax/ceu.webp", z: 10 },
-  { src: "/images/parallax/casa.webp", z: 20 },
-  { src: "/images/parallax/gradil-esquerda.webp", z: 30 },
-  { src: "/images/parallax/gradil-direita.webp", z: 30 },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu.webp", z: 10 },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/casa.webp", z: 20 },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-esquerda.webp",
+    z: 30,
+  },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-direita.webp",
+    z: 30,
+  },
 ];
 
 const MOTION_STRONG = [
@@ -350,7 +351,7 @@ const Gradil = () => {
                         style={{ filter: "grayscale(var(--g, 1))" }}
                       >
                         <img
-                          src="/images/parallax/ceu-industria.webp"
+                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu-industria.webp"
                           alt=""
                           aria-hidden="true"
                           draggable={false}
@@ -358,14 +359,14 @@ const Gradil = () => {
                         />
                         <img
                           ref={industryRef}
-                          src="/images/parallax/industria.webp"
+                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/industria.webp"
                           alt="Indústria protegida por gradil Insul"
                           draggable={false}
                           className="absolute inset-0 h-full w-full object-cover will-change-transform"
                         />
                         <img
                           ref={birdRef}
-                          src="/images/parallax/passaro.webp"
+                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/passaro.webp"
                           alt=""
                           aria-hidden="true"
                           draggable={false}
@@ -374,7 +375,7 @@ const Gradil = () => {
 
                         <img
                           ref={gateLRef}
-                          src="/images/parallax/gradil-esquerda-g12.webp"
+                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-esquerda-g12.webp"
                           alt=""
                           aria-hidden="true"
                           draggable={false}
@@ -382,7 +383,7 @@ const Gradil = () => {
                         />
                         <img
                           ref={gateRRef}
-                          src="/images/parallax/gradil-direita-g12.webp"
+                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-direita-g12.webp"
                           alt=""
                           aria-hidden="true"
                           draggable={false}
@@ -437,7 +438,7 @@ const Gradil = () => {
               />
 
               <div className="-mx-6 mt-24 sm:mt-32">
-                <ImgCarousel images={GRADIL_GALLERY} />
+                <ImgCarousel images={gradilGallery} />
               </div>
             </section>
 
