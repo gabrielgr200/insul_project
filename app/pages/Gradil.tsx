@@ -66,6 +66,8 @@ const Gradil = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+
     const smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
@@ -73,15 +75,6 @@ const Gradil = () => {
       effects: true,
     });
 
-    // Use the smoother's OWN refresh() (not the bare ScrollTrigger.refresh())
-    // — this is the exact method GSAP calls internally on a real window
-    // resize (see ScrollSmoother's internal _onResize handler), which is
-    // empirically what reliably fixes GradilCards/GradilProcess ending up
-    // mis-positioned. Refresh several times in the first moments of the
-    // page, before the user has had a real chance to scroll, so a scrubbed
-    // animation (TextRevealColor) doesn't snap to its end state — which
-    // happens if the refresh instead fires late, after the user has
-    // already scrolled past it.
     const doRefresh = () => smoother.refresh();
     const earlyRefreshRaf = requestAnimationFrame(() => {
       requestAnimationFrame(doRefresh);
