@@ -6,55 +6,64 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ChevronDown } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
+import { useTranslation } from "./LanguageProvider";
 
 export const ANIMAL_IMAGES: Record<string, string> = {
   Avestruz:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/avestruz_xtomjl.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/avestruz.png",
   Bovino:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/bovino_wfmv7a.png",
-  Cães: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/canino_iqehpt.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/bovinos.png",
+  Cães: "https://d2c3kthzw0ta10.cloudfront.net/animals/caninos.png",
   Capivara:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/capivara_evbsqe.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/capivara.png",
   Galinha:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/galinha_xvnuit.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/galinha.png",
   Javaporco:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/javaporco_b7wa7q.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/javaporco.png",
   Suínos:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/suino_crqvl0.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/suinos.png",
   Ganso:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/ganso_c7esfh.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/ganso.png",
   Caprino:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435864/cabrino_rdycfa.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/caprino.png",
   Ovinos:
-    "https://res.cloudinary.com/kcqitv3l/image/upload/v1785436247/ovino_ov_lboqma.png",
+    "https://d2c3kthzw0ta10.cloudfront.net/animals/ovino.png",
 };
 
 const AnimalThumb = ({ animal }: { animal: string }) => {
   const [broken, setBroken] = useState(false);
+  const { dict } = useTranslation();
   const src = ANIMAL_IMAGES[animal] ?? null;
+  const label = dict.animalNames[animal] ?? animal;
 
   return (
     <div
-      title={animal}
+      title={label}
       className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
     >
       {src && !broken ? (
         <img
           src={src}
-          alt={animal}
+          alt={label}
           className="h-full w-full object-contain p-0.5"
           onError={() => setBroken(true)}
         />
       ) : (
         <span className="text-[10px] font-semibold text-[#002d4d]/70 dark:text-white/70">
-          {animal.charAt(0)}
+          {label.charAt(0)}
         </span>
       )}
     </div>
   );
 };
 
-const PostSpacingDiagram = ({ value }: { value: string }) => (
+const PostSpacingDiagram = ({
+  value,
+  label,
+}: {
+  value: string;
+  label: string;
+}) => (
   <div className="flex flex-col items-center gap-1.5">
     <svg width="176" height="66" viewBox="0 0 176 66" fill="none">
       <g className="text-[#8a94a3] dark:text-white/50" fill="currentColor">
@@ -132,7 +141,7 @@ const PostSpacingDiagram = ({ value }: { value: string }) => (
       </defs>
     </svg>
     <p className="mourao-label text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/60">
-      Espaçamento entre mourões
+      {label}
     </p>
     <p className="mourao-value poppins text-xl font-bold text-[#ff5500]">
       {value}
@@ -151,6 +160,7 @@ const ProductCard = ({
   indicatedFor,
   to,
 }: ProductCardData) => {
+  const { dict } = useTranslation();
   const [open, setOpen] = useState(false);
   const firstRender = useRef(true);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -366,15 +376,15 @@ const ProductCard = ({
               href={to}
               className="group/cta absolute bottom-4 right-4 rounded-full bg-[#002d4d]/10 px-6 py-2 text-xs font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:ring-white/20 dark:hover:bg-white/20"
             >
-              <span className="relative block h-4 overflow-hidden">
-                <span className="block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4">
-                  Gostou da tela?
+              <span className="relative grid h-4 grid-cols-1 grid-rows-1 overflow-hidden">
+                <span className="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4">
+                  {dict.productCard.likedFence}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-4 block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4"
+                  className="relative col-start-1 row-start-1 top-4 block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4"
                 >
-                  Veja os detalhes
+                  {dict.productCard.seeDetails}
                 </span>
               </span>
             </Link>
@@ -385,13 +395,16 @@ const ProductCard = ({
           <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0 dark:bg-white/5">
             {postSpacing && (
               <div ref={diagramRef}>
-                <PostSpacingDiagram value={postSpacing} />
+                <PostSpacingDiagram
+                  value={postSpacing}
+                  label={dict.productCard.postSpacingLabel}
+                />
               </div>
             )}
             {(animals?.length > 0 || indicatedFor?.length) && (
               <div>
                 <p className="indicado-label mb-1.5 text-[10px] font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/60">
-                  Indicado para
+                  {dict.productCard.indicatedFor}
                 </p>
                 <div
                   ref={animalRowRef}

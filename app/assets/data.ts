@@ -695,27 +695,27 @@ const cercasProntas: CercaProntaInfo[] = [
 
 const cercasProntasReels: ShowcaseReel[] = [
   {
-    src: "/videos/videos-reels/fenix.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/fenix.mp4",
     name: "Cerca Fênix Insul",
   },
   {
-    src: "/videos/videos-reels/campeira.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/campeira.mp4",
     name: "Cerca Campeira Insul",
   },
   {
-    src: "/videos/videos-reels/campeira-maxx.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/campeira-maxx.mp4",
     name: "Cerca Campeira Maxx Insul",
   },
   {
-    src: "/videos/videos-reels/campeira-boi.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/campeira-boi.mp4",
     name: "Cerca Campeira Boi Insul",
   },
   {
-    src: "/videos/videos-reels/campeira-java.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/campeira-java.mp4",
     name: "Cerca Campeira Java Insul",
   },
   {
-    src: "/videos/videos-reels/resistencia.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/resistencia.mp4",
     name: "A resistência das cercas",
   },
 ];

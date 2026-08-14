@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import TransitionOverlay, {
   BAND_COUNT,
   BAND_DURATION,
@@ -66,7 +67,12 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
       minElapsedRef.current &&
       navigatedRef.current
     ) {
-      window.scrollTo(0, 0);
+      const smoother = ScrollSmoother.get();
+      if (smoother) {
+        smoother.scrollTo(0, false);
+      } else {
+        window.scrollTo(0, 0);
+      }
       setPhase("revealing");
     }
   }, []);

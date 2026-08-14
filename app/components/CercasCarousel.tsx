@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { Pause, Play, Plus, X } from "lucide-react";
 import { cercasProntas, type CercaSlide } from "../assets/data";
 import { ANIMAL_IMAGES } from "./ProductCard";
+import { useTranslation } from "./LanguageProvider";
 
 const AUTOPLAY_INTERVAL = 5000;
 
@@ -576,6 +577,7 @@ const JavaliCollision = ({
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const slideAnimals = SLIDE_ANIMALS[activeLabel] ?? [];
+  const { dict } = useTranslation();
 
   useGSAP(() => {
     const root = rootRef.current;
@@ -667,7 +669,7 @@ const JavaliCollision = ({
               <img
                 key={animal}
                 src={src}
-                alt={`${animal} tentando escapar pelo cercamento`}
+                alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.escapingFence}`}
                 className={`escape-img absolute w-auto drop-shadow-md ${heightClass}`}
                 style={{ bottom: "15%" }}
               />
@@ -687,7 +689,7 @@ const JavaliCollision = ({
               <img
                 key={animal}
                 src={src}
-                alt={`${animal} colidindo com a tela`}
+                alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.collidingWithFence}`}
                 className={`collide-img absolute w-auto drop-shadow-md ${heightClass}`}
                 style={{ bottom }}
               />
@@ -700,6 +702,7 @@ const JavaliCollision = ({
 
 const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
   const rootRef = useRef<HTMLDivElement>(null);
+  const { dict } = useTranslation();
 
   useGSAP(() => {
     const root = rootRef.current;
@@ -727,7 +730,7 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
       className="mt-4 w-full rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:p-6"
     >
       <p className="poppins mb-3 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:text-lg">
-        {activeName}: capacidade de conter cada animal
+        {activeName}: {dict.animalChart.capacityHeading}
       </p>
       <svg
         viewBox={`0 0 ${BAR_CHART_W} ${BAR_CHART_H}`}
@@ -774,7 +777,7 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
               className="fill-[#002d4d]/55 font-bold uppercase tracking-wide dark:fill-white/55"
               style={{ fontSize: 8 }}
             >
-              {range.label}
+              {dict.animalNames[range.label] ?? range.label}
             </text>
           ),
         )}
@@ -796,8 +799,13 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
             supported &&
             contained.length < item.coverageAnimals.length;
           const displayLabel = isPartialGroup
-            ? contained.map((a) => ANIMAL_DISPLAY_NAME[a] ?? a).join(" / ")
-            : item.displayLabel;
+            ? contained
+                .map((a) => {
+                  const raw = ANIMAL_DISPLAY_NAME[a] ?? a;
+                  return dict.animalNames[raw] ?? raw;
+                })
+                .join(" / ")
+            : (dict.animalNames[item.displayLabel] ?? item.displayLabel);
           const isFenix = activeLabel === "Cerca Fenix Insul";
           const itemHeight = Math.max(
             ...effectiveCoverage.map((a) =>
@@ -966,7 +974,13 @@ const AnimalCirclesReveal = ({
   );
 };
 
-const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
+const CercasCarousel = ({
+  slides,
+  fullBleedMedia = false,
+}: {
+  slides: CercaSlide[];
+  fullBleedMedia?: boolean;
+}) => {
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [postLanded, setPostLanded] = useState(false);
@@ -1001,8 +1015,15 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
 
   return (
     <div className="w-full">
-      <div className="relative w-full aspect-video rounded-2xl overflow-hidden select-none">
-        <RuralBackdrop />
+      <div
+        className={
+          fullBleedMedia ? "relative left-1/2 right-1/2 -mx-[50vw] w-screen" : ""
+        }
+      >
+        <div
+          className={`relative w-full aspect-video overflow-hidden select-none ${fullBleedMedia ? "" : "rounded-2xl"}`}
+        >
+          <RuralBackdrop />
         <InstalledMeshOverlay
           key={index}
           color={mesh.color}
@@ -1042,18 +1063,22 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
           {slide.label}
         </p>
 
-        <p className="absolute top-5 right-14 z-10 text-sm font-medium text-[#002d4d]/70 dark:text-white/70">
-          {index + 1}/{slides.length}
-        </p>
-
-        <button
-          type="button"
-          onClick={() => setIsPlaying((v) => !v)}
-          aria-label={isPlaying ? "Pausar slide" : "Reproduzir slide"}
-          className="absolute top-4 right-4 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-[#002d4d]/10 hover:bg-[#002d4d]/20 text-[#002d4d] transition-colors duration-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white"
+        <div
+          className={`absolute z-10 flex items-center gap-2 ${fullBleedMedia ? "top-40 right-8" : "top-4 right-4"}`}
         >
-          {isPlaying ? <Pause size={14} /> : <Play size={14} />}
-        </button>
+          <p className="text-sm font-medium text-[#002d4d]/70 dark:text-white/70">
+            {index + 1}/{slides.length}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setIsPlaying((v) => !v)}
+            aria-label={isPlaying ? "Pausar slide" : "Reproduzir slide"}
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-[#002d4d]/10 text-[#002d4d] transition-colors duration-200 hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+          >
+            {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+          </button>
+        </div>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 max-w-[92%]">
           <div className="flex items-center gap-3 bg-white/80 shadow-lg ring-1 ring-black/5 backdrop-blur rounded-2xl px-3 py-3 overflow-x-auto dark:bg-white/10 dark:ring-white/10">
@@ -1072,6 +1097,7 @@ const CercasCarousel = ({ slides }: { slides: CercaSlide[] }) => {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       <AnimalCoverageChart activeLabel={slide.label} />

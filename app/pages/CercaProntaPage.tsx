@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo } from "react";
 import { notFound } from "next/navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -11,8 +14,8 @@ import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
 import { cercasProntas } from "../assets/data";
-
-const FALLBACK_CERCA = cercasProntas.find((c) => c.slug === "fenix")!;
+import { useTranslation } from "../components/LanguageProvider";
+import { localizeCerca } from "../utils/localizeCerca";
 
 const CUTOUT_IMAGES: Record<string, string> = {
   fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
@@ -29,20 +32,39 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 };
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
-  const cerca = cercasProntas.find((item) => item.slug === slug);
-  if (!cerca) notFound();
+  const { dict } = useTranslation();
 
-  const similarCercas: SimilarProductItem[] = cercasProntas
-    .filter((c) => c.slug !== slug)
-    .slice(0, 3)
-    .map((c) => ({
-      to: c.to,
-      title: c.title,
-      name: c.name,
-      src: BACKGROUND_IMAGES[c.slug] || c.src,
-      color: c.color,
-      cutout: CUTOUT_IMAGES[c.slug],
-    }));
+  const baseCerca = cercasProntas.find((item) => item.slug === slug);
+  if (!baseCerca) notFound();
+
+  const FALLBACK_CERCA = useMemo(() => {
+    const base = cercasProntas.find((c) => c.slug === "fenix")!;
+    return localizeCerca(base, dict.cercasProntas.fenix);
+  }, [dict]);
+
+  const cerca = useMemo(
+    () => localizeCerca(baseCerca, dict.cercasProntas[baseCerca.slug]),
+    [baseCerca, dict],
+  );
+
+  const similarCercas: SimilarProductItem[] = useMemo(
+    () =>
+      cercasProntas
+        .filter((c) => c.slug !== slug)
+        .slice(0, 3)
+        .map((c) => {
+          const localized = localizeCerca(c, dict.cercasProntas[c.slug]);
+          return {
+            to: localized.to,
+            title: localized.title,
+            name: localized.name,
+            src: BACKGROUND_IMAGES[c.slug] || localized.src,
+            color: localized.color,
+            cutout: CUTOUT_IMAGES[c.slug],
+          };
+        }),
+    [slug, dict],
+  );
 
   return (
     <div className="min-h-screen overflow-clip">
@@ -52,6 +74,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
         <div className="mb-0">
           <CercaHeroDetails
             name={cerca.name}
+            badge={cerca.title}
             videoSrc={cerca.videoSrc || FALLBACK_CERCA.videoSrc}
             features={cerca.features}
           />

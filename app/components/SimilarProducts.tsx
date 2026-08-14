@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
+import { useTranslation } from "./LanguageProvider";
 
 export interface SimilarProductItem
   extends Pick<ProductCardData, "src" | "title" | "name" | "to"> {
@@ -23,6 +24,7 @@ export const SimilarProductCard = ({
   color,
   cutout,
 }: SimilarCardProps) => {
+  const { dict } = useTranslation();
   const imgRef = useRef<HTMLImageElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const cutoutRef = useRef<HTMLImageElement>(null);
@@ -120,7 +122,7 @@ export const SimilarProductCard = ({
       <div className="relative flex flex-col gap-0.5">
         <span className="poppins text-base font-bold text-white">{name}</span>
         <span className="poppins truncate text-[11px] text-white/75">
-          Ver detalhes
+          {dict.productCard.seeDetails}
         </span>
       </div>
     </Link>
@@ -128,12 +130,13 @@ export const SimilarProductCard = ({
 };
 
 const SimilarProducts = ({ products }: { products: SimilarProductItem[] }) => {
+  const { dict } = useTranslation();
   if (products.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8">
       <h3 className="poppins mb-8 text-4xl font-bold text-[#ff5500] dark:text-white">
-        Produtos similares
+        {dict.similarProducts.heading}
       </h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (

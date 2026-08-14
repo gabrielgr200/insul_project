@@ -63,6 +63,7 @@ const Gradil = () => {
   const introRef = useRef<HTMLDivElement>(null);
   const gradilInfoRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -72,6 +73,16 @@ const Gradil = () => {
       effects: true,
       normalizeScroll: true,
     });
+
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
+
+    let refreshTimeout: ReturnType<typeof setTimeout>;
+    const resizeObserver = new ResizeObserver(() => {
+      clearTimeout(refreshTimeout);
+      refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    if (contentRef.current) resizeObserver.observe(contentRef.current);
 
     const mm = gsap.matchMedia();
 
@@ -245,6 +256,9 @@ const Gradil = () => {
 
     return () => {
       mm.revert();
+      window.removeEventListener("load", handleLoad);
+      clearTimeout(refreshTimeout);
+      resizeObserver.disconnect();
       smoother && smoother.kill();
     };
   }, []);
@@ -254,7 +268,7 @@ const Gradil = () => {
       <Header />
 
       <div id="smooth-wrapper">
-        <div id="smooth-content">
+        <div id="smooth-content" ref={contentRef}>
           <main>
             <section
               ref={sectionRef}

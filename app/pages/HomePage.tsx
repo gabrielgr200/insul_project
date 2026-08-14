@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Partners from "../components/Partners";
 import PartnersLogos from "../components/PartnersLogos";
+import SearchBarShowcase from "../components/SearchBarShowcase";
 import { IndustryHeader, IndustryTimeline } from "../components/Industry";
 import Products from "../components/Products";
 import Loader from "../components/Loader";
@@ -93,6 +94,9 @@ const HomePage = () => {
           </h3>
           <Partners />
           <PartnersLogos />
+          <section className="py-20 sm:py-28">
+            <SearchBarShowcase />
+          </section>
           <VideoShowcase />
           <IndustryHeader />
           <TextReveal />

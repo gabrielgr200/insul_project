@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Maximize2, SkipForward, Volume2, VolumeX } from "lucide-react";
 import type { VideoCardData } from "../assets/data";
+import { useTranslation } from "./LanguageProvider";
 
 const OFFSET_STEP = 130;
 const MAX_VISIBLE_OFFSET = 2;
@@ -15,6 +16,7 @@ const VideoCardCarousel = ({
   cards: VideoCardData[];
   fenceName: string;
 }) => {
+  const { dict } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [unmutedIndex, setUnmutedIndex] = useState<number | null>(null);
 
@@ -54,7 +56,7 @@ const VideoCardCarousel = ({
   return (
     <section className="overflow-hidden py-16">
       <h3 className="mt-4 text-2xl poppins text-center mb-10 font-bold text-[#ff5500] sm:text-3xl">
-        Veja alguns vídeos sobre a {fenceName}
+        {dict.videoCardCarousel.headingLead} {fenceName}
       </h3>
       <div
         className="relative mx-auto flex h-[380px] max-w-6xl cursor-grab items-center justify-center touch-pan-y select-none active:cursor-grabbing sm:h-[440px]"
@@ -115,7 +117,11 @@ const VideoCardCarousel = ({
                       current === index ? null : index,
                     );
                   }}
-                  aria-label={muted ? "Ativar som" : "Silenciar"}
+                  aria-label={
+                    muted
+                      ? dict.videoCardCarousel.unmuteAria
+                      : dict.videoCardCarousel.muteAria
+                  }
                   className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
                 >
                   {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}

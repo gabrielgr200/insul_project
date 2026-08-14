@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -11,10 +11,11 @@ import ProductCard from "../components/ProductCard";
 import {
   cercasProntas,
   cercasProntasReels,
-  type CercaSlide,
   type ProductCardData,
 } from "../assets/data";
 import CardPost from "../components/CardPost";
+import { useTranslation } from "../components/LanguageProvider";
+import { localizeCerca } from "../utils/localizeCerca";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
   fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
@@ -23,26 +24,40 @@ const LOCAL_CARD_SRC: Record<string, string> = {
   "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
 };
 
-const cercasProntasCardsPages: ProductCardData[] = cercasProntas.map((c) => ({
-  src: LOCAL_CARD_SRC[c.slug] ?? c.src,
-  title: c.title,
-  name: c.name,
-  paragraph: c.paragraph,
-  shortDescription: c.shortDescription,
-  description: c.paragraphs.join("\n\n"),
-  postSpacing: c.postSpacing,
-  animals: c.animals,
-  to: c.to,
-}));
-
-const cercasProntasCarousel: CercaSlide[] = cercasProntas.map((c) => ({
-  src: c.heroSlide.src,
-  label: c.name,
-  hotspot: c.heroSlide.hotspot,
-}));
-
 const CercasProntasPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const { dict } = useTranslation();
+
+  const localizedCercas = useMemo(
+    () => cercasProntas.map((c) => localizeCerca(c, dict.cercasProntas[c.slug])),
+    [dict],
+  );
+
+  const cercasProntasCardsPages: ProductCardData[] = useMemo(
+    () =>
+      localizedCercas.map((c) => ({
+        src: LOCAL_CARD_SRC[c.slug] ?? c.src,
+        title: c.title,
+        name: c.name,
+        paragraph: c.paragraph,
+        shortDescription: c.shortDescription,
+        description: c.paragraphs.join("\n\n"),
+        postSpacing: c.postSpacing,
+        animals: c.animals,
+        to: c.to,
+      })),
+    [localizedCercas],
+  );
+
+  const cercasProntasCarousel = useMemo(
+    () =>
+      localizedCercas.map((c) => ({
+        src: c.heroSlide.src,
+        label: c.name,
+        hotspot: c.heroSlide.hotspot,
+      })),
+    [localizedCercas],
+  );
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -82,8 +97,8 @@ const CercasProntasPage = () => {
 
       <div id="smooth-wrapper">
         <div id="smooth-content" ref={contentRef}>
-          <main className="max-w-7xl lg:max-w-6xl mx-auto px-4 sm:px-8 pt-44 pb-20">
-            <CercasCarousel slides={cercasProntasCarousel} />
+          <main className="max-w-7xl lg:max-w-6xl mx-auto px-4 sm:px-8 pb-20">
+            <CercasCarousel slides={cercasProntasCarousel} fullBleedMedia />
 
             <div className="mt-16 grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {cercasProntasCardsPages.map((card) => (
@@ -93,12 +108,13 @@ const CercasProntasPage = () => {
 
             <div className="mt-16">
               <CardPost
-                title="Veja sobre as cercas prontas"
+                title={dict.cercasProntasPage.cardPostTitle}
                 description={
                   <>
-                    <span className="font-bold">Especificações e detalhes: </span>
-                    acompanhe de perto como cada cerca pronta Insul se comporta
-                    no campo.
+                    <span className="font-bold">
+                      {dict.cercasProntasPage.cardPostDescriptionLead}
+                    </span>
+                    {dict.cercasProntasPage.cardPostDescriptionRest}
                   </>
                 }
                 reels={cercasProntasReels}

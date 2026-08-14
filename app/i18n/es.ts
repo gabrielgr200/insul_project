@@ -1,4 +1,5 @@
 import type { Dictionary } from "./pt";
+import type { CercaProntaTranslation } from "../utils/localizeCerca";
 
 const es: Dictionary = {
   nav: {
@@ -428,6 +429,449 @@ const es: Dictionary = {
       products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
     },
   },
+
+  searchShowcase: {
+    query: "¿Se puede cercar mi propiedad rápido?",
+    suggestions: [
+      "Conoce Insul. La empresa que fabrica mallas y cercas para el campo",
+      "Insul entrega cercas prefabricadas para cualquier propiedad.",
+    ],
+    mostSearched: "Más buscado",
+  },
+
+  productCard: {
+    likedFence: "¿Te gustó esta malla?",
+    seeDetails: "Ver detalles",
+    postSpacingLabel: "Espaciado entre postes",
+    indicatedFor: "Recomendado para",
+  },
+
+  videoCardCarousel: {
+    headingLead: "Mira algunos videos sobre la",
+    unmuteAria: "Activar sonido",
+    muteAria: "Silenciar",
+  },
+
+  similarProducts: {
+    heading: "Productos similares",
+  },
+
+  animalChart: {
+    capacityHeading: "capacidad de contención por animal",
+    collidingWithFence: "chocando con la cerca",
+    escapingFence: "intentando escapar por el cercado",
+  },
+
+  animalNames: {
+    Bovino: "Bovino",
+    Bovinos: "Bovinos",
+    Caprino: "Caprino",
+    Caprinos: "Caprinos",
+    Ovinos: "Ovinos",
+    "Suínos": "Porcinos",
+    Javaporco: "Jabalí",
+    Aves: "Aves",
+    "Cães e silvestres": "Perros y silvestres",
+    "Cães": "Perros",
+    Capivara: "Carpincho",
+    Avestruz: "Avestruz",
+    Galinha: "Gallina",
+    Ganso: "Ganso",
+  },
+
+  cercasProntasPage: {
+    cardPostTitle: "Conoce más sobre las cercas prefabricadas",
+    cardPostDescriptionLead: "Especificaciones y detalles: ",
+    cardPostDescriptionRest:
+      "sigue de cerca cómo se comporta cada cerca prefabricada Insul en el campo.",
+  },
+
+  cercasProntas: {
+    fenix: {
+      title: "Cerca Prefabricada (rural)",
+      paragraph:
+        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla bifásica, Nudo en X (stiff stay)",
+      shortDescription:
+        "Malla de simple torsión en acero de alto carbono, con instalación hasta 6 veces más rápida y hasta un 50% menos de postes. Seguridad y durabilidad para cualquier propiedad.",
+      paragraphs: [
+        "La Malla Alambrada Fénix Insul es una solución de cercado en malla de simple torsión, fabricada con alambre de acero de alto carbono, que proporciona mayor resistencia mecánica, durabilidad y desempeño. Desarrollada para ofrecer seguridad y confiabilidad, es ideal para proyectos que exigen un cercado eficiente y de larga vida útil.",
+        "Su sistema constructivo permite una instalación hasta 6 veces más rápida en comparación con los cercados convencionales, reduciendo el tiempo de ejecución de la obra y aumentando la productividad. Además, su estructura permite utilizar hasta un 50% menos de postes, generando ahorro de materiales sin comprometer la resistencia del cercado.",
+        "La Malla Alambrada Fénix Insul está indicada para el cercado de viviendas, condominios, empresas, industrias, escuelas, canchas deportivas, chacras, fincas, áreas públicas y demás propiedades que necesiten una solución práctica, segura y de alto desempeño.",
+        "Combinando tecnología, resistencia y una excelente relación costo-beneficio, la Malla Alambrada Fénix Insul ofrece amplia visibilidad, baja necesidad de mantenimiento y alta durabilidad, convirtiéndose en una elección inteligente para proyectos que buscan rapidez de instalación, ahorro y calidad en un único sistema de cercado.",
+      ],
+      animals: [
+        "Bovinos",
+        "Carpinchos",
+        "Perros",
+        "Caprinos",
+        "Avestruces",
+        "Ovinos",
+        "Cerdos",
+        "Jabalíes",
+        "Gallinas",
+        "Gansos",
+      ],
+      hotspot: {
+        title: "Cerca Fênix Insul",
+        description:
+          "Alambre de alta resistencia con acabado galvanizado, ideal para grandes propiedades.",
+      },
+      features: [
+        {
+          title: "Alambre 2,50 mm",
+          description:
+            "Alambre de gran espesor, hecho para soportar tracción e impacto en cercados exigentes.",
+        },
+        {
+          title: "Instalación",
+          description:
+            "Malla tensada entre los postes, lista para instalarse en cualquier relieve de terreno.",
+        },
+        {
+          title: "Malla bifásica",
+          description:
+            "Aberturas más pequeñas en la base y más grandes en la parte superior, combinando contención eficiente y visibilidad.",
+        },
+        {
+          title: "Nudo en X (stiff stay)",
+          description:
+            "Traba los alambres en X, manteniendo la tensión y la rigidez de la estructura por más tiempo.",
+        },
+      ],
+      videoCards: [
+        {
+          category: "MATERIAL",
+          title: "Acero al Carbono",
+          description:
+            "El único alambrado de Brasil con alambres de 650 kgf de carga de ruptura.",
+        },
+        {
+          category: "ESTRUCTURA",
+          title: "Nudo en X",
+          description:
+            "Nudo forjado que no deja rebabas y garantiza seguridad contra impactos.",
+        },
+        {
+          category: "TERRENO",
+          title: "Cualquier Relieve",
+          description:
+            "Se adapta a subidas y bajadas sin dificultad en la instalación.",
+        },
+        {
+          category: "AHORRO",
+          title: "Instalación Rápida",
+          description:
+            "El mayor espaciado entre postes genera hasta un 50% de ahorro.",
+        },
+        {
+          category: "PROTECCIÓN",
+          title: "Malla Bimodal",
+          description:
+            "Cerrada en la parte inferior para contención, abierta en la parte superior para ahorro.",
+        },
+      ],
+      gallery: [
+        { alt: "Cerca instalada en una propiedad rural" },
+        { alt: "Detalle del alambre y la malla" },
+        { alt: "Rollo de la malla" },
+        { alt: "Cerca en terreno con desnivel" },
+        { alt: "Acabado galvanizado en caliente" },
+        { alt: "Nudo en X de la cerca" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+      ],
+    },
+    "campeira-maxx": {
+      title: "Cerca Prefabricada (rural)",
+      paragraph:
+        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla bifásica, Nudo en X (stiff stay)",
+      shortDescription:
+        "Nudo en X exclusivo de Insul, hecho para contener bovinos y equinos y proteger los cultivos contra animales grandes. Ruptura de hasta 700 kgf y 5 años de garantía.",
+      paragraphs: [
+        "La cerca prefabricada Campeira Maxx Insul es la elección definitiva para quienes buscan el máximo en resistencia, durabilidad y practicidad. Este producto exclusivo de Insul se destaca por ser el único del mercado con el revolucionario nudo en X (stiff stay), una innovación que garantiza una estructura más robusta y segura, ideal para enfrentar las condiciones más exigentes del campo. La Campeira Maxx Insul es la indicación ideal para la contención de animales de gran y mediano porte, como bovinos y equinos, además de ser una barrera extremadamente eficaz contra invasores. Protege cultivos y propiedades rurales de ataques de jabalíes, jabalíes-cerdo, carpinchos y otros animales grandes que pueden causar daños significativos. Además, la Campeira Maxx se adapta perfectamente al relieve del terreno, garantizando una instalación eficiente y una protección continua, independientemente de las variaciones topográficas.",
+        "Con su robustez y durabilidad, la Campeira Maxx ofrece la seguridad necesaria para mantener a sus animales contenidos y su tierra protegida. Los alambres que componen la Campeira Maxx tienen 2,50 mm de espesor, están galvanizados en caliente y se producen con la reconocida calidad Gerdau, brindando una resistencia superior a la corrosión y una carga de ruptura de hasta 700 kgf. Esto se traduce en una cerca que mantiene su integridad y funcionalidad durante muchos años, incluso en las condiciones más adversas. Además, el diseño con nudo en X garantiza mayor firmeza y estabilidad, asegurando que la cerca permanezca intacta incluso bajo presiones externas.",
+        "La Campeira Maxx también se destaca por su practicidad de instalación. La cerca viene lista para usar, lo que facilita el proceso de instalación y ahorra tiempo y mano de obra. Esta practicidad, combinada con la alta durabilidad del producto, resulta en una solución de cercado que exige menor mantenimiento a lo largo del tiempo, generando ahorro a largo plazo. Otro gran diferencial de la Campeira Maxx es la garantía de 5 años que ofrece Insul, reflejando la confianza en la calidad y durabilidad del producto. Además, la armonía estética de la cerca es un punto importante, pues, además de funcional, se integra perfectamente al entorno, otorgando una apariencia organizada y profesional a la propiedad.",
+        "Para minoristas y revendedores, la cerca prefabricada Campeira Maxx Insul representa una oportunidad única de agregar valor a su mix de productos. Su exclusividad y sus diferenciales de calidad aumentan el potencial de ventas y fortalecen la reputación de la tienda como proveedora de productos de alta calidad, además de ofrecer una alternativa más moderna, práctica y resistente a la cerca de confección manual de alambre ovalado. La alta demanda de cercas resistentes y duraderas, sumada a la exclusividad de la tecnología de nudo en X y toda la calidad ofrecida por la cerca prefabricada Campeira Maxx Insul, garantiza un alto potencial de ventas y fidelización de clientes. Con un producto tan completo, la satisfacción del cliente está garantizada, reduciendo reclamos y aumentando la fidelización y las ganancias. Elija la cerca prefabricada Campeira Maxx Insul y descubra cómo una cerca puede marcar la diferencia en su propiedad, uniendo innovación, calidad y practicidad en un solo producto.",
+      ],
+      animals: ["Bovinos", "Carpinchos", "Perros", "Avestruces", "Ovinos", "Cerdos", "Jabalíes"],
+      hotspot: {
+        title: "Cerca Campeira Maxx Insul",
+        description:
+          "Reforzada para pasturas de mayor porte, con mayor espaciado entre alambres.",
+      },
+      features: [
+        {
+          title: "Instalación",
+          description:
+            "Malla tensada entre los postes, lista para instalarse en cualquier relieve de terreno.",
+          captions: [
+            {
+              label: "Instalación",
+              value:
+                "Malla lista y tensada entre los postes — sale de fábrica lista para instalar, sin necesidad de armar alambre por alambre.",
+            },
+            {
+              label: "Longitud",
+              value:
+                "De 5x5 hasta 8x8 metros entre postes, ahorrando hasta un 50% en material.",
+            },
+            {
+              label: "Nudo en X",
+              value:
+                "El alambre de acero y el nudo en X (stiff stay) se traban entre sí, manteniendo la tensión y la rigidez de la cerca por mucho más tiempo.",
+            },
+          ],
+        },
+        {
+          title: "Malla superior | inferior",
+          description:
+            "Malla de 22 cm x 20 cm con acabado en acero galvanizado en caliente.",
+          captions: [
+            {
+              label: "Malla",
+              value: "",
+              options: [
+                {
+                  label: "Malla superior",
+                  value:
+                    "22 cm x 20 cm — más abierta para reducir el costo de material y mantener un aspecto limpio, sin renunciar a la resistencia.",
+                },
+                {
+                  label: "Malla inferior",
+                  value:
+                    "22 cm x 10 cm — más cerrada para reforzar la contención de animales y bloquear invasores más pequeños.",
+                },
+              ],
+            },
+            {
+              label: "Malla superior",
+              value:
+                "22 cm x 20 cm — más abierta para reducir el costo de material y mantener un aspecto limpio, sin renunciar a la resistencia.",
+            },
+            {
+              label: "Malla inferior",
+              value:
+                "22 cm x 10 cm — más cerrada para reforzar la contención de animales y bloquear invasores más pequeños.",
+            },
+          ],
+        },
+      ],
+      videoCards: [
+        {
+          category: "MATERIAL",
+          title: "Alambre 2,50 mm",
+          description:
+            "Alambre de gran espesor, hecho para soportar tracción e impacto en cercados exigentes.",
+        },
+        {
+          category: "ACABADO",
+          title: "Acero Galvanizado en Caliente",
+          description:
+            "Protección contra la corrosión y mayor durabilidad en cualquier ambiente.",
+        },
+        {
+          category: "ESTRUCTURA",
+          title: "Malla Bifásica",
+          description:
+            "Aberturas más pequeñas en la base y más grandes en la parte superior, combinando contención eficiente y visibilidad.",
+        },
+        {
+          category: "ESTRUCTURA",
+          title: "Nudo en X (stiff stay)",
+          description:
+            "Traba los alambres en X, manteniendo la tensión y la rigidez de la estructura por más tiempo.",
+        },
+        {
+          category: "PROTECCIÓN",
+          title: "Malla Bimodal",
+          description:
+            "Cerrada en la parte inferior para contención, abierta en la parte superior para ahorro.",
+        },
+      ],
+      gallery: [
+        { alt: "Cerca instalada en una propiedad rural" },
+        { alt: "Detalle del alambre y la malla" },
+        { alt: "Rollo de la malla" },
+        { alt: "Cerca en terreno con desnivel" },
+        { alt: "Acabado galvanizado en caliente" },
+        { alt: "Nudo en X de la cerca" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+      ],
+    },
+    campeira: {
+      title: "Cerca Prefabricada (rural)",
+      paragraph:
+        "Alambre 2,30 mm, Acero galvanizado en caliente, Malla bifásica, Nudo tradicional",
+      shortDescription:
+        "Modelo tradicional y consagrado de Insul, ideal para la contención de ovinos, caprinos y cerdos. Alambre galvanizado en caliente con 5 años de garantía.",
+      paragraphs: [
+        "La cerca prefabricada Campeira Insul es sinónimo de tradición y excelencia en el mercado de cercas prefabricadas, siendo ampliamente reconocida entre los consumidores por su eficiencia y confiabilidad. Desarrollada para la contención de animales de mediano porte, como ovinos, caprinos y cerdos, la Campeira Insul se destaca no solo por su popularidad, sino también por los diferenciales de calidad que marcan la diferencia. La calidad Insul es lo que coloca a la Campeira por delante de los demás productos del mercado.",
+        "Cada cerca se fabrica con estrictos estándares de calidad, utilizando alambres Gerdau de alta calidad, que reciben galvanizado en caliente para garantizar una resistencia superior a la corrosión. Este proceso asegura mayor resistencia y alta durabilidad, proporcionando una cerca que mantiene su integridad y funcionalidad durante muchos años, incluso en las condiciones más adversas.",
+        "Además de su resistencia, la Campeira Insul se destaca por su practicidad de instalación. Ya viene lista para usar, lo que facilita el trabajo en el campo y reduce significativamente el tiempo de instalación. Esta practicidad, sumada a un menor costo de mantenimiento, convierte a la Campeira Insul en una elección económica y eficiente para propietarios rurales que buscan optimizar sus inversiones sin renunciar a la calidad. Insul ofrece una garantía de 5 años para la Campeira, reflejando la confianza en la durabilidad y el desempeño superior del producto.",
+        "Otro diferencial importante es la adaptación al relieve del terreno, que permite que la cerca se integre de forma continua y eficaz, independientemente de las variaciones topográficas. Esta característica garantiza una contención segura y estable, adaptada a las necesidades específicas de cada propiedad. La armonía estética es otro punto destacado de la Campeira Insul. Además de funcional, la cerca le da una apariencia organizada y profesional a la propiedad, valorizando el entorno rural y demostrando cuidado y atención al detalle.",
+        "Para comerciantes y revendedores, incluir la cerca prefabricada Campeira Insul en su mix de productos es una decisión estratégica que agrega valor al portafolio. Al ofrecer un producto de alta calidad, reconocido y confiable para los consumidores, usted atrae a un público exigente y fideliza a clientes que buscan soluciones duraderas y eficientes. Con la creciente demanda de cercas prefabricadas, la Campeira Insul garantiza un alto potencial de ventas y contribuye a fortalecer la reputación de su establecimiento.",
+      ],
+      animals: ["Bovinos", "Perros", "Caprinos", "Cerdos", "Ovinos"],
+      hotspot: {
+        title: "Cerca Campeira Insul",
+        description:
+          "Modelo tradicional para linderos rurales, resistente y de fácil instalación.",
+      },
+      features: [
+        {
+          title: "Alambre 2,50 mm",
+          description:
+            "Alambre de gran espesor, hecho para soportar tracción e impacto en cercados exigentes.",
+        },
+        {
+          title: "Instalación",
+          description:
+            "Malla tensada entre los postes, lista para instalarse en cualquier relieve de terreno.",
+        },
+        {
+          title: "Malla bifásica",
+          description:
+            "Aberturas más pequeñas en la base y más grandes en la parte superior, combinando contención eficiente y visibilidad.",
+        },
+        {
+          title: "Nudo en X (stiff stay)",
+          description:
+            "Traba los alambres en X, manteniendo la tensión y la rigidez de la estructura por más tiempo.",
+        },
+      ],
+      videoCards: [
+        {
+          category: "MATERIAL",
+          title: "Acero al Carbono",
+          description:
+            "El único alambrado de Brasil con alambres de 650 kgf de carga de ruptura.",
+        },
+        {
+          category: "ESTRUCTURA",
+          title: "Nudo en X",
+          description:
+            "Nudo forjado que no deja rebabas y garantiza seguridad contra impactos.",
+        },
+        {
+          category: "TERRENO",
+          title: "Cualquier Relieve",
+          description:
+            "Se adapta a subidas y bajadas sin dificultad en la instalación.",
+        },
+        {
+          category: "AHORRO",
+          title: "Instalación Rápida",
+          description:
+            "El mayor espaciado entre postes genera hasta un 50% de ahorro.",
+        },
+        {
+          category: "PROTECCIÓN",
+          title: "Malla Bimodal",
+          description:
+            "Cerrada en la parte inferior para contención, abierta en la parte superior para ahorro.",
+        },
+      ],
+      gallery: [
+        { alt: "Cerca instalada en una propiedad rural" },
+        { alt: "Detalle del alambre y la malla" },
+        { alt: "Rollo de la malla" },
+        { alt: "Cerca en terreno con desnivel" },
+        { alt: "Acabado galvanizado en caliente" },
+        { alt: "Nudo en X de la cerca" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+      ],
+    },
+    "campeira-boi": {
+      title: "Cerca Prefabricada (rural)",
+      paragraph:
+        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla 30 cm x 20 cm, Nudo en X (stiff stay)",
+      shortDescription:
+        "Nudo en X exclusivo y malla de 30x20 cm para la contención de bovinos y animales de gran porte, con ruptura de hasta 700 kgf incluso en terrenos irregulares.",
+      paragraphs: [
+        "La cerca prefabricada Campeira Boi Insul es la solución ideal para quienes necesitan seguridad y durabilidad en la contención de animales de mediano y gran porte. Este producto exclusivo de Insul es el único del mercado con el innovador nudo en X (stiff stay), una tecnología que proporciona mayor resistencia y estabilidad, asegurando que la cerca permanezca firme y funcional incluso bajo presión intensa. Desarrollada para enfrentar las condiciones más desafiantes, la Campeira Boi Insul se destaca por su carga de ruptura de 700 kgf, lo que la hace altamente eficaz para contener bovinos, equinos y otros animales de gran porte.",
+        "Su construcción robusta y sus materiales de alta calidad garantizan una cerca que no solo cumple su función de contención, sino que también resiste el desgaste del tiempo. La durabilidad es uno de los pilares de la Campeira Boi Insul. Fabricada por Insul con alambres Gerdau de alta calidad, que reciben galvanizado en caliente, esta cerca ofrece resistencia superior a la corrosión y longevidad, resultando en un producto que mantiene su integridad durante años, incluso en ambientes adversos. Además, la cerca está diseñada para adaptarse al relieve del terreno, garantizando una instalación eficiente y una protección continua, independientemente de las variaciones topográficas.",
+        "La practicidad de instalación es otro punto fuerte de la Campeira Boi Insul. La cerca viene lista para usar, lo que reduce significativamente el tiempo y el esfuerzo necesarios para el montaje. Esto, combinado con su menor costo de mantenimiento, convierte a la Campeira Boi en una elección económica y eficiente para propietarios rurales que buscan optimizar sus inversiones.",
+        "Para minoristas y revendedores, incluir la cerca prefabricada Campeira Boi Insul en el mix de productos representa una excelente oportunidad de negocio. Este producto exclusivo y de alta calidad atrae a un público calificado, compuesto por propietarios rurales que buscan soluciones robustas y duraderas. Al ofrecer la Campeira Boi en su tienda, no solo brinda un producto diferenciado que atiende las necesidades del mercado, sino que también ofrece una alternativa más moderna, práctica y resistente a la cerca de confección manual de alambre ovalado, además de fortalecer la reputación de su establecimiento como proveedor de artículos de primera línea. La alta demanda de cercas resistentes y duraderas, sumada a la exclusividad de la tecnología de nudo en X y toda la calidad ofrecida por la cerca prefabricada Campeira Boi Insul, garantiza un alto potencial de ventas y fidelización de clientes.",
+        "Insul ofrece una garantía de 5 años para la Campeira Boi, reflejando nuestra confianza en la calidad y la durabilidad de este producto. Además de su funcionalidad superior, la cerca también se integra de manera armoniosa al entorno, proporcionando una estética organizada y profesional para su propiedad. La cerca prefabricada Campeira Boi Insul es, por lo tanto, la elección ideal para quienes necesitan una solución de cercado confiable, resistente y duradera, que ofrezca seguridad tanto para los animales como para la propiedad. Con la combinación única de innovación, calidad y practicidad, la Campeira Boi Insul es una inversión segura y eficaz para su negocio.",
+      ],
+      animals: ["Bovinos"],
+      hotspot: {
+        title: "Cerca Campeira Boi Insul",
+        description:
+          "Desarrollada para rebaños bovinos, con alambres espaciados para máxima contención.",
+      },
+      features: [
+        {
+          title: "Alambre 2,50 mm",
+          description:
+            "Alambre de gran espesor, hecho para soportar tracción e impacto en cercados exigentes.",
+        },
+        {
+          title: "Instalación",
+          description:
+            "Malla tensada entre los postes, lista para instalarse en cualquier relieve de terreno.",
+        },
+        {
+          title: "Malla bifásica",
+          description:
+            "Aberturas más pequeñas en la base y más grandes en la parte superior, combinando contención eficiente y visibilidad.",
+        },
+        {
+          title: "Nudo en X (stiff stay)",
+          description:
+            "Traba los alambres en X, manteniendo la tensión y la rigidez de la estructura por más tiempo.",
+        },
+      ],
+      videoCards: [
+        {
+          category: "MATERIAL",
+          title: "Acero al Carbono",
+          description:
+            "El único alambrado de Brasil con alambres de 650 kgf de carga de ruptura.",
+        },
+        {
+          category: "ESTRUCTURA",
+          title: "Nudo en X",
+          description:
+            "Nudo forjado que no deja rebabas y garantiza seguridad contra impactos.",
+        },
+        {
+          category: "TERRENO",
+          title: "Cualquier Relieve",
+          description:
+            "Se adapta a subidas y bajadas sin dificultad en la instalación.",
+        },
+        {
+          category: "AHORRO",
+          title: "Instalación Rápida",
+          description:
+            "El mayor espaciado entre postes genera hasta un 50% de ahorro.",
+        },
+        {
+          category: "PROTECCIÓN",
+          title: "Malla Bimodal",
+          description:
+            "Cerrada en la parte inferior para contención, abierta en la parte superior para ahorro.",
+        },
+      ],
+      gallery: [
+        { alt: "Cerca instalada en una propiedad rural" },
+        { alt: "Detalle del alambre y la malla" },
+        { alt: "Rollo de la malla" },
+        { alt: "Cerca en terreno con desnivel" },
+        { alt: "Acabado galvanizado en caliente" },
+        { alt: "Nudo en X de la cerca" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+        { alt: "Cerca Insul" },
+      ],
+    },
+  } as Record<string, CercaProntaTranslation>,
 };
 
 export default es;
