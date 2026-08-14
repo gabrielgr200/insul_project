@@ -26,6 +26,7 @@ const TextRevealColor = ({ text, className = "" }: TextRevealColorProps) => {
 
     const build = () => {
       ctx?.revert();
+      if (!ref.current) return;
       const isDark = document.documentElement.classList.contains("dark");
       const base = isDark ? BASE_DARK : BASE_LIGHT;
 
