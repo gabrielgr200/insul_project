@@ -74,8 +74,14 @@ const Gradil = () => {
       normalizeScroll: true,
     });
 
-    const handleLoad = () => ScrollTrigger.refresh();
-    window.addEventListener("load", handleLoad);
+    // Refresh as early as possible (next paint), before the user has had a
+    // chance to scroll — fixes trigger positions that GSAP mis-registers
+    // right after ScrollSmoother is created, without risking a scrubbed
+    // animation (TextRevealColor) snapping to its end state if the refresh
+    // instead fires later, after the user has already scrolled past it.
+    const earlyRefreshRaf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
 
     let refreshTimeout: ReturnType<typeof setTimeout>;
     const resizeObserver = new ResizeObserver(() => {
@@ -256,7 +262,7 @@ const Gradil = () => {
 
     return () => {
       mm.revert();
-      window.removeEventListener("load", handleLoad);
+      cancelAnimationFrame(earlyRefreshRaf);
       clearTimeout(refreshTimeout);
       resizeObserver.disconnect();
       smoother && smoother.kill();
