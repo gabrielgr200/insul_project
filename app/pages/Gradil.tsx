@@ -74,19 +74,27 @@ const Gradil = () => {
       normalizeScroll: true,
     });
 
-    // Refresh as early as possible (next paint), before the user has had a
-    // chance to scroll — fixes trigger positions that GSAP mis-registers
-    // right after ScrollSmoother is created, without risking a scrubbed
-    // animation (TextRevealColor) snapping to its end state if the refresh
-    // instead fires later, after the user has already scrolled past it.
+    // Use the smoother's OWN refresh() (not the bare ScrollTrigger.refresh())
+    // — this is the exact method GSAP calls internally on a real window
+    // resize (see ScrollSmoother's internal _onResize handler), which is
+    // empirically what reliably fixes GradilCards/GradilProcess ending up
+    // mis-positioned. Refresh several times in the first moments of the
+    // page, before the user has had a real chance to scroll, so a scrubbed
+    // animation (TextRevealColor) doesn't snap to its end state — which
+    // happens if the refresh instead fires late, after the user has
+    // already scrolled past it.
+    const doRefresh = () => smoother.refresh();
     const earlyRefreshRaf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      requestAnimationFrame(doRefresh);
     });
+    const earlyRefreshTimeouts = [150, 400, 900].map((delay) =>
+      setTimeout(doRefresh, delay),
+    );
 
     let refreshTimeout: ReturnType<typeof setTimeout>;
     const resizeObserver = new ResizeObserver(() => {
       clearTimeout(refreshTimeout);
-      refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+      refreshTimeout = setTimeout(doRefresh, 200);
     });
     if (contentRef.current) resizeObserver.observe(contentRef.current);
 
@@ -263,6 +271,7 @@ const Gradil = () => {
     return () => {
       mm.revert();
       cancelAnimationFrame(earlyRefreshRaf);
+      earlyRefreshTimeouts.forEach(clearTimeout);
       clearTimeout(refreshTimeout);
       resizeObserver.disconnect();
       smoother && smoother.kill();
