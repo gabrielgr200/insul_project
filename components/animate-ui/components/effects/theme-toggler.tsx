@@ -87,7 +87,7 @@ function ThemeTogglerButton({
       {({ effective, resolved, toggleTheme }) => (
         <button
           data-slot="theme-toggler-button"
-          className={cn(buttonVariants({ variant, size, className }))}
+          className={cn(buttonVariants({ variant, size, className }), 'cursor-pointer')}
           onClick={(e) => {
             onClick?.(e);
             toggleTheme(getNextTheme(effective, modes));

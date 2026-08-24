@@ -94,6 +94,10 @@ export interface CercaProntaInfo {
   gallery: GalleryImage[];
 }
 
+// ============================================================================
+// Cercas prontas
+// ============================================================================
+
 const cercasProntas: CercaProntaInfo[] = [
   {
     slug: "fenix",
@@ -204,8 +208,7 @@ const cercasProntas: CercaProntaInfo[] = [
           "Fechada embaixo para contenção, aberta em cima para economia.",
       },
     ],
-    video3D:
-      "/videos/videos-fenix/video-card-3d.mp4",
+    video3D: "/videos/videos-fenix/video-card-3d.mp4",
     gallery: [
       {
         src: "/images/img_fenix_carousel/1.jpeg",
@@ -720,6 +723,10 @@ const cercasProntasReels: ShowcaseReel[] = [
   },
 ];
 
+// ============================================================================
+// Telas soldadas e hexagonais
+// ============================================================================
+
 export interface SoldadaIndicatedUse {
   name: string;
   src: string;
@@ -753,7 +760,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     // com o visual idêntico ao de cercas prontas. Troque pelo material real
     // da Tela Brava quando tiver.
     color: "#86be00",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858285/brava_epowtp.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/brava.png",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha 5 cm x 10 cm",
     postSpacing: "3m",
@@ -839,54 +846,39 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         end: 64,
       },
     ], //trocar pelas informações reais
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1785932533/video-brava_k4ezjj.mp4",
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-brava/Brava.mp4",
     videoCards: [
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785946882/video-brava-1_v8mspl.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-brava/video-reel-brava-1.mp4",
         category: "MATERIAL",
         title: "Aço Carbono",
         description:
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935141/video-reel-brava_dkhghz.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-brava/video-reel-brava-2.mp4",
         category: "ESTRUTURA",
         title: "Nó em X",
         description:
           "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785947516/video-brava-2_dgsdj5.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-brava/video-reel-brava-3.mp4",
         category: "TERRENO",
         title: "Qualquer Relevo",
         description:
           "Acompanha aclives e declives sem dificuldade na instalação.",
       },
-      // {
-      //   src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679873/video-4-fenix_dskpfk.mp4",
-      //   category: "ECONOMIA",
-      //   title: "Instalação Rápida",
-      //   description:
-      //     "Espaçamento maior entre mourões gera até 50% de economia.",
-      // },
-      // {
-      //   src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1784679856/video-5-fenix_vl1wye.mp4",
-      //   category: "PROTEÇÃO",
-      //   title: "Malha Bimodal",
-      //   description:
-      //     "Fechada embaixo para contenção, aberta em cima para economia.",
-      // },
     ],
     video3D:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1785948806/video-3d-brava_ddlo3s.mp4",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-brava/video-brava-3d.mp4",
+  }, //brava
   {
     slug: "tela-titan",
     name: "Tela Titan",
     category: "Soldada",
     color: "#dc0927",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858286/titan_dpveqr.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/titan.png",
     paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -946,32 +938,53 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786018664/video-titan-hero_qcpge8.mp4",
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-titan/titan.mp4",
     videoCards: [
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786019868/titan-1_uu61zv.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-titan/video-reel-1.mp4",
         category: "MATERIAL",
         title: "Aço Carbono",
         description:
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786019893/titan-2_ahrnno.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-titan/video-reel-2.mp4",
         category: "ESTRUTURA",
         title: "Nó em X",
         description:
           "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786019952/titan-3_xoukod.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-titan/video-reel-titan-3.mp4",
         category: "TERRENO",
         title: "Qualquer Relevo",
         description:
@@ -979,14 +992,14 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     video3D:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786019339/video-card-3d-titan_b5ytlp.mp4",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-titan/video-titan-3d.mp4",
+  }, //titan
   {
     slug: "tela-morada",
     name: "Tela Morada",
     category: "Soldada",
     color: "#12568f",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858287/morada_lcztla.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -1018,32 +1031,53 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ], //adicionar mais imagens sobre a tela morada
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786022245/video-hero-morada_yqnt2n.mp4",
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada/morada.mp4",
     videoCards: [
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786024573/video-morada-card-1_iawss8.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada/video-reel-1.mp4",
         category: "MATERIAL",
         title: "Aço Carbono",
         description:
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786024300/video-morada-card-2_cpalnb.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada/video-reel-2.mp4",
         category: "ESTRUTURA",
         title: "Nó em X",
         description:
           "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786024267/video-morada-card-3_mcskvz.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada/video-reel-3.mp4",
         category: "TERRENO",
         title: "Qualquer Relevo",
         description:
@@ -1051,14 +1085,14 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     video3D:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786022898/video-morada-3d_iynkql.mp4",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-morada/video-morada-3d.mp4",
+  }, //morada
   {
     slug: "tela-morada-open",
     name: "Tela Morada Open",
     category: "Soldada",
     color: "#4a2369",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785861514/morada-open_p7x0xz.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-open.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 6,5 cm x 15 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -1094,25 +1128,54 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786026267/video-hero-morada-open_hkvwxw.mp4",
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-open/morada-open.mp4",
     videoCards: [
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786027587/video-card-morada-open-1_d85d2z.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-open/video-reel-1.mp4",
         category: "MATERIAL",
         title: "Aço Carbono",
         description:
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
       {
-        src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786027813/video-card-morada-open-2_b3sgxu.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-open/video-reel-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-open/video-reel-3.mp4",
         category: "ESTRUTURA",
         title: "Nó em X",
         description:
@@ -1120,14 +1183,14 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     video3D:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786026512/video-card-morada-open-3d_xl2ira.mp4",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-open/video-open-3d.mp4",
+  }, //morada-open
   {
     slug: "tela-morada-leve",
     name: "Tela Morada Leve",
     category: "Soldada",
     color: "#ffc50f",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785861531/morada-leve_rkcwhm.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-leve.png",
     paragraph: "Fio 1,90 mm, Aço galvanizado a fogo, Malha 5 cm x 10 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -1159,47 +1222,69 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786034230/video-hero-morada-leve_ldzclm.mp4",
-      videoCards: [
-        {
-          src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786036394/video-morada-leve-1_j0chlo.mp4",
-          category: "MATERIAL",
-          title: "Aço Carbono",
-          description:
-            "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
-        },
-        {
-          src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786036336/video-morada-leve-2_rig2cw.mp4",
-          category: "ESTRUTURA",
-          title: "Nó em X",
-          description:
-            "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
-        },
-        {
-          src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1786036341/video-morada-leve-3_wzm1ix.mp4",
-          category: "ESTRUTURA",
-          title: "Nó em X",
-          description:
-            "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
-        },
-      ],
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-morada-leve/morada-leve.mp4",
+    videoCards: [
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada-leve/video-reel-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada-leve/video-reel-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-morada-leve/video-reel-3.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+    ],
     video3D:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1786035903/video-card-morada-leve-3d_kozstr.mp4",
-  },
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-morada-leve/video-leve-3d.mp4",
+  }, //morada-leve
   {
     slug: "tela-multi-uso",
     name: "Tela Multi Uso",
     category: "Soldada",
     color: "#1f3d5c",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785869060/multy_uso_upii2z.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/MultyUso.png",
     paragraph: "Fio 1,65 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
     postSpacing: "até 4m",
     indicatedFor: [
@@ -1217,7 +1302,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     shortDescription:
-      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
+      "A Tela Multy Uso Insul oferece versatilidade, resistência e excelente custo-benefício para diferentes tipos de cercamentos. Desenvolvida com materiais de qualidade, proporciona segurança, praticidade na instalação e durabilidade em diversas aplicações rurais e residenciais.",
     description:
       "Página de exemplo para a Tela Multi Uso. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
     gallery: [
@@ -1227,30 +1312,67 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/multyuso.mp4",
     videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-reel-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-reel-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-reel-3.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  },
+    video3D: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-multy-3d.mp4",
+  }, //multyUso
   {
     slug: "tela-fachanet",
     name: "Tela Fachanet",
     category: "Soldada",
     color: "#002d4d",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785870625/fachaNet_xiicnh.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/fachaNet.png",
     paragraph: "Fio 1,24 mm, Aço galvanizado a fogo, Malha 2,5 cm x 2,5 cm",
     postSpacing: "até 4m",
     indicatedFor: [
@@ -1295,13 +1417,13 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //fachaNet
   {
     slug: "tela-multymax",
     name: "Tela MultyMax",
     category: "Soldada",
     color: "#4a5568",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785871153/multyMax_avjeuq.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/MultyUso-max.png",
     paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -1346,13 +1468,13 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //multyMax
   {
     slug: "tela-fachanetmax",
     name: "Tela FachaNetMax",
     category: "Soldada",
     color: "#0f766e",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785871530/fachaMax_cjaeau.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/fachaNet-max.png",
     paragraph: "Fio 2,00 mm, Aço galvanizado a fogo, Malha 2,5 cm x 2,5 cm",
     postSpacing: "até 3m",
     indicatedFor: [
@@ -1397,13 +1519,13 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //fachaNetMax
   {
     slug: "tela-brava-leve",
     name: "Tela Brava Leve",
     category: "Soldada",
-    color: "#334155",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785872044/brava-leve_nvbjcp.png",
+    color: "#86be00",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/brava-leve.png",
     paragraph:
       "Fio 2,10 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha 5 cm x 5 cm",
     postSpacing: "até 3m",
@@ -1449,13 +1571,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //brava-leve
+
+  //telas hexagonais
   {
     slug: "tela-mangueirao-16",
     name: "Tela Mangueirão 16",
     category: "Hexagonal",
-    color: "#1f3d5c",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785874503/mangueir%C3%A3o-16_pzzsvl.png",
+    color: "#b3071b",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-16.png",
     paragraph: 'Fio 1,65 mm, Aço galvanizado a fogo, Malha 3" - 7,6 cm',
     postSpacing: "até 4m",
     indicatedFor: [
@@ -1473,7 +1597,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     shortDescription:
-      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
+      "A Mangueirão 16 Insul é uma solução robusta para quem busca um cercamento confiável no ambiente rural. Sua estrutura foi desenvolvida para suportar o uso diário, contribuindo para a contenção dos animais e oferecendo praticidade no manejo e na instalação.",
     description:
       "Página de exemplo para a Tela Mangueirão 16. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
     gallery: [
@@ -1483,30 +1607,74 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/mangueirao.mp4",
     videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-reel-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-reel-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-reel-3.mp4",
+        category: "TERRENO",
+        title: "Qualquer Relevo",
+        description:
+          "Acompanha aclives e declives sem dificuldade na instalação.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-reel-4.mp4",
+        category: "TERRENO",
+        title: "Qualquer Relevo",
+        description:
+          "Acompanha aclives e declives sem dificuldade na instalação.",
+      },
+    ],
+    video3D: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-mangueirao-3d.mp4",
+  }, //mangueirão-16
   {
     slug: "tela-mangueirao-18",
     name: "Tela Mangueirão 18",
     category: "Hexagonal",
-    color: "#002d4d",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785874482/mangueir%C3%A3o-18_phyphx.png",
+    color: "#4c2a07",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-18.png",
     paragraph: 'Fio 1,24 mm, Aço galvanizado a fogo, Malha 3" - 7,6 cm',
     postSpacing: "até 4m",
     indicatedFor: [
@@ -1524,7 +1692,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     shortDescription:
-      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
+      "A Mangueirão 18 Insul combina robustez e eficiência para aplicações que exigem um cercamento de alta resistência. Indicada para áreas de manejo e contenção animal, sua estrutura proporciona segurança e estabilidade, tornando-se uma opção confiável para o dia a dia no campo.",
     description:
       "Página de exemplo para a Tela Mangueirão 18. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
     gallery: [
@@ -1534,30 +1702,53 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/mangueirao-18.mp4",
     videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/video-reel-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+    ],
+    video3D: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/video-18-3d.mp4",
+  }, //mangueirão-18
   {
     slug: "tela-galinheiro-18",
     name: "Tela Galinheiro 18",
     category: "Hexagonal",
-    color: "#4a5568",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785875091/galinheiro_mng6xp.png",
+    color: "#ffa51b",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/galinheiro.png",
     paragraph: 'Fio 1,24 mm, Aço galvanizado a fogo, Malha 2" - 5,0 cm',
     postSpacing: "até 4m",
     indicatedFor: [
@@ -1575,7 +1766,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     shortDescription:
-      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
+      "A Galinheiro 18 Insul é uma opção prática para a criação e proteção de aves, oferecendo uma estrutura adequada para delimitar espaços com segurança. Sua malha proporciona boa resistência e facilita a montagem de cercamentos para galinhas e outros animais de pequeno porte.",
     description:
       "Página de exemplo para a Tela Galinheiro 18. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
     gallery: [
@@ -1585,30 +1776,67 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
     features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
+      {
+        title: "Fio 2,50 mm",
+        description:
+          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
+        start: 63.5,
+        end: 68,
+      },
+      {
+        title: "Instalação",
+        description:
+          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
+        start: 36.3,
+        end: 43.8,
+      },
+      {
+        title: "Malha bifásica",
+        description:
+          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
+        start: 57,
+        end: 61.5,
+      },
+      {
+        title: "Nó em X (stiff stay)",
+        description:
+          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
+        start: 61.5,
+        end: 64,
+      },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
+    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/galinheiro-18.mp4",
     videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-reel-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-reel-2.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-reel-3.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+    ],
+    video3D: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-galinheiro-3d.mp4",
+  }, //galinheiro
   {
     slug: "tela-pinteiro-22",
     name: "Tela Pinteiro 22",
     category: "Hexagonal",
-    color: "#0f766e",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785875088/pinteiro_dbnpi6.png",
+    color: "#199930",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/pinteiro.png",
     paragraph: 'Fio 0,71 mm, Aço galvanizado a fogo, Malha 1/2" - 2,50 cm',
     postSpacing: "até 4,5m",
     indicatedFor: [
@@ -1653,13 +1881,13 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //pinteiro
   {
     slug: "tela-viveiro-24",
     name: "Tela Viveiro 24",
     category: "Hexagonal",
-    color: "#334155",
-    src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785875089/viveiro_r4g5if.png",
+    color: "#3697b5",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/viveiro.png",
     paragraph: 'Fio 0,56 mm, Aço galvanizado a fogo, Malha 1/2" - 1,25 cm',
     postSpacing: "até 4,5m",
     indicatedFor: [
@@ -1704,7 +1932,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       // },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
-  },
+  }, //viveiro
 ];
 
 const soldadasHexagonaisCardsPages: ProductCardData[] = soldadasHexagonais.map(
@@ -1733,27 +1961,27 @@ const soldadasHexagonaisCarousel: CercaSlide[] = cercasProntas.map((c) => ({
 
 const soldadasHexagonaisReels: ShowcaseReel[] = [
   {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935141/video-reel-brava_dkhghz.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/video-reel-brava.mp4",
     name: "Tela Brava",
   },
   {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935140/video-reel-moradaLeve_fw1web.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/video-reel-leve.mp4",
     name: "Tela Morada Leve",
   },
   {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935141/video-reel-fachaNet_pkvorw.mp4",
-    name: "Tela FachaNet",
-  },
-  {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935146/video-reel-soldadas_vyqgt5.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/video-reel-soldada.mp4",
     name: "Telas Soldadas",
   },
   {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935142/video-reel-fabricacao-soldadas_qdyki4.mp4",
-    name: "Como são feitas as telas",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/video-reel-TMs.mp4",
+    name: "Telas Moradas e Titan",
   },
   {
-    src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785935147/video-reel-hexagonais_qrupjx.mp4",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/mangueirao-18.mp4",
+    name: "Tela Mangueirão 18",
+  },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels-SH/video-reel-hexagonal.mp4",
     name: "Telas Hexagonais",
   },
 ];
@@ -1764,26 +1992,26 @@ const soldadasHexagonaisReels: ShowcaseReel[] = [
 
 const roomDetails: RoomDetail[] = [
   {
-    src: "https://i.postimg.cc/mkF4GvBv/DSC-4281.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/cercas-prontas.jpg",
     name: "Cercas Prontas(rurais)",
     to: "/cercas-prontas",
   },
   {
-    src: "https://i.postimg.cc/zfBXcPHq/gradil.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/gradil.jpg",
     name: "Gradil",
     to: "/gradil",
   },
   {
-    src: "https://i.postimg.cc/Dz9kPCrV/soldada.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/telas.jpg",
     name: "Telas e Alambrados",
     to: "/soldadas-hexagonais",
   },
   {
-    src: "https://i.postimg.cc/6pPDBH1B/catracas.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/acessorios.jpg",
     name: "Acessórios",
   },
   {
-    src: "https://i.postimg.cc/MZt3WPnx/arame.jpg",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/arames.jpg",
     name: "Arames",
   },
 ];
@@ -1792,6 +2020,94 @@ const gradilGallery: GalleryImage[] = Array.from({ length: 9 }, (_, i) => ({
   src: `https://d2c3kthzw0ta10.cloudfront.net/img_gradil/img-gradil-${i + 1}.jpg`,
   alt: `Gradil Insul instalado ${i + 1}`,
 }));
+
+export interface GradilModelInfo {
+  slug: string;
+  name: string;
+  color: string;
+  src: string;
+  paragraph: string;
+  postSpacing: string;
+  indicatedFor: SoldadaIndicatedUse[];
+  shortDescription: string;
+  description: string;
+  gallery: GalleryImage[];
+}
+
+const gradilModels: GradilModelInfo[] = [
+  {
+    slug: "g4",
+    name: "Gradil G4",
+    color: "#2f7d32",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_VERDE_placas.webp",
+    paragraph:
+      "Bitola 4,0 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+    postSpacing: "2,5 m",
+    indicatedFor: [
+      {
+        name: "Residências",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/casa_wt8bpr.png",
+      },
+      {
+        name: "Condomínios",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+      },
+    ],
+    shortDescription:
+      "Painel de aço soldado modular para cercamento residencial e comercial leve. Instalação rápida, boa visibilidade e acabamento durável.",
+    description:
+      "O Gradil G4 Insul é um painel de aço soldado modular, ideal para residências, condomínios e áreas comerciais. Une leveza, design e segurança, com instalação rápida e baixa manutenção.",
+    gallery: gradilGallery,
+  },
+  {
+    slug: "g5",
+    name: "Gradil G5",
+    color: "#12568f",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_AZUL_placas.webp",
+    paragraph:
+      "Bitola 4,8 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+    postSpacing: "2,5 m",
+    indicatedFor: [
+      {
+        name: "Condomínios",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+      },
+      {
+        name: "Indústrias",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+      },
+    ],
+    shortDescription:
+      "Painel intermediário com maior bitola, indicado para condomínios, empresas e áreas que exigem mais robustez sem abrir mão do design.",
+    description:
+      "O Gradil G5 Insul aumenta a resistência com arame de maior bitola, mantendo o sistema modular de instalação rápida. Perfeito para condomínios, empresas e espaços que pedem mais segurança.",
+    gallery: gradilGallery,
+  },
+  {
+    slug: "g12",
+    name: "Gradil G12",
+    color: "#1c1c1c",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_PRETO_placas.webp",
+    paragraph:
+      "Bitola 4,8 mm, Malha 2,5 cm x 20 cm, Aço soldado reforçado, Alta resistência",
+    postSpacing: "2,5 m",
+    indicatedFor: [
+      {
+        name: "Indústrias",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+      },
+      {
+        name: "Portões e perímetros",
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929375/port%C3%A3o_dnjufp.png",
+      },
+    ],
+    shortDescription:
+      "Painel de alta resistência com malha mais fechada, desenvolvido para uso industrial e áreas que exigem o máximo em segurança e durabilidade.",
+    description:
+      "O Gradil G12 Insul é a solução mais robusta da linha, com malha fechada e estrutura reforçada. Indicado para indústrias, centros logísticos e perímetros que exigem alta segurança.",
+    gallery: gradilGallery,
+  },
+];
 
 const heroImage = "/images/telas_img.png";
 
@@ -1892,6 +2208,7 @@ export {
   soldadasHexagonaisReels,
   roomDetails,
   gradilGallery,
+  gradilModels,
   heroImage,
   productCategories,
   videoShowcaseMain,

@@ -62,6 +62,7 @@ a.active hr {
 
 html {
     scrollbar-color: #ff5500 transparent;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

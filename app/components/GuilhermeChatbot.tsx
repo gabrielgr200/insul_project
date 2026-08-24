@@ -42,10 +42,20 @@ const useIntroFreeze = (
   }, [videoRef, mounted]);
 };
 
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const matchesKeyword = (input: string, keyword: string) => {
+  const pattern = new RegExp(
+    `(?<![\\p{L}\\p{N}])${escapeRegExp(keyword)}(?![\\p{L}\\p{N}])`,
+    "iu",
+  );
+  return pattern.test(input);
+};
+
 const findReply = (input: string, chatbot: Dictionary["chatbot"]) => {
-  const normalized = input.toLowerCase();
   const match = chatbot.rules.find((rule) =>
-    rule.keywords.some((keyword) => normalized.includes(keyword)),
+    rule.keywords.some((keyword) => matchesKeyword(input, keyword)),
   );
   if (match) return match.reply;
   return chatbot.fallback[
@@ -53,7 +63,22 @@ const findReply = (input: string, chatbot: Dictionary["chatbot"]) => {
   ];
 };
 
-const randomTypingDelay = () => 500 + Math.random() * 700;
+const MIN_TYPING_DELAY = 450;
+
+const fetchGeminiReply = async (
+  message: string,
+  history: { role: "bot" | "user"; text: string }[],
+  locale: string,
+): Promise<string> => {
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, history, locale }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.reply) throw new Error(data.error || "chat_failed");
+  return data.reply as string;
+};
 
 const GuilhermeChatbot = () => {
   const { t, dict, locale } = useTranslation();
@@ -119,7 +144,7 @@ const GuilhermeChatbot = () => {
     }
   }, [locale, dict.chatbot.inicial]);
 
-  const sendMessage = (presetText?: string) => {
+  const sendMessage = async (presetText?: string) => {
     const trimmed = (presetText ?? input).trim();
     if (!trimmed || isTyping) return;
 
@@ -132,20 +157,25 @@ const GuilhermeChatbot = () => {
       }
     }
 
+    const history = messages.map((m) => ({ role: m.from, text: m.text }));
     const userMessage: Message = { id: nextId.current++, from: "user", text: trimmed };
     setMessages((prev) => [...prev, userMessage]);
     if (presetText === undefined) setInput("");
     setIsTyping(true);
 
-    const delay = randomTypingDelay();
-    setTimeout(() => {
-      const reply = findReply(trimmed, dict.chatbot);
-      setMessages((prev) => [
-        ...prev,
-        { id: nextId.current++, from: "bot", text: reply },
-      ]);
-      setIsTyping(false);
-    }, delay);
+    const minDelay = new Promise((resolve) => setTimeout(resolve, MIN_TYPING_DELAY));
+    const [reply] = await Promise.all([
+      fetchGeminiReply(trimmed, history, locale).catch(() =>
+        findReply(trimmed, dict.chatbot),
+      ),
+      minDelay,
+    ]);
+
+    setMessages((prev) => [
+      ...prev,
+      { id: nextId.current++, from: "bot", text: reply },
+    ]);
+    setIsTyping(false);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

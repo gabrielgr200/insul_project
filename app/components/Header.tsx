@@ -20,7 +20,7 @@ import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
-import { productCategories, soldadasHexagonais } from "../assets/data";
+import { productCategories, soldadasHexagonais, gradilModels } from "../assets/data";
 import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
 import FillButton from "./FillButton";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -160,6 +160,10 @@ const Header = () => {
     soldadasHexagonais.map((item) => [item.name, item.slug])
   );
 
+  const gradilSlugByLabel: Record<string, string> = Object.fromEntries(
+    gradilModels.map((item) => [item.name, item.slug])
+  );
+
   const goToProductCategory = (title: string) => {
     if (title === "Soldada" || title === "Hexagonal") {
       beginPageTransition();
@@ -167,6 +171,9 @@ const Header = () => {
     } else if (title === "Cercas Prontas") {
       beginPageTransition();
       router.push("/cercas-prontas");
+    } else if (title === "Gradil") {
+      beginPageTransition();
+      router.push("/gradil");
     } else {
       goToSection("produtos");
     }
@@ -198,6 +205,24 @@ const Header = () => {
               ? () => {
                   beginPageTransition();
                   router.push(`/soldadas-hexagonais/${slug}`);
+                }
+              : () => goToSection("produtos"),
+          };
+        }),
+      };
+    }
+
+    if (col.title === "Gradil") {
+      return {
+        title: col.title,
+        items: col.items.map((label) => {
+          const slug = gradilSlugByLabel[label];
+          return {
+            label,
+            onClick: slug
+              ? () => {
+                  beginPageTransition();
+                  router.push(`/gradil/${slug}`);
                 }
               : () => goToSection("produtos"),
           };

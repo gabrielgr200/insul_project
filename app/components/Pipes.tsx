@@ -1,11 +1,60 @@
 "use client";
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { Draggable } from "gsap/Draggable";
+import { GripHorizontal } from "lucide-react";
 import { useTranslation } from "./LanguageProvider";
+
+gsap.registerPlugin(Draggable);
+
+// Positioned against "tubo.png" (the bare post, no accessories baked in —
+// so nothing can duplicate/ghost behind the animated pieces). Percentages
+// are relative to the tube's OWN box (not the outer container), measured
+// off the reference exploded-view photo (INSUL_POSTE-02_A.-v2.png) so the
+// spread matches that composition.
+const ASSEMBLY_PIECES = [
+  {
+    // All positions below were measured with pixel-level detection
+    // (color/alpha masking) directly against conjunto.webp, converted to
+    // percentages relative to the tube's own bounding box — not eyeballed.
+    // "style" is the exploded (reference-photo) resting spot; dragging all
+    // the way to 100% goes further still, past that, in by "toOffset" so
+    // the pieces end up looking actually installed on the post.
+    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/fixador.png",
+    style: { left: "73%", top: "29%", width: "58%", zIndex: 2 },
+    from: { x: 90, y: -10, rotate: 14 },
+    toOffset: { x: -16, y: 0 },
+    toRotate: 0,
+  },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png",
+    style: { left: "130%", top: "42%", width: "32%", zIndex: 3 },
+    from: { x: 150, y: 25, rotate: 24 },
+    toOffset: { x: -58, y: -6 },
+    toRotate: -8,
+  },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampinha-fixador.png",
+    style: { left: "173%", top: "47%", width: "28%", zIndex: 1 },
+    from: { x: 170, y: 15, rotate: -20 },
+    toOffset: { x: -78, y: -10 },
+    toRotate: 0,
+  },
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampa.png",
+    style: { left: "-1%", top: "-21%", width: "106%", zIndex: 1 },
+    from: { x: -30, y: -160, rotate: -10 },
+    toOffset: { x: 0, y: 34 },
+    toRotate: 0,
+  },
+];
 
 const CARD_MEDIA = [
   { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampa.png", imgClass: "h-24 lg:h-28" },
   { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/fixador.png", imgClass: "h-28 lg:h-32" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png", imgClass: "h-28 lg:h-32" },
+  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png", imgClass: "h-24 lg:h-28" },
   { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampinha-fixador.png", imgClass: "h-28 lg:h-32" },
 ];
 
@@ -58,9 +107,57 @@ const ICONS = [
   </svg>,
 ];
 
+const HANDLE_SIZE = 40;
+
 const Pipes = () => {
   const { dict } = useTranslation();
   const p = dict.gradil.pipes;
+  const pieceRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const handleRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const pieces = pieceRefs.current;
+    pieces.forEach((el, i) => {
+      if (!el) return;
+      gsap.set(el, { ...ASSEMBLY_PIECES[i].from, opacity: 0 });
+    });
+
+    const tl = gsap.timeline({ paused: true }).to(pieces, {
+      x: (i: number) => ASSEMBLY_PIECES[i].toOffset.x,
+      y: (i: number) => ASSEMBLY_PIECES[i].toOffset.y,
+      rotate: (i: number) => ASSEMBLY_PIECES[i].toRotate,
+      opacity: 1,
+      duration: 1,
+      ease: "power1.out",
+      stagger: 0.15,
+    });
+
+    if (!trackRef.current || !handleRef.current) return;
+    const maxX = trackRef.current.clientWidth - HANDLE_SIZE;
+    const SNAP_THRESHOLD = 0.85;
+
+    const [draggable] = Draggable.create(handleRef.current, {
+      type: "x",
+      bounds: { minX: 0, maxX },
+      onDrag: function () {
+        tl.progress(this.x / maxX);
+      },
+      onDragEnd: function () {
+        if (this.x / maxX < SNAP_THRESHOLD) return;
+        gsap.to(this.target, {
+          x: maxX,
+          duration: 0.35,
+          ease: "power2.out",
+          onUpdate: () => {
+            tl.progress(gsap.getProperty(this.target, "x") as number / maxX);
+            draggable.update();
+          },
+        });
+      },
+    });
+  }, []);
+
   return (
     <section className="overflow-hidden bg-white px-6 pb-24 pt-12 dark:bg-zinc-950">
       <div className="mx-auto grid w-full max-w-6xl gap-10 rounded-3xl bg-[#002d4d]/[0.06] p-8 backdrop-blur-sm dark:bg-white/5 sm:p-12 lg:grid-cols-2 lg:items-center">
@@ -76,15 +173,59 @@ const Pipes = () => {
           <p className="poppins mx-auto mt-4 max-w-2xl text-[#002d4d] dark:text-zinc-400 sm:mx-0 lg:text-[18px]">
             {p.text}
           </p>
+
+          <div className="mx-auto mt-8 flex w-56 flex-col items-center gap-2 sm:mx-0 sm:items-start">
+            <span className="poppins text-xs font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/50">
+              {p.dragHint}
+            </span>
+            <div
+              ref={trackRef}
+              className="relative h-10 w-56 rounded-full bg-[#002d4d]/10 dark:bg-white/10"
+            >
+              <div
+                ref={handleRef}
+                className="absolute left-0 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-grab touch-none items-center justify-center rounded-full bg-[#ff5500] text-white shadow-lg active:cursor-grabbing"
+              >
+                <GripHorizontal size={16} />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="-mb-8 -mt-16 flex items-end justify-center self-end sm:-mb-12 lg:-mt-24 lg:justify-end">
-          <img
-            src="https://d2c3kthzw0ta10.cloudfront.net/poste/conjunto.webp"
-            alt={p.imgAlt}
-            draggable={false}
-            className="h-[520px] w-auto object-contain lg:h-[680px]"
-          />
+          <div
+            className="relative h-[440px] w-[340px] lg:h-[540px] lg:w-[420px]"
+            role="img"
+            aria-label={p.imgAlt}
+          >
+            <div
+              className="relative mt-16 h-[360px] lg:mt-24 lg:h-[440px]"
+              style={{ aspectRatio: "385 / 934" }}
+            >
+              <img
+                src="https://d2c3kthzw0ta10.cloudfront.net/poste/tubo.png"
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className="absolute inset-0 h-full w-full object-contain"
+                style={{ zIndex: 0 }}
+              />
+              {ASSEMBLY_PIECES.map((piece, i) => (
+                <img
+                  key={piece.src}
+                  ref={(el) => {
+                    pieceRefs.current[i] = el;
+                  }}
+                  src={piece.src}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className="absolute w-auto object-contain"
+                  style={piece.style}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

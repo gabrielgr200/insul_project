@@ -236,6 +236,21 @@ const en: Dictionary = {
           "We ship throughout Brazil from our distribution centers in Rio Grande do Sul (Cachoeira do Sul) and Minas Gerais (Divinópolis). Delivery time varies by state, but we always look for the fastest route to you.",
       },
       {
+        keywords: ["kennel", "dog"],
+        reply:
+          "For kennels, we recommend welded meshes like the Tela Titan and Tela Morada — strong and safe to keep small and medium dogs. Take a look at the welded and hexagonal meshes section on the site!",
+      },
+      {
+        keywords: ["industry", "industrial", "factory"],
+        reply:
+          "For industrial use, we have sturdier welded meshes, like the Tela Titan and Tela Morada, ideal for fencing industries, logistics centers and parking lots — plus railings and ready-made fences for larger areas.",
+      },
+      {
+        keywords: ["railing", "gradil"],
+        reply:
+          "The Railing (Gradil) is a modular welded steel panel (available in G4, G5 and G12 models), fixed with ratchets on posts — quick installation and great strength. Ideal for industries, condominiums and commercial areas.",
+      },
+      {
         keywords: [
           "fence",
           "product",
@@ -252,7 +267,7 @@ const en: Dictionary = {
       {
         keywords: ["price", "cost", "value", "quote", "how much"],
         reply:
-          "Prices vary depending on the model and quantity. For an accurate quote, talk to our sales team via WhatsApp or the contact form — that way we can calculate exactly for your region.",
+          "Prices vary depending on the model and quantity. To check prices and place an order, visit our online store at casadascercas.com.br or call us at (51) 3723-1519.",
       },
       {
         keywords: [
@@ -268,21 +283,6 @@ const en: Dictionary = {
       {
         keywords: ["thanks", "thank you", "thx"],
         reply: "You're welcome! If you have any other questions, just ask. 😉",
-      },
-      {
-        keywords: ["kennel", "dog"],
-        reply:
-          "For kennels, we recommend welded meshes like the Tela Titan and Tela Morada — strong and safe to keep small and medium dogs. Take a look at the welded and hexagonal meshes section on the site!",
-      },
-      {
-        keywords: ["industry", "industrial", "factory"],
-        reply:
-          "For industrial use, we have sturdier welded meshes, like the Tela Titan and Tela Morada, ideal for fencing industries, logistics centers and parking lots — plus railings and ready-made fences for larger areas.",
-      },
-      {
-        keywords: ["railing", "gradil"],
-        reply:
-          "The Railing (Gradil) is a modular welded steel panel (available in G4, G5 and G12 models), fixed with ratchets on posts — quick installation and great strength. Ideal for industries, condominiums and commercial areas.",
       },
     ],
   },
@@ -378,6 +378,7 @@ const en: Dictionary = {
       title1: "Posts",
       title2: "and accessories",
       text: "Raw material: Gerdau galvanized wire with a 70 g/m² hot-dip zinc layer",
+      dragHint: "Drag to assemble",
       imgAlt: "Post with cap, clamp, screw and end cap",
       cards: [
         { title: "Cap", desc: "Top finish that protects the inside of the post." },
@@ -411,8 +412,11 @@ const en: Dictionary = {
     },
     other: {
       title: "Other products",
-      productTitle: "Ready-made fence",
-      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+      products: [
+        { name: "Fênix", title: "Ready-made fence" },
+        { name: "Tela Mangueirão 16", title: "Hexagonal Mesh" },
+        { name: "Tela Morada", title: "Welded Mesh" },
+      ],
     },
   },
 

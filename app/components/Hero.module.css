@@ -1,3 +1,19 @@
+.heroBanner {
+  margin-top: 105px;
+}
+
+@media (min-width: 454px) {
+  .heroBanner {
+    margin-top: 129px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroBanner {
+    margin-top: 137px;
+  }
+}
+
 @media (max-width: 1023px) {
   .heroIndent {
     margin-left: 1.5rem;

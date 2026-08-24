@@ -14,6 +14,9 @@ import {
   soldadasHexagonaisReels,
 } from "../assets/data";
 import CardPost from "../components/CardPost";
+import TelasShowcaseArc from "../components/TelasShowcaseArc";
+import BentoGallery from "../components/BentoGallery";
+import FenceVisualizer from "../components/FenceVisualizer";
 
 const soldadaCards = soldadasHexagonaisCardsPages.filter(
   (c) => c.title === "Tela Soldada",
@@ -63,32 +66,83 @@ const SoldadasHexagonais = () => {
 
       <div id="smooth-wrapper">
         <div id="smooth-content" ref={contentRef}>
-          <main className="max-w-7xl lg:max-w-6xl mx-auto px-4 sm:px-8 pt-44 pb-20">
-            <CercasCarousel slides={soldadasHexagonaisCarousel} />
-            <h3 className="text-center text-[#ff5500] dark:text-white font-bold text-3xl poppins pt-16 pb-6">
-              Telas Soldadas
-            </h3>
+          <main className="max-w-7xl lg:max-w-6xl mx-auto px-4 sm:px-8 pb-20">
+            <CercasCarousel
+              slides={soldadasHexagonaisCarousel}
+              fullBleedMedia
+            />
+
+            <TelasShowcaseArc />
+            <BentoGallery
+              images={[
+                {
+                  src: "images/imgs-showcase/img-gallery-PVC.png",
+                  alt: "Telas PVC Insul",
+                },
+                {
+                  src: "/videos/videos-gallery/video-gallery-moradaLeve.mp4",
+                  alt: "Video Morada leve Insul",
+                },
+                {
+                  src: "/videos/videos-gallery/video-gallery-hexagonais.mp4",
+                  alt: "Videos hexagonais Insul",
+                },
+                {
+                  src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
+                  alt: "Tela Morada Insul",
+                },
+                {
+                  src: "images/imgs-showcase/img-showcase-3.webp",
+                  alt: "Telas e Alambrados Insul",
+                },
+                {
+                  src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-titan-similar.jpg",
+                  alt: "Tela Titan Insul",
+                },
+              ]}
+            />
+
+            <div className="text-center pt-40 pb-16">
+              <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
+                Telas Soldadas
+              </h3>
+              <p className="text-[#002d4d] dark:text-white font-light text-[20px] poppins">
+                Resistência, praticidade e segurança para cercamentos duráveis e
+                eficientes.
+              </p>
+            </div>
             <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {soldadaCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </div>
 
-            <h3 className="text-center text-[#ff5500] dark:text-white font-bold text-3xl poppins pt-16 pb-6">
-              Telas Hexagonais
-            </h3>
+            <div className="text-center pt-36 pb-16">
+              <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
+                Telas Hexagonais
+              </h3>
+              <p className="text-[#002d4d] dark:text-white font-light text-[20px] poppins">
+                Versatilidade e resistência para proteção, cercamentos e
+                diversas aplicações no campo.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {hexagonalCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </div>
 
+            <FenceVisualizer />
+
             <div className="mt-16">
               <CardPost
                 title="Veja alguns vídeos sobre as telas"
                 description={
                   <>
-                    <span className="font-bold">Telas soldadas e hexagonais:</span>{" "}
+                    <span className="font-bold">
+                      Telas soldadas e hexagonais:
+                    </span>{" "}
                     vídeos mostrando fabricação e detalhes
                   </>
                 }

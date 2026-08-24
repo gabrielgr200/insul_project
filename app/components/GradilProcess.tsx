@@ -85,14 +85,14 @@ const GradilProcess = () => {
           return (
             <div
               key={step.num}
-              className="relative cursor-pointer text-left"
+              className="relative cursor-pointer text-center"
               onMouseEnter={() => setActive(i)}
               onClick={() => setActive(i)}
             >
               {i < STEPS.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className={`absolute left-16 right-6 top-[21px] hidden h-[2px] rounded-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
+                  className={`absolute left-[calc(50%+22px)] right-[calc(-50%+22px)] top-[21px] hidden h-[2px] rounded-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
                     lineFilled
                       ? "bg-[#ff5500] shadow-[0_0_8px_rgba(255,85,0,0.55)]"
                       : "bg-[#ff5500]/20"
@@ -100,7 +100,7 @@ const GradilProcess = () => {
                 />
               )}
 
-              <div className="relative h-11 w-11">
+              <div className="relative mx-auto h-11 w-11">
                 <span
                   ref={(el) => {
                     ringRefs.current[i] = el;
@@ -135,7 +135,7 @@ const GradilProcess = () => {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="poppins max-w-[15rem] text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  <p className="poppins mx-auto max-w-[15rem] text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                     {step.desc}
                   </p>
                 </div>

@@ -16,19 +16,19 @@ const portaoIcon =
 const GRADIL_MEDIA = [
   {
     src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_VERDE_placas.webp",
-    to: "/gradil",
+    to: "/gradil/g4",
     postSpacing: "2,5 m",
     indicatedIcons: [casaIcon, condominioIcon],
   },
   {
     src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_AZUL_placas.webp",
-    to: "/gradil",
+    to: "/gradil/g5",
     postSpacing: "2,5 m",
     indicatedIcons: [condominioIcon, industriaIcon],
   },
   {
     src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_PRETO_placas.webp",
-    to: "/gradil",
+    to: "/gradil/g12",
     postSpacing: "2,5 m",
     indicatedIcons: [industriaIcon, portaoIcon],
   },

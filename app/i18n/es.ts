@@ -243,6 +243,21 @@ const es: Dictionary = {
           "Enviamos a todo Brasil desde nuestros centros de distribución en Rio Grande do Sul (Cachoeira do Sul) y en Minas Gerais (Divinópolis). El plazo varía según el estado, pero siempre buscamos la ruta más rápida hasta ti.",
       },
       {
+        keywords: ["perrera", "canil", "perro"],
+        reply:
+          "Para perreras, recomendamos mallas soldadas como la Tela Titan y la Tela Morada — resistentes y seguras para mantener perros de pequeño y mediano porte. ¡Echa un vistazo a la sección de mallas soldadas y hexagonales en el sitio!",
+      },
+      {
+        keywords: ["industria", "industrial", "fábrica", "fabrica"],
+        reply:
+          "Para uso industrial, tenemos mallas soldadas más robustas, como la Tela Titan y la Tela Morada, ideales para el cercado de industrias, centros logísticos y estacionamientos — además de la reja y las cercas prefabricadas para áreas más grandes.",
+      },
+      {
+        keywords: ["reja", "gradil"],
+        reply:
+          "La Reja (Gradil) es un panel de acero soldado modular (disponible en los modelos G4, G5 y G12), fijado con trinquetes en postes — instalación rápida y excelente resistencia. Ideal para industrias, condominios y áreas comerciales.",
+      },
+      {
         keywords: [
           "cerca",
           "producto",
@@ -266,7 +281,7 @@ const es: Dictionary = {
           "costo",
         ],
         reply:
-          "Los valores varían según el modelo y la cantidad. Para un presupuesto exacto, habla con nuestro equipo comercial por WhatsApp o por el formulario de contacto — así podemos calcular con precisión para tu región.",
+          "Los valores varían según el modelo y la cantidad. Para ver precios y hacer tu pedido, entra en nuestra tienda virtual en casadascercas.com.br o llámanos al (51) 3723-1519.",
       },
       {
         keywords: [
@@ -282,21 +297,6 @@ const es: Dictionary = {
       {
         keywords: ["gracias", "muchas gracias"],
         reply: "¡De nada! Cualquier otra duda, solo escríbeme. 😉",
-      },
-      {
-        keywords: ["perrera", "canil", "perro"],
-        reply:
-          "Para perreras, recomendamos mallas soldadas como la Tela Titan y la Tela Morada — resistentes y seguras para mantener perros de pequeño y mediano porte. ¡Echa un vistazo a la sección de mallas soldadas y hexagonales en el sitio!",
-      },
-      {
-        keywords: ["industria", "industrial", "fábrica", "fabrica"],
-        reply:
-          "Para uso industrial, tenemos mallas soldadas más robustas, como la Tela Titan y la Tela Morada, ideales para el cercado de industrias, centros logísticos y estacionamientos — además de la reja y las cercas prefabricadas para áreas más grandes.",
-      },
-      {
-        keywords: ["reja", "gradil"],
-        reply:
-          "La Reja (Gradil) es un panel de acero soldado modular (disponible en los modelos G4, G5 y G12), fijado con trinquetes en postes — instalación rápida y excelente resistencia. Ideal para industrias, condominios y áreas comerciales.",
       },
     ],
   },
@@ -392,6 +392,7 @@ const es: Dictionary = {
       title1: "Tubos",
       title2: "y accesorios",
       text: "Materia prima: alambre galvanizado Gerdau con capa de zinc en caliente de 70 g/m²",
+      dragHint: "Arrastra para montar",
       imgAlt: "Poste con tapa, fijador, tornillo y tapón",
       cards: [
         { title: "Tapa", desc: "Acabado superior que protege el interior del poste." },
@@ -425,8 +426,11 @@ const es: Dictionary = {
     },
     other: {
       title: "Otros productos",
-      productTitle: "Cerca lista",
-      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+      products: [
+        { name: "Fênix", title: "Cerca lista" },
+        { name: "Tela Mangueirão 16", title: "Malla Hexagonal" },
+        { name: "Tela Morada", title: "Malla Soldada" },
+      ],
     },
   },
 

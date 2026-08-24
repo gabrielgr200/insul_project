@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { roomDetails } from "../assets/data";
 import ProductsLink from "./ProductsLink";
 import DynamicImg from "./DynamicImg";
@@ -19,28 +20,24 @@ const Products = () => {
     setCurrentImageSrc(initialImageSrc);
   };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power1.out" },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      defaults: { ease: "power1.out" },
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
 
-      tl.from(".PRODUCTS-TITLE", { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" })
-        .from(
-          ".PRODUCTS-LIST > *",
-          { y: 20, opacity: 0, duration: 0.5, stagger: 0.08 },
-          "-=0.3",
-        )
-        .from(".PRODUCTS-IMAGE", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.5");
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    tl.from(".PRODUCTS-TITLE", { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" })
+      .from(
+        ".PRODUCTS-LIST > *",
+        { y: 20, opacity: 0, duration: 0.5, stagger: 0.08 },
+        "-=0.3",
+      )
+      .from(".PRODUCTS-IMAGE", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.5");
+  }, { scope: sectionRef });
 
   return (
     <section

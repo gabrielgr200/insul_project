@@ -13,19 +13,51 @@ import SimilarProducts, {
 import { soldadasHexagonais } from "../assets/data";
 
 const CUTOUT_IMAGES: Record<string, string> = {
-  "tela-titan": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858286/titan_dpveqr.png",
-  "tela-morada": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858287/morada_lcztla.png",
-  "tela-morada-open": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785861514/morada-open_p7x0xz.png",
-  "tela-brava": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785858285/brava_epowtp.png",
-  "tela-morada-leve": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785861531/morada-leve_rkcwhm.png",
+  "tela-titan": "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/titan.png",
+  "tela-morada":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada.png",
+  "tela-morada-open":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-open.png",
+  "tela-brava": "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/brava.png",
+  "tela-morada-leve":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-leve.png",
+  "tela-brava-leve":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/brava-leve.png",
+  "tela-mangueirao-16":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-16.png",
+  "tela-mangueirao-18":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-18.png",
+  "tela-galinheiro-18":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/galinheiro.png",
+  "tela-pinteiro-22":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/pinteiro.png",
+  "tela-viveiro-24":
+    "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/viveiro.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
-  "tela-titan": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785949877/titan_n4hf0a.jpg",
-  "tela-morada": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785949730/morada_kyolxk.jpg",
-  "tela-morada-open": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785949877/open_rcqtgq.jpg",
-  "tela-brava": "https://res.cloudinary.com/kcqitv3l/image/upload/v1785948044/img-brava-6_ccikqo.jpg",
-  "tela-morada-leve": "https://res.cloudinary.com/kcqitv3l/image/upload/v1786025112/morada-leve-similares_cluxwd.jpg",
+  "tela-titan":
+    "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-titan-similar.jpg",
+  "tela-morada":
+    "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
+  "tela-morada-open":
+    "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-open-similar.jpg",
+  "tela-brava":
+    "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-brava-similar.jpg",
+  "tela-morada-leve":
+    "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-leve-similar.jpg",
+  "tela-brava-leve":
+    "https://d2c3kthzw0ta10.cloudfront.net/img-similar-bravaLeve.webp",
+  "tela-mangueirao-16":
+    "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/mangueirao16-similar.webp",
+  "tela-mangueirao-18":
+    "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/mangueirao18-similar.jpg",
+  "tela-galinheiro-18":
+    "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/galinheiro-similar.jpg",
+  "tela-pinteiro-22":
+    "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/pinteiro-similar.jpg",
+  "tela-viveiro-24":
+    "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/viveiro-similar.jpg",
 };
 
 const familyKey = (name: string) => name.split(" ")[1]?.toLowerCase() ?? "";
@@ -36,10 +68,20 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
 
   const currentFamily = familyKey(item.name);
   const otherTelas = soldadasHexagonais.filter((i) => i.slug !== slug);
-  const sameFamily = otherTelas.filter((i) => familyKey(i.name) === currentFamily);
-  const restTelas = otherTelas.filter((i) => familyKey(i.name) !== currentFamily);
+  const sameCategory = otherTelas.filter((i) => i.category === item.category);
+  const otherCategory = otherTelas.filter((i) => i.category !== item.category);
+  const sameFamily = sameCategory.filter(
+    (i) => familyKey(i.name) === currentFamily,
+  );
+  const restSameCategory = sameCategory.filter(
+    (i) => familyKey(i.name) !== currentFamily,
+  );
 
-  const similarTelas: SimilarProductItem[] = [...sameFamily, ...restTelas]
+  const similarTelas: SimilarProductItem[] = [
+    ...sameFamily,
+    ...restSameCategory,
+    ...otherCategory,
+  ]
     .slice(0, 3)
     .map((i) => ({
       to: `/soldadas-hexagonais/${i.slug}`,
@@ -98,10 +140,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
         />
 
         {hasFullSpec && (
-          <VideoCardCarousel
-            cards={item.videoCards!}
-            fenceName={item.name}
-          />
+          <VideoCardCarousel cards={item.videoCards!} fenceName={item.name} />
         )}
 
         {item.video3D && <VideoCard3D videoSrc={item.video3D} />}

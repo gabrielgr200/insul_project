@@ -234,6 +234,21 @@ const pt = {
           "Enviamos para todo o Brasil a partir dos nossos centros de distribuição no Rio Grande do Sul (Cachoeira do Sul) e em Minas Gerais (Divinópolis). O prazo varia conforme o estado, mas a gente sempre busca a rota mais rápida até você.",
       },
       {
+        keywords: ["canil"],
+        reply:
+          "Pra canil, indicamos telas soldadas como a Tela Titan e a Tela Morada — resistentes e seguras pra manter cães de pequeno e médio porte. Dá uma olhada na seção de telas soldadas e hexagonais aqui no site!",
+      },
+      {
+        keywords: ["indústria", "industria", "industrial"],
+        reply:
+          "Pra uso industrial, temos telas soldadas mais robustas, como a Tela Titan e a Tela Morada, ideais pra cercamento de indústrias, centros logísticos e estacionamentos — além do gradil e das cercas prontas pra áreas maiores.",
+      },
+      {
+        keywords: ["gradil"],
+        reply:
+          "O Gradil é um painel de aço soldado modular (temos nos modelos G4, G5 e G12), fixado com catracas em postes — instalação rápida e ótima resistência. Ideal pra indústrias, condomínios e áreas comerciais.",
+      },
+      {
         keywords: [
           "cerca",
           "produto",
@@ -257,7 +272,7 @@ const pt = {
           "quanto custa",
         ],
         reply:
-          "Os valores variam conforme o modelo e a quantidade. Para um orçamento certinho, fala com nosso time comercial pelo WhatsApp ou pelo formulário de contato — assim conseguimos calcular direitinho pra sua região.",
+          "Os valores variam conforme o modelo e a quantidade. Pra ver preços e fechar pedido, acessa nossa loja virtual em casadascercas.com.br ou liga pra gente no (51) 3723-1519.",
       },
       {
         keywords: ["oi", "olá", "ola", "bom dia", "boa tarde", "boa noite"],
@@ -267,21 +282,6 @@ const pt = {
       {
         keywords: ["obrigado", "obrigada", "valeu", "thanks"],
         reply: "Por nada! Qualquer outra dúvida, é só chamar. 😉",
-      },
-      {
-        keywords: ["canil"],
-        reply:
-          "Pra canil, indicamos telas soldadas como a Tela Titan e a Tela Morada — resistentes e seguras pra manter cães de pequeno e médio porte. Dá uma olhada na seção de telas soldadas e hexagonais aqui no site!",
-      },
-      {
-        keywords: ["indústria", "industria", "industrial"],
-        reply:
-          "Pra uso industrial, temos telas soldadas mais robustas, como a Tela Titan e a Tela Morada, ideais pra cercamento de indústrias, centros logísticos e estacionamentos — além do gradil e das cercas prontas pra áreas maiores.",
-      },
-      {
-        keywords: ["gradil"],
-        reply:
-          "O Gradil é um painel de aço soldado modular (temos nos modelos G4, G5 e G12), fixado com catracas em postes — instalação rápida e ótima resistência. Ideal pra indústrias, condomínios e áreas comerciais.",
       },
     ],
   },
@@ -377,6 +377,7 @@ const pt = {
       title1: "Tubos",
       title2: "e acessórios",
       text: "Matéria prima arame galvanizado da Gerdau com camada de zindo à fogo de 70 g/m2",
+      dragHint: "Arraste para montar",
       imgAlt: "Poste com tampa, fixador, parafuso e tampinha",
       cards: [
         { title: "Tampa", desc: "Acabamento superior que protege o interior do poste." },
@@ -410,8 +411,11 @@ const pt = {
     },
     other: {
       title: "Outros produtos",
-      productTitle: "Cerca pronta",
-      products: [{ name: "Fênix" }, { name: "Campeira" }, { name: "Campeira Boi" }],
+      products: [
+        { name: "Fênix", title: "Cerca Pronta" },
+        { name: "Tela Mangueirão 16", title: "Tela Hexagonal" },
+        { name: "Tela Morada", title: "Tela Soldada" },
+      ],
     },
   },
 

@@ -543,8 +543,8 @@ const BAR_CHART_W = 640;
 const BAR_CHART_H = 276;
 const BAR_PAD_L = 46;
 const BAR_PAD_R = 20;
-const BAR_PAD_T = 24;
-const BAR_PAD_B = 76;
+const BAR_PAD_T = 12;
+const BAR_PAD_B = 72;
 const BAR_PLOT_W = BAR_CHART_W - BAR_PAD_L - BAR_PAD_R;
 const BAR_PLOT_H = BAR_CHART_H - BAR_PAD_T - BAR_PAD_B;
 const BAR_PLOT_BOTTOM = BAR_PAD_T + BAR_PLOT_H;
@@ -724,35 +724,68 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
 
   const activeName = TELA_META[activeLabel]?.name ?? activeLabel;
 
+  const chartItems = CHART_ITEMS.map((item, i) => {
+    const isCollapsedGroup = item.coverageAnimals.length > 1;
+    const contained = item.coverageAnimals.filter((a) =>
+      telaContainsAnimal(activeLabel, a),
+    );
+    const effectiveCoverage =
+      isCollapsedGroup && contained.length > 0 ? contained : item.coverageAnimals;
+    const supported = effectiveCoverage.every((a) =>
+      telaContainsAnimal(activeLabel, a),
+    );
+    const isPartialGroup =
+      isCollapsedGroup && supported && contained.length < item.coverageAnimals.length;
+    const displayLabel = isPartialGroup
+      ? contained
+          .map((a) => {
+            const raw = ANIMAL_DISPLAY_NAME[a] ?? a;
+            return dict.animalNames[raw] ?? raw;
+          })
+          .join(" / ")
+      : (dict.animalNames[item.displayLabel] ?? item.displayLabel);
+    const isFenix = activeLabel === "Cerca Fenix Insul";
+    const itemHeight = Math.max(
+      ...effectiveCoverage.map((a) => getAnimalBarHeight(a, activeLabel)),
+    );
+    const value = !supported ? BAR_MIN_VALUE : isFenix ? BAR_MAX_VALUE : itemHeight;
+    const targetH = (value / BAR_MAX_VALUE) * BAR_PLOT_H;
+    const targetY = BAR_PLOT_BOTTOM - targetH;
+    const x = barX(i);
+    const color = BAR_PALETTE[i % BAR_PALETTE.length];
+    const src = ANIMAL_IMAGES[item.iconAnimal];
+
+    return { key: item.key, supported, displayLabel, targetH, targetY, x, color, src };
+  });
+
   return (
     <div
       ref={rootRef}
-      className="mt-4 w-full rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:p-6"
+      className="mt-4 w-full overflow-hidden bg-white pt-4 pb-2 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:pt-6 sm:pb-3"
     >
-      <p className="poppins mb-3 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:text-lg">
+      <p className="poppins mb-3 px-4 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:px-6 sm:text-lg">
         {activeName}: {dict.animalChart.capacityHeading}
       </p>
-      <svg
-        viewBox={`0 0 ${BAR_CHART_W} ${BAR_CHART_H}`}
-        className="h-64 w-full overflow-visible sm:h-72"
-      >
+      <div className="relative h-96 w-full sm:h-[28rem]">
+        {/* Horizontal grid lines are plain CSS, not SVG, so they always span
+            the full container width edge-to-edge regardless of the SVG
+            viewBox's aspect ratio (which stays undistorted for the bars,
+            icons and text below). */}
         {BAR_GRID_TICKS.map((t) => {
           const y = BAR_PLOT_BOTTOM - t * BAR_PLOT_H;
           return (
-            <line
+            <div
               key={t}
-              x1={BAR_PAD_L}
-              y1={y}
-              x2={BAR_CHART_W - BAR_PAD_R}
-              y2={y}
-              strokeWidth={1}
-              strokeDasharray="2 3"
-              className="text-black/15 dark:text-white/15"
-              stroke="currentColor"
+              className="absolute left-0 right-0 border-t border-dashed border-black/15 dark:border-white/15"
+              style={{ top: `${(y / BAR_CHART_H) * 100}%` }}
             />
           );
         })}
-
+        <svg
+          viewBox={`0 0 ${BAR_CHART_W} ${BAR_CHART_H}`}
+          preserveAspectRatio="none"
+          className="h-full w-full"
+        >
         {ANIMAL_CLASS_RANGES.slice(1).map((range) => (
           <line
             key={range.label}
@@ -767,104 +800,69 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
           />
         ))}
 
+        {chartItems.map((item) => (
+          <rect
+            key={item.key}
+            className="coverage-bar transition-[fill-opacity] duration-300"
+            data-target-h={item.targetH}
+            data-target-y={item.targetY}
+            x={item.x - BAR_WIDTH / 2}
+            y={BAR_PLOT_BOTTOM}
+            width={BAR_WIDTH}
+            height={0}
+            rx={3}
+            fill={item.color}
+            fillOpacity={item.supported ? 1 : 0.35}
+          />
+        ))}
+        </svg>
+
+        {/* Icons and text are plain HTML (not SVG), positioned by percentage,
+            so they stay undistorted regardless of the SVG's non-uniform
+            preserveAspectRatio="none" stretch used for the bars above. */}
         {ANIMAL_CLASS_RANGES.filter((range) => range.end > range.start).map(
           (range) => (
-            <text
+            <span
               key={range.label}
-              x={(slotEdgeX(range.start) + slotEdgeX(range.end + 1)) / 2}
-              y={BAR_PLOT_BOTTOM + 62}
-              textAnchor="middle"
-              className="fill-[#002d4d]/55 font-bold uppercase tracking-wide dark:fill-white/55"
-              style={{ fontSize: 8 }}
+              className="absolute -translate-x-1/2 whitespace-nowrap text-[8px] font-bold uppercase tracking-wide text-[#002d4d]/55 poppins dark:text-white/55 sm:text-[10px]"
+              style={{
+                left: `${((slotEdgeX(range.start) + slotEdgeX(range.end + 1)) / 2 / BAR_CHART_W) * 100}%`,
+                top: `${((BAR_PLOT_BOTTOM + 56) / BAR_CHART_H) * 100}%`,
+              }}
             >
               {dict.animalNames[range.label] ?? range.label}
-            </text>
+            </span>
           ),
         )}
 
-        {CHART_ITEMS.map((item, i) => {
-          const isCollapsedGroup = item.coverageAnimals.length > 1;
-          const contained = item.coverageAnimals.filter((a) =>
-            telaContainsAnimal(activeLabel, a),
-          );
-          const effectiveCoverage =
-            isCollapsedGroup && contained.length > 0
-              ? contained
-              : item.coverageAnimals;
-          const supported = effectiveCoverage.every((a) =>
-            telaContainsAnimal(activeLabel, a),
-          );
-          const isPartialGroup =
-            isCollapsedGroup &&
-            supported &&
-            contained.length < item.coverageAnimals.length;
-          const displayLabel = isPartialGroup
-            ? contained
-                .map((a) => {
-                  const raw = ANIMAL_DISPLAY_NAME[a] ?? a;
-                  return dict.animalNames[raw] ?? raw;
-                })
-                .join(" / ")
-            : (dict.animalNames[item.displayLabel] ?? item.displayLabel);
-          const isFenix = activeLabel === "Cerca Fenix Insul";
-          const itemHeight = Math.max(
-            ...effectiveCoverage.map((a) =>
-              getAnimalBarHeight(a, activeLabel),
-            ),
-          );
-          const value = !supported
-            ? BAR_MIN_VALUE
-            : isFenix
-              ? BAR_MAX_VALUE
-              : itemHeight;
-          const targetH = (value / BAR_MAX_VALUE) * BAR_PLOT_H;
-          const targetY = BAR_PLOT_BOTTOM - targetH;
-          const x = barX(i);
-          const color = BAR_PALETTE[i % BAR_PALETTE.length];
-          const src = ANIMAL_IMAGES[item.iconAnimal];
-
-          return (
-            <g key={item.key}>
-              <rect
-                className="coverage-bar transition-[fill-opacity] duration-300"
-                data-target-h={targetH}
-                data-target-y={targetY}
-                x={x - BAR_WIDTH / 2}
-                y={BAR_PLOT_BOTTOM}
-                width={BAR_WIDTH}
-                height={0}
-                rx={3}
-                fill={color}
-                fillOpacity={supported ? 1 : 0.35}
+        {chartItems.map((item) => (
+          <div key={item.key}>
+            {item.src && (
+              <img
+                src={item.src}
+                alt=""
+                className="absolute h-3 w-3 -translate-x-1/2 object-contain transition-opacity duration-300 sm:h-7 sm:w-7"
+                style={{
+                  left: `${(item.x / BAR_CHART_W) * 100}%`,
+                  top: `${((BAR_PLOT_BOTTOM + 8) / BAR_CHART_H) * 100}%`,
+                  opacity: item.supported ? 1 : 0.5,
+                }}
               />
-              {src && (
-                <image
-                  href={src}
-                  x={x - 10}
-                  y={BAR_PLOT_BOTTOM + 8}
-                  width={20}
-                  height={20}
-                  className="transition-opacity duration-300"
-                  opacity={supported ? 1 : 0.5}
-                  preserveAspectRatio="xMidYMid meet"
-                />
-              )}
-              <text
-                x={x}
-                y={BAR_PLOT_BOTTOM + 40}
-                textAnchor="middle"
-                fill="currentColor"
-                className={`text-[#002d4d] transition-opacity duration-300 dark:text-white ${
-                  supported ? "font-bold opacity-100" : "font-medium opacity-45"
-                }`}
-                style={{ fontSize: 9 }}
-              >
-                {displayLabel}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
+            )}
+            <span
+              className={`poppins absolute -translate-x-1/2 whitespace-nowrap text-[7px] text-[#002d4d] transition-opacity duration-300 dark:text-white sm:text-[13px] ${
+                item.supported ? "font-bold opacity-100" : "font-medium opacity-45"
+              }`}
+              style={{
+                left: `${(item.x / BAR_CHART_W) * 100}%`,
+                top: `${((BAR_PLOT_BOTTOM + 34) / BAR_CHART_H) * 100}%`,
+              }}
+            >
+              {item.displayLabel}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -1100,7 +1098,13 @@ const CercasCarousel = ({
       </div>
       </div>
 
-      <AnimalCoverageChart activeLabel={slide.label} />
+      <div
+        className={
+          fullBleedMedia ? "relative left-1/2 right-1/2 -mx-[50vw] w-screen" : ""
+        }
+      >
+        <AnimalCoverageChart activeLabel={slide.label} />
+      </div>
     </div>
   );
 };

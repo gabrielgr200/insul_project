@@ -12,18 +12,18 @@ const OTHER_MEDIA = [
       "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
   },
   {
-    to: "/cercas-prontas/campeira",
-    color: "#ff711b",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-campeira.jpg",
+    to: "/soldadas-hexagonais/tela-mangueirao-16",
+    color: "#b3071b",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/mangueirao16-similar.webp",
     cutout:
-      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
+      "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-16.png",
   }, //colocar imagens de uma tela soldada
   {
-    to: "/cercas-prontas/campeira-boi",
-    color: "#959e24",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-boi.jpg",
+    to: "/soldadas-hexagonais/tela-morada",
+    color: "#12568f",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
     cutout:
-      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
+      "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada.png",
   }, // colocar imagens de uma tela hexagonal
 ];
 
@@ -40,7 +40,7 @@ const OtherProducts = () => {
           <SimilarProductCard
             key={m.to}
             {...m}
-            title={o.productTitle}
+            title={o.products[i].title}
             name={o.products[i].name}
           />
         ))}

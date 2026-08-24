@@ -65,8 +65,23 @@ const Hero = ({ ready = true }) => {
       <section
         id="inicio"
         ref={rootRef}
-        className="relative max-w-7xl mt-30 mx-auto px-4 sm:px-8 pt-4 sm:pt-8 mb-0"
+        className={`relative max-w-7xl mx-auto px-4 sm:px-8 mb-0 ${styles.heroBanner}`}
       >
+        <a
+          href="https://www.casadascercas.com.br"
+          target="_blank"
+          rel="noreferrer"
+          className="relative left-1/2 right-1/2 z-10 mb-8 block w-screen max-w-none -mx-[50vw]"
+        >
+          <video
+            src="/videos/banner-site.mp4"
+            className="block h-auto w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </a>
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-black/[0.05] dark:text-white/[0.06]"
