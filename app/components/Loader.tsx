@@ -230,12 +230,6 @@ const Loader = ({ brandName = "INSUL", duration = 3, onComplete }: LoaderProps) 
             />
           </svg>
         </div>
-        <div className="h-[2px] w-40 overflow-hidden rounded-full bg-foreground/15 md:w-56">
-          <div
-            className="h-full rounded-full bg-foreground transition-[width] duration-150 ease-linear"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
       </div>
 
       <div className="flex items-end">

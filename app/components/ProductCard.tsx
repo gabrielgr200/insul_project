@@ -159,9 +159,14 @@ const ProductCard = ({
   animals,
   indicatedFor,
   to,
+  hoverImage,
 }: ProductCardData) => {
   const { dict } = useTranslation();
+  const hasSidePanel = Boolean(
+    postSpacing || animals?.length > 0 || indicatedFor?.length,
+  );
   const [open, setOpen] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
   const firstRender = useRef(true);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelInnerRef = useRef<HTMLDivElement>(null);
@@ -294,6 +299,14 @@ const ProductCard = ({
     }
   };
 
+  const toggleInfoPanel = () => {
+    setPanelOpen((prev) => {
+      const next = !prev;
+      if (next) handleInfoPanelEnter();
+      return next;
+    });
+  };
+
   useGSAP(() => {
     if (firstRender.current) {
       firstRender.current = false;
@@ -356,15 +369,39 @@ const ProductCard = ({
       <div
         className="group relative h-56 overflow-hidden bg-[#f5f5f5] dark:bg-white/5 sm:h-64"
         onMouseEnter={handleInfoPanelEnter}
+        onClick={toggleInfoPanel}
       >
-        <div className="absolute inset-y-0 left-0 w-full transition-[width] duration-500 ease-in-out group-hover:w-2/5">
+        <div
+          className={`absolute inset-y-0 left-0 transition-[width] duration-500 ease-in-out ${
+            hasSidePanel
+              ? panelOpen
+                ? "w-2/5"
+                : "w-full group-hover:w-2/5"
+              : "w-full"
+          }`}
+        >
           <img
             src={src}
             alt={name}
-            className="absolute inset-0 h-full w-full object-contain"
+            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
+              hoverImage
+                ? panelOpen
+                  ? "opacity-0"
+                  : "opacity-100 group-hover:opacity-0"
+                : ""
+            }`}
           />
+          {hoverImage && (
+            <img
+              src={hoverImage}
+              alt={name}
+              className={`absolute inset-0 h-full w-full object-cover object-left transition-opacity duration-500 ${
+                panelOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+              }`}
+            />
+          )}
           <div className="absolute bottom-4 left-5">
-            <p className="font-semibold text-[#ff5500]">{name}</p>
+            <p className="font-bold text-[#ff5500]">{name}</p>
             <p className="text-xs text-[#002d4d]/70 dark:text-white/70">
               {title}
             </p>
@@ -374,9 +411,9 @@ const ProductCard = ({
             <Link
               ref={ctaRef}
               href={to}
-              className="group/cta absolute bottom-4 right-4 rounded-full bg-[#002d4d]/10 px-6 py-2 text-xs font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:ring-white/20 dark:hover:bg-white/20"
+              className="group/cta absolute bottom-3 right-3 rounded-full bg-[#002d4d]/10 px-4 py-1.5 text-[11px] font-medium text-[#002d4d] opacity-0 ring-1 ring-[#002d4d]/20 backdrop-blur transition-colors hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:ring-white/20 dark:hover:bg-white/20"
             >
-              <span className="relative grid h-4 grid-cols-1 grid-rows-1 overflow-hidden">
+              <span className="relative grid h-4 grid-cols-1 grid-rows-1 overflow-hidden leading-4">
                 <span className="col-start-1 row-start-1 block whitespace-nowrap transition-transform duration-300 ease-out group-hover/cta:-translate-y-4">
                   {dict.productCard.likedFence}
                 </span>
@@ -391,8 +428,12 @@ const ProductCard = ({
           )}
         </div>
 
-        {(postSpacing || animals?.length > 0 || indicatedFor?.length) && (
-          <div className="absolute inset-y-0 right-0 flex w-3/5 translate-x-full flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out group-hover:translate-x-0 dark:bg-white/5">
+        {hasSidePanel && (
+          <div
+            className={`absolute inset-y-0 right-0 flex w-3/5 flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out dark:bg-white/5 ${
+              panelOpen ? "translate-x-0" : "translate-x-full group-hover:translate-x-0"
+            }`}
+          >
             {postSpacing && (
               <div ref={diagramRef}>
                 <PostSpacingDiagram

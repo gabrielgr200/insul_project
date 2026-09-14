@@ -139,7 +139,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
             type="button"
             onClick={close}
             aria-label="Fechar"
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <X size={20} />
           </button>
@@ -151,7 +151,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
               goPrev();
             }}
             aria-label="Imagem anterior"
-            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <ChevronLeft size={22} />
           </button>
@@ -162,7 +162,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
               goNext();
             }}
             aria-label="Próxima imagem"
-            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <ChevronRight size={22} />
           </button>
@@ -195,7 +195,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
                 key={image.id}
                 type="button"
                 onClick={() => setLightboxIndex(i)}
-                className={`h-14 w-20 shrink-0 rounded-lg border-2 transition-colors ${
+                className={`h-14 w-20 shrink-0 cursor-pointer rounded-lg border-2 transition-colors ${
                   i === lightboxIndex
                     ? "border-white"
                     : "border-transparent opacity-60 hover:opacity-100"

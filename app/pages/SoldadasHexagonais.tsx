@@ -7,7 +7,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
-import CercasCarousel from "../components/CercasCarousel";
+import SoldadaHexagonalCarousel from "../components/SoldadaHexagonalCarousel";
 import {
   soldadasHexagonaisCardsPages,
   soldadasHexagonaisCarousel,
@@ -17,12 +17,17 @@ import CardPost from "../components/CardPost";
 import TelasShowcaseArc from "../components/TelasShowcaseArc";
 import BentoGallery from "../components/BentoGallery";
 import FenceVisualizer from "../components/FenceVisualizer";
+import SimplesTorcaoShowcase from "../components/SimplesTorcaoShowcase";
+import ScrollReveal from "../components/ScrollReveal";
 
 const soldadaCards = soldadasHexagonaisCardsPages.filter(
   (c) => c.title === "Tela Soldada",
 );
 const hexagonalCards = soldadasHexagonaisCardsPages.filter(
   (c) => c.title === "Tela Hexagonal",
+);
+const torcaoSimplesCards = soldadasHexagonaisCardsPages.filter(
+  (c) => c.title === "Tela Torção Simples",
 );
 
 const SoldadasHexagonais = () => {
@@ -67,42 +72,44 @@ const SoldadasHexagonais = () => {
       <div id="smooth-wrapper">
         <div id="smooth-content" ref={contentRef}>
           <main className="max-w-7xl lg:max-w-6xl mx-auto px-4 sm:px-8 pb-20">
-            <CercasCarousel
+            <SoldadaHexagonalCarousel
               slides={soldadasHexagonaisCarousel}
               fullBleedMedia
             />
 
             <TelasShowcaseArc />
-            <BentoGallery
-              images={[
-                {
-                  src: "images/imgs-showcase/img-gallery-PVC.png",
-                  alt: "Telas PVC Insul",
-                },
-                {
-                  src: "/videos/videos-gallery/video-gallery-moradaLeve.mp4",
-                  alt: "Video Morada leve Insul",
-                },
-                {
-                  src: "/videos/videos-gallery/video-gallery-hexagonais.mp4",
-                  alt: "Videos hexagonais Insul",
-                },
-                {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
-                  alt: "Tela Morada Insul",
-                },
-                {
-                  src: "images/imgs-showcase/img-showcase-3.webp",
-                  alt: "Telas e Alambrados Insul",
-                },
-                {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-titan-similar.jpg",
-                  alt: "Tela Titan Insul",
-                },
-              ]}
-            />
+            <ScrollReveal>
+              <BentoGallery
+                images={[
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-gallery-PVC.png",
+                    alt: "Telas PVC Insul",
+                  },
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/video-gallery-moradaLeve.mp4",
+                    alt: "Video Morada leve Insul",
+                  },
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/video-gallery-hexagonais.mp4",
+                    alt: "Videos hexagonais Insul",
+                  },
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
+                    alt: "Tela Morada Insul",
+                  },
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-showcase-3.webp",
+                    alt: "Telas e Alambrados Insul",
+                  },
+                  {
+                    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-titan-similar.jpg",
+                    alt: "Tela Titan Insul",
+                  },
+                ]}
+              />
+            </ScrollReveal>
 
-            <div className="text-center pt-40 pb-16">
+            <ScrollReveal className="text-center pt-40 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
                 Telas Soldadas
               </h3>
@@ -110,14 +117,14 @@ const SoldadasHexagonais = () => {
                 Resistência, praticidade e segurança para cercamentos duráveis e
                 eficientes.
               </p>
-            </div>
-            <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            </ScrollReveal>
+            <ScrollReveal className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {soldadaCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
-            </div>
+            </ScrollReveal>
 
-            <div className="text-center pt-36 pb-16">
+            <ScrollReveal className="text-center pt-36 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
                 Telas Hexagonais
               </h3>
@@ -125,17 +132,29 @@ const SoldadasHexagonais = () => {
                 Versatilidade e resistência para proteção, cercamentos e
                 diversas aplicações no campo.
               </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            <ScrollReveal className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {hexagonalCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
-            </div>
+            </ScrollReveal>
 
-            <FenceVisualizer />
+            <ScrollReveal>
+              <SimplesTorcaoShowcase />
+            </ScrollReveal>
 
-            <div className="mt-16">
+            <ScrollReveal className="grid grid-cols-1 items-start gap-6 pt-16 sm:grid-cols-2">
+              {torcaoSimplesCards.map((card) => (
+                <ProductCard key={card.name} {...card} />
+              ))}
+            </ScrollReveal>
+
+            <ScrollReveal>
+              <FenceVisualizer />
+            </ScrollReveal>
+
+            <ScrollReveal className="mt-16">
               <CardPost
                 title="Veja alguns vídeos sobre as telas"
                 description={
@@ -148,7 +167,7 @@ const SoldadasHexagonais = () => {
                 }
                 reels={soldadasHexagonaisReels}
               />
-            </div>
+            </ScrollReveal>
           </main>
           <Footer />
         </div>

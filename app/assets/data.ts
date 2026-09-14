@@ -9,6 +9,7 @@ export interface ProductCardData {
   animals: string[];
   indicatedFor?: SoldadaIndicatedUse[];
   to?: string;
+  hoverImage?: string;
 }
 
 export interface GalleryImage {
@@ -85,6 +86,7 @@ export interface CercaProntaInfo {
   shortDescription: string;
   paragraphs: string[];
   postSpacing: string;
+  lengths: string[];
   animals: string[];
   heroSlide: CercaHeroSlide;
   features: CercaFeature[];
@@ -117,6 +119,7 @@ const cercasProntas: CercaProntaInfo[] = [
       "Aliando tecnologia, resistência e excelente custo-benefício, a Tela Alambrada Fênix Insul oferece ampla visibilidade, baixa necessidade de manutenção e alta durabilidade, tornando-se uma escolha inteligente para projetos que buscam rapidez na instalação, economia e qualidade em um único sistema de cercamento.",
     ],
     postSpacing: "5 - 6m",
+    lengths: ["25m", "50m"],
     animals: [
       "Bovino",
       "Capivara",
@@ -251,6 +254,7 @@ const cercasProntas: CercaProntaInfo[] = [
       "Para varejistas e revendedores, a cerca pronta Campeira Maxx Insul representa uma oportunidade única de agregar valor ao seu mix de produtos. Sua exclusividade e diferenciais de qualidade aumentam o potencial de vendas e fortalecem a reputação da loja como fornecedora de produtos de alta qualidade e também de oferecer uma alternativa mais moderna, prática e resistente à cerca de confecção manual de arame ovalado. A alta demanda por cercas resistentes e duradouras, aliada à exclusividade da tecnologia de nó em X e toda qualidade oferecida pela cerca pronta Campeira Maxx Insul, garante um alto potencial de vendas e fidelização de clientes. Com um produto tão completo, a satisfação do cliente é garantida, reduzindo reclamações, aumentando a fidelização e seus lucros. Escolha a cerca pronta Campeira Maxx Insul e descubra como uma cerca pode fazer a diferença em sua propriedade, unindo inovação, qualidade e praticidade em um só produto.",
     ],
     postSpacing: "6 - 8m",
+    lengths: ["50m", "100m"],
     animals: [
       "Bovino",
       "Capivara",
@@ -433,6 +437,7 @@ const cercasProntas: CercaProntaInfo[] = [
       "Para lojistas e revendedores, incluir a cerca pronta Campeira Insul em seu mix de produtos é uma decisão estratégica que agrega valor ao portfólio. Ao oferecer um produto de alta qualidade, que é reconhecido e confiado pelos consumidores, você atrai um público exigente e fideliza clientes que buscam soluções duradouras e eficientes. Com a crescente demanda por cercas prontas, a Campeira Insul garante um alto potencial de vendas e contribui para o fortalecimento da reputação do seu estabelecimento.",
     ],
     postSpacing: "6 - 8m",
+    lengths: ["50m", "100m"],
     animals: ["Bovino", "Cães", "Caprino", "Suínos", "Ovinos"],
     heroSlide: {
       src: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0",
@@ -573,6 +578,7 @@ const cercasProntas: CercaProntaInfo[] = [
       "A Insul oferece uma garantia de 5 anos para a Campeira Boi, refletindo nossa confiança na qualidade e na durabilidade deste produto. Além de sua funcionalidade superior, a cerca também se integra de maneira harmoniosa ao ambiente, proporcionando uma estética organizada e profissional para sua propriedade. A cerca pronta Campeira Boi Insul é, portanto, a escolha ideal para quem precisa de uma solução de cercamento confiável, resistente e duradoura, que ofereça segurança tanto para os animais quanto para a propriedade. Com a combinação única de inovação, qualidade e praticidade, a Campeira Boi Insul é um investimento seguro e eficaz para o seu negócio.",
     ],
     postSpacing: "6 - 8m",
+    lengths: ["50m", "100m"],
     animals: ["Bovino"],
     heroSlide: {
       src: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0",
@@ -698,8 +704,8 @@ const cercasProntas: CercaProntaInfo[] = [
 
 const cercasProntasReels: ShowcaseReel[] = [
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/fenix.mp4",
-    name: "Cerca Fênix Insul",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/video-GuiRichar.mp4",
+    name: "A solução em proteção perimetral",
   },
   {
     src: "https://d2c3kthzw0ta10.cloudfront.net/videos-reels/campeira.mp4",
@@ -735,11 +741,12 @@ export interface SoldadaIndicatedUse {
 export interface SoldadaHexagonalInfo {
   slug: string;
   name: string;
-  category: "Soldada" | "Hexagonal";
+  category: "Soldada" | "Hexagonal" | "Torção Simples";
   color: string;
   src: string;
   paragraph: string;
   postSpacing: string;
+  heights?: string[];
   indicatedFor: SoldadaIndicatedUse[];
   shortDescription: string;
   description: string;
@@ -759,29 +766,30 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     // cards) foi copiado literalmente da Fenix (cerca pronta) só pra ficar
     // com o visual idêntico ao de cercas prontas. Troque pelo material real
     // da Tela Brava quando tiver.
-    color: "#86be00",
+    color: "#1d5b34",
     src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/brava.png",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha 5 cm x 10 cm",
     postSpacing: "3m",
+    heights: ["1,00 m", "1,50 m", "1,80 m", "2,00 m"],
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/casa_wt8bpr.png",
+        src: "/images/ico-pvc/ico-casa.png",
       },
       {
         name: "Proteção UV em áreas externas de alta exposição ao sol",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859182/protec-UV_nfohyi.png",
+        src: "/images/ico-pvc/ico-UV.png",
       },
       {
         name: "Cercamento de jardins, quintais, chácaras e casas á beira-mar",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/praia_qbe5k5.png",
+        src: "/images/ico-pvc/ico-onda.png",
       },
     ],
     shortDescription:
       "A Tela Brava Insul oferece resistência, durabilidade e segurança para cercamentos rurais. Fabricada com arames galvanizados de alta qualidade, é ideal para a contenção de animais e divisão de propriedades.",
     description:
-      "A Tela Brava Insul é a solução definitiva para cercamentos em regiões litorâneas, onde a durabilidade e resistência são cruciais para enfrentar as condições adversas de maresia e umidade. Fabricada com aço galvanizado revestido em PVC de alta resistência e proteção UV, essa tela conta com espessura de fio de 2,50 mm e oferece máxima robustez e proteção contra corrosão, mesmo sob intensa exposição ao sol e à água salgada.\n\nCom malha de 5 cm (L) x 10 cm(A), disponível em alturas de 1,02 m, 1,52 m e 2,02 m, a Tela Brava Insul garante segurança e estabilidade em diversos tipos de cercamentos.A qualidade e a inovação europeia se unem à tecnologia italiana de fabricação para proporcionar um produto diferenciado, com durabilidade excepcional e acabamento impecável.\n\nA O PVC com proteção UV mantém a aparência e a integridade da tela por anos, enquanto o aço galvanizado assegura confiabilidade e resistência incomparáveis. A Tela Brava Insul, com rolos de 25 metros, atende às mais exigentes demandas do mercado, garantindo uma instalação prática e eficiente, adaptada ao perfil dos cercamentos de propriedades e outros espaços que exigem segurança contínua.\n\nPara revendedores e varejistas, a Tela Brava Insul é um item estratégico que agrega alto valor ao portfólio de produtos, alinhando-se com as demandas de clientes que buscam inovação, qualidade e performance superior. Com garantia de 5 anos e a qualidade já reconhecida dos produtos Insul, a Tela Brava oferece uma excelente oportunidade para fidelizar clientes e ampliar o alcance de mercado em regiões litorâneas, onde a resistência à corrosão é essencial.",
+      "A Tela Brava Insul é a solução definitiva para cercamentos em regiões litorâneas, onde a durabilidade e resistência são cruciais para enfrentar as condições adversas de maresia e umidade. Fabricada com aço galvanizado revestido em PVC de alta resistência e proteção UV, essa tela conta com espessura de fio de 2,50 mm e oferece máxima robustez e proteção contra corrosão, mesmo sob intensa exposição ao sol e à água salgada.\n\nCom malha de 5 cm (L) x 10 cm(A), disponível em alturas de 1,00 m, 1,50 m, 1,80 m e 2,00 m, a Tela Brava Insul garante segurança e estabilidade em diversos tipos de cercamentos.A qualidade e a inovação europeia se unem à tecnologia italiana de fabricação para proporcionar um produto diferenciado, com durabilidade excepcional e acabamento impecável.\n\nA O PVC com proteção UV mantém a aparência e a integridade da tela por anos, enquanto o aço galvanizado assegura confiabilidade e resistência incomparáveis. A Tela Brava Insul, com rolos de 25 metros, atende às mais exigentes demandas do mercado, garantindo uma instalação prática e eficiente, adaptada ao perfil dos cercamentos de propriedades e outros espaços que exigem segurança contínua.\n\nPara revendedores e varejistas, a Tela Brava Insul é um item estratégico que agrega alto valor ao portfólio de produtos, alinhando-se com as demandas de clientes que buscam inovação, qualidade e performance superior. Com garantia de 5 anos e a qualidade já reconhecida dos produtos Insul, a Tela Brava oferece uma excelente oportunidade para fidelizar clientes e ampliar o alcance de mercado em regiões litorâneas, onde a resistência à corrosão é essencial.",
     gallery: [
       {
         src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785948044/img-brava-1_jj4ehi.jpg",
@@ -881,24 +889,25 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/titan.png",
     paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
     postSpacing: "até 3m",
+    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        src: "/images/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
       "A Tela Titan Insul combina resistência e durabilidade para cercamentos seguros e eficientes. Produzida com materiais de alta qualidade, é ideal para proteger propriedades e oferecer um excelente desempenho no uso diário.",
     description:
-      "A tela Titan Insul é a solução ideal para cercamentos que exigem máxima proteção e durabilidade, unindo força e praticidade para atender às necessidades mais exigentes. Fabricada com aço galvanizado de 2,50 mm de espessura e tecnologia Insul, essa tela é robusta e confiável, garantindo proteção de longa duração para propriedades rurais, industriais e residenciais. Disponível em alturas variadas — 1,00 m, 1,20 m, 1,50 m, 1,80 m e 2,00 m — e com malha de 5 cm x 15 cm, a tela Titan é versátil, adaptando-se perfeitamente a diferentes tipos de cercamentos.\n\nCom design similar a uma grade, a tela Titan Insul oferece uma aparência discreta e moderna, que se integra com eficiência e harmonia ao ambiente, enquanto proporciona alta segurança. \n\nProduzida no Brasil com arame Gerdau e seguindo padrões rigorosos de qualidade, essa tela alia resistência e um baixo custo de instalação, sendo uma opção vantajosa para quem procura qualidade Insul a um custo-benefício imbatível. Sua estrutura robusta é ideal para cercamentos de áreas extensas, onde confiabilidade e baixa manutenção são essenciais.\n\nPara revendedores e varejistas: A tela Titan Insul é um diferencial no mix de produtos, atraindo clientes que buscam uma solução eficiente e acessível para segurança perimetral. Com a reconhecida qualidade Insul e garantia de 5 anos, a tela Titan oferece não apenas um produto durável e de alto desempenho, mas também uma oportunidade para fidelizar consumidores exigentes e ampliar o alcance de mercado com uma linha de cercamento confiável e de alta performance.",
+      "A tela Titan Insul é a solução ideal para cercamentos que exigem máxima proteção e durabilidade, unindo força e praticidade para atender às necessidades mais exigentes. Fabricada com aço galvanizado de 2,50 mm de espessura e tecnologia Insul, essa tela é robusta e confiável, garantindo proteção de longa duração para propriedades rurais, industriais e residenciais. Disponível em alturas variadas — 1,20 m, 1,50 m, 1,80 m e 2,00 m — e com malha de 5 cm x 15 cm, a tela Titan é versátil, adaptando-se perfeitamente a diferentes tipos de cercamentos.\n\nCom design similar a uma grade, a tela Titan Insul oferece uma aparência discreta e moderna, que se integra com eficiência e harmonia ao ambiente, enquanto proporciona alta segurança. \n\nProduzida no Brasil com arame Gerdau e seguindo padrões rigorosos de qualidade, essa tela alia resistência e um baixo custo de instalação, sendo uma opção vantajosa para quem procura qualidade Insul a um custo-benefício imbatível. Sua estrutura robusta é ideal para cercamentos de áreas extensas, onde confiabilidade e baixa manutenção são essenciais.\n\nPara revendedores e varejistas: A tela Titan Insul é um diferencial no mix de produtos, atraindo clientes que buscam uma solução eficiente e acessível para segurança perimetral. Com a reconhecida qualidade Insul e garantia de 5 anos, a tela Titan oferece não apenas um produto durável e de alto desempenho, mas também uma oportunidade para fidelizar consumidores exigentes e ampliar o alcance de mercado com uma linha de cercamento confiável e de alta performance.",
     gallery: [
       {
         src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1786020853/img-titan-1_pxpnfr.jpg",
@@ -1002,18 +1011,19 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
     postSpacing: "até 3m",
+    heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
     indicatedFor: [
       {
-        name: "Cercamento para casas e condomínio",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        name: "Cercamento de casas, condomínios e terrenos",
+        src: "/images/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
@@ -1095,18 +1105,19 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-open.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 6,5 cm x 15 cm",
     postSpacing: "até 3m",
+    heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
     indicatedFor: [
       {
-        name: "Cercamento para casas e condomínio",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        name: "Cercamento de casas, condomínios e terrenos",
+        src: "/images/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
@@ -1193,18 +1204,19 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada-leve.png",
     paragraph: "Fio 1,90 mm, Aço galvanizado a fogo, Malha 5 cm x 10 cm",
     postSpacing: "até 3m",
+    heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        src: "/images/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/ico-morada-open-titan/cao.png",
       },
       {
         name: "Hortas e jardins",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785928189/horta_mavwo7.png",
+        src: "/images/ico-morada-open-titan/horta.png",
       },
     ],
     shortDescription:
@@ -1290,15 +1302,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        src: "/images/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/ico-morada-open-titan/cao.png",
       },
       {
         name: "Hortas e jardins",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785928189/horta_mavwo7.png",
+        src: "/images/ico-morada-open-titan/horta.png",
       },
     ],
     shortDescription:
@@ -1341,7 +1353,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         end: 64,
       },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/multyuso.mp4",
+    videoSrc:
+      "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/multyuso.mp4",
     videoCards: [
       {
         src: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-reel-1.mp4",
@@ -1365,7 +1378,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
           "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
       },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-multy-3d.mp4",
+    video3D:
+      "https://d2c3kthzw0ta10.cloudfront.net/video-multyuso/video-multy-3d.mp4",
   }, //multyUso
   {
     slug: "tela-fachanet",
@@ -1378,15 +1392,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Ideal para aplicação na construção civil",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/casa-contru%C3%A7%C3%A3o_rzhn08.png",
+        src: "/images/ico-fachanet/construção.png",
       },
       {
         name: "Evita o aparecimento de fissuras",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/fissuras_afz9hg.png",
+        src: "/images/ico-fachanet/fissura.png",
       },
       {
         name: "Tela para reboco, alvenaria e reforço de argamassa",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/reboco_r3bxfi.png",
+        src: "/images/ico-fachanet/reboco.png",
       },
     ],
     shortDescription:
@@ -1429,15 +1443,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Confecção de grades e portões",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929375/port%C3%A3o_dnjufp.png",
+        src: "/images/multymaxx/portao.png",
       },
       {
         name: "Fechamento de quadras de Padel",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/canil_jy0ie7.png",
+        src: "/images/multymaxx/bola.png",
       },
       {
         name: "Cercamento onde exija maior segurança",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/multymaxx/protec.png",
       },
     ],
     shortDescription:
@@ -1480,15 +1494,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Ideal para aplicação na construção civil",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/casa-contru%C3%A7%C3%A3o_rzhn08.png",
+        src: "/images/ico-fachanet/construção.png",
       },
       {
         name: "Evita o aparecimento de fissuras",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/fissuras_afz9hg.png",
+        src: "/images/ico-fachanet/fissura.png",
       },
       {
         name: "Tela para reboco, alvenaria e reforço de argamassa",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/reboco_r3bxfi.png",
+        src: "/images/ico-fachanet/reboco.png",
       },
     ],
     shortDescription:
@@ -1532,15 +1546,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/casa_wt8bpr.png",
+        src: "/images/ico-pvc/ico-casa.png",
       },
       {
         name: "Proteção UV em áreas externas de alta exposição ao sol",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859182/protec-UV_nfohyi.png",
+        src: "/images/ico-pvc/ico-UV.png",
       },
       {
         name: "Cercamento de jardins, quintais, chácaras e casas á beira-mar",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/praia_qbe5k5.png",
+        src: "/images/ico-pvc/ico-onda.png",
       },
     ],
     shortDescription:
@@ -1585,15 +1599,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929723/fazenda_jesdyz.png",
+        src: "/images/ico-mangueirao/fazenda.png",
       },
       {
         name: "Tela para ovinos, suínos e animais de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435812/suino_crqvl0.png",
+        src: "/images/ico-mangueirao/porco.png",
       },
       {
         name: "Fechamento provisório de obras ou áreas de contenção",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/reboco_r3bxfi.png",
+        src: "/images/ico-mangueirao/reboco.png",
       },
     ],
     shortDescription:
@@ -1636,7 +1650,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         end: 64,
       },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/mangueirao.mp4",
+    videoSrc:
+      "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/mangueirao.mp4",
     videoCards: [
       {
         src: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-reel-1.mp4",
@@ -1667,7 +1682,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
           "Acompanha aclives e declives sem dificuldade na instalação.",
       },
     ],
-    video3D: "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-mangueirao-3d.mp4",
+    video3D:
+      "https://d2c3kthzw0ta10.cloudfront.net/mangueirao-16/video-mangueirao-3d.mp4",
   }, //mangueirão-16
   {
     slug: "tela-mangueirao-18",
@@ -1680,15 +1696,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929723/fazenda_jesdyz.png",
+        src: "/images/ico-mangueirao/fazenda.png",
       },
       {
         name: "Tela para ovinos, suínos e animais de pequeno e médio porte",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785436247/ovino_ov_lboqma.png",
+        src: "/images/ico-mangueirao/porco.png",
       },
       {
         name: "Fechamento provisório de obras ou áreas de contenção",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929026/reboco_r3bxfi.png",
+        src: "/images/ico-mangueirao/reboco.png",
       },
     ],
     shortDescription:
@@ -1731,7 +1747,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         end: 64,
       },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/mangueirao-18.mp4",
+    videoSrc:
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/mangueirao-18.mp4",
     videoCards: [
       {
         src: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/video-reel-1.mp4",
@@ -1741,7 +1758,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
     ],
-    video3D: "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/video-18-3d.mp4",
+    video3D:
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-mangueirao-18/video-18-3d.mp4",
   }, //mangueirão-18
   {
     slug: "tela-galinheiro-18",
@@ -1754,15 +1772,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Delimitação de áreas rurais e sítios",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930293/delimita%C3%A7%C3%A3o_u6x5js.png",
+        src: "/images/ico-galinheiro/rural.png",
       },
       {
         name: "Ideal para galinheiros, viveiro e coelheiras",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785435811/galinha_xvnuit.png",
+        src: "/images/ico-galinheiro/galinheiro.png",
       },
       {
         name: "Hortas e jardins",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785928189/horta_mavwo7.png",
+        src: "/images/ico-galinheiro/horta.png",
       },
     ],
     shortDescription:
@@ -1805,7 +1823,8 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         end: 64,
       },
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/galinheiro-18.mp4",
+    videoSrc:
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/galinheiro-18.mp4",
     videoCards: [
       {
         src: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-reel-1.mp4",
@@ -1829,8 +1848,60 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
     ],
-    video3D: "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-galinheiro-3d.mp4",
+    video3D:
+      "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-galinheiro-3d.mp4",
   }, //galinheiro
+  {
+    slug: "tela-galinheiro-22",
+    name: "Tela Galinheiro 22",
+    category: "Hexagonal",
+    color: "#f0a202",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/galinheiro.png",
+    paragraph: 'Fio 0,71 mm, Aço galvanizado a fogo, Malha 2" - 5,0 cm',
+    postSpacing: "até 4m",
+    indicatedFor: [
+      {
+        name: "Delimitação de áreas rurais e sítios",
+        src: "/images/ico-galinheiro/rural.png",
+      },
+      {
+        name: "Ideal para galinheiros, viveiro e coelheiras",
+        src: "/images/ico-galinheiro/galinheiro.png",
+      },
+      {
+        name: "Hortas e jardins",
+        src: "/images/ico-galinheiro/horta.png",
+      },
+    ],
+    shortDescription:
+      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
+    description:
+      "Página de exemplo para a Tela Galinheiro 22. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
+    gallery: [
+      {
+        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785875091/galinheiro_mng6xp.png",
+        alt: "Tela Galinheiro 22 (imagem provisória)",
+      },
+    ],
+    features: [
+      // {
+      //   title: "",
+      //   description: "",
+      //   start: 0,
+      //   end: 0,
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    videoSrc: "", // colar o link do vídeo aqui
+    videoCards: [
+      // {
+      //   src: "",
+      //   category: "",
+      //   title: "",
+      //   description: "",
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    video3D: "", // colar o link do vídeo 3D aqui
+  }, //galinheiro-22
   {
     slug: "tela-pinteiro-22",
     name: "Tela Pinteiro 22",
@@ -1842,15 +1913,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Criação de animais pequenos como pintos e codornas",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930563/pintinho_kojkvk.png",
+        src: "/images/ico-pinteiro/pinto.png",
       },
       {
         name: "Gaiola para pequenas aves",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930563/gaiola_o10nvo.png",
+        src: "/images/ico-pinteiro/gaiola.png",
       },
       {
         name: "Hortas e jardins",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785928189/horta_mavwo7.png",
+        src: "/images/ico-galinheiro/horta.png",
       },
     ],
     shortDescription:
@@ -1893,15 +1964,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Criação de animais pequenos como aves e pintos",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930845/passaro_gaubfs.png",
+        src: "/images/ico-viveiro/ave.png",
       },
       {
         name: "Gaiola para pequenas aves",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930563/gaiola_o10nvo.png",
+        src: "/images/ico-pinteiro/gaiola.png",
       },
       {
         name: "Proteção contra predadores e animais com doenças",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785930846/saude_sdjct1.png",
+        src: "/images/ico-viveiro/protecao.png",
       },
     ],
     shortDescription:
@@ -1933,12 +2004,170 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
   }, //viveiro
+  {
+    slug: "tela-torcao-simples-galvanizada",
+    name: "Torção Simples Galvanizada",
+    category: "Torção Simples",
+    color: "#bac3ca",
+    src: "/images/tela-torcao-simples/torcao-card/galvanizado.png",
+    paragraph: 'Fio 2,10 mm, Aço galvanizado a fogo, Malha em losango 3"(7,6cm)',
+    postSpacing: "até 4m",
+    indicatedFor: [
+      {
+        name: "Quadras, escolas, indústrias e estacionamentos",
+        src: "/images/icos-torção-galvanizado/esportivo.png",
+      },
+      {
+        name: "Divisões de pastos, plantações e jardins",
+        src: "/images/icos-torção-galvanizado/jardins.png",
+      },
+      {
+        name: "Terrenos urbanos e rurais com relevo",
+        src: "/images/icos-torção-galvanizado/terreno-relevo.png",
+      },
+    ],
+    shortDescription:
+      "Tela torção simples galvanizada da Insul: resistente, versátil e ideal para cercamentos em áreas residenciais, comerciais, industriais e rurais. Produzida com arame galvanizado, oferece proteção contra corrosão, boa durabilidade e fácil instalação, garantindo segurança sem perder a visibilidade do ambiente.",
+    description:
+      "Página de exemplo para a Torção Simples Galvanizada. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
+    gallery: [
+      {
+        src: "/images/tela-torcao-simples/torção-galvanizado.png",
+        alt: "Torção Simples Galvanizada (imagem provisória)",
+      },
+    ],
+    features: [
+      // {
+      //   title: "",
+      //   description: "",
+      //   start: 0,
+      //   end: 0,
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    videoSrc: "", // colar o link do vídeo aqui
+    videoCards: [
+      // {
+      //   src: "",
+      //   category: "",
+      //   title: "",
+      //   description: "",
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    video3D: "", // colar o link do vídeo 3D aqui
+  }, //torção-simples-galvanizada
+  {
+    slug: "tela-torcao-simples-pvc-verde",
+    name: "Torção Simples PVC Verde",
+    category: "Torção Simples",
+    color: "#278348",
+    src: "/images/tela-torcao-simples/torcao-card/pvc-verde.png",
+    paragraph: 'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
+    postSpacing: "até 4m",
+    indicatedFor: [
+      {
+        name: "Cercamento em áreas verdes e litorâneas",
+        src: "/images/ico-pvc/ico-onda.png",
+      },
+      {
+        name: "Quadras e terreno com relevo",
+        src: "/images/multymaxx/bola.png",
+      },
+      {
+        name: "Cercamento de animais como suínos e aves",
+        src: "/images/ico-mangueirao/porco.png",
+      },
+    ],
+    shortDescription:
+      "Tela torção simples PVC verde da Insul: prática, resistente e com acabamento discreto para cercamentos residenciais, comerciais, industriais e rurais. Seu revestimento em PVC verde ajuda a proteger contra corrosão, aumenta a durabilidade e combina melhor com áreas externas, jardins e espaços arborizados.",
+    description:
+      "Página de exemplo para a Torção Simples PVC Verde. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
+    gallery: [
+      {
+        src: "/images/tela-torcao-simples/torção-PVC-verde.png",
+        alt: "Torção Simples PVC Verde (imagem provisória)",
+      },
+    ],
+    features: [
+      // {
+      //   title: "",
+      //   description: "",
+      //   start: 0,
+      //   end: 0,
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    videoSrc: "", // colar o link do vídeo aqui
+    videoCards: [
+      // {
+      //   src: "",
+      //   category: "",
+      //   title: "",
+      //   description: "",
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    video3D: "", // colar o link do vídeo 3D aqui
+  }, //torção-simples-pvc-verde
+  {
+    slug: "tela-torcao-simples-pvc-azul",
+    name: "Torção Simples PVC Azul",
+    category: "Torção Simples",
+    color: "#267bcc",
+    src: "/images/tela-torcao-simples/torcao-card/pvc-azul.png",
+    paragraph: 'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
+    postSpacing: "até 4m",
+    indicatedFor: [
+      {
+        name: "Cercamento em áreas verdes e litorâneas",
+        src: "/images/ico-pvc/ico-onda.png",
+      },
+      {
+        name: "Quadras e terreno com relevo",
+        src: "/images/multymaxx/bola.png",
+      },
+      {
+        name: "Cercamento de animais como suínos e aves",
+        src: "/images/ico-mangueirao/porco.png",
+      },
+    ],
+    shortDescription:
+      "Tela torção simples PVC azul da Insul: resistente, durável e com acabamento diferenciado para cercamentos residenciais, comerciais, industriais e esportivos. O revestimento em PVC azul ajuda a proteger contra corrosão, aumenta a vida útil da tela e traz um visual mais moderno e personalizado ao ambiente.",
+    description:
+      "Página de exemplo para a Torção Simples PVC Azul. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
+    gallery: [
+      {
+        src: "/images/tela-torcao-simples/torção-PVC-azul.png",
+        alt: "Torção Simples PVC Azul (imagem provisória)",
+      },
+    ],
+    features: [
+      // {
+      //   title: "",
+      //   description: "",
+      //   start: 0,
+      //   end: 0,
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    videoSrc: "", // colar o link do vídeo aqui
+    videoCards: [
+      // {
+      //   src: "",
+      //   category: "",
+      //   title: "",
+      //   description: "",
+      // },
+    ], // trocar pelas informações reais (ver exemplo em tela-brava)
+    video3D: "", // colar o link do vídeo 3D aqui
+  }, //torção-simples-pvc-azul
 ];
 
 const soldadasHexagonaisCardsPages: ProductCardData[] = soldadasHexagonais.map(
   (item) => ({
     src: item.src,
-    title: item.category === "Soldada" ? "Tela Soldada" : "Tela Hexagonal",
+    title:
+      item.category === "Soldada"
+        ? "Tela Soldada"
+        : item.category === "Hexagonal"
+          ? "Tela Hexagonal"
+          : "Tela Torção Simples",
     name: item.name,
     paragraph: item.paragraph,
     shortDescription: item.shortDescription,
@@ -1950,14 +2179,19 @@ const soldadasHexagonaisCardsPages: ProductCardData[] = soldadasHexagonais.map(
   }),
 );
 
-// soldadas/hexagonais ainda não têm carrossel próprio; reaproveita o hero de
-// cercas prontas como placeholder visual.
-// TODO: criar um carrossel específico quando houver fotos reais dessas telas.
-const soldadasHexagonaisCarousel: CercaSlide[] = cercasProntas.map((c) => ({
-  src: c.heroSlide.src,
-  label: c.name,
-  hotspot: c.heroSlide.hotspot,
-}));
+
+const soldadasHexagonaisCarouselSlugs = [
+  "tela-brava",
+  "tela-titan",
+  "tela-morada-leve",
+  "tela-multymax",
+  "tela-mangueirao-16",
+  "tela-galinheiro-22",
+];
+const soldadasHexagonaisCarousel: SoldadaHexagonalInfo[] =
+  soldadasHexagonaisCarouselSlugs
+    .map((slug) => soldadasHexagonais.find((s) => s.slug === slug))
+    .filter((s): s is SoldadaHexagonalInfo => Boolean(s));
 
 const soldadasHexagonaisReels: ShowcaseReel[] = [
   {
@@ -2013,6 +2247,7 @@ const roomDetails: RoomDetail[] = [
   {
     src: "https://d2c3kthzw0ta10.cloudfront.net/img-products/arames.jpg",
     name: "Arames",
+    to: "/arames",
   },
 ];
 
@@ -2021,16 +2256,27 @@ const gradilGallery: GalleryImage[] = Array.from({ length: 9 }, (_, i) => ({
   alt: `Gradil Insul instalado ${i + 1}`,
 }));
 
+export interface Gradil3DShowcaseItem {
+  title: string;
+  description: string;
+  videoSrc: string;
+}
+
 export interface GradilModelInfo {
   slug: string;
   name: string;
   color: string;
   src: string;
+  tagline: string;
   paragraph: string;
   postSpacing: string;
   indicatedFor: SoldadaIndicatedUse[];
   shortDescription: string;
   description: string;
+  videoSrc?: string;
+  features?: CercaFeature[];
+  videoCards?: VideoCardData[];
+  showcase3D?: Gradil3DShowcaseItem[];
   gallery: GalleryImage[];
 }
 
@@ -2038,73 +2284,305 @@ const gradilModels: GradilModelInfo[] = [
   {
     slug: "g4",
     name: "Gradil G4",
-    color: "#2f7d32",
+    color: "#091f32",
     src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_VERDE_placas.webp",
+    tagline:
+      "Uma solução prática, acessível e inteligente para fechamentos que necessitem de maior segurança e estética.",
     paragraph:
       "Bitola 4,0 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
     postSpacing: "2,5 m",
     indicatedFor: [
       {
         name: "Residências",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785859183/casa_wt8bpr.png",
+        src: "/images/soldadas-icos/casa.png",
       },
       {
-        name: "Condomínios",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        name: "Terrenos",
+        src: "/images/soldadas-icos/terreno.png",
+      },
+      {
+        name: "Indústrias",
+        src: "/images/soldadas-icos/industria.png",
+      },
+      {
+        name: "Canil",
+        src: "/images/soldadas-icos/cao-medio-pequeno.png",
       },
     ],
     shortDescription:
       "Painel de aço soldado modular para cercamento residencial e comercial leve. Instalação rápida, boa visibilidade e acabamento durável.",
     description:
-      "O Gradil G4 Insul é um painel de aço soldado modular, ideal para residências, condomínios e áreas comerciais. Une leveza, design e segurança, com instalação rápida e baixa manutenção.",
+      "O Gradil G4 Insul é um sistema de cercamento metálico composto por painéis de aço galvanizado, com acabamento em pintura eletrostática, desenvolvido para oferecer segurança, resistência mecânica e excelente durabilidade em ambientes internos e externos. Sua estrutura proporciona um cercamento seguro sem comprometer a visibilidade do ambiente, além de apresentar um acabamento moderno e de baixa necessidade de manutenção, tornando-se uma solução prática e eficiente para diversos tipos de empreendimentos.\n\nO Gradil G4 é indicado para o fechamento e a proteção de áreas residenciais, condomínios, indústrias, empresas, centros comerciais, escolas, estacionamentos, praças, parques, áreas públicas e demais locais que necessitem de delimitação e controle de acesso. Além de sua elevada resistência à corrosão e às intempéries, o sistema permite instalação rápida e pode ser adaptado a diferentes configurações de terreno, atendendo tanto a projetos de segurança quanto a soluções que valorizam a estética e a integração com o ambiente.\n\nO sistema modular do Gradil G4 é composto por painéis pré-fabricados que se fixam a mourões metálicos por meio de fixadores específicos, dispensando soldas ou processos complexos no local da obra. Essa praticidade reduz significativamente o tempo de instalação e a necessidade de mão de obra especializada, sem abrir mão do acabamento uniforme e da rigidez estrutural que caracterizam a linha Gradil Insul.\n\nPara revendedores e varejistas, o Gradil G4 representa uma porta de entrada estratégica na linha de gradis Insul, unindo preço competitivo, alta demanda em projetos residenciais e comerciais e a confiança da marca Insul. Com padrão de qualidade reconhecido no mercado, o produto amplia o mix de soluções de cercamento oferecidas e fortalece a fidelização de clientes que buscam segurança aliada à estética.",
+    videoSrc: "ttps://d2c3kthzw0ta10.cloudfront.net/campeira-maxx.mp4", // colar o link do vídeo de instalação/malha sobre o Gradil G4
+    features: [
+      {
+        title: "Instalação",
+        description:
+          "Painéis modulares fixados a mourões metálicos com fixadores específicos, sem soldas nem processos complexos na obra.",
+        start: 0,
+        end: 5, // ajustar quando o vídeo real for adicionado
+      },
+      {
+        title: "Malha superior e inferior",
+        description:
+          "Malha soldada de 5 cm x 20 cm em aço galvanizado com pintura eletrostática, unindo resistência mecânica e acabamento uniforme.",
+        start: 5,
+        end: 10, // ajustar quando o vídeo real for adicionado
+      },
+    ],
+    videoCards: [
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-3.mp4",
+        category: "TERRENO",
+        title: "Qualquer Relevo",
+        description:
+          "Acompanha aclives e declives sem dificuldade na instalação.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-reel-g4.mp4",
+        category: "ECONOMIA",
+        title: "Instalação Rápida",
+        description:
+          "Espaçamento maior entre mourões gera até 50% de economia.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-5.mp4",
+        category: "PROTEÇÃO",
+        title: "Malha Bimodal",
+        description:
+          "Fechada embaixo para contenção, aberta em cima para economia.",
+      },
+    ],
+    showcase3D: [
+      {
+        title: "Veja o vídeo do Gradil G4 em detalhes",
+        description:
+          "Gire, pause e explore de perto o acabamento da malha soldada e da pintura eletrostática que garantem durabilidade e um visual moderno ao Gradil G4.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-3d-g4-1.mp4",
+      },
+      {
+        title: "Manual de como instalar o Gradil",
+        description:
+          "Confira o sistema de fixação aos mourões metálicos, pensado para reduzir o tempo de instalação sem abrir mão da rigidez estrutural do painel.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-3d-g4-2.mp4",
+      },
+    ],
     gallery: gradilGallery,
   },
   {
     slug: "g5",
     name: "Gradil G5",
-    color: "#12568f",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_AZUL_placas.webp",
+    color: "#646464",
+    src: "/images/img-outromodelo-gradil/img-gradil-G5.png",
+    tagline:
+      "Gradil G5 combina resistência, estética e praticidade, atendendo às mais variadas necessidades.",
     paragraph:
       "Bitola 4,8 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
     postSpacing: "2,5 m",
     indicatedFor: [
       {
-        name: "Condomínios",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860803/condominio_i3cfoe.png",
+        name: "Residências",
+        src: "/images/soldadas-icos/casa.png",
+      },
+      {
+        name: "Terrenos",
+        src: "/images/soldadas-icos/terreno.png",
       },
       {
         name: "Indústrias",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/soldadas-icos/industria.png",
+      },
+      {
+        name: "Canil",
+        src: "/images/soldadas-icos/cao-medio-pequeno.png",
       },
     ],
     shortDescription:
       "Painel intermediário com maior bitola, indicado para condomínios, empresas e áreas que exigem mais robustez sem abrir mão do design.",
     description:
-      "O Gradil G5 Insul aumenta a resistência com arame de maior bitola, mantendo o sistema modular de instalação rápida. Perfeito para condomínios, empresas e espaços que pedem mais segurança.",
+      "O Gradil G5 Insul é um sistema de cercamento metálico composto por painéis de aço galvanizado, com acabamento em pintura eletrostática, desenvolvido para oferecer segurança, resistência mecânica e excelente durabilidade em ambientes internos e externos. Com bitola de 4,8 mm, superior à do Gradil G4, sua estrutura proporciona um cercamento ainda mais robusto sem comprometer a visibilidade do ambiente, além de apresentar um acabamento moderno e de baixa necessidade de manutenção, tornando-se uma solução prática e eficiente para diversos tipos de empreendimentos.\n\nO Gradil G5 é indicado para o fechamento e a proteção de condomínios, indústrias, empresas, centros comerciais, escolas, estacionamentos, praças, parques, áreas públicas e demais locais que necessitem de delimitação e controle de acesso com um reforço adicional de segurança. Além de sua elevada resistência à corrosão e às intempéries, o sistema permite instalação rápida e pode ser adaptado a diferentes configurações de terreno, atendendo tanto a projetos de segurança quanto a soluções que valorizam a estética e a integração com o ambiente.\n\nO sistema modular do Gradil G5 é composto por painéis pré-fabricados que se fixam a mourões metálicos por meio de fixadores específicos, dispensando soldas ou processos complexos no local da obra. Essa praticidade reduz significativamente o tempo de instalação e a necessidade de mão de obra especializada, sem abrir mão do acabamento uniforme e da rigidez estrutural que caracterizam a linha Gradil Insul.\n\nPara revendedores e varejistas, o Gradil G5 representa uma opção intermediária estratégica na linha de gradis Insul, unindo maior resistência, alta demanda em projetos comerciais e industriais e a confiança da marca Insul. Com padrão de qualidade reconhecido no mercado, o produto amplia o mix de soluções de cercamento oferecidas e fortalece a fidelização de clientes que buscam segurança reforçada aliada à estética.",
+    videoSrc: "ttps://d2c3kthzw0ta10.cloudfront.net/campeira-maxx.mp4", // colar o link do vídeo de instalação/malha sobre o Gradil G5
+    features: [
+      {
+        title: "Instalação",
+        description:
+          "Painéis modulares fixados a mourões metálicos com fixadores específicos, sem soldas nem processos complexos na obra.",
+        start: 0,
+        end: 5, // ajustar quando o vídeo real for adicionado
+      },
+      {
+        title: "Malha superior e inferior",
+        description:
+          "Malha soldada de 5 cm x 20 cm em aço galvanizado bitola 4,8 mm com pintura eletrostática, unindo resistência mecânica reforçada e acabamento uniforme.",
+        start: 5,
+        end: 10, // ajustar quando o vídeo real for adicionado
+      },
+    ],
+    videoCards: [
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-3.mp4",
+        category: "TERRENO",
+        title: "Qualquer Relevo",
+        description:
+          "Acompanha aclives e declives sem dificuldade na instalação.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-reel-g4.mp4",
+        category: "ECONOMIA",
+        title: "Instalação Rápida",
+        description:
+          "Espaçamento maior entre mourões gera até 50% de economia.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-5.mp4",
+        category: "PROTEÇÃO",
+        title: "Malha Bimodal",
+        description:
+          "Fechada embaixo para contenção, aberta em cima para economia.",
+      },
+    ],
+    showcase3D: [
+      {
+        title: "Veja o vídeo do Gradil G5 em detalhes",
+        description:
+          "Gire, pause e explore de perto o acabamento da malha soldada e da pintura eletrostática que garantem durabilidade e um visual moderno ao Gradil G5.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g5/video-3d-g5.mp4",
+      },
+      {
+        title: "Manual de como instalar o Gradil",
+        description:
+          "Confira o sistema de fixação aos mourões metálicos, pensado para reduzir o tempo de instalação sem abrir mão da rigidez estrutural do painel.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-3d-g4-2.mp4",
+      },
+    ],
     gallery: gradilGallery,
   },
   {
     slug: "g12",
     name: "Gradil G12",
-    color: "#1c1c1c",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_PRETO_placas.webp",
+    color: "#4b460b",
+    src: "/images/img-outromodelo-gradil/img-gradil-G12.png",
+    tagline:
+      "Garante segurança dos processos, das pessoas e das máquinas e é muito prático de instalar.",
     paragraph:
       "Bitola 4,8 mm, Malha 2,5 cm x 20 cm, Aço soldado reforçado, Alta resistência",
     postSpacing: "2,5 m",
     indicatedFor: [
       {
         name: "Indústrias",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785860802/industria_gdhfq2.png",
+        src: "/images/soldadas-icos/industria.png",
       },
       {
-        name: "Portões e perímetros",
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785929375/port%C3%A3o_dnjufp.png",
+        name: "Máquinas",
+        src: "/images/soldadas-icos/maquina.png",
       },
     ],
     shortDescription:
       "Painel de alta resistência com malha mais fechada, desenvolvido para uso industrial e áreas que exigem o máximo em segurança e durabilidade.",
     description:
-      "O Gradil G12 Insul é a solução mais robusta da linha, com malha fechada e estrutura reforçada. Indicado para indústrias, centros logísticos e perímetros que exigem alta segurança.",
+      "O Gradil G12 Insul é a solução mais robusta da linha, com painéis de aço soldado reforçado e acabamento em pintura eletrostática, desenvolvido para oferecer o máximo em segurança, resistência mecânica e durabilidade em ambientes industriais e de alta exigência. Sua malha mais fechada, de 2,5 cm x 20 cm, dificulta a escalada e a passagem de objetos, proporcionando um cercamento robusto sem abrir mão do acabamento moderno e de baixa necessidade de manutenção.\n\nO Gradil G12 é indicado para o fechamento e a proteção de indústrias, centros logísticos, portões e perímetros, subestações, áreas de processos críticos e demais locais que exigem controle de acesso rigoroso. Além de sua elevada resistência à corrosão e às intempéries, o sistema permite instalação rápida e pode ser adaptado a diferentes configurações de terreno, atendendo projetos que priorizam segurança máxima sem abrir mão da estética.\n\nO sistema modular do Gradil G12 é composto por painéis pré-fabricados que se fixam a mourões metálicos por meio de fixadores específicos, dispensando soldas ou processos complexos no local da obra. Essa praticidade reduz significativamente o tempo de instalação e a necessidade de mão de obra especializada, sem abrir mão do acabamento uniforme e da rigidez estrutural que caracterizam a linha Gradil Insul.\n\nPara revendedores e varejistas, o Gradil G12 representa a opção premium da linha de gradis Insul, unindo resistência máxima, alta demanda em projetos industriais e a confiança da marca Insul. Com padrão de qualidade reconhecido no mercado, o produto amplia o mix de soluções de cercamento oferecidas e fortalece a fidelização de clientes que buscam a máxima segurança aliada à estética.",
+    videoSrc: "ttps://d2c3kthzw0ta10.cloudfront.net/campeira-maxx.mp4", // colar o link do vídeo de instalação/malha sobre o Gradil G12
+    features: [
+      {
+        title: "Instalação",
+        description:
+          "Painéis modulares fixados a mourões metálicos com fixadores específicos, sem soldas nem processos complexos na obra.",
+        start: 0,
+        end: 5, // ajustar quando o vídeo real for adicionado
+      },
+      {
+        title: "Malha superior e inferior",
+        description:
+          "Malha soldada de 2,5 cm x 20 cm em aço reforçado com pintura eletrostática, unindo alta resistência mecânica e acabamento uniforme.",
+        start: 5,
+        end: 10, // ajustar quando o vídeo real for adicionado
+      },
+    ],
+    videoCards: [
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-1.mp4",
+        category: "MATERIAL",
+        title: "Aço Carbono",
+        description:
+          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-2.mp4",
+        category: "ESTRUTURA",
+        title: "Nó em X",
+        description:
+          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-3.mp4",
+        category: "TERRENO",
+        title: "Qualquer Relevo",
+        description:
+          "Acompanha aclives e declives sem dificuldade na instalação.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-reel-g4.mp4",
+        category: "ECONOMIA",
+        title: "Instalação Rápida",
+        description:
+          "Espaçamento maior entre mourões gera até 50% de economia.",
+      },
+      {
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-5.mp4",
+        category: "PROTEÇÃO",
+        title: "Malha Bimodal",
+        description:
+          "Fechada embaixo para contenção, aberta em cima para economia.",
+      },
+    ],
+    showcase3D: [
+      {
+        title: "Veja o vídeo do Gradil G12 em detalhes",
+        description:
+          "Gire, pause e explore de perto o acabamento da malha soldada e da pintura eletrostática que garantem durabilidade e um visual moderno ao Gradil G12.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-3d-g4-1.mp4",
+      },
+      {
+        title: "Manual de como instalar o Gradil",
+        description:
+          "Confira o sistema de fixação aos mourões metálicos, pensado para reduzir o tempo de instalação sem abrir mão da rigidez estrutural do painel.",
+        videoSrc:
+          "https://d2c3kthzw0ta10.cloudfront.net/videos-g4/video-3d-g4-2.mp4",
+      },
+    ],
     gallery: gradilGallery,
   },
 ];

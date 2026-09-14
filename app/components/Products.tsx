@@ -26,7 +26,7 @@ const Products = () => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top 80%",
-        once: true,
+        toggleActions: "play reverse play reverse",
       },
     });
 

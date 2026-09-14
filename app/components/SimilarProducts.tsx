@@ -129,14 +129,20 @@ export const SimilarProductCard = ({
   );
 };
 
-const SimilarProducts = ({ products }: { products: SimilarProductItem[] }) => {
+const SimilarProducts = ({
+  products,
+  heading,
+}: {
+  products: SimilarProductItem[];
+  heading?: string;
+}) => {
   const { dict } = useTranslation();
   if (products.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8">
       <h3 className="poppins mb-8 text-4xl font-bold text-[#ff5500] dark:text-white">
-        {dict.similarProducts.heading}
+        {heading ?? dict.similarProducts.heading}
       </h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (

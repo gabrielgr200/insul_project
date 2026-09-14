@@ -99,7 +99,7 @@ const TextReveal = () => {
               ref={(el) => {
                 textRefs.current[i] = el;
               }}
-              className="text-center text-[#002d4d] dark:text-white poppins font-normal text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight max-w-md mx-auto sm:max-w-none"
+              className="text-center text-[#002d4d] dark:text-white poppins font-light text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight max-w-md mx-auto sm:max-w-none"
             >
               {text}
             </p>

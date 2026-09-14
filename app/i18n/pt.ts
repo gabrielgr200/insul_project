@@ -14,6 +14,11 @@ const pt = {
     voltar: "Voltar",
     fecharMenu: "Fechar menu",
     idioma: "Selecionar idioma",
+    tema: "Selecionar tema",
+  },
+  tema: {
+    claro: "Claro",
+    escuro: "Escuro",
   },
   hero: {
     firme: "FIRME",
@@ -250,6 +255,18 @@ const pt = {
       },
       {
         keywords: [
+          "preço",
+          "preco",
+          "valor",
+          "orçamento",
+          "orcamento",
+          "quanto custa",
+        ],
+        reply:
+          "Os valores variam conforme o modelo e a quantidade. Pra ver preços e fechar pedido, acessa nossa loja virtual em casadascercas.com.br ou chama a gente no WhatsApp (51) 99509-8453.",
+      },
+      {
+        keywords: [
           "cerca",
           "produto",
           "fenix",
@@ -261,18 +278,6 @@ const pt = {
         ],
         reply:
           "Temos várias linhas de cercas, como a Fênix e a Campeira, com opções para diferentes tipos de propriedade. Dá uma olhada na seção de produtos aqui na página ou me conta o que você precisa que eu te indico o modelo certo.",
-      },
-      {
-        keywords: [
-          "preço",
-          "preco",
-          "valor",
-          "orçamento",
-          "orcamento",
-          "quanto custa",
-        ],
-        reply:
-          "Os valores variam conforme o modelo e a quantidade. Pra ver preços e fechar pedido, acessa nossa loja virtual em casadascercas.com.br ou liga pra gente no (51) 3723-1519.",
       },
       {
         keywords: ["oi", "olá", "ola", "bom dia", "boa tarde", "boa noite"],
@@ -431,7 +436,7 @@ const pt = {
 
   productCard: {
     likedFence: "Gostou da tela?",
-    seeDetails: "Veja os detalhes",
+    seeDetails: "Ver detalhes",
     postSpacingLabel: "Espaçamento entre mourões",
     indicatedFor: "Indicado para",
   },

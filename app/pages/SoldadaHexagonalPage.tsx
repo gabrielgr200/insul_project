@@ -10,6 +10,7 @@ import VideoCard3D from "../components/VideoCard3D";
 import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
+import ScrollReveal from "../components/ScrollReveal";
 import { soldadasHexagonais } from "../assets/data";
 
 const CUTOUT_IMAGES: Record<string, string> = {
@@ -102,37 +103,47 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
 
       <main className="pb-20 pt-32">
         {hasFullSpec ? (
-          <CercaHeroDetails
-            name={item.name}
-            videoSrc={item.videoSrc!}
-            features={item.features!}
-            badge={badgeLabel}
-          />
-        ) : (
-          <section
-            className="relative flex min-h-[40vh] items-end overflow-hidden px-4 pb-10 sm:px-8"
-            style={{ backgroundColor: item.color }}
-          >
-            <img
-              src={item.gallery[0]?.src}
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover opacity-30"
+          <ScrollReveal>
+            <CercaHeroDetails
+              name={item.name}
+              videoSrc={item.videoSrc!}
+              features={item.features!}
+              badge={badgeLabel}
             />
-            <div className="relative mx-auto w-full max-w-6xl">
-              <span className="inline-block rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium text-white">
-                {badgeLabel}
-              </span>
-              <h1 className="poppins mt-3 text-4xl font-bold text-white lg:text-5xl">
-                {item.name}
-              </h1>
-            </div>
-          </section>
+          </ScrollReveal>
+        ) : (
+          <ScrollReveal>
+            <section
+              className="relative flex min-h-[40vh] items-end overflow-hidden px-4 pb-10 sm:px-8"
+              style={{ backgroundColor: item.color }}
+            >
+              <img
+                src={item.gallery[0]?.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full object-cover opacity-30"
+              />
+              <div className="relative mx-auto w-full max-w-6xl">
+                <span className="inline-block rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium text-white">
+                  {badgeLabel}
+                </span>
+                <h1 className="poppins mt-3 text-4xl font-bold text-white lg:text-5xl">
+                  {item.name}
+                </h1>
+              </div>
+            </section>
+          </ScrollReveal>
         )}
 
-        {hasFullSpec && <ExpandableCardExample color={item.color} />}
+        {hasFullSpec && (
+          <ScrollReveal>
+            <ExpandableCardExample color={item.color} />
+          </ScrollReveal>
+        )}
 
-        <ImgCarousel images={item.gallery} />
+        <ScrollReveal>
+          <ImgCarousel images={item.gallery} />
+        </ScrollReveal>
 
         <BlurRevealText
           text={item.description.split("\n\n")}
@@ -140,12 +151,20 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
         />
 
         {hasFullSpec && (
-          <VideoCardCarousel cards={item.videoCards!} fenceName={item.name} />
+          <ScrollReveal>
+            <VideoCardCarousel cards={item.videoCards!} fenceName={item.name} />
+          </ScrollReveal>
         )}
 
-        {item.video3D && <VideoCard3D videoSrc={item.video3D} />}
+        {item.video3D && (
+          <ScrollReveal>
+            <VideoCard3D videoSrc={item.video3D} />
+          </ScrollReveal>
+        )}
 
-        <SimilarProducts products={similarTelas} />
+        <ScrollReveal>
+          <SimilarProducts products={similarTelas} />
+        </ScrollReveal>
       </main>
 
       <Footer />

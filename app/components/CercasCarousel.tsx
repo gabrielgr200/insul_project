@@ -1044,7 +1044,7 @@ const CercasCarousel = ({
               ? "Esconder animais que a tela contém"
               : "Mostrar animais que a tela contém"
           }
-          className="absolute z-20 w-7 h-7 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-[#002d4d]/10 hover:bg-[#002d4d]/20 text-[#002d4d] transition-colors duration-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white"
+          className="absolute z-20 w-7 h-7 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-[#002d4d]/10 hover:bg-[#002d4d]/20 text-[#002d4d] transition-colors duration-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white cursor-pointer"
           style={{
             left: `${ANIMALS_BUTTON_LEFT_PCT}%`,
             top: `${ANIMALS_BUTTON_TOP_PCT}%`,
@@ -1072,7 +1072,7 @@ const CercasCarousel = ({
             type="button"
             onClick={() => setIsPlaying((v) => !v)}
             aria-label={isPlaying ? "Pausar slide" : "Reproduzir slide"}
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-[#002d4d]/10 text-[#002d4d] transition-colors duration-200 hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-[#002d4d]/10 text-[#002d4d] transition-colors duration-200 hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
           >
             {isPlaying ? <Pause size={14} /> : <Play size={14} />}
           </button>
@@ -1086,7 +1086,7 @@ const CercasCarousel = ({
                 type="button"
                 onClick={() => goTo(i)}
                 aria-label={`Ir para ${s.label}`}
-                className={`shrink-0 w-16 h-2.5 rounded-full sm:w-20 transition-all duration-200 ${
+                className={`shrink-0 w-16 h-2.5 cursor-pointer rounded-full sm:w-20 transition-all duration-200 ${
                   i === index
                     ? "bg-[#002d4d] dark:bg-white"
                     : "bg-[#002d4d]/20 hover:bg-[#002d4d]/40 dark:bg-white/20 dark:hover:bg-white/40"

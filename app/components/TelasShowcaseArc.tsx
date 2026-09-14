@@ -168,7 +168,7 @@ const TelasShowcaseArc = ({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
-          once: true,
+          toggleActions: "play reverse play reverse",
         },
       });
       gsap.from(".ARC-TEXT > *", {
@@ -181,7 +181,7 @@ const TelasShowcaseArc = ({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
-          once: true,
+          toggleActions: "play reverse play reverse",
         },
       });
     },

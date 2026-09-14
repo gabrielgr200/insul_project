@@ -36,8 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# large local-only video assets (not tracked in the repo)
+# large local-only media assets (not tracked in the repo)
 /public/videos
+/public/images
 
 # typescript
 *.tsbuildinfo

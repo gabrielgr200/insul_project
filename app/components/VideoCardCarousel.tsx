@@ -79,7 +79,9 @@ const VideoCardCarousel = ({
           return (
             <motion.div
               key={card.src}
-              className="group absolute h-72 w-52 overflow-hidden rounded-3xl bg-zinc-900 shadow-2xl sm:h-96 sm:w-64"
+              className={`group absolute h-72 w-52 overflow-hidden rounded-3xl bg-zinc-900 shadow-2xl sm:h-96 sm:w-64 ${
+                isActive ? "" : "cursor-pointer"
+              }`}
               style={{ zIndex: 10 - absOffset }}
               animate={{
                 x: offset * OFFSET_STEP,
@@ -122,7 +124,7 @@ const VideoCardCarousel = ({
                       ? dict.videoCardCarousel.unmuteAria
                       : dict.videoCardCarousel.muteAria
                   }
-                  className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
+                  className="absolute top-3 right-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
                 >
                   {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
                 </button>
@@ -132,7 +134,7 @@ const VideoCardCarousel = ({
                     <Maximize2 size={12} />
                   </span>
                   <span
-                    className="flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white"
+                    className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md bg-black/50 text-white"
                     onClick={(e) => {
                       e.stopPropagation();
                       goTo(index);

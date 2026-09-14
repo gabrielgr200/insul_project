@@ -21,9 +21,9 @@ import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
 import { productCategories, soldadasHexagonais, gradilModels } from "../assets/data";
-import { ThemeTogglerButton } from "@/components/animate-ui/components/effects/theme-toggler";
 import FillButton from "./FillButton";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 import { useTranslation } from "./LanguageProvider";
 
 const contatoItems = [
@@ -69,7 +69,7 @@ const MobileMenuItem = ({
     </>
   );
   const className =
-    "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 dark:text-zinc-200 transition-colors hover:bg-zinc-100 dark:hover:bg-white/10";
+    "flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 dark:text-zinc-200 transition-colors hover:bg-zinc-100 dark:hover:bg-white/10";
 
   if (href) {
     return (
@@ -97,7 +97,18 @@ const Header = () => {
   const [activeId, setActiveId] = useState("inicio");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("main");
+  const [scrolledPastThreshold, setScrolledPastThreshold] = useState(false);
+  const [compactSectionInView, setCompactSectionInView] = useState(false);
+  const [gradilHeroCompact, setGradilHeroCompact] = useState(false);
   const pathname = usePathname();
+  // Na página /gradil, o parallax da casa + zoom do card da indústria fica
+  // pinado numa única seção enorme: o scrollY sobe rápido logo no começo,
+  // então o gatilho normal de 60px deixaria o navbar compacto cedo demais.
+  // Ali o estado compacto vem só do evento disparado após aquele zoom.
+  const scrolled =
+    pathname === "/gradil"
+      ? gradilHeroCompact
+      : scrolledPastThreshold || compactSectionInView;
   const router = useRouter();
   const beginPageTransition = useBeginPageTransition();
   const isHome = pathname === "/";
@@ -121,6 +132,41 @@ const Header = () => {
   useEffect(() => {
     markSiteLoaded();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolledPastThreshold(window.scrollY > 60);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const targets = document.querySelectorAll("[data-compact-navbar]");
+    if (!targets.length) {
+      setCompactSectionInView(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setCompactSectionInView(entry.isIntersecting));
+      },
+      { threshold: 0 },
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  useEffect(() => {
+    setGradilHeroCompact(false);
+    const handleGradilHeroCompact = (e: Event) => {
+      setGradilHeroCompact((e as CustomEvent<boolean>).detail);
+    };
+    window.addEventListener("gradil-hero-compact", handleGradilHeroCompact);
+    return () =>
+      window.removeEventListener("gradil-hero-compact", handleGradilHeroCompact);
+  }, [pathname]);
 
   const goHome = () => {
     if (isHome) {
@@ -261,20 +307,58 @@ const Header = () => {
     return () => observer.disconnect();
   }, [isHome]);
 
+  const megaMenuTop = scrolled ? 82 : 100;
+
   return (
-    <header className="fixed border-b border-b-zinc-300 dark:border-b-zinc-700 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-lg min-w-full py-6 lg:py-7 px-4 sm:px-8 max-w-7xl overflow-x-clip z-99">
-      <div className="w-full flex items-center justify-between">
-        <Link href="/" className="shrink-0">
-          <img
-            src="/images/logos.png"
-            alt="Insul"
-            className="h-20 w-auto max-[453px]:h-14"
-          />
+    <header
+      className={`fixed inset-x-0 top-0 z-[150] flex justify-center overflow-x-clip transition-[padding] duration-300 ease-out ${
+        scrolled ? "px-4 pt-3" : "px-0 pt-0"
+      }`}
+    >
+      <div
+        className={`flex w-full items-center justify-between border-b border-b-zinc-300 bg-white/50 backdrop-blur-lg transition-all duration-300 ease-out dark:border-b-zinc-700 dark:bg-zinc-950/50 ${
+          scrolled
+            ? "max-w-4xl rounded-full border border-zinc-300 !border-b-zinc-300 bg-white/80 px-5 py-2.5 shadow-lg shadow-black/5 dark:border-zinc-700 dark:!border-b-zinc-700 dark:bg-zinc-950/80"
+            : "max-w-none px-4 py-6 sm:px-8 lg:py-7"
+        }`}
+      >
+        <Link href="/" className="relative shrink-0">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {scrolled ? (
+              <motion.img
+                key="icon"
+                src="/images/loaderLogoAzulInsul.png"
+                alt="Insul"
+                initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="h-11 w-11 cursor-pointer"
+              />
+            ) : (
+              <motion.img
+                key="full"
+                src="/images/logos.png"
+                alt="Insul"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="h-20 w-auto max-[453px]:h-14"
+              />
+            )}
+          </AnimatePresence>
         </Link>
-        <nav className="hidden min-[1244px]:flex items-center text-xs space-x-4 2xl:space-x-8">
+        <nav
+          className={`hidden min-[1244px]:flex items-center text-xs transition-all duration-300 ease-out ${
+            scrolled ? "space-x-1.5 2xl:space-x-3" : "space-x-4 2xl:space-x-8"
+          }`}
+        >
           <NavBtn
             active={isHome && activeId === "inicio"}
             onClick={goHome}
+            compact={scrolled}
           >
             {t("nav.inicio")}
           </NavBtn>
@@ -286,12 +370,15 @@ const Header = () => {
             active={activeId === "produtos"}
             onNavigate={handleNavigate}
             onLabelClick={() => goToSection("produtos")}
+            megaMenuTop={megaMenuTop}
+            compact={scrolled}
           />
           <NavBtn
             to="catalogo"
             active={activeId === "catalogo"}
             onNavigate={handleNavigate}
             onClick={() => goToSection("catalogo")}
+            compact={scrolled}
           >
             {t("nav.catalogo")}
           </NavBtn>
@@ -300,6 +387,7 @@ const Header = () => {
             active={activeId === "industria"}
             onNavigate={handleNavigate}
             onClick={() => goToSection("industria")}
+            compact={scrolled}
           >
             {t("nav.industria")}
           </NavBtn>
@@ -309,24 +397,31 @@ const Header = () => {
             items={contatoItems}
             active={activeId === "contato"}
             onNavigate={handleNavigate}
+            megaMenuTop={megaMenuTop}
+            compact={scrolled}
           />
           <FillButton
             href="https://www.casadascercas.com.br"
             target="_blank"
             rel="noreferrer"
-            className="whitespace-nowrap bg-[#ff5500] text-white text-sm py-4 px-4
-            2xl:px-6 rounded-full cursor-pointer ml-2 2xl:ml-4 border border-[#FF6A1A]"
+            className={`whitespace-nowrap bg-[#ff5500] text-white rounded-full cursor-pointer border border-[#FF6A1A] transition-all duration-300 ease-out ${
+              scrolled
+                ? "text-sm py-2.5 px-3.5 ml-1 2xl:ml-2"
+                : "text-sm py-4 px-4 2xl:px-6 ml-2 2xl:ml-4"
+            }`}
             overlayClassName="bg-white dark:bg-background text-[#ff5500]"
           >
-            <ShoppingBag size={16} />
+            <ShoppingBag size={scrolled ? 15 : 16} />
             <span>{t("nav.lojaVirtual")}</span>
           </FillButton>
-          <LanguageSwitcher />
-          <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
+          <div className={`flex items-center gap-2 transition-all duration-300 ease-out ${scrolled ? "ml-1" : ""}`}>
+            <LanguageSwitcher compact={scrolled} />
+            <ThemeSwitcher />
+          </div>
         </nav>
         <div className="min-[1244px]:hidden flex items-center gap-3">
           <LanguageSwitcher />
-          <ThemeTogglerButton variant="glass" size="sm" modes={["light", "dark"]} />
+          <ThemeSwitcher />
           <div className="relative">
             <button
               type="button"
@@ -338,7 +433,7 @@ const Header = () => {
                     ? t("aria.voltar")
                     : t("aria.fecharMenu")
               }
-              className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#ff5500] text-[#002d4d] dark:text-white"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-[#ff5500] text-[#002d4d] dark:text-white"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {!mobileOpen ? (

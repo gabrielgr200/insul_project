@@ -19,6 +19,23 @@ const GradilProcess = () => {
 
   useGSAP(
     () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power1.out" },
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+
+      tl.from(".INDUSTRY-LABEL", { y: 20, opacity: 0, duration: 0.5 })
+        .from(
+          ".INDUSTRY-TITLE",
+          { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
+          "-=0.2",
+        )
+        .from(".GRADIL-PROCESS-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3");
+
       const cells = rowRef.current
         ? (Array.from(rowRef.current.children) as HTMLElement[])
         : [];
@@ -28,7 +45,11 @@ const GradilProcess = () => {
         duration: 0.7,
         stagger: 0.12,
         ease: "power3.out",
-        scrollTrigger: { trigger: rootRef.current, start: "top 78%" },
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top 78%",
+          toggleActions: "play reverse play reverse",
+        },
       });
     },
     { scope: rootRef },
@@ -61,7 +82,7 @@ const GradilProcess = () => {
             {p.title}
           </h2>
         </div>
-        <p className="poppins mx-auto mt-4 max-w-2xl text-[#002d4d] dark:text-zinc-400 sm:mx-0 lg:text-[18px]">
+        <p className="GRADIL-PROCESS-TEXT poppins mx-auto mt-4 max-w-2xl text-[#002d4d] dark:text-zinc-400 sm:mx-0 lg:text-[18px]">
           {p.capacityLead}
           <span className="font-bold text-[#ff5500] dark:text-white">
             {p.capacityM2}

@@ -10,6 +10,14 @@
 
 @import "shadcn/tailwind.css";
 
+@theme {
+    --animate-torcao-float: torcao-float 6s ease-in-out infinite;
+
+    @keyframes torcao-float {
+        50% { translate: 0 -12px; }
+    }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @variant dark (&:where(.dark, .dark *));
@@ -22,6 +30,19 @@
 .impact {
     font-family: "impact01", sans-serif !important;
 }
+
+/* .new-black {
+    font-family: var(--font-new-black), sans-serif;
+}
+
+.bomstad {
+    font-family: var(--font-bomstad), sans-serif;
+}
+
+.DarkerGrotesque {
+    font-family: var(--font-Darker_Grotesque), sans-serif;
+} */
+
 .poppins {
     font-family: var(--font-poppins), "Poppins", sans-serif !important;
 }

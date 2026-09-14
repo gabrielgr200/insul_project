@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const COLORS = [
   { ral: "RAL 9005", name: "Preto", hex: "#0d0d0f", file: "PRETO" },
@@ -25,6 +30,27 @@ const GradilColors = () => {
   const [selected, setSelected] = useState(0);
   const [animId, setAnimId] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power1.out" },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+
+      tl.from(".INDUSTRY-LABEL", { y: 20, opacity: 0, duration: 0.5 }).from(
+        ".INDUSTRY-TITLE",
+        { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
+        "-=0.2",
+      );
+    },
+    { scope: sectionRef },
+  );
 
   const pickColor = (i: number) => {
     if (i === selected) return;
@@ -60,7 +86,10 @@ const GradilColors = () => {
   }, []);
 
   return (
-    <section className="overflow-hidden bg-white px-6 pb-24 pt-0 dark:bg-zinc-950">
+    <section
+      ref={sectionRef}
+      className="overflow-hidden bg-white px-6 pb-24 pt-0 dark:bg-zinc-950"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 py-20 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
           {gc.label}
@@ -85,7 +114,7 @@ const GradilColors = () => {
               type="button"
               onClick={() => swapTo(i)}
               aria-label={`Mostrar texto ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-500 ease-out ${
+              className={`h-2 cursor-pointer rounded-full transition-all duration-500 ease-out ${
                 i === index
                   ? "w-6 bg-[#ff5500]"
                   : "w-2 bg-[#002d4d]/20 hover:bg-[#002d4d]/40 dark:bg-white/20 dark:hover:bg-white/40"
@@ -104,7 +133,7 @@ const GradilColors = () => {
                 key={color.ral}
                 type="button"
                 onClick={() => pickColor(i)}
-                className={`group flex items-center gap-3 rounded-full border px-4 py-2.5 transition-all duration-300 ${
+                className={`group flex cursor-pointer items-center gap-3 rounded-full border px-4 py-2.5 transition-all duration-300 ${
                   isActive
                     ? "border-[#ff5500] bg-[#ff5500]/10"
                     : "border-transparent bg-black/[0.03] hover:bg-black/[0.06] dark:bg-white/5 dark:hover:bg-white/10"

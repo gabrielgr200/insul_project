@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   animate,
   motion,
@@ -8,7 +8,12 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Layer = {
   src: string;
@@ -148,6 +153,29 @@ const CoatingGradil = () => {
   const c = dict.gradil.coating;
   const [step, setStep] = useState(0);
   const progress = useMotionValue(stepProgress(0));
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power1.out" },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play reverse play reverse",
+        },
+      });
+
+      tl.from(".INDUSTRY-LABEL", { y: 20, opacity: 0, duration: 0.5 })
+        .from(
+          ".INDUSTRY-TITLE",
+          { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
+          "-=0.2",
+        )
+        .from(".INDUSTRY-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3");
+    },
+    { scope: sectionRef },
+  );
 
   const goTo = (k: number) => {
     const next = Math.min(N - 1, Math.max(0, k));
@@ -161,7 +189,10 @@ const CoatingGradil = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white py-14 dark:bg-zinc-950">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-white py-14 dark:bg-zinc-950"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins py-3">
           {c.label}

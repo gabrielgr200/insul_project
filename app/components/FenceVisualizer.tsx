@@ -212,7 +212,7 @@ const FenceVisualizer = ({
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="poppins inline-flex items-center gap-2 rounded-full border border-[#002d4d]/15 px-4 py-2 text-xs font-bold text-[#002d4d] hover:border-[#ff5500] hover:text-[#ff5500] dark:text-white dark:border-white/15 transition-colors"
+                  className="poppins inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#002d4d]/15 px-4 py-2 text-xs font-bold text-[#002d4d] hover:border-[#ff5500] hover:text-[#ff5500] dark:text-white dark:border-white/15 transition-colors"
                 >
                   <RefreshCw size={14} />
                   Trocar foto
@@ -222,7 +222,7 @@ const FenceVisualizer = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="poppins flex w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#002d4d]/20 py-10 text-center text-[#002d4d]/70 hover:border-[#ff5500] hover:text-[#ff5500] dark:border-white/20 dark:text-white/70 transition-colors"
+                className="poppins flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#002d4d]/20 py-10 text-center text-[#002d4d]/70 hover:border-[#ff5500] hover:text-[#ff5500] dark:border-white/20 dark:text-white/70 transition-colors"
               >
                 <ImageUp size={28} />
                 <span className="text-sm font-semibold">
@@ -244,7 +244,7 @@ const FenceVisualizer = ({
                     key={cat}
                     type="button"
                     onClick={() => setCategoryFilter(cat)}
-                    className={`poppins rounded-full px-3 py-1 text-xs font-bold transition-colors ${
+                    className={`poppins cursor-pointer rounded-full px-3 py-1 text-xs font-bold transition-colors ${
                       categoryFilter === cat
                         ? "bg-[#ff5500] text-white"
                         : "bg-[#002d4d]/5 text-[#002d4d]/70 dark:bg-white/10 dark:text-white/70"
@@ -262,7 +262,7 @@ const FenceVisualizer = ({
                   type="button"
                   onClick={() => setSelectedTela(tela)}
                   title={tela.name}
-                  className={`group flex flex-col items-center gap-1.5 rounded-xl p-1.5 transition-colors ${
+                  className={`group flex cursor-pointer flex-col items-center gap-1.5 rounded-xl p-1.5 transition-colors ${
                     selectedTela?.slug === tela.slug
                       ? "bg-[#ff5500]/10 ring-2 ring-[#ff5500]"
                       : "ring-1 ring-[#002d4d]/10 dark:ring-white/10 hover:ring-[#ff5500]/50"

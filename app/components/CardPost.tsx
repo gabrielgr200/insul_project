@@ -121,7 +121,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
               type="button"
               onClick={() => togglePlay(i)}
               aria-label={playing[i] ? "Pausar vídeo" : "Reproduzir vídeo"}
-              className="absolute left-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white text-black shadow"
+              className="absolute left-2 top-2 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow"
             >
               {playing[i] ? (
                 <Pause size={13} fill="black" />
@@ -135,7 +135,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
                 type="button"
                 onClick={() => replay(i)}
                 aria-label="Reiniciar vídeo"
-                className="flex h-5 w-5 items-center justify-center text-white"
+                className="flex h-5 w-5 cursor-pointer items-center justify-center text-white"
               >
                 <RotateCw size={13} />
               </button>
@@ -143,7 +143,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
                 type="button"
                 onClick={() => skipToNext(i)}
                 aria-label="Próximo vídeo"
-                className="flex h-5 w-5 items-center justify-center text-white"
+                className="flex h-5 w-5 cursor-pointer items-center justify-center text-white"
               >
                 <SkipForward size={13} />
               </button>
@@ -153,7 +153,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
               type="button"
               onClick={() => toggleMute(i)}
               aria-label={muted[i] ? "Ativar som" : "Silenciar vídeo"}
-              className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white text-black shadow"
+              className="absolute right-2 top-2 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow"
             >
               {muted[i] ? <VolumeX size={13} /> : <Volume2 size={13} />}
             </button>

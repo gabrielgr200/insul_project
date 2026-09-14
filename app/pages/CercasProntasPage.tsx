@@ -21,6 +21,7 @@ import BentoGallery from "../components/BentoGallery";
 import FenceVisualizer, {
   type FenceVisualizerItem,
 } from "../components/FenceVisualizer";
+import ScrollReveal from "../components/ScrollReveal";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
   fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
@@ -175,18 +176,19 @@ const CercasProntasPage = () => {
                 </>
               }
             />
-            <BentoGallery
-              images={[
+            <ScrollReveal>
+              <BentoGallery
+                images={[
                 {
-                  src: "images/imgs-showcase/img-gallery-1.png",
+                  src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-gallery-1.png",
                   alt: "Cercas prontas Insul",
                 },
                 {
-                  src: "/videos/videos-gallery/gallery-1.mp4",
+                  src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/gallery-1.mp4",
                   alt: "Cerca Fênix Insul",
                 },
                 {
-                  src: "/videos/videos-gallery/gallery-2.mp4",
+                  src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/gallery-2.mp4",
                   alt: "Cerca Campeira Insul",
                 },
                 {
@@ -202,26 +204,29 @@ const CercasProntasPage = () => {
                   alt: "Cerca Campeira Insul",
                 },
               ]}
-            />
+              />
+            </ScrollReveal>
 
-            <div className="mt-16 grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            <ScrollReveal className="mt-16 grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {cercasProntasCardsPages.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
-            </div>
+            </ScrollReveal>
 
-            <FenceVisualizer
-              items={fenceVisualizerItems}
-              categories={["Todas"]}
-              heading="Veja a cerca no seu terreno"
-              description="Envie uma foto do seu terreno, escolha o modelo de cerca e visualize como fica antes e depois da instalação."
-              stepTwoLabel="2. Modelo de cerca"
-              simulationLabel={(name) => (
-                <>Simulação ilustrativa com a {name} — arraste o círculo para comparar.</>
-              )}
-            />
+            <ScrollReveal>
+              <FenceVisualizer
+                items={fenceVisualizerItems}
+                categories={["Todas"]}
+                heading="Veja a cerca no seu terreno"
+                description="Envie uma foto do seu terreno, escolha o modelo de cerca e visualize como fica antes e depois da instalação."
+                stepTwoLabel="2. Modelo de cerca"
+                simulationLabel={(name) => (
+                  <>Simulação ilustrativa com a {name} — arraste o círculo para comparar.</>
+                )}
+              />
+            </ScrollReveal>
 
-            <div className="mt-16">
+            <ScrollReveal className="mt-16">
               <CardPost
                 title={dict.cercasProntasPage.cardPostTitle}
                 description={
@@ -234,7 +239,7 @@ const CercasProntasPage = () => {
                 }
                 reels={cercasProntasReels}
               />
-            </div>
+            </ScrollReveal>
           </main>
 
           <Footer />

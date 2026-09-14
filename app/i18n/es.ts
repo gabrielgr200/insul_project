@@ -15,6 +15,11 @@ const es: Dictionary = {
     voltar: "Volver",
     fecharMenu: "Cerrar menú",
     idioma: "Seleccionar idioma",
+    tema: "Seleccionar tema",
+  },
+  tema: {
+    claro: "Claro",
+    escuro: "Oscuro",
   },
   hero: {
     firme: "FIRME",
@@ -259,6 +264,18 @@ const es: Dictionary = {
       },
       {
         keywords: [
+          "precio",
+          "valor",
+          "presupuesto",
+          "cuánto cuesta",
+          "cuanto cuesta",
+          "costo",
+        ],
+        reply:
+          "Los valores varían según el modelo y la cantidad. Para ver precios y hacer tu pedido, entra en nuestra tienda virtual en casadascercas.com.br o escríbenos al WhatsApp (51) 99509-8453.",
+      },
+      {
+        keywords: [
           "cerca",
           "producto",
           "fenix",
@@ -270,18 +287,6 @@ const es: Dictionary = {
         ],
         reply:
           "Tenemos varias líneas de cercas, como la Fênix y la Campeira, con opciones para distintos tipos de propiedad. Echa un vistazo a la sección de productos en esta página o cuéntame qué necesitas y te recomiendo el modelo adecuado.",
-      },
-      {
-        keywords: [
-          "precio",
-          "valor",
-          "presupuesto",
-          "cuánto cuesta",
-          "cuanto cuesta",
-          "costo",
-        ],
-        reply:
-          "Los valores varían según el modelo y la cantidad. Para ver precios y hacer tu pedido, entra en nuestra tienda virtual en casadascercas.com.br o llámanos al (51) 3723-1519.",
       },
       {
         keywords: [

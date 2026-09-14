@@ -262,7 +262,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
               type="button"
               onClick={toggleFullscreen}
               aria-label="Tela cheia"
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
+              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
             >
               <Maximize2 size={12} />
             </button>
@@ -270,7 +270,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
               type="button"
               onClick={skipForward}
               aria-label="Avançar 10 segundos"
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
+              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
             >
               <SkipForward size={12} />
             </button>
@@ -286,7 +286,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
               type="button"
               onClick={togglePlay}
               aria-label={isPlaying ? "Pausar" : "Reproduzir"}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
+              className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
             >
               {isPlaying ? <Pause size={12} /> : <Play size={12} />}
             </button>
@@ -294,7 +294,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
               type="button"
               onClick={toggleMute}
               aria-label={isMuted ? "Ativar som" : "Silenciar"}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
+              className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
             >
               {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
             </button>

@@ -15,6 +15,11 @@ const en: Dictionary = {
     voltar: "Back",
     fecharMenu: "Close menu",
     idioma: "Select language",
+    tema: "Select theme",
+  },
+  tema: {
+    claro: "Light",
+    escuro: "Dark",
   },
   hero: {
     firme: "STRONG",
@@ -251,6 +256,11 @@ const en: Dictionary = {
           "The Railing (Gradil) is a modular welded steel panel (available in G4, G5 and G12 models), fixed with ratchets on posts — quick installation and great strength. Ideal for industries, condominiums and commercial areas.",
       },
       {
+        keywords: ["price", "cost", "value", "quote", "how much"],
+        reply:
+          "Prices vary depending on the model and quantity. To check prices and place an order, visit our online store at casadascercas.com.br or message us on WhatsApp at (51) 99509-8453.",
+      },
+      {
         keywords: [
           "fence",
           "product",
@@ -263,11 +273,6 @@ const en: Dictionary = {
         ],
         reply:
           "We have several fence lines, such as the Fênix and the Campeira, with options for different types of property. Take a look at the products section on this page or tell me what you need and I'll recommend the right model.",
-      },
-      {
-        keywords: ["price", "cost", "value", "quote", "how much"],
-        reply:
-          "Prices vary depending on the model and quantity. To check prices and place an order, visit our online store at casadascercas.com.br or call us at (51) 3723-1519.",
       },
       {
         keywords: [

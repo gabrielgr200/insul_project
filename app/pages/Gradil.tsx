@@ -17,6 +17,7 @@ import CoatingGradil from "../components/CoatingGradil";
 import GuaranteeGradil from "../components/GuaranteeGradil";
 import Pipes from "../components/Pipes";
 import OtherProducts from "../components/OtherProducts";
+import ScrollReveal from "../components/ScrollReveal";
 import { useTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -46,6 +47,8 @@ const MOTION_REDUCED = [
   { yFrom: 42, yTo: 0, xFrom: -40, xTo: 0, scaleBase: 1.06, scaleTo: 1.1 },
   { yFrom: 42, yTo: 0, xFrom: 40, xTo: 0, scaleBase: 1.06, scaleTo: 1.1 },
 ];
+
+const COMPACT_NAVBAR_AT = 8.3;
 
 const Gradil = () => {
   const { dict } = useTranslation();
@@ -103,6 +106,9 @@ const Gradil = () => {
         });
       });
 
+      let tlRef: gsap.core.Timeline | null = null;
+      let navbarCompact = false;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -111,8 +117,20 @@ const Gradil = () => {
           scrub: 3,
           pin: true,
           anticipatePin: 1,
+          onUpdate: (self) => {
+            if (!tlRef) return;
+            const currentTime = self.progress * tlRef.duration();
+            const shouldCompact = currentTime >= COMPACT_NAVBAR_AT;
+            if (shouldCompact !== navbarCompact) {
+              navbarCompact = shouldCompact;
+              window.dispatchEvent(
+                new CustomEvent("gradil-hero-compact", { detail: shouldCompact }),
+              );
+            }
+          },
         },
       });
+      tlRef = tl;
 
       layers.forEach((el, i) => {
         tl.to(
@@ -267,6 +285,9 @@ const Gradil = () => {
       clearTimeout(refreshTimeout);
       resizeObserver.disconnect();
       smoother && smoother.kill();
+      window.dispatchEvent(
+        new CustomEvent("gradil-hero-compact", { detail: false }),
+      );
     };
   }, []);
 
@@ -458,30 +479,34 @@ const Gradil = () => {
                 className="mx-auto max-w-6xl text-center text-3xl leading-snug sm:text-4xl lg:text-4xl lg:leading-tight"
               />
 
-              <div className="-mx-6 mt-24 sm:mt-32">
+              <ScrollReveal className="-mx-6 mt-24 sm:mt-32">
                 <ImgCarousel images={gradilGallery} />
-              </div>
+              </ScrollReveal>
             </section>
 
             <GradilProcess />
 
             <div className="mt-24 sm:mt-32">
               <GradilColors />
-              <ProductsCardGradil />
+              <ScrollReveal>
+                <ProductsCardGradil />
+              </ScrollReveal>
             </div>
 
             <div className="mt-24 sm:mt-32">
               <CoatingGradil />
-              <div className="pb-24">
+              <ScrollReveal className="pb-24">
                 <GuaranteeGradil />
-              </div>
+              </ScrollReveal>
             </div>
 
-            <div className="sm:mt-32">
+            <ScrollReveal className="sm:mt-32">
               <Pipes />
-            </div>
+            </ScrollReveal>
 
-            <OtherProducts />
+            <ScrollReveal>
+              <OtherProducts />
+            </ScrollReveal>
           </main>
           <Footer />
         </div>

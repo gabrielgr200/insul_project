@@ -75,7 +75,7 @@ const Hero = ({ ready = true }) => {
         >
           <video
             src="/videos/banner-site.mp4"
-            className="block h-auto w-full object-cover"
+            className="block h-auto w-full object-cover transform-gpu"
             autoPlay
             muted
             loop

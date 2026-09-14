@@ -13,6 +13,7 @@ import VideoCard3D from "../components/VideoCard3D";
 import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
+import ScrollReveal from "../components/ScrollReveal";
 import { cercasProntas } from "../assets/data";
 import { useTranslation } from "../components/LanguageProvider";
 import { localizeCerca } from "../utils/localizeCerca";
@@ -71,26 +72,36 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
       <Header />
 
       <main className="space-y-24 pb-20 pt-30">
-        <div className="mb-0">
+        <ScrollReveal className="mb-0">
           <CercaHeroDetails
             name={cerca.name}
             badge={cerca.title}
             videoSrc={cerca.videoSrc || FALLBACK_CERCA.videoSrc}
             features={cerca.features}
           />
-        </div>
-        <ExpandableCardExample color={cerca.color} />
-        <ImgCarousel images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ExpandableCardExample color={cerca.color} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <ImgCarousel images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
+        </ScrollReveal>
         <BlurRevealText
           text={cerca.paragraphs}
           className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
         />
-        <VideoCardCarousel
-          cards={cerca.videoCards.length > 0 ? cerca.videoCards : FALLBACK_CERCA.videoCards}
-          fenceName={cerca.name}
-        />
-        <VideoCard3D videoSrc={cerca.video3D || FALLBACK_CERCA.video3D} />
-        <SimilarProducts products={similarCercas} />
+        <ScrollReveal>
+          <VideoCardCarousel
+            cards={cerca.videoCards.length > 0 ? cerca.videoCards : FALLBACK_CERCA.videoCards}
+            fenceName={cerca.name}
+          />
+        </ScrollReveal>
+        <ScrollReveal>
+          <VideoCard3D videoSrc={cerca.video3D || FALLBACK_CERCA.video3D} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <SimilarProducts products={similarCercas} />
+        </ScrollReveal>
       </main>
 
       <Footer />

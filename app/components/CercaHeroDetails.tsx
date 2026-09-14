@@ -326,7 +326,10 @@ const CercaHeroDetails = ({
   const goNext = () => playFeature(((activeIndex ?? 0) + 1) % features.length);
 
   return (
-    <section className="relative h-[100vh] min-h-[480px] max-h-[820px] w-full overflow-hidden bg-zinc-100">
+    <section
+      data-compact-navbar
+      className="relative h-[100vh] min-h-[480px] max-h-[820px] w-full overflow-hidden bg-zinc-100"
+    >
       <video
         ref={videoRef}
         src={videoSrc}
@@ -356,7 +359,7 @@ const CercaHeroDetails = ({
                     type="button"
                     onClick={() => openOption(idx)}
                     aria-label={option.label}
-                    className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+                    className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
                   >
                     <Plus size={16} />
                   </button>
@@ -370,7 +373,7 @@ const CercaHeroDetails = ({
                 type="button"
                 onClick={openCard}
                 aria-label="Mostrar informações"
-                className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+                className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
               >
                 <Plus size={16} />
               </button>
@@ -383,7 +386,7 @@ const CercaHeroDetails = ({
                 type="button"
                 onClick={resumeAtCheckpoint}
                 aria-label="Avançar vídeo"
-                className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
+                className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
               >
                 <ArrowRight size={16} />
               </button>
@@ -444,7 +447,7 @@ const CercaHeroDetails = ({
                 type="button"
                 onClick={resumeAtCheckpoint}
                 aria-label="Avançar vídeo"
-                className="pointer-events-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white/20 text-white transition-transform hover:scale-110 hover:bg-white/30"
+                className="pointer-events-auto flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-white/20 text-white transition-transform hover:scale-110 hover:bg-white/30"
               >
                 <ArrowRight size={16} />
               </button>
@@ -452,7 +455,7 @@ const CercaHeroDetails = ({
                 type="button"
                 onClick={closeCard}
                 aria-label="Fechar"
-                className="pointer-events-auto absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full border border-white/60 bg-black text-white transition-colors hover:bg-white/20"
+                className="pointer-events-auto absolute -top-3 -right-3 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-white/60 bg-black text-white transition-colors hover:bg-white/20"
               >
                 <X size={14} />
               </button>
@@ -479,7 +482,7 @@ const CercaHeroDetails = ({
                   type="button"
                   onClick={goPrev}
                   aria-label="Item anterior"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
+                  className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronUp size={16} />
                 </button>
@@ -487,7 +490,7 @@ const CercaHeroDetails = ({
                   type="button"
                   onClick={goNext}
                   aria-label="Próximo item"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
+                  className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronDown size={16} />
                 </button>
@@ -502,7 +505,7 @@ const CercaHeroDetails = ({
                       <button
                         type="button"
                         onClick={() => playFeature(i)}
-                        className={`rounded-2xl px-4 py-3 text-left transition-colors ${
+                        className={`cursor-pointer rounded-2xl px-4 py-3 text-left transition-colors ${
                           active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
                         }`}
                       >
@@ -533,7 +536,7 @@ const CercaHeroDetails = ({
                                 stopMalhaHoverCycle();
                               }}
                               aria-label="Avançar vídeo"
-                              className="relative flex h-10 w-full items-center justify-between gap-2 rounded-full bg-transparent pl-5 pr-2 text-xs font-semibold text-[#002d4d]"
+                              className="relative flex h-10 w-full cursor-pointer items-center justify-between gap-2 rounded-full bg-transparent pl-5 pr-2 text-xs font-semibold text-[#002d4d]"
                             >
                               <span className="relative block h-4 flex-1 overflow-hidden text-left">
                                 <AnimatePresence mode="wait" initial={false}>
