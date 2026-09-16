@@ -1012,29 +1012,29 @@ interface UseCategory {
 }
 
 const USE_CATEGORIES: UseCategory[] = [
-  { key: "praia", label: "Praia", icon: "/images/soldadas-icos/praia.png" },
-  { key: "casa", label: "Casa", icon: "/images/soldadas-icos/casa.png" },
-  { key: "terreno", label: "Terreno", icon: "/images/soldadas-icos/terreno.png" },
+  { key: "praia", label: "Praia", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/praia.png" },
+  { key: "casa", label: "Casa", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/casa.png" },
+  { key: "terreno", label: "Terreno", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/terreno.png" },
   {
     key: "industria",
     label: "Indústria",
-    icon: "/images/soldadas-icos/industria.png",
+    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/industria.png",
   },
   {
     key: "construcao",
     label: "Construção",
-    icon: "/images/soldadas-icos/construcao.png",
+    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/construcao.png",
   },
   {
     key: "quadraEsportiva",
     label: "Quadra esportiva",
-    icon: "/images/soldadas-icos/quadra-esportiva.png",
+    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/quadra-esportiva.png",
   },
-  { key: "horta", label: "Horta", icon: "/images/soldadas-icos/horta.png" },
+  { key: "horta", label: "Horta", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/horta.png" },
   {
     key: "caoMedioPequeno",
     label: "Cão médio/pequeno",
-    icon: "/images/soldadas-icos/cao-medio-pequeno.png",
+    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/cao-medio-pequeno.png",
   },
 ];
 
@@ -1722,8 +1722,8 @@ const SoldadaHexagonalCarousel = ({
                   onClick={() => goTo(i)}
                   aria-label={`Ir para ${s.name}`}
                   className={`h-2.5 w-16 shrink-0 cursor-pointer rounded-full transition-all duration-200 sm:w-20 ${i === index
-                      ? "bg-[#002d4d] dark:bg-white"
-                      : "bg-[#002d4d]/20 hover:bg-[#002d4d]/40 dark:bg-white/20 dark:hover:bg-white/40"
+                    ? "bg-[#002d4d] dark:bg-white"
+                    : "bg-[#002d4d]/20 hover:bg-[#002d4d]/40 dark:bg-white/20 dark:hover:bg-white/40"
                     }`}
                 />
               ))}
