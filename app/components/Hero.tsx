@@ -74,8 +74,10 @@ const Hero = ({ ready = true }) => {
           className="relative left-1/2 right-1/2 z-10 mb-8 block w-screen max-w-none -mx-[50vw]"
         >
           <video
-            src="/videos/banner-site.mp4"
-            className="block h-auto w-full object-cover transform-gpu"
+            src="https://d2c3kthzw0ta10.cloudfront.net/banner-site.mp4"
+            width={2860}
+            height={142}
+            className="block aspect-[2860/142] h-auto w-full object-cover transform-gpu"
             autoPlay
             muted
             loop
