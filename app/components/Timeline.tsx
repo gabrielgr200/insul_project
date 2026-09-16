@@ -83,9 +83,8 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className={`group w-[85%] overflow-hidden rounded-2xl border px-8 py-7 ${cardClasses} ${
-                i % 2 === 0 ? "mr-auto" : "ml-auto"
-              } ${i === items.length - 1 ? "" : "mb-24"}`}
+              className={`group w-[85%] overflow-hidden rounded-2xl border px-8 py-7 ${cardClasses} ${i % 2 === 0 ? "mr-auto" : "ml-auto"
+                } ${i === items.length - 1 ? "" : "mb-24"}`}
             >
               <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:mb-4 group-hover:max-h-40 group-hover:opacity-100">
                 <img

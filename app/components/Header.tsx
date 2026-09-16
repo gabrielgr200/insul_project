@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import {
   Menu,
   Minus,
@@ -94,6 +95,8 @@ const MobileMenuItem = ({
 
 const Header = () => {
   const { t } = useTranslation();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [activeId, setActiveId] = useState("inicio");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("main");
@@ -131,6 +134,10 @@ const Header = () => {
 
   useEffect(() => {
     markSiteLoaded();
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -327,7 +334,11 @@ const Header = () => {
             {scrolled ? (
               <motion.img
                 key="icon"
-                src="/images/loaderLogoAzulInsul.png"
+                src={
+                  mounted && resolvedTheme === "dark"
+                    ? "/images/loaderLogoBrancoInsul.png"
+                    : "/images/loaderLogoAzulInsul.png"
+                }
                 alt="Insul"
                 initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}

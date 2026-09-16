@@ -14,9 +14,6 @@ interface ScrollRevealProps {
   start?: string;
 }
 
-// Mesmo padrão de reveal usado na home (Industry, Distribution, Book,
-// Products): mas bidirecional — soma ao entrar rolando pra baixo, some ao
-// saltar do viewport rolando pra cima, e reaparece se o usuário voltar.
 const ScrollReveal = ({
   children,
   className,

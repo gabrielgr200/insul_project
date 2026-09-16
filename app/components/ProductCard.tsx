@@ -160,6 +160,8 @@ const ProductCard = ({
   indicatedFor,
   to,
   hoverImage,
+  imageClassName,
+  imageBoxClassName,
 }: ProductCardData) => {
   const { dict } = useTranslation();
   const hasSidePanel = Boolean(
@@ -367,7 +369,7 @@ const ProductCard = ({
   return (
     <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 cursor-pointer dark:bg-white/5 dark:ring-white/10">
       <div
-        className="group relative h-56 overflow-hidden bg-[#f5f5f5] dark:bg-white/5 sm:h-64"
+        className={`group relative overflow-hidden bg-[#f5f5f5] dark:bg-white/5 ${imageBoxClassName ?? "h-56 sm:h-64"}`}
         onMouseEnter={handleInfoPanelEnter}
         onClick={toggleInfoPanel}
       >
@@ -383,7 +385,7 @@ const ProductCard = ({
           <img
             src={src}
             alt={name}
-            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
+            className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${
               hoverImage
                 ? panelOpen
                   ? "opacity-0"

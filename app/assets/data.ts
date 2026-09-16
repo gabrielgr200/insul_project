@@ -10,6 +10,8 @@ export interface ProductCardData {
   indicatedFor?: SoldadaIndicatedUse[];
   to?: string;
   hoverImage?: string;
+  imageClassName?: string;
+  imageBoxClassName?: string;
 }
 
 export interface GalleryImage {
@@ -2178,6 +2180,135 @@ const soldadasHexagonaisCardsPages: ProductCardData[] = soldadasHexagonais.map(
     to: `/soldadas-hexagonais/${item.slug}`,
   }),
 );
+
+// ============================================================================
+// Arames galvanizados e PVC
+// ============================================================================
+
+const arameIndicatedFor = [
+  {
+    name: "Quadras, escolas, indústrias e estacionamentos",
+    src: "/images/icos-torção-galvanizado/esportivo.png",
+  },
+  {
+    name: "Divisões de pastos, plantações e jardins",
+    src: "/images/icos-torção-galvanizado/jardins.png",
+  },
+  {
+    name: "Terrenos urbanos e rurais com relevo",
+    src: "/images/icos-torção-galvanizado/terreno-relevo.png",
+  },
+];
+
+export const arameCards: ProductCardData[] = [
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/arames/imgs-arames-products/arame-BWG-10.png",
+    title: "Arame Galvanizado",
+    name: "BWG 10",
+    paragraph: "Fio 10, Galvanizado a fogo, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Encorpado e resistente, indicado para cercamentos e fixações que exigem maior firmeza, com proteção contra corrosão.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 10. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  }, //BWG10
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/arames/imgs-arames-products/arame-BWG-12.png",
+    title: "Arame Galvanizado",
+    name: "BWG 12",
+    paragraph: "Fio 12, Galvanizado a fogo, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Combina resistência e versatilidade para cercas, amarrações e aplicações gerais, com acabamento galvanizado.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 12. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG12
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/arames/imgs-arames-products/arame-BWG-14.png",
+    title: "Arame Galvanizado",
+    name: "BWG 14",
+    paragraph: "Fio 14, Galvanizado a fogo, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Prático e versátil, oferece equilíbrio entre firmeza e facilidade de manuseio para amarrações e fixações.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 14. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG14
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/arames/imgs-arames-products/arame-BWG-16.png",
+    title: "Arame Galvanizado",
+    name: "BWG 16",
+    paragraph: "Fio 16, Galvanizado a fogo, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Fino e fácil de manusear, indicado para amarrações leves e pequenos trabalhos, com proteção galvanizada.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 16. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG16
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/arames/imgs-arames-products/arame-BWG-18.png",
+    title: "Arame Galvanizado",
+    name: "BWG 18",
+    paragraph: "Fio 18, Galvanizado a fogo, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "De espessura fina, facilita trabalhos delicados, artesanato e amarrações leves, com acabamento que ajuda a proteger contra corrosão.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 18. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG18
+];
+
+export const arameCardsPvc: ProductCardData[] = [
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arames-pvc/arame-pvc-12.png",
+    title: "Arame em PVC",
+    name: "BWG 12",
+    paragraph: "Fio 12, Aço galvanizado a fogo, Revestimento em PVC verde, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Resistente e versátil, indicado para cercamentos e fixações, com revestimento em PVC que oferece proteção adicional contra corrosão.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 12 revestido em PVC verde. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG12
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arames-pvc/arame-pvc-14.png",
+    title: "Arame em PVC",
+    name: "BWG 14",
+    paragraph: "Fio 14, Aço galvanizado a fogo, Revestimento em PVC verde, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Equilibra firmeza e facilidade de manuseio para amarrações e cercamentos, com a proteção e o acabamento do PVC.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 14 revestido em PVC verde. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG14
+  {
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-arames-pvc/arame-pvc-16.png",
+    title: "Arame em PVC",
+    name: "BWG 16",
+    paragraph: "Fio 16, Aço galvanizado a fogo, Revestimento em PVC verde, Rolo de 25 kg",
+    postSpacing: "até 4m",
+    animals: [],
+    indicatedFor: arameIndicatedFor,
+    shortDescription:
+      "Fino e fácil de manusear, indicado para amarrações leves e pequenos trabalhos, com revestimento em PVC para maior proteção.",
+    description:
+      "Página de exemplo para o Arame Galvanizado BWG 16 revestido em PVC verde. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
+  },//BWG16
+];
 
 
 const soldadasHexagonaisCarouselSlugs = [

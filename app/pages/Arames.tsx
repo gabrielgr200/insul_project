@@ -13,6 +13,8 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Image from "next/image";
 import ArameCards from "../components/ArameCards";
 import ArameProductsCards from "../components/ArameProductsCards";
+import ArameProductsCardsPvc from "../components/ArameProductsCardsPvc";
+import ArameParallaxPraia from "../components/ArameParallaxPraia";
 import AramesArc from "../components/AramesArc";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -68,7 +70,7 @@ const Wires = () => {
             className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[820px] overflow-hidden sm:h-[1040px]"
           >
             <Image
-              src="/images/ceu-arame.png"
+              src="https://d2c3kthzw0ta10.cloudfront.net/ceu-arame.png"
               alt=""
               fill
               priority
@@ -82,7 +84,7 @@ const Wires = () => {
           >
             <motion.div
               style={{ y: reduceMotion ? 0 : landscapeY }}
-              className="absolute inset-0 bg-[url('/images/fundo-page-arames.png')] bg-[length:100%_auto] bg-bottom bg-no-repeat motion-safe:will-change-transform"
+              className="absolute inset-0 bg-[url('https://d2c3kthzw0ta10.cloudfront.net/fundo-page-arames.png')] bg-[length:100%_auto] bg-bottom bg-no-repeat motion-safe:will-change-transform"
             />
             <motion.div
               style={{ y: reduceMotion ? 0 : blurY }}
@@ -94,7 +96,7 @@ const Wires = () => {
               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,#ffffff80_25%,#ffffff_60%)] dark:bg-[linear-gradient(to_bottom,transparent_0%,#090b0c80_25%,#090b0c_60%)]" />
             </motion.div>
           </div>
-          <main className="poppins mx-auto max-w-7xl px-4 pt-40 pb-20 text-[#002d4d] sm:px-8 sm:pt-48">
+          <main className="poppins mx-auto max-w-7xl px-4 pt-40 pb-20 text-[#002d4d] sm:px-8 sm:pt-48 lg:max-w-6xl">
             <section
               aria-labelledby="arames-title"
               className="relative isolate flex min-h-[660px] flex-col bg-transparent text-center sm:min-h-[850px]"
@@ -115,8 +117,8 @@ const Wires = () => {
                     uma possibilidade.
                   </span>
                 </h1>
-                <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-[#536777] sm:text-base">
-                  Conheça a linha de arames galvanizados Insul e encontre o fio
+                <p className="poppins mx-auto mt-6 max-w-lg text-sm leading-relaxed text-[#536777] sm:text-base">
+                  Conheça a linha de arames galvanizados Insul e encontre <br /> o fio
                   para o seu próximo projeto.
                 </p>
               </motion.div>
@@ -126,6 +128,10 @@ const Wires = () => {
             <AramesArc />
             <ArameProductsCards />
           </main>
+          <ArameParallaxPraia />
+          <div className="poppins mx-auto max-w-7xl px-4 pb-20 text-[#002d4d] sm:px-8 lg:max-w-6xl">
+            <ArameProductsCardsPvc />
+          </div>
           <Footer />
         </div>
       </div>
