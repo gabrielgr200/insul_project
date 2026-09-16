@@ -777,15 +777,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
-        src: "/images/ico-pvc/ico-casa.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-casa.png",
       },
       {
         name: "Proteção UV em áreas externas de alta exposição ao sol",
-        src: "/images/ico-pvc/ico-UV.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-UV.png",
       },
       {
         name: "Cercamento de jardins, quintais, chácaras e casas á beira-mar",
-        src: "/images/ico-pvc/ico-onda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-onda.png",
       },
     ],
     shortDescription:
@@ -895,15 +895,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
-        src: "/images/ico-morada-open-titan/casa-predio.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "/images/ico-morada-open-titan/cao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "/images/ico-morada-open-titan/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
@@ -1017,15 +1017,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
-        src: "/images/ico-morada-open-titan/casa-predio.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "/images/ico-morada-open-titan/cao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "/images/ico-morada-open-titan/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
@@ -1111,15 +1111,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
-        src: "/images/ico-morada-open-titan/casa-predio.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "/images/ico-morada-open-titan/cao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/cao.png",
       },
       {
         name: "Cercamento de indústrias, centros logísticos, estacionamentos e etc",
-        src: "/images/ico-morada-open-titan/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/industria.png",
       },
     ],
     shortDescription:
@@ -1210,15 +1210,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
-        src: "/images/ico-morada-open-titan/casa-predio.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "/images/ico-morada-open-titan/cao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/cao.png",
       },
       {
         name: "Hortas e jardins",
-        src: "/images/ico-morada-open-titan/horta.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/horta.png",
       },
     ],
     shortDescription:
@@ -1304,15 +1304,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
-        src: "/images/ico-morada-open-titan/casa-predio.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/casa-predio.png",
       },
       {
         name: "Canil para cães de pequeno e médio porte",
-        src: "/images/ico-morada-open-titan/cao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/cao.png",
       },
       {
         name: "Hortas e jardins",
-        src: "/images/ico-morada-open-titan/horta.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-morada-open-titan/horta.png",
       },
     ],
     shortDescription:
@@ -1394,15 +1394,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Ideal para aplicação na construção civil",
-        src: "/images/ico-fachanet/construção.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/construção.png",
       },
       {
         name: "Evita o aparecimento de fissuras",
-        src: "/images/ico-fachanet/fissura.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/fissura.png",
       },
       {
         name: "Tela para reboco, alvenaria e reforço de argamassa",
-        src: "/images/ico-fachanet/reboco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/reboco.png",
       },
     ],
     shortDescription:
@@ -1445,15 +1445,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Confecção de grades e portões",
-        src: "/images/multymaxx/portao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/multymaxx/portao.png",
       },
       {
         name: "Fechamento de quadras de Padel",
-        src: "/images/multymaxx/bola.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/multymaxx/bola.png",
       },
       {
         name: "Cercamento onde exija maior segurança",
-        src: "/images/multymaxx/protec.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/multymaxx/protec.png",
       },
     ],
     shortDescription:
@@ -1496,15 +1496,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Ideal para aplicação na construção civil",
-        src: "/images/ico-fachanet/construção.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/construção.png",
       },
       {
         name: "Evita o aparecimento de fissuras",
-        src: "/images/ico-fachanet/fissura.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/fissura.png",
       },
       {
         name: "Tela para reboco, alvenaria e reforço de argamassa",
-        src: "/images/ico-fachanet/reboco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-fachanet/reboco.png",
       },
     ],
     shortDescription:
@@ -1548,15 +1548,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
-        src: "/images/ico-pvc/ico-casa.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-casa.png",
       },
       {
         name: "Proteção UV em áreas externas de alta exposição ao sol",
-        src: "/images/ico-pvc/ico-UV.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-UV.png",
       },
       {
         name: "Cercamento de jardins, quintais, chácaras e casas á beira-mar",
-        src: "/images/ico-pvc/ico-onda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-onda.png",
       },
     ],
     shortDescription:
@@ -1589,7 +1589,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     video3D: "", // colar o link do vídeo 3D aqui
   }, //brava-leve
 
-  //telas hexagonais
+  //Telas hexagonais
   {
     slug: "tela-mangueirao-16",
     name: "Tela Mangueirão 16",
@@ -1601,15 +1601,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
-        src: "/images/ico-mangueirao/fazenda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/fazenda.png",
       },
       {
         name: "Tela para ovinos, suínos e animais de pequeno e médio porte",
-        src: "/images/ico-mangueirao/porco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/porco.png",
       },
       {
         name: "Fechamento provisório de obras ou áreas de contenção",
-        src: "/images/ico-mangueirao/reboco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/reboco.png",
       },
     ],
     shortDescription:
@@ -1698,15 +1698,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
-        src: "/images/ico-mangueirao/fazenda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/fazenda.png",
       },
       {
         name: "Tela para ovinos, suínos e animais de pequeno e médio porte",
-        src: "/images/ico-mangueirao/porco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/porco.png",
       },
       {
         name: "Fechamento provisório de obras ou áreas de contenção",
-        src: "/images/ico-mangueirao/reboco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/reboco.png",
       },
     ],
     shortDescription:
@@ -1774,15 +1774,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Delimitação de áreas rurais e sítios",
-        src: "/images/ico-galinheiro/rural.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/rural.png",
       },
       {
         name: "Ideal para galinheiros, viveiro e coelheiras",
-        src: "/images/ico-galinheiro/galinheiro.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/galinheiro.png",
       },
       {
         name: "Hortas e jardins",
-        src: "/images/ico-galinheiro/horta.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/horta.png",
       },
     ],
     shortDescription:
@@ -1864,15 +1864,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Delimitação de áreas rurais e sítios",
-        src: "/images/ico-galinheiro/rural.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/rural.png",
       },
       {
         name: "Ideal para galinheiros, viveiro e coelheiras",
-        src: "/images/ico-galinheiro/galinheiro.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/galinheiro.png",
       },
       {
         name: "Hortas e jardins",
-        src: "/images/ico-galinheiro/horta.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/horta.png",
       },
     ],
     shortDescription:
@@ -1915,15 +1915,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Criação de animais pequenos como pintos e codornas",
-        src: "/images/ico-pinteiro/pinto.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pinteiro/pinto.png",
       },
       {
         name: "Gaiola para pequenas aves",
-        src: "/images/ico-pinteiro/gaiola.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pinteiro/gaiola.png",
       },
       {
         name: "Hortas e jardins",
-        src: "/images/ico-galinheiro/horta.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/horta.png",
       },
     ],
     shortDescription:
@@ -1966,15 +1966,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     indicatedFor: [
       {
         name: "Criação de animais pequenos como aves e pintos",
-        src: "/images/ico-viveiro/ave.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-viveiro/ave.png",
       },
       {
         name: "Gaiola para pequenas aves",
-        src: "/images/ico-pinteiro/gaiola.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pinteiro/gaiola.png",
       },
       {
         name: "Proteção contra predadores e animais com doenças",
-        src: "/images/ico-viveiro/protecao.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-viveiro/protecao.png",
       },
     ],
     shortDescription:
@@ -2006,26 +2006,28 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     ], // trocar pelas informações reais (ver exemplo em tela-brava)
     video3D: "", // colar o link do vídeo 3D aqui
   }, //viveiro
+
+  //Torção simples
   {
     slug: "tela-torcao-simples-galvanizada",
     name: "Torção Simples Galvanizada",
     category: "Torção Simples",
     color: "#bac3ca",
-    src: "/images/tela-torcao-simples/torcao-card/galvanizado.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/tela-torcao-simples/torcao-card/galvanizado.png",
     paragraph: 'Fio 2,10 mm, Aço galvanizado a fogo, Malha em losango 3"(7,6cm)',
     postSpacing: "até 4m",
     indicatedFor: [
       {
         name: "Quadras, escolas, indústrias e estacionamentos",
-        src: "/images/icos-torção-galvanizado/esportivo.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/icos-torção-galvanizado/esportivo.png",
       },
       {
         name: "Divisões de pastos, plantações e jardins",
-        src: "/images/icos-torção-galvanizado/jardins.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/icos-torção-galvanizado/jardins.png",
       },
       {
         name: "Terrenos urbanos e rurais com relevo",
-        src: "/images/icos-torção-galvanizado/terreno-relevo.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/icos-torção-galvanizado/terreno-relevo.png",
       },
     ],
     shortDescription:
@@ -2062,21 +2064,21 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     name: "Torção Simples PVC Verde",
     category: "Torção Simples",
     color: "#278348",
-    src: "/images/tela-torcao-simples/torcao-card/pvc-verde.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/tela-torcao-simples/torcao-card/pvc-verde.png",
     paragraph: 'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
     postSpacing: "até 4m",
     indicatedFor: [
       {
         name: "Cercamento em áreas verdes e litorâneas",
-        src: "/images/ico-pvc/ico-onda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-onda.png",
       },
       {
         name: "Quadras e terreno com relevo",
-        src: "/images/multymaxx/bola.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/multymaxx/bola.png",
       },
       {
         name: "Cercamento de animais como suínos e aves",
-        src: "/images/ico-mangueirao/porco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/porco.png",
       },
     ],
     shortDescription:
@@ -2113,21 +2115,21 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     name: "Torção Simples PVC Azul",
     category: "Torção Simples",
     color: "#267bcc",
-    src: "/images/tela-torcao-simples/torcao-card/pvc-azul.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/tela-torcao-simples/torcao-card/pvc-azul.png",
     paragraph: 'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
     postSpacing: "até 4m",
     indicatedFor: [
       {
         name: "Cercamento em áreas verdes e litorâneas",
-        src: "/images/ico-pvc/ico-onda.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-pvc/ico-onda.png",
       },
       {
         name: "Quadras e terreno com relevo",
-        src: "/images/multymaxx/bola.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/multymaxx/bola.png",
       },
       {
         name: "Cercamento de animais como suínos e aves",
-        src: "/images/ico-mangueirao/porco.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-mangueirao/porco.png",
       },
     ],
     shortDescription:
@@ -2411,6 +2413,10 @@ export interface GradilModelInfo {
   gallery: GalleryImage[];
 }
 
+// ============================================================================
+// Gradil
+// ============================================================================
+
 const gradilModels: GradilModelInfo[] = [
   {
     slug: "g4",
@@ -2425,19 +2431,19 @@ const gradilModels: GradilModelInfo[] = [
     indicatedFor: [
       {
         name: "Residências",
-        src: "/images/soldadas-icos/casa.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/casa.png",
       },
       {
         name: "Terrenos",
-        src: "/images/soldadas-icos/terreno.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/terreno.png",
       },
       {
         name: "Indústrias",
-        src: "/images/soldadas-icos/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/industria.png",
       },
       {
         name: "Canil",
-        src: "/images/soldadas-icos/cao-medio-pequeno.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/cao-medio-pequeno.png",
       },
     ],
     shortDescription:
@@ -2520,7 +2526,7 @@ const gradilModels: GradilModelInfo[] = [
     slug: "g5",
     name: "Gradil G5",
     color: "#646464",
-    src: "/images/img-outromodelo-gradil/img-gradil-G5.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G5.png",
     tagline:
       "Gradil G5 combina resistência, estética e praticidade, atendendo às mais variadas necessidades.",
     paragraph:
@@ -2529,19 +2535,19 @@ const gradilModels: GradilModelInfo[] = [
     indicatedFor: [
       {
         name: "Residências",
-        src: "/images/soldadas-icos/casa.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/casa.png",
       },
       {
         name: "Terrenos",
-        src: "/images/soldadas-icos/terreno.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/terreno.png",
       },
       {
         name: "Indústrias",
-        src: "/images/soldadas-icos/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/industria.png",
       },
       {
         name: "Canil",
-        src: "/images/soldadas-icos/cao-medio-pequeno.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/cao-medio-pequeno.png",
       },
     ],
     shortDescription:
@@ -2624,7 +2630,7 @@ const gradilModels: GradilModelInfo[] = [
     slug: "g12",
     name: "Gradil G12",
     color: "#4b460b",
-    src: "/images/img-outromodelo-gradil/img-gradil-G12.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G12.png",
     tagline:
       "Garante segurança dos processos, das pessoas e das máquinas e é muito prático de instalar.",
     paragraph:
@@ -2633,11 +2639,11 @@ const gradilModels: GradilModelInfo[] = [
     indicatedFor: [
       {
         name: "Indústrias",
-        src: "/images/soldadas-icos/industria.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/industria.png",
       },
       {
         name: "Máquinas",
-        src: "/images/soldadas-icos/maquina.png",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/maquina.png",
       },
     ],
     shortDescription:
