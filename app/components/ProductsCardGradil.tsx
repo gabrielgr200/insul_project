@@ -17,16 +17,16 @@ const GRADIL_MEDIA = [
     postSpacing: "2,5 m",
   },
   {
-    src: "/images/Gradil_Cores/INSUL_G12.png",
+    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_G12.png",
     to: "/gradil/g12",
     postSpacing: "2,5 m",
   },
 ];
 
 const GRADIL_HOVER_IMAGES: Record<string, string> = {
-  g4: "/images/img-outromodelo-gradil/gradil-g4-verde.png",
-  g5: "/images/img-outromodelo-gradil/img-gradil-G4.png",
-  g12: "/images/img-outromodelo-gradil/img-gradil-G12.png",
+  g4: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/gradil-g4-verde.png",
+  g5: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G4.png",
+  g12: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G12.png",
 };
 
 const ProductsCardGradil = () => {

@@ -47,7 +47,7 @@ export default function SimplesTorcaoShowcase() {
             const position = (index - selected + finishes.length) % finishes.length;
             return (
               <div key={finish.file} className="absolute -top-4 left-1/2 h-[260px] w-[250px] transition-[transform,opacity,filter] duration-800 ease-[cubic-bezier(.22,1,.36,1)] data-[position=0]:z-2 data-[position=0]:[transform:translateX(-50%)] data-[position=0]:opacity-100 data-[position=0]:drop-shadow-[0_20px_26px_#0008] data-[position=1]:z-1 data-[position=1]:[transform:translateX(2%)_translateY(48px)_rotate(12deg)_scale(.65)] data-[position=1]:opacity-55 data-[position=2]:z-1 data-[position=2]:[transform:translateX(-102%)_translateY(48px)_rotate(-12deg)_scale(.65)] data-[position=2]:opacity-55 motion-reduce:transition-none sm:top-2 sm:h-[360px] sm:w-[340px]" data-position={position} aria-hidden={index !== selected}>
-                <Image src={`/images/tela-torcao-simples/${finish.file}`} alt={`Tela de torção simples ${finish.name}`} fill sizes="(max-width: 640px) 62vw, 380px" className="scale-[1.3] object-contain" />
+                <Image src={`https://d2c3kthzw0ta10.cloudfront.net/tela-torcao-simples/${finish.file}`} alt={`Tela de torção simples ${finish.name}`} fill sizes="(max-width: 640px) 62vw, 380px" className="scale-[1.3] object-contain" />
               </div>
             );
           })}
