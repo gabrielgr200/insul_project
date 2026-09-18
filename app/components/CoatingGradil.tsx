@@ -220,7 +220,7 @@ const CoatingGradil = () => {
           ))}
         </div>
 
-        <div className="relative aspect-[1549/124] w-full">
+        <div className="relative aspect-1549/124 w-full">
           {LAYERS.map((layer, i) => (
             <WireLayer
               key={layer.n}

@@ -1,15 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { notFound } from "next/navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import CercaHeroDetails from "../components/CercaHeroDetails";
-import { ExpandableCardExample } from "../components/Specifications";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import VideoCardCarousel from "../components/VideoCardCarousel";
-import VideoCard3D from "../components/VideoCard3D";
+import VideoCard3D from "../components/VideoCard3DLazy";
+import CercaImageHero from "../components/CercaImageHero";
+import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
 import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
@@ -34,6 +37,41 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
   const { dict } = useTranslation();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!["campeira-maxx", "fenix", "campeira", "campeira-boi"].includes(slug) || !wrapperRef.current || !contentRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const smoother = ScrollSmoother.create({
+        wrapper: wrapperRef.current!,
+        content: contentRef.current!,
+        smooth: 1.8,
+        effects: true,
+        normalizeScroll: true,
+      });
+      let refreshTimeout: ReturnType<typeof setTimeout>;
+      const refresh = () => {
+        clearTimeout(refreshTimeout);
+        refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+      };
+      const observer = new ResizeObserver(refresh);
+      observer.observe(contentRef.current!);
+      window.addEventListener("load", refresh);
+      refresh();
+
+      return () => {
+        clearTimeout(refreshTimeout);
+        observer.disconnect();
+        window.removeEventListener("load", refresh);
+        smoother.kill();
+      };
+    });
+    return () => media.revert();
+  }, [slug]);
 
   const baseCerca = cercasProntas.find((item) => item.slug === slug);
   if (!baseCerca) notFound();
@@ -71,21 +109,12 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
     <div className="min-h-screen overflow-clip">
       <Header />
 
-      <main className="space-y-24 pb-20 pt-30">
-        <ScrollReveal className="mb-0">
-          <CercaHeroDetails
-            name={cerca.name}
-            badge={cerca.title}
-            videoSrc={cerca.videoSrc || FALLBACK_CERCA.videoSrc}
-            features={cerca.features}
-          />
-        </ScrollReveal>
-        <ScrollReveal>
-          <ExpandableCardExample color={cerca.color} />
-        </ScrollReveal>
-        <ScrollReveal>
-          <ImgCarousel images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
-        </ScrollReveal>
+      <div ref={wrapperRef}>
+      <div ref={contentRef} className="relative">
+      <main className={`space-y-24 pb-20 pt-0`}>
+        <CercaImageHero key={`hero-${slug}`} hero={cerca.hero} color={cerca.color} />
+        <ImgCarousel perspective title={cerca.name} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
+        {cerca.showcase && <CercaShowcaseTeste key={`showcase-${slug}`} showcase={cerca.showcase} color={cerca.color} />}
         <BlurRevealText
           text={cerca.paragraphs}
           className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
@@ -96,15 +125,17 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
             fenceName={cerca.name}
           />
         </ScrollReveal>
-        <ScrollReveal>
-          <VideoCard3D videoSrc={cerca.video3D || FALLBACK_CERCA.video3D} />
-        </ScrollReveal>
+            <ScrollReveal>
+              <VideoCard3D videoSrc={cerca.video3D || FALLBACK_CERCA.video3D} />
+            </ScrollReveal>
         <ScrollReveal>
           <SimilarProducts products={similarCercas} />
         </ScrollReveal>
       </main>
 
       <Footer />
+      </div>
+      </div>
     </div>
   );
 };

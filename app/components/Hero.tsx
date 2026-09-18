@@ -71,13 +71,13 @@ const Hero = ({ ready = true }) => {
           href="https://www.casadascercas.com.br"
           target="_blank"
           rel="noreferrer"
-          className="relative left-1/2 right-1/2 z-10 mb-8 block w-screen max-w-none -mx-[50vw]"
+          className="relative left-1/2 right-1/2 z-10 mb-8 block w-screen max-w-none mx-[-50vw]"
         >
           <video
             src="https://d2c3kthzw0ta10.cloudfront.net/banner-site.mp4"
             width={2860}
             height={142}
-            className="block aspect-[2860/142] h-auto w-full object-cover transform-gpu"
+            className="block aspect-2860/142 h-auto w-full object-cover transform-gpu"
             autoPlay
             muted
             loop
@@ -86,7 +86,7 @@ const Hero = ({ ready = true }) => {
         </a>
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-black/[0.05] dark:text-white/[0.06]"
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden text-black/5 dark:text-white/6"
           style={{
             maskImage:
               "radial-gradient(ellipse 75% 70% at 45% 40%, black 35%, transparent 78%)",
@@ -111,13 +111,13 @@ const Hero = ({ ready = true }) => {
             ))}
           </div>
         </div>
-        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(560px,calc(50vw_-_10px),640px)] lg:space-x-12 overflow-clip">
+        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(560px,calc(50vw-10px),640px)] lg:space-x-12 overflow-clip">
           <div className="lg:w-1/2">
             <div className={styles.heroIndent}>
               <h1 className="font-medium leading-none mb-6">
                 <span
                   className={`inline-block impact lg:text-[250px] text-transparent
-                  bg-clip-text bg-gradient-to-r from-[#8a2e00] to-[#ff5500] FIRME ${styles.heroTitle}`}
+                  bg-clip-text bg-linear-to-r from-[#8a2e00] to-[#ff5500] FIRME ${styles.heroTitle}`}
                 >
                   {t("hero.firme")}
                 </span>
@@ -126,7 +126,7 @@ const Hero = ({ ready = true }) => {
                 <span
                   className={`inline-block impact lg:text-[250px] tracking-tight
                   whitespace-nowrap text-transparent bg-clip-text
-                  bg-gradient-to-r from-[#8a2e00] to-[#ff5500] DURADOURO ${styles.heroTitle}`}
+                  bg-linear-to-r from-[#8a2e00] to-[#ff5500] DURADOURO ${styles.heroTitle}`}
                 >
                   {t("hero.duradouro")}
                 </span>

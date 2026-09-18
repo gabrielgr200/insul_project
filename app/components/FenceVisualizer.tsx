@@ -8,6 +8,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
+import NextImage from "next/image";
 import { ImageUp, MoveHorizontal, RefreshCw } from "lucide-react";
 import FillButton from "./FillButton";
 import { soldadasHexagonais } from "../assets/data";
@@ -268,9 +269,11 @@ const FenceVisualizer = ({
                       : "ring-1 ring-[#002d4d]/10 dark:ring-white/10 hover:ring-[#ff5500]/50"
                   }`}
                 >
-                  <img
+                  <NextImage
                     src={tela.src}
                     alt={tela.name}
+                    width={120}
+                    height={120}
                     className="aspect-square w-full rounded-lg object-contain bg-white/60 dark:bg-white/5"
                     draggable={false}
                   />

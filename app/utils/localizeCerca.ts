@@ -1,4 +1,4 @@
-import type { CercaProntaInfo, CercaFeature, CercaCaption } from "../assets/data";
+import type { CercaProntaInfo } from "../assets/data";
 
 export interface CercaProntaTranslationCaption {
   label: string;
@@ -42,29 +42,6 @@ export function localizeCerca(
         description: tr.hotspot.description,
       },
     },
-    features: cerca.features.map((f, i): CercaFeature => {
-      const trFeature = tr.features[i];
-      if (!trFeature) return f;
-      return {
-        ...f,
-        title: trFeature.title,
-        description: trFeature.description,
-        captions: f.captions?.map((c, j): CercaCaption => {
-          const trCaption = trFeature.captions?.[j];
-          if (!trCaption) return c;
-          return {
-            ...c,
-            label: trCaption.label,
-            value: trCaption.value,
-            options: c.options?.map((o, k) => {
-              const trOption = trCaption.options?.[k];
-              if (!trOption) return o;
-              return { ...o, label: trOption.label, value: trOption.value };
-            }),
-          };
-        }),
-      };
-    }),
     videoCards: cerca.videoCards.map((v, i) => {
       const trVideo = tr.videoCards[i];
       if (!trVideo) return v;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Pause, Play } from "lucide-react";
@@ -1190,7 +1191,7 @@ const CoverageChart = ({ slide }: { slide: SoldadaHexagonalInfo }) => {
       <p className="poppins mb-3 px-4 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:px-6 sm:text-lg">
         {slide.name}: {isAnimalChart ? "animais que a tela contém" : "onde utilizar"}
       </p>
-      <div className="relative h-96 w-full sm:h-[28rem]">
+      <div className="relative h-96 w-full sm:h-112">
         {BAR_GRID_TICKS.map((t) => {
           const y = BAR_PLOT_BOTTOM - t * BAR_PLOT_H;
           return (
@@ -1225,9 +1226,11 @@ const CoverageChart = ({ slide }: { slide: SoldadaHexagonalInfo }) => {
 
         {items.map((item) => (
           <div key={item.key}>
-            <img
+            <Image
               src={item.icon}
               alt=""
+              width={28}
+              height={28}
               className="absolute h-3 w-3 -translate-x-1/2 object-contain transition-opacity duration-300 sm:h-7 sm:w-7"
               style={{
                 left: `${(item.x / BAR_CHART_W) * 100}%`,
@@ -1655,7 +1658,7 @@ const SoldadaHexagonalCarousel = ({
     <div className="w-full">
       <div
         className={
-          fullBleedMedia ? "relative left-1/2 right-1/2 -mx-[50vw] w-screen" : ""
+          fullBleedMedia ? "relative left-1/2 right-1/2 mx-[-50vw] w-screen" : ""
         }
       >
         <div
@@ -1734,7 +1737,7 @@ const SoldadaHexagonalCarousel = ({
 
       <div
         className={
-          fullBleedMedia ? "relative left-1/2 right-1/2 -mx-[50vw] w-screen" : ""
+          fullBleedMedia ? "relative left-1/2 right-1/2 mx-[-50vw] w-screen" : ""
         }
       >
         <CoverageChart slide={slide} />

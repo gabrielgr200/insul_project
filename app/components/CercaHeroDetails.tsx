@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronUp, ChevronDown, Plus, X } from "lucide-react";
@@ -421,10 +422,12 @@ const CercaHeroDetails = ({
                   ref={knotCircleRef}
                   className="invisible absolute right-0 top-0 flex h-40 w-40 items-center justify-center overflow-hidden rounded-full bg-white/90 opacity-0 shadow-xl"
                 >
-                  <img
-                    src={checkpointCaption.image}
+                  <Image
+                    src={checkpointCaption.image!}
                     alt={checkpointCaption.label}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="160px"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -505,9 +508,8 @@ const CercaHeroDetails = ({
                       <button
                         type="button"
                         onClick={() => playFeature(i)}
-                        className={`cursor-pointer rounded-2xl px-4 py-3 text-left transition-colors ${
-                          active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
-                        }`}
+                        className={`cursor-pointer rounded-2xl px-4 py-3 text-left transition-colors ${active ? "bg-zinc-400/30" : "hover:bg-[#002d4d]/5"
+                          }`}
                       >
                         <span className="text-sm font-medium text-[#002d4d]">
                           {feature.title}

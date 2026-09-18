@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const VIDEO_CARDS = [
@@ -85,7 +86,7 @@ const GradilCardsMarquee = () => {
           {TRACK.map((card, i) => (
             <div
               key={`card-${i}`}
-              className={`h-[19rem] w-[7.5rem] shrink-0 overflow-hidden bg-zinc-100 sm:h-[25rem] sm:w-[10.5rem] lg:h-[30rem] lg:w-[14rem] ${
+              className={`relative h-76 w-30 shrink-0 overflow-hidden bg-zinc-100 sm:h-100 sm:w-42 lg:h-120 lg:w-56 ${
                 i % 2 === 0
                   ? "rounded-tl-[68px] rounded-br-[68px] sm:rounded-tl-[92px] sm:rounded-br-[92px] lg:rounded-tl-[120px] lg:rounded-br-[120px]"
                   : "rounded-tr-[68px] rounded-bl-[68px] sm:rounded-tr-[92px] sm:rounded-bl-[92px] lg:rounded-tr-[120px] lg:rounded-bl-[120px]"
@@ -102,11 +103,13 @@ const GradilCardsMarquee = () => {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <img
+                <Image
                   src={card.src}
                   alt={card.alt}
+                  fill
+                  sizes="(min-width: 1024px) 224px, (min-width: 640px) 168px, 120px"
                   draggable={false}
-                  className="h-full w-full object-cover"
+                  className="object-cover"
                 />
               )}
             </div>

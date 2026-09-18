@@ -1,3 +1,26 @@
+import fenixFarm from "../../public/images/hero-telas/hero-fenix/fazenda.png";
+import fenixUpperMesh from "../../public/images/imagens-teste/fenix/malha-supeior-fenix.png";
+import fenixLowerMesh from "../../public/images/imagens-teste/fenix/malha-inferior-fenix.png";
+import fenixKnot from "../../public/images/imagens-teste/fenix/Nó em X - fenix.png";
+import fenixKnotDetail from "../../public/images/imagens-teste/fenix/no-em-x-detalhe.png";
+import fenixFenceLength from "../../public/images/imagens-teste/fenix/comprimento-fenix.png";
+import fenixIndication from "../../public/images/imagens-teste/fenix/tela-indicaao-fenix.png";
+import fenixIndicationBackground from "../../public/images/imagens-teste/fenix/showcase-indicacao-fenix.png";
+import campeiraSky from "../../public/images/hero-telas/hero-campeira/ceu-campeira.png";
+import campeiraScene from "../../public/images/hero-telas/hero-campeira/hero-campeira.png";
+import campeiraBoiHero from "../../public/images/hero-telas/hero-boi/hero-campeiraBoi.webp";
+import campeiraIndication from "../../public/images/imagens-teste/campeira/tela-indicaao-campeira.png";
+import campeiraIndicationBackground from "../../public/images/imagens-teste/campeira/showcase-indicacao-campeira.png";
+import campeiraUpperMesh from "../../public/images/imagens-teste/campeira/malha-superior.png";
+import campeiraLowerMesh from "../../public/images/imagens-teste/campeira/malha-inferior.png";
+import campeiraKnotBackground from "../../public/images/imagens-teste/campeira/img-campeira-no.png";
+import campeiraKnotDetail from "../../public/images/imagens-teste/campeira/CAMPEIRA_NO.png";
+import campeiraBoiIndication from "../../public/images/imagens-teste/boi/tela-indicacao-campeiraBoi.png";
+import campeiraBoiIndicationBackground from "../../public/images/imagens-teste/boi/showcase-indicacao-campeiraBoi.png";
+import campeiraBoiMesh from "../../public/images/imagens-teste/boi/malha-boi.png";
+import campeiraBoiKnot from "../../public/images/imagens-teste/boi/no-X.png";
+import campeiraBoiKnotBackground from "../../public/images/imagens-teste/boi/img-no-X-boi.png";
+
 export interface ProductCardData {
   src: string;
   title: string;
@@ -91,11 +114,45 @@ export interface CercaProntaInfo {
   lengths: string[];
   animals: string[];
   heroSlide: CercaHeroSlide;
-  features: CercaFeature[];
-  videoSrc: string;
+  hero: CercaImageHero;
+  showcase?: CercaShowcaseData;
   videoCards: VideoCardData[];
   video3D: string;
   gallery: GalleryImage[];
+}
+
+export interface CercaImageHero {
+  title: string;
+  description: string;
+  background?: string;
+  sectionClassName?: string;
+  textClassName?: string;
+  blurTop?: string;
+  layers: { src: string; alt: string; animated?: boolean; className?: string; imageClassName?: string }[];
+}
+
+export interface CercaShowcaseData {
+  title: string;
+  subtitle?: string;
+  description: string;
+  options: CercaShowcaseOption[];
+}
+
+export interface CercaShowcaseOption {
+  title: string;
+  description: string;
+  image: string;
+  background?: string;
+  kind?: "indication" | "upperMesh" | "lowerMesh" | "knot" | "length";
+  widthLabel?: string;
+  heightLabel?: string;
+  meshOutline?: { x: number; y: number; width: number; height: number };
+  detailImage?: string;
+  knotTarget?: { x: number; y: number };
+  bandText?: string;
+  lengthImageRatio?: string;
+  lengthImageOffset?: number;
+  hotspots?: { title: string; description: string; x?: number; y?: number; targetX?: number; targetY?: number }[];
 }
 
 // ============================================================================
@@ -105,6 +162,111 @@ export interface CercaProntaInfo {
 const cercasProntas: CercaProntaInfo[] = [
   {
     slug: "fenix",
+    showcase: {
+      title: "Fênix: resistência em cada detalhe.",
+      description: "Explore a estrutura e as aplicações da tela alambrada Fênix Insul.",
+      options: [
+        {
+          title: "Indicação",
+          description: "Segurança para residências, áreas rurais, empresas e espaços esportivos.",
+          image: fenixIndication.src,
+          background: fenixIndicationBackground.src,
+          kind: "indication",
+          hotspots:
+            [{
+              title: "Malha superior",
+              description: "Aberturas maiores na parte superior da cerca.",
+              x: 36.2,
+              y: 38.2,
+              targetX: 42.5,
+              targetY: 38.2
+            },
+            {
+              title: "Malha inferior",
+              description: "Aberturas menores para reforçar a contenção de animais de médio e pequeno porte.",
+              x: 37.5,
+              y: 74.4,
+              targetX: 47.5,
+              targetY: 74.4
+            }]
+        },
+        {
+          title: "Malha superior",
+          description: "10 × 20 cm — aberturas maiores na parte superior, mantendo a visibilidade e a resistência do cercamento.",
+          image: fenixUpperMesh.src,
+          kind: "upperMesh",
+          widthLabel: "10 cm",
+          heightLabel: "20 cm",
+          meshOutline:
+          {
+            x: 32.8,
+            y: 39.3,
+            width: 13.1,
+            height: 31.4
+          }
+        },
+        {
+          title: "Malha inferior",
+          description: "10 × 10 cm — aberturas menores na base para reforçar a contenção de animais de médio e pequeno porte.",
+          image: fenixLowerMesh.src,
+          kind: "lowerMesh",
+          widthLabel: "10 cm",
+          heightLabel: "10 cm",
+          meshOutline:
+          {
+            x: 27.9,
+            y: 33.3,
+            width: 13.1,
+            height: 15.1
+          }
+        },
+        {
+          title: "Nó em X",
+          description: "Veja de perto a união dos fios que reforça a estrutura da cerca Fênix Insul.",
+          image: fenixKnot.src,
+          background: fenixKnot.src,
+          kind: "knot",
+          detailImage: fenixKnotDetail.src,
+          knotTarget:
+          {
+            x: 56.1,
+            y: 67.7
+          }
+        },
+        {
+          title: "Comprimento",
+          description: "Disponível em rolos de 25 e 50 metros, com espaçamento entre mourões de 5 a 6 metros.",
+          image: fenixFenceLength.src,
+          kind: "length",
+          bandText: "espaçamento entre mourões 5 - 6m",
+          lengthImageRatio: `${fenixFenceLength.width} / ${fenixFenceLength.height}`,
+          lengthImageOffset: 0
+        },
+      ],
+    },
+    hero: {
+      title: "Fênix",
+      description: "Segurança para proteger. Resistência para durar. Conheça a tela alambrada Fênix Insul, fabricada com arame de aço de alto carbono.",
+      background: "https://d2c3kthzw0ta10.cloudfront.net/hero-telas/hero-fenix/ceu.png",
+      sectionClassName: "aspect-video",
+      textClassName: "absolute inset-x-0 top-[37%]",
+      blurTop: "85%",
+      layers: [
+        {
+          src: fenixFarm.src,
+          alt: "",
+          className: "z-10",
+          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain"
+        },
+        {
+          src: "https://d2c3kthzw0ta10.cloudfront.net/hero-telas/hero-fenix/tela-aberta.png",
+          alt: "Tela aberta da cerca Fênix",
+          animated: true,
+          className: "z-20",
+          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain"
+        },
+      ],
+    },
     to: "/cercas-prontas/fenix",
     name: "Cerca Fenix Insul",
     title: "Cerca Pronta(rurais)",
@@ -144,102 +306,146 @@ const cercasProntas: CercaProntaInfo[] = [
           "Fio de alta resistência com acabamento galvanizado, ideal para grandes propriedades.",
       },
     },
-    features: [
-      {
-        title: "Fio 2,50 mm",
-        description:
-          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
-        start: 63.5,
-        end: 68,
-      },
-      {
-        title: "Instalação",
-        description:
-          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
-        start: 36.3,
-        end: 43.8,
-      },
-      {
-        title: "Malha bifásica",
-        description:
-          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
-        start: 57,
-        end: 61.5,
-      },
-      {
-        title: "Nó em X (stiff stay)",
-        description:
-          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
-        start: 61.5,
-        end: 64,
-      },
-    ],
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/f_auto/v1784826166/campeira_maxx_alzelf.mov",
     videoCards: [
       {
-        src: "/videos/videos-fenix/video-1-fenix.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-1-fenix.mp4",
         category: "MATERIAL",
         title: "Aço Carbono",
         description:
           "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
       },
       {
-        src: "/videos/videos-fenix/video-2-fenix.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-2-fenix.mp4",
         category: "ESTRUTURA",
         title: "Nó em X",
         description:
           "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
       },
       {
-        src: "/videos/videos-fenix/video-3-fenix.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-3-fenix.mp4",
         category: "TERRENO",
         title: "Qualquer Relevo",
         description:
           "Acompanha aclives e declives sem dificuldade na instalação.",
       },
       {
-        src: "/videos/videos-fenix/video-4-fenix.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-4-fenix.mp4",
         category: "ECONOMIA",
         title: "Instalação Rápida",
         description:
           "Espaçamento maior entre mourões gera até 50% de economia.",
       },
       {
-        src: "/videos/videos-fenix/video-5-fenix.mp4",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-5-fenix.mp4",
         category: "PROTEÇÃO",
         title: "Malha Bimodal",
         description:
           "Fechada embaixo para contenção, aberta em cima para economia.",
       },
     ],
-    video3D: "/videos/videos-fenix/video-card-3d.mp4",
+    video3D: "https://d2c3kthzw0ta10.cloudfront.net/videos-fenix/video-card-3d.mp4",
     gallery: [
       {
-        src: "/images/img_fenix_carousel/1.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg",
         alt: "Cerca instalada em propriedade rural",
       },
       {
-        src: "/images/img_fenix_carousel/2.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/2.jpeg",
         alt: "Detalhe do fio e da malha",
       },
-      { src: "/images/img_fenix_carousel/3.jpeg", alt: "Rolo da tela" },
+      { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/3.jpeg", alt: "Rolo da tela" },
       {
-        src: "/images/img_fenix_carousel/4.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/4.jpeg",
         alt: "Cerca em terreno com desnível",
       },
       {
-        src: "/images/img_fenix_carousel/5.jpeg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/5.jpeg",
         alt: "Acabamento galvanizado a fogo",
       },
-      { src: "/images/img_fenix_carousel/6.jpeg", alt: "Nó em X da cerca" },
-      { src: "/images/img_fenix_carousel/7.jpeg", alt: "Cerca Insul" },
-      { src: "/images/img_fenix_carousel/8.jpeg", alt: "Cerca Insul" },
-      { src: "/images/img_fenix_carousel/9.jpeg", alt: "Cerca Insul" },
+      { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/6.jpeg", alt: "Nó em X da cerca" },
+      { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/7.jpeg", alt: "Cerca Insul" },
+      { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/8.jpeg", alt: "Cerca Insul" },
+      { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/9.jpeg", alt: "Cerca Insul" },
     ],
-  },
+  }, //Fenix
   {
     slug: "campeira-maxx",
+    showcase: {
+      title: "Cada malha,",
+      subtitle: "pensada para o seu campo.",
+      description: "Navegue e descubra como a estrutura da Campeira Maxx entrega resistência e proteção onde você mais precisa.",
+      options: [
+        {
+          title: "Indicação",
+          description: "Proteção para animais, pastagens e propriedades rurais.",
+          image: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/img-indicado.png",
+          background: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/img-terreno-indicado.png",
+          kind: "indication",
+          hotspots:
+            [{
+              title: "Malha superior",
+              description: "Indicada para conter animais de grande porte."
+            },
+            {
+              title: "Malha inferior",
+              description: "Indicada para conter animais de médio e pequeno porte."
+            }]
+        },
+        {
+          title: "Malha superior",
+          description: "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
+          image: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/malha-superior.png",
+          kind: "upperMesh",
+          widthLabel: "22 cm",
+          heightLabel: "20 cm"
+        },
+        {
+          title: "Malha inferior",
+          description: "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
+          image: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/malha-inferior.png",
+          kind: "lowerMesh",
+          widthLabel: "22 cm",
+          heightLabel: "10 cm"
+        },
+        {
+          title: "Nó em X",
+          description: "O fio de aço e o nó em X (stiff stay) se travam entre si, mantendo a tensão e a rigidez da cerca por muito mais tempo.",
+          image: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/img-no-X.png",
+          background: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/img-no-X.png",
+          kind: "knot",
+          detailImage: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/maxx/no-em-x-detalhe.png"
+        },
+        {
+          title: "Comprimento",
+          description: "Espaçamento entre mourões de 6 a 8 metros.",
+          image: "https://d2c3kthzw0ta10.cloudfront.net/imagens-teste/tela-mouroes-alta-resolucao.png",
+          kind: "length",
+          bandText: "espaçamento entre mourões 6 - 8m"
+        },
+      ],
+    },
+    hero: {
+      title: "Campeira Maxx",
+      description: "Resistência para proteger. Tecnologia para durar. Conheça a cerca pronta Insul com nó em X e aço galvanizado a fogo.",
+      background: "https://d2c3kthzw0ta10.cloudfront.net/hero-telas/hero-maxx/por-do-sol.png",
+      sectionClassName: "aspect-video",
+      textClassName: "absolute inset-x-0 top-[30%]",
+      blurTop: "85%",
+      layers: [
+        {
+          src: "https://d2c3kthzw0ta10.cloudfront.net/hero-telas/hero-maxx/paisagem.png",
+          alt: "",
+          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain"
+        },
+        {
+          src: "https://d2c3kthzw0ta10.cloudfront.net/hero-telas/hero-maxx/tela-aberta-maxx.png",
+          alt: "Tela aberta da Campeira Maxx",
+          animated: true,
+          className: "z-20",
+          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain"
+        },
+      ],
+    },
     to: "/cercas-prontas/campeira-maxx",
     name: "Cerca Campeira Maxx Insul",
     title: "Cerca Pronta(rurais)",
@@ -276,72 +482,6 @@ const cercasProntas: CercaProntaInfo[] = [
           "Reforçada para pastagens de maior porte, com maior espaçamento entre fios.",
       },
     },
-    features: [
-      {
-        title: "Instalação",
-        description:
-          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
-        start: 1,
-        end: 21,
-        checkpoints: [5, 9, 11],
-        captions: [
-          {
-            label: "Instalação",
-            value:
-              "Tela pronta e esticada entre os mourões — sai de fábrica pronta para instalar, sem montar arame por arame.",
-          },
-          {
-            label: "Comprimento",
-            value:
-              "5x5 até 8x8 metros entre mourões, economizando até 50% em material.",
-          },
-          {
-            label: "Nó em X",
-            value:
-              "O fio de aço e o nó em X (stiff stay) se travam entre si, mantendo a tensão e a rigidez da cerca por muito mais tempo.",
-            zoom: { scale: 1.8, origin: "50% 50%" },
-            image: "/images/no-em-x.png",
-          },
-        ],
-      },
-      {
-        title: "Malha superior | inferior",
-        description:
-          "Malha de 22cm x 20cm com acabamento em aço galvanizado a fogo.",
-        start: 21,
-        end: 37,
-        checkpoints: [24, 34, 37],
-        captions: [
-          {
-            label: "Malha",
-            value: "",
-            options: [
-              {
-                label: "Malha superior",
-                value:
-                  "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
-              },
-              {
-                label: "Malha inferior",
-                value:
-                  "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
-              },
-            ],
-          },
-          {
-            label: "Malha superior",
-            value:
-              "22cm x 20cm — mais aberta para reduzir o custo de material e manter o visual limpo, sem abrir mão da resistência.",
-          },
-          {
-            label: "Malha inferior",
-            value:
-              "22cm x 10cm — mais fechada para reforçar a contenção de animais e barrar invasores menores.",
-          },
-        ],
-      },
-    ],
-    videoSrc: "https://d2c3kthzw0ta10.cloudfront.net/campeira-maxx.mp4",
     videoCards: [
       {
         src: "https://d2c3kthzw0ta10.cloudfront.net/videos-maxx/video-maxx-1.mp4",
@@ -419,9 +559,57 @@ const cercasProntas: CercaProntaInfo[] = [
         alt: "Cerca Insul",
       },
     ],
-  },
+  }, //Maxx
   {
     slug: "campeira",
+    showcase: {
+      title: "Campeira: proteção em cada detalhe.",
+      description: "Explore a estrutura e as aplicações da cerca Campeira Insul.",
+      options: [
+        {
+          title: "Indicação",
+          description: "Cerca indicada para conter animais de médio porte, como ovinos, caprinos e suínos.",
+          image: campeiraIndication.src,
+          background: campeiraIndicationBackground.src,
+          kind: "indication",
+          hotspots: [{ title: "Malha superior", description: "Aberturas maiores na parte superior da cerca.", x: 36.4, y: 44.2, targetX: 42.7, targetY: 44.2 }, { title: "Malha inferior", description: "Aberturas menores na base para reforçar a contenção de animais.", x: 60, y: 73.1, targetX: 70, targetY: 73.1 }]
+        },
+        {
+          title: "Malha superior",
+          description: "30 × 20 cm — aberturas maiores no topo, unindo resistência e visibilidade.",
+          image: campeiraUpperMesh.src,
+          kind: "upperMesh",
+          widthLabel: "30 cm",
+          heightLabel: "20 cm",
+          meshOutline: { x: 43, y: 33.8, width: 24.2, height: 25.1 }
+        },
+        {
+          title: "Malha inferior",
+          description: "30 × 10 cm — aberturas menores na base para a contenção de animais de médio porte.",
+          image: campeiraLowerMesh.src,
+          kind: "lowerMesh",
+          widthLabel: "30 cm",
+          heightLabel: "10 cm",
+          meshOutline: { x: 46.8, y: 40.7, width: 27.3, height: 13.6 }
+        },
+        { title: "Nó tradicional", description: "Conheça a união dos fios da cerca Campeira Insul, com nó tradicional e aço galvanizado a fogo.", image: campeiraKnotBackground.src, background: campeiraKnotBackground.src, kind: "knot", detailImage: campeiraKnotDetail.src, knotTarget: { x: 56.9, y: 83.7 } },
+      ],
+    },
+    hero: {
+      title: "Campeira",
+      description: "Conheça a cerca Campeira Insul e os detalhes da sua estrutura para proteger o seu campo.",
+      background: campeiraSky.src,
+      sectionClassName: "aspect-video",
+      textClassName: "absolute inset-x-0 top-[26%]",
+      blurTop: "85%",
+      layers:
+        [{
+          src: campeiraScene.src,
+          alt: "Cerca Campeira Insul",
+          animated: true,
+          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain"
+        }],
+    },
     to: "/cercas-prontas/campeira",
     name: "Cerca Campeira Insul",
     title: "Cerca Pronta(rurais)",
@@ -451,38 +639,6 @@ const cercasProntas: CercaProntaInfo[] = [
           "Modelo tradicional para divisas rurais, resistente e de fácil instalação.",
       },
     },
-    features: [
-      {
-        title: "Fio 2,50 mm",
-        description:
-          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
-        start: 63.5,
-        end: 68,
-      },
-      {
-        title: "Instalação",
-        description:
-          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
-        start: 36.3,
-        end: 43.8,
-      },
-      {
-        title: "Malha bifásica",
-        description:
-          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
-        start: 57,
-        end: 61.5,
-      },
-      {
-        title: "Nó em X (stiff stay)",
-        description:
-          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
-        start: 61.5,
-        end: 64,
-      },
-    ],
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730448/Campeira_prw8et.mp4",
     videoCards: [
       {
         src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785175001/campeira_vd_1_xxfqp5.mp4",
@@ -524,45 +680,89 @@ const cercasProntas: CercaProntaInfo[] = [
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1785175010/video-campeira-3d_patgvc.mp4",
     gallery: [
       {
-        src: "/images/img_campeira_carousel/img_campeira_1.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_1.jpg",
         alt: "Cerca instalada em propriedade rural",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_2.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_2.jpg",
         alt: "Detalhe do fio e da malha",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_3.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_3.jpg",
         alt: "Rolo da tela",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_4.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_4.jpg",
         alt: "Cerca em terreno com desnível",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_5.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_5.jpg",
         alt: "Acabamento galvanizado a fogo",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_6.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_6.jpg",
         alt: "Nó em X da cerca",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_7.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_7.jpg",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_8.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_8.jpg",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeira_carousel/img_campeira_9.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_9.jpg",
         alt: "Cerca Insul",
       },
     ],
-  },
+  }, //Campeira
   {
     slug: "campeira-boi",
+    showcase: {
+      title: "Campeira Boi: resistência em cada detalhe.",
+      description: "Explore a estrutura e as aplicações da cerca Campeira Boi Insul.",
+      options: [
+        {
+          title: "Indicação",
+          description: "Cerca indicada para conter animais de médio e grande porte, como bovinos e equinos.",
+          image: campeiraBoiIndication.src,
+          background: campeiraBoiIndicationBackground.src,
+          kind: "indication",
+        },
+        {
+          title: "Malha",
+          description: "30 × 20 cm — malha desenvolvida para a contenção de bovinos e equinos.",
+          image: campeiraBoiMesh.src,
+          kind: "upperMesh",
+          widthLabel: "30 cm",
+          heightLabel: "20 cm",
+          meshOutline: { x: 46.2, y: 32.8, width: 27.6, height: 25.2 },
+        },
+        {
+          title: "Nó em X",
+          description: "Os fios se travam no nó em X, mantendo a tensão e a rigidez da cerca por mais tempo.",
+          image: campeiraBoiKnotBackground.src,
+          background: campeiraBoiKnotBackground.src,
+          detailImage: campeiraBoiKnot.src,
+          kind: "knot",
+          knotTarget: { x: 52.2, y: 54.9 },
+        },
+      ],
+    },
+    hero: {
+      title: "Campeira Boi",
+      description: "Conheça a cerca Campeira Boi Insul, desenvolvida para o cercamento de áreas rurais e a contenção de bovinos.",
+      sectionClassName: "aspect-video",
+      textClassName: "absolute inset-x-0 top-[26%]",
+      blurTop: "85%",
+      layers: [{
+        src: campeiraBoiHero.src,
+        alt: "Cerca Campeira Boi instalada em uma pastagem com bovinos",
+        animated: true,
+        imageClassName: "object-contain"
+      }],
+    },
     to: "/cercas-prontas/campeira-boi",
     name: "Cerca Campeira Boi Insul",
     title: "Cerca Pronta(rurais)",
@@ -592,38 +792,6 @@ const cercasProntas: CercaProntaInfo[] = [
           "Desenvolvida para rebanhos bovinos, com fios espaçados para máxima contenção.",
       },
     },
-    features: [
-      {
-        title: "Fio 2,50 mm",
-        description:
-          "Fio de alta espessura, feito para suportar tração e impacto em cercamentos exigentes.",
-        start: 63.5,
-        end: 68,
-      },
-      {
-        title: "Instalação",
-        description:
-          "Tela esticada entre os mourões, pronta para ser instalada em qualquer relevo de terreno.",
-        start: 36.3,
-        end: 43.8,
-      },
-      {
-        title: "Malha bifásica",
-        description:
-          "Aberturas menores na base e maiores no topo, unindo contenção eficiente e visibilidade.",
-        start: 57,
-        end: 61.5,
-      },
-      {
-        title: "Nó em X (stiff stay)",
-        description:
-          "Trava os fios em X, mantendo a tensão e a rigidez da estrutura por mais tempo.",
-        start: 61.5,
-        end: 64,
-      },
-    ],
-    videoSrc:
-      "https://res.cloudinary.com/kcqitv3l/video/upload/v1784730616/Campeira_Boi_cohowf.mp4",
     videoCards: [
       {
         src: "https://res.cloudinary.com/kcqitv3l/video/upload/v1785172768/campeira_boi_vd_1_dioiht.mp4",
@@ -665,43 +833,43 @@ const cercasProntas: CercaProntaInfo[] = [
       "https://res.cloudinary.com/kcqitv3l/video/upload/v1785241129/campeira-boi-3d_vst8rh.mp4",
     gallery: [
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-1.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-1.jpg",
         alt: "Cerca instalada em propriedade rural",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-2.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-2.jpg",
         alt: "Detalhe do fio e da malha",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-3.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-3.jpg",
         alt: "Rolo da tela",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-4.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-4.jpg",
         alt: "Cerca em terreno com desnível",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-5.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-5.jpg",
         alt: "Acabamento galvanizado a fogo",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-6.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-6.jpg",
         alt: "Nó em X da cerca",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-7.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-7.jpg",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-8.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-8.jpg",
         alt: "Cerca Insul",
       },
       {
-        src: "/images/img_campeiraBoi_carousel/campeira-img-9.jpg",
+        src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-9.jpg",
         alt: "Cerca Insul",
       },
     ],
-  },
+  }, //Boi
 ];
 
 const cercasProntasReels: ShowcaseReel[] = [
@@ -1854,57 +2022,6 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       "https://d2c3kthzw0ta10.cloudfront.net/videos-galinheiro/video-galinheiro-3d.mp4",
   }, //galinheiro
   {
-    slug: "tela-galinheiro-22",
-    name: "Tela Galinheiro 22",
-    category: "Hexagonal",
-    color: "#f0a202",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/galinheiro.png",
-    paragraph: 'Fio 0,71 mm, Aço galvanizado a fogo, Malha 2" - 5,0 cm',
-    postSpacing: "até 4m",
-    indicatedFor: [
-      {
-        name: "Delimitação de áreas rurais e sítios",
-        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/rural.png",
-      },
-      {
-        name: "Ideal para galinheiros, viveiro e coelheiras",
-        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/galinheiro.png",
-      },
-      {
-        name: "Hortas e jardins",
-        src: "https://d2c3kthzw0ta10.cloudfront.net/ico-galinheiro/horta.png",
-      },
-    ],
-    shortDescription:
-      "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
-    description:
-      "Página de exemplo para a Tela Galinheiro 22. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
-    gallery: [
-      {
-        src: "https://res.cloudinary.com/kcqitv3l/image/upload/v1785875091/galinheiro_mng6xp.png",
-        alt: "Tela Galinheiro 22 (imagem provisória)",
-      },
-    ],
-    features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
-    videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  }, //galinheiro-22
-  {
     slug: "tela-pinteiro-22",
     name: "Tela Pinteiro 22",
     category: "Hexagonal",
@@ -2829,3 +2946,6 @@ export {
   videoShowcaseMain,
   videoShowcaseReels,
 };
+
+
+

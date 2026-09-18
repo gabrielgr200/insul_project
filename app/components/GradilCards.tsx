@@ -41,7 +41,7 @@ const GradilCards = () => {
       className="bg-white px-6 py-24 dark:bg-zinc-950"
     >
       <div className="mx-auto max-w-6xl">
-        <div ref={rowRef} className="flex h-[140px] gap-3 sm:h-[160px]">
+        <div ref={rowRef} className="flex h-35 gap-3 sm:h-40">
           {CARDS.map((card, i) => {
             const isActive = i === active;
             return (
@@ -50,7 +50,7 @@ const GradilCards = () => {
                 type="button"
                 onClick={() => setActive(i)}
                 style={{ flexGrow: isActive ? 4 : 1 }}
-                className="group relative flex min-w-0 cursor-pointer flex-col justify-center overflow-hidden rounded-2xl bg-black/[0.03] p-5 text-left shadow-sm transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-white/5 sm:p-7"
+                className="group relative flex min-w-0 cursor-pointer flex-col justify-center overflow-hidden rounded-2xl bg-black/3 p-5 text-left shadow-sm transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-white/5 sm:p-7"
               >
                 <div className="min-w-0">
                   <h3 className="poppins truncate text-lg font-bold text-[#ff5500] dark:text-white sm:text-xl">
@@ -85,7 +85,7 @@ const GradilCards = () => {
                   <button
                     type="button"
                     onClick={() => setActive(i)}
-                    className={`poppins h-9 min-w-[3rem] cursor-pointer rounded-full px-4 text-sm font-semibold transition-all duration-300 ${
+                    className={`poppins h-9 min-w-12 cursor-pointer rounded-full px-4 text-sm font-semibold transition-all duration-300 ${
                       isActive
                         ? "bg-[#002d4d] text-white shadow-md dark:bg-white dark:text-[#002d4d]"
                         : "bg-white text-[#002d4d] shadow-sm dark:bg-zinc-800 dark:text-zinc-300"

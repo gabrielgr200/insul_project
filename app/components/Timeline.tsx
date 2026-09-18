@@ -73,9 +73,6 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
       </svg>
       <div className="relative z-10 flex flex-col">
         {items.map((item, i) => {
-          const src =
-            item.image ||
-            `https://picsum.photos/seed/${encodeURIComponent(item.title)}/600/400`;
           return (
             <motion.div
               key={i}
@@ -86,13 +83,15 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
               className={`group w-[85%] overflow-hidden rounded-2xl border px-8 py-7 ${cardClasses} ${i % 2 === 0 ? "mr-auto" : "ml-auto"
                 } ${i === items.length - 1 ? "" : "mb-24"}`}
             >
-              <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:mb-4 group-hover:max-h-40 group-hover:opacity-100">
-                <img
-                  src={src}
-                  alt={item.title}
-                  className="h-40 w-full rounded-xl object-cover"
-                />
-              </div>
+              {item.image && (
+                <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:mb-4 group-hover:max-h-40 group-hover:opacity-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-40 w-full rounded-xl object-cover"
+                  />
+                </div>
+              )}
               <h3 className={`mb-2 text-xl font-bold ${titleClasses}`}>
                 {item.title}
               </h3>

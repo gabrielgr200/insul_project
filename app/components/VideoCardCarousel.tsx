@@ -55,7 +55,7 @@ const VideoCardCarousel = ({
 
   return (
     <section className="overflow-hidden py-16">
-      <h3 className="mt-4 text-2xl poppins text-center mb-10 font-bold text-[#ff5500] sm:text-3xl">
+      <h3 className="mt-4 text-2xl poppins text-center mb-10 font-semibold text-[#ff5500] sm:text-3xl">
         {dict.videoCardCarousel.headingLead} {fenceName}
       </h3>
       <div
@@ -79,9 +79,8 @@ const VideoCardCarousel = ({
           return (
             <motion.div
               key={card.src}
-              className={`group absolute h-72 w-52 overflow-hidden rounded-3xl bg-zinc-900 shadow-2xl sm:h-96 sm:w-64 ${
-                isActive ? "" : "cursor-pointer"
-              }`}
+              className={`group absolute h-72 w-52 overflow-hidden rounded-3xl bg-zinc-900 shadow-2xl sm:h-96 sm:w-64 ${isActive ? "" : "cursor-pointer"
+                }`}
               style={{ zIndex: 10 - absOffset }}
               animate={{
                 x: offset * OFFSET_STEP,

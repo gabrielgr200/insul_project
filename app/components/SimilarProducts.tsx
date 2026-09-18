@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -88,20 +89,24 @@ export const SimilarProductCard = ({
       style={{ backgroundColor: color }}
       className="group relative flex aspect-[3/4] w-full flex-col justify-between overflow-hidden rounded-2xl p-5 shadow-lg shadow-black/10"
     >
-      <img
+      <Image
         ref={imgRef}
         src={src}
         alt={name}
-        className="absolute inset-0 h-full w-full object-cover"
+        fill
+        sizes="(min-width: 1024px) 33vw, 50vw"
+        className="object-cover"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-black/10" />
 
       {cutout && (
-        <img
+        <Image
           ref={cutoutRef}
           src={cutout}
           alt=""
           aria-hidden="true"
+          width={320}
+          height={320}
           className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[95%] w-auto object-contain object-bottom drop-shadow-2xl"
         />
       )}

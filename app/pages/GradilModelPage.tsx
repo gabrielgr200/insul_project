@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ImgCarousel from "../components/ImgCarousel";
@@ -7,7 +8,7 @@ import GradilColorFade from "../components/GradilColorFade";
 import GradilCardsMarquee from "../components/GradilCardsMarquee";
 import CercaHeroDetails from "../components/CercaHeroDetails";
 import VideoCardCarousel from "../components/VideoCardCarousel";
-import VideoCard3D from "../components/VideoCard3D";
+import VideoCard3D from "../components/VideoCard3DLazy";
 import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
@@ -72,15 +73,19 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
       <main className="pb-20 pt-16">
         <div className="mx-auto flex max-w-5xl flex-col items-center px-4 py-28">
           <div className="flex items-center justify-center">
-            <img
+            <Image
               src={logo.word}
               alt="Gradil"
+              width={300}
+              height={144}
               className="h-20 w-auto shrink-0 object-contain sm:h-28 lg:h-36"
             />
             <GradilColorFade className="-ml-8 -mr-1 h-32 w-20 shrink-0 rounded-sm sm:-ml-12 sm:-mr-2 sm:h-44 sm:w-28 lg:-ml-16 lg:h-64 lg:w-44" />
-            <img
+            <Image
               src={logo.model}
               alt={logo.alt}
+              width={300}
+              height={144}
               className="relative z-10 -ml-1.5 h-20 w-auto shrink-0 object-contain sm:-ml-2 sm:h-28 lg:-ml-3 lg:h-36"
             />
           </div>

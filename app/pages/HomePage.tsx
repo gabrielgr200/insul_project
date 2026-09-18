@@ -11,7 +11,7 @@ import Loader from "../components/Loader";
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
-import Book from "../components/Book";
+import dynamic from "next/dynamic";
 import VideoShowcase from "../components/VideoShowcase";
 import TextReveal from "../components/TextReveal";
 import Distribution from "../components/Distribution";
@@ -23,6 +23,13 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { hasSiteLoaded, markSiteLoaded } from "../utils/siteLoaded";
 import { useTranslation } from "../components/LanguageProvider";
+
+const Book = dynamic(() => import("../components/Book"), {
+  ssr: false,
+  loading: () => (
+    <div className="mx-auto h-[508px] max-w-[800px] animate-pulse rounded-2xl bg-black/5 dark:bg-white/5" />
+  ),
+});
 
 const HomePage = () => {
   const [loading, setLoading] = useState(() => !hasSiteLoaded());

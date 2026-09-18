@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Pause, Play, Plus, X } from "lucide-react";
@@ -666,10 +667,12 @@ const JavaliCollision = ({
             if (!src) return null;
             const heightClass = ESCAPE_ANIMAL_HEIGHT[animal] ?? "h-[13%]";
             return (
-              <img
+              <Image
                 key={animal}
                 src={src}
                 alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.escapingFence}`}
+                width={160}
+                height={160}
                 className={`escape-img absolute w-auto drop-shadow-md ${heightClass}`}
                 style={{ bottom: "15%" }}
               />
@@ -686,10 +689,12 @@ const JavaliCollision = ({
             const heightClass = COLLIDE_ANIMAL_HEIGHT[animal] ?? "h-[21%]";
             const bottom = COLLIDE_ANIMAL_BOTTOM[animal] ?? "6%";
             return (
-              <img
+              <Image
                 key={animal}
                 src={src}
                 alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.collidingWithFence}`}
+                width={160}
+                height={160}
                 className={`collide-img absolute w-auto drop-shadow-md ${heightClass}`}
                 style={{ bottom }}
               />
@@ -838,9 +843,11 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
         {chartItems.map((item) => (
           <div key={item.key}>
             {item.src && (
-              <img
+              <Image
                 src={item.src}
                 alt=""
+                width={28}
+                height={28}
                 className="absolute h-3 w-3 -translate-x-1/2 object-contain transition-opacity duration-300 sm:h-7 sm:w-7"
                 style={{
                   left: `${(item.x / BAR_CHART_W) * 100}%`,
@@ -955,9 +962,11 @@ const AnimalCirclesReveal = ({
           >
             <div className="animal-circle w-10 h-10 rounded-full bg-white/90 shadow-md ring-1 ring-black/5 flex items-center justify-center overflow-hidden dark:bg-white/10 dark:ring-white/10">
               {src && (
-                <img
+                <Image
                   src={src}
                   alt={animal}
+                  width={28}
+                  height={28}
                   className="w-7 h-7 object-contain"
                 />
               )}

@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CercaHeroDetails from "../components/CercaHeroDetails";
-import { ExpandableCardExample } from "../components/Specifications";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import VideoCardCarousel from "../components/VideoCardCarousel";
-import VideoCard3D from "../components/VideoCard3D";
+import VideoCard3D from "../components/VideoCard3DLazy";
 import SimilarProducts, {
   type SimilarProductItem,
 } from "../components/SimilarProducts";
@@ -117,12 +117,16 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
               className="relative flex min-h-[40vh] items-end overflow-hidden px-4 pb-10 sm:px-8"
               style={{ backgroundColor: item.color }}
             >
-              <img
-                src={item.gallery[0]?.src}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 h-full w-full object-cover opacity-30"
-              />
+              {item.gallery[0]?.src && (
+                <Image
+                  src={item.gallery[0].src}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="100vw"
+                  className="object-cover opacity-30"
+                />
+              )}
               <div className="relative mx-auto w-full max-w-6xl">
                 <span className="inline-block rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium text-white">
                   {badgeLabel}
@@ -135,15 +139,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
           </ScrollReveal>
         )}
 
-        {hasFullSpec && (
-          <ScrollReveal>
-            <ExpandableCardExample color={item.color} />
-          </ScrollReveal>
-        )}
-
-        <ScrollReveal>
-          <ImgCarousel images={item.gallery} />
-        </ScrollReveal>
+        <ImgCarousel perspective title={item.name} images={item.gallery} />
 
         <BlurRevealText
           text={item.description.split("\n\n")}

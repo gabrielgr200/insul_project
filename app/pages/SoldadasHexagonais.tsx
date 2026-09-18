@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -16,9 +17,15 @@ import {
 import CardPost from "../components/CardPost";
 import TelasShowcaseArc from "../components/TelasShowcaseArc";
 import BentoGallery from "../components/BentoGallery";
-import FenceVisualizer from "../components/FenceVisualizer";
 import SimplesTorcaoShowcase from "../components/SimplesTorcaoShowcase";
 import ScrollReveal from "../components/ScrollReveal";
+
+const FenceVisualizer = dynamic(() => import("../components/FenceVisualizer"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[440px] w-full animate-pulse rounded-2xl bg-black/5 dark:bg-white/5" />
+  ),
+});
 
 const soldadaCards = soldadasHexagonaisCardsPages.filter(
   (c) => c.title === "Tela Soldada",

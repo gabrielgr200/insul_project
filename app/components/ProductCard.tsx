@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -42,9 +43,11 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
       className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
     >
       {src && !broken ? (
-        <img
+        <Image
           src={src}
           alt={label}
+          width={28}
+          height={28}
           className="h-full w-full object-contain p-0.5"
           onError={() => setBroken(true)}
         />
@@ -382,10 +385,12 @@ const ProductCard = ({
               : "w-full"
           }`}
         >
-          <img
+          <Image
             src={src}
             alt={name}
-            className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${
+            fill
+            sizes="(min-width: 640px) 50vw, 100vw"
+            className={`transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${
               hoverImage
                 ? panelOpen
                   ? "opacity-0"
@@ -394,10 +399,12 @@ const ProductCard = ({
             }`}
           />
           {hoverImage && (
-            <img
+            <Image
               src={hoverImage}
               alt={name}
-              className={`absolute inset-0 h-full w-full object-cover object-left transition-opacity duration-500 ${
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className={`object-cover object-left transition-opacity duration-500 ${
                 panelOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
               }`}
             />
@@ -462,9 +469,11 @@ const ProductCard = ({
                       title={use.name}
                       className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
                     >
-                      <img
+                      <Image
                         src={use.src}
                         alt={use.name}
+                        width={28}
+                        height={28}
                         className="h-full w-full object-contain p-0.5"
                       />
                     </div>
@@ -504,7 +513,7 @@ const ProductCard = ({
         className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer dark:text-white/40 dark:hover:text-white/70"
       >
         <ChevronDown ref={chevronRef} size={18} />
-        <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs font-medium opacity-0 transition-all duration-200 ease-out group-hover:max-w-[3rem] group-hover:opacity-100">
+        <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs font-medium opacity-0 transition-all duration-200 ease-out group-hover:max-w-12 group-hover:opacity-100">
           {open ? "Fechar" : "Abrir"}
         </span>
       </button>

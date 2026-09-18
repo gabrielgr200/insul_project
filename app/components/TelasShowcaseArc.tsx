@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import FillButton from "./FillButton";
@@ -216,13 +217,15 @@ const TelasShowcaseArc = ({
             }}
           >
             <div
-              className="h-full w-full overflow-hidden rounded-2xl shadow-2xl shadow-black/20 ring-1 ring-[#002d4d]/10 dark:shadow-black/50 dark:ring-white/10"
+              className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl shadow-black/20 ring-1 ring-[#002d4d]/10 dark:shadow-black/50 dark:ring-white/10"
               style={{ transform: `rotate(${card.rotate}deg)` }}
             >
-              <img
+              <Image
                 src={card.src}
                 alt={card.alt}
-                className="h-full w-full object-cover"
+                fill
+                sizes="121px"
+                className="object-cover"
                 draggable={false}
               />
             </div>

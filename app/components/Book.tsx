@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import HTMLFlipBook from "react-pageflip";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
@@ -24,19 +25,19 @@ const pages: {
   categories: ProductCategory[];
   backCover?: boolean;
 }[] = [
-  { src: "/Catalogo/Capa.png", categories: [] },
-  { src: "/Catalogo/Soldada_2.png", categories: [findCategory("Soldada")] },
-  { src: "/Catalogo/Gradil_3.png", categories: [findCategory("Gradil")] },
-  { src: "/Catalogo/Fenix_4.png", categories: [] },
-  { src: "/Catalogo/Info_5.png", categories: [] },
-  { src: "/Catalogo/Cerca_6.png", categories: [findCategory("Cercas Prontas")] },
-  { src: "/Catalogo/Hexagonal_7.png", categories: [findCategory("Hexagonal")] },
-  {
-    src: "/Catalogo/Torção_8.png",
-    categories: [findCategory("Torção Simples"), acessoriosResumo],
-  },
-  { src: "/Catalogo/ContraCapa.png", categories: [], backCover: true },
-];
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Capa.png", categories: [] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Soldada_2.png", categories: [findCategory("Soldada")] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Gradil_3.png", categories: [findCategory("Gradil")] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Fenix_4.png", categories: [] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Info_5.png", categories: [] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Cerca_6.png", categories: [findCategory("Cercas Prontas")] },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Hexagonal_7.png", categories: [findCategory("Hexagonal")] },
+    {
+      src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Torção_8.png",
+      categories: [findCategory("Torção Simples"), acessoriosResumo],
+    },
+    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/ContraCapa.png", categories: [], backCover: true },
+  ];
 
 const listVariants = {
   hidden: {},
@@ -168,7 +169,7 @@ const Book = () => {
   const playFlipSound = () => {
     const audio = new Audio("/sounds/page-flip.mp3");
     audio.volume = 0.4;
-    audio.play().catch(() => {});
+    audio.play().catch(() => { });
   };
 
   useEffect(() => {
@@ -221,85 +222,89 @@ const Book = () => {
         />
 
         <div className="w-full max-w-[250px] sm:max-w-[340px] lg:max-w-[800px] lg:flex lg:justify-end">
-        <HTMLFlipBook
-          className=""
-          style={{}}
-          startPage={0}
-          width={360}
-          height={508}
-          size="stretch"
-          minWidth={220}
-          maxWidth={460}
-          minHeight={311}
-          maxHeight={650}
-          showCover={true}
-          mobileScrollSupport={true}
-          flippingTime={1000}
-          drawShadow={false}
-          usePortrait={true}
-          startZIndex={0}
-          autoSize={true}
-          maxShadowOpacity={0.5}
-          clickEventForward={true}
-          useMouseEvents={true}
-          swipeDistance={30}
-          showPageCorners={true}
-          disableFlipByClick={false}
-          onFlip={playFlipSound}
-          ref={bookRef}
-        >
-          {pages.map(({ src, categories, backCover }, i) => (
-            <div key={i} className="page relative bg-white shadow-2xl @container">
-              <img
-                src={src}
-                alt={`${t("book.pagina")} ${i + 1}`}
-                className="w-full h-full object-contain"
-              />
-              {categories.length > 0 && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
-                  {categories.map((category) => (
-                    <CategoryToggle key={category.title} category={category} />
-                  ))}
-                </div>
-              )}
-              {backCover && (
-                <div className="absolute inset-0">
-                  <div className="absolute left-0 top-[4.1%] h-[6.2%] w-[46.7%] flex items-center gap-[3%] pl-[6%] pr-[4%]">
-                    <img
-                      src="/images/logo_site.png"
-                      alt="Insul"
-                      className="h-[52%] w-auto object-contain"
-                    />
-                    <div className="w-px h-[60%] bg-[#ff5500]/40 shrink-0" />
-                    <img
-                      src="/images/logo_casa_das_cercas.png"
-                      alt="Casa das Cercas"
-                      className="h-[68%] w-auto object-contain"
-                    />
+          <HTMLFlipBook
+            className=""
+            style={{}}
+            startPage={0}
+            width={360}
+            height={508}
+            size="stretch"
+            minWidth={220}
+            maxWidth={460}
+            minHeight={311}
+            maxHeight={650}
+            showCover={true}
+            mobileScrollSupport={true}
+            flippingTime={1000}
+            drawShadow={false}
+            usePortrait={true}
+            startZIndex={0}
+            autoSize={true}
+            maxShadowOpacity={0.5}
+            clickEventForward={true}
+            useMouseEvents={true}
+            swipeDistance={30}
+            showPageCorners={true}
+            disableFlipByClick={false}
+            onFlip={playFlipSound}
+            ref={bookRef}
+          >
+            {pages.map(({ src, categories, backCover }, i) => (
+              <div key={i} className="page relative bg-white shadow-2xl @container">
+                <Image
+                  src={src}
+                  alt={`${t("book.pagina")} ${i + 1}`}
+                  fill
+                  sizes="(min-width: 1024px) 460px, (min-width: 640px) 340px, 250px"
+                  quality={70}
+                  priority={i === 0}
+                  className="object-contain"
+                />
+                {categories.length > 0 && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 z-10">
+                    {categories.map((category) => (
+                      <CategoryToggle key={category.title} category={category} />
+                    ))}
                   </div>
+                )}
+                {backCover && (
+                  <div className="absolute inset-0">
+                    <div className="absolute left-0 top-[4.1%] h-[6.2%] w-[46.7%] flex items-center gap-[3%] pl-[6%] pr-[4%]">
+                      <img
+                        src="/images/logo_site.png"
+                        alt="Insul"
+                        className="h-[52%] w-auto object-contain"
+                      />
+                      <div className="w-px h-[60%] bg-[#ff5500]/40 shrink-0" />
+                      <img
+                        src="/images/logo_casa_das_cercas.png"
+                        alt="Casa das Cercas"
+                        className="h-[68%] w-auto object-contain"
+                      />
+                    </div>
 
-                  <p className="absolute left-[11.7%] top-[17%] w-[85%] whitespace-nowrap text-white font-extrabold poppins leading-[1.05] text-[6.4cqw]">
-                    {t("book.interessado")}
-                  </p>
+                    <p className="absolute left-[11.7%] top-[17%] w-[85%] whitespace-nowrap text-white font-extrabold poppins leading-[1.05] text-[6.4cqw]">
+                      {t("book.interessado")}
+                    </p>
 
-                  <a
-                    href="#produtos"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("produtos");
-                    }}
-                    className="absolute left-[10.7%] top-[23.8%] h-[5.6%] w-[56.3%]
+                    <a
+                      href="#produtos"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection("produtos");
+                      }}
+                      className="absolute left-[10.7%] top-[23.8%] h-[5.6%] w-[56.3%]
                     flex items-center justify-center rounded-lg bg-[#ff5500]
                     text-white font-semibold poppins text-[3.4cqw] text-center
                     shadow-lg transition-colors duration-150 hover:bg-[#e64d00]"
-                  >
-                    {t("book.ctaSaibaMais")}
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
-        </HTMLFlipBook>
+                    >
+                      {t("book.ctaSaibaMais")}
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))}
+          </HTMLFlipBook>
         </div>
       </div>
     </section>

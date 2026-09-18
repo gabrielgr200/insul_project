@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 
 const partnerLogos = [
@@ -54,12 +55,15 @@ const PartnersLogos = () => {
               <div
                 key={`${logo.name}-${i}`}
                 ref={i === partnerLogos.length ? repeatStartRef : undefined}
-                className="flex h-16 w-36 flex-shrink-0 items-center justify-center"
+                className="relative flex h-16 w-36 flex-shrink-0 items-center justify-center"
               >
-                <img
+                <Image
                   src={logo.image}
                   alt={logo.name}
-                  className="h-full w-full object-contain grayscale dark:grayscale-0 transition-all duration-300 hover:grayscale-0"
+                  fill
+                  sizes="144px"
+                  loading={i < partnerLogos.length ? "eager" : "lazy"}
+                  className="object-contain grayscale dark:grayscale-0 transition-all duration-300 hover:grayscale-0"
                 />
               </div>
             ) : (

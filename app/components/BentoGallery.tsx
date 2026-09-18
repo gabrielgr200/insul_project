@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface BentoImage {
   src: string;
   alt: string;
@@ -25,6 +27,15 @@ const CELL_CLASSES = [
 ];
 
 const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov", ".m4v"];
+
+const CELL_IMAGE_SIZES = [
+  "(min-width: 768px) 75vw, 100vw",
+  "(min-width: 768px) 25vw, 100vw",
+  "(min-width: 768px) 25vw, 50vw",
+  "50vw",
+  "(min-width: 768px) 25vw, 50vw",
+  "50vw",
+];
 
 const isVideoSrc = (src: string) => {
   const clean = src.split("?")[0].toLowerCase();
@@ -55,12 +66,14 @@ const BentoGallery = ({ images }: BentoGalleryProps) => {
         ) : (
           <div
             key={image.src}
-            className={`${CELL_CLASSES[i]} overflow-hidden rounded-md`}
+            className={`relative ${CELL_CLASSES[i]} overflow-hidden rounded-md`}
           >
-            <img
+            <Image
               src={image.src}
               alt={image.alt}
-              className="h-full w-full object-cover"
+              fill
+              sizes={CELL_IMAGE_SIZES[i]}
+              className="object-cover"
               style={{ objectPosition: image.objectPosition ?? "center" }}
               draggable={false}
             />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -21,6 +22,9 @@ import ScrollReveal from "../components/ScrollReveal";
 import { useTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+// The G12 card grows to cover the viewport, including the 12% overscan.
+const G12_IMAGE_SIZES = "max(112vw, 199.2vh)";
 
 const LAYERS = [
   { src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu.webp", z: 10 },
@@ -303,7 +307,7 @@ const Gradil = () => {
               className="relative h-screen w-full overflow-hidden bg-[#aee0ff]"
             >
               {LAYERS.map((layer, i) => (
-                <img
+                <Image
                   key={layer.src}
                   ref={(el) => {
                     layerRefs.current[i] = el;
@@ -311,15 +315,18 @@ const Gradil = () => {
                   src={layer.src}
                   alt=""
                   aria-hidden="true"
+                  fill
+                  sizes="100vw"
+                  priority={i === 0}
                   draggable={false}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover will-change-transform"
+                  className="pointer-events-none object-cover will-change-transform"
                   style={{ zIndex: layer.z }}
                 />
               ))}
 
               <div
                 ref={heroRef}
-                className="pointer-events-none absolute inset-x-0 top-[28%] z-[15] px-6 text-center will-change-transform"
+                className="pointer-events-none absolute inset-x-0 top-[28%] z-15 px-6 text-center will-change-transform"
               >
                 <h1 className="poppins mx-auto max-w-2xl text-3xl font-bold text-[#ff5500] sm:text-4xl lg:text-[48px]">
                   {g.hero.title1} <br /> {g.hero.title2}
@@ -365,7 +372,7 @@ const Gradil = () => {
                   />
                 </svg>
               </div>
-              <div ref={cardStageRef} className="absolute inset-0 z-[60]">
+              <div ref={cardStageRef} className="absolute inset-0 z-60">
                 <div
                   ref={introRef}
                   className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
@@ -392,42 +399,54 @@ const Gradil = () => {
                         className="absolute inset-0"
                         style={{ filter: "grayscale(var(--g, 1))" }}
                       >
-                        <img
+                        <Image
                           src="https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu-industria.webp"
                           alt=""
                           aria-hidden="true"
+                          fill
+                          sizes={G12_IMAGE_SIZES}
                           draggable={false}
-                          className="absolute inset-0 h-full w-full object-cover"
+                          className="object-cover"
                         />
-                        <img
+                        <Image
                           ref={industryRef}
                           src="https://d2c3kthzw0ta10.cloudfront.net/parallax/industria.webp"
                           alt="Indústria protegida por gradil Insul"
+                          fill
+                          sizes={G12_IMAGE_SIZES}
                           draggable={false}
-                          className="absolute inset-0 h-full w-full object-cover will-change-transform"
+                          className="object-cover will-change-transform"
                         />
-                        <img
+                        <Image
                           ref={birdRef}
                           src="https://d2c3kthzw0ta10.cloudfront.net/parallax/passaro.webp"
                           alt=""
                           aria-hidden="true"
+                          fill
+                          sizes={G12_IMAGE_SIZES}
                           draggable={false}
-                          className="absolute inset-0 h-full w-full object-cover will-change-transform"
+                          className="object-cover will-change-transform"
                         />
 
-                        <img
+                        <Image
                           ref={gateLRef}
                           src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-esquerda-g12.webp"
                           alt=""
                           aria-hidden="true"
+                          width={520}
+                          height={150}
+                          sizes={G12_IMAGE_SIZES}
                           draggable={false}
                           className="absolute inset-x-0 bottom-0 h-[50%] w-full object-cover object-bottom will-change-transform"
                         />
-                        <img
+                        <Image
                           ref={gateRRef}
                           src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-direita-g12.webp"
                           alt=""
                           aria-hidden="true"
+                          width={520}
+                          height={150}
+                          sizes={G12_IMAGE_SIZES}
                           draggable={false}
                           className="absolute inset-x-0 bottom-0 h-[50%] w-full object-cover object-bottom will-change-transform"
                         />
@@ -441,16 +460,16 @@ const Gradil = () => {
                   className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-6 will-change-transform"
                 >
                   <div className="grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1fr_min(82vw,520px)_1fr]">
-                    <div className="hidden h-[293px] flex-col justify-between text-left text-[#002d4d] dark:text-white lg:flex">
+                    <div className="hidden h-73.25 flex-col justify-between text-left text-[#002d4d] dark:text-white lg:flex">
                       <h2 className="poppins text-left text-[#ff5500] dark:text-[#ff5500] text-5xl font-bold leading-none xl:text-6xl">
                         {g.showcase.title}
                       </h2>
-                      <p className="poppins max-w-[15rem] text-sm font-medium leading-relaxed">
+                      <p className="poppins max-w-60 text-sm font-medium leading-relaxed">
                         {g.showcase.left}
                       </p>
                     </div>
                     <div className="hidden lg:block" aria-hidden="true" />
-                    <div className="hidden h-[293px] flex-col justify-end gap-4 text-left text-[#002d4d] dark:text-white lg:flex">
+                    <div className="hidden h-73.25 flex-col justify-end gap-4 text-left text-[#002d4d] dark:text-white lg:flex">
                       <p className="poppins max-w-[16rem] text-sm leading-relaxed">
                         {g.showcase.modelsLead}
                         <span className="font-semibold text-[#ff5500]">

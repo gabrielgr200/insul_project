@@ -1,10 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, X } from "lucide-react";
 import type { GalleryImage } from "../assets/data";
+import PerspectiveGallery from "./PerspectiveGallery";
 
 interface CarouselImage {
   id: number;
@@ -18,18 +20,22 @@ const Thumb = ({
   image,
   className,
   iconSize = 24,
+  sizes = "297px",
 }: {
   image: CarouselImage;
   className: string;
   iconSize?: number;
+  sizes?: string;
 }) => (
-  <div className={`overflow-hidden bg-zinc-800 ${className}`}>
+  <div className={`relative overflow-hidden bg-zinc-800 ${className}`}>
     {image.src ? (
-      <img
+      <Image
         src={image.src}
         alt={image.alt}
+        fill
+        sizes={sizes}
         draggable={false}
-        className="h-full w-full object-cover"
+        className="object-cover"
       />
     ) : (
       <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-zinc-500">
@@ -39,7 +45,8 @@ const Thumb = ({
   </div>
 );
 
-const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
+const ImgCarousel = ({ images: sourceImages, perspective = false, title }: { images: GalleryImage[]; perspective?: boolean; title?: string }) => {
+  const imageCount = sourceImages.length;
   const images: CarouselImage[] = sourceImages.map((image, i) => ({
     id: i,
     src: image.src,
@@ -83,7 +90,8 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
   }, []);
 
   useLayoutEffect(() => {
-    const track = trackRef.current!;
+    const track = trackRef.current;
+    if (!track) return;
     const setWidth = track.scrollWidth / LOOPS;
     track.scrollLeft = setWidth;
 
@@ -99,19 +107,19 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
     };
     track.addEventListener("scroll", handleScroll);
     return () => track.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [perspective]);
 
   const close = useCallback(() => setLightboxIndex(null), []);
   const goPrev = useCallback(
     () =>
       setLightboxIndex(
-        (i) => ((i ?? 0) - 1 + images.length) % images.length
+        (i) => ((i ?? 0) - 1 + imageCount) % imageCount
       ),
-    []
+    [imageCount]
   );
   const goNext = useCallback(
-    () => setLightboxIndex((i) => ((i ?? 0) + 1) % images.length),
-    []
+    () => setLightboxIndex((i) => ((i ?? 0) + 1) % imageCount),
+    [imageCount]
   );
 
   useEffect(() => {
@@ -132,7 +140,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-zinc-950 p-4"
+          className="fixed inset-0 z-200 flex flex-col items-center justify-center bg-zinc-950 p-4"
           onClick={close}
         >
           <button
@@ -184,6 +192,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
                   image={images[lightboxIndex as number]}
                   className="h-full w-full"
                   iconSize={40}
+                  sizes="(min-width: 928px) 896px, calc(100vw - 32px)"
                 />
               </motion.div>
             </AnimatePresence>
@@ -205,6 +214,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
                   image={image}
                   className="h-full w-full rounded-md"
                   iconSize={14}
+                  sizes="80px"
                 />
               </button>
             ))}
@@ -212,6 +222,13 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+
+  if (perspective) return (
+    <>
+      <PerspectiveGallery images={sourceImages} title={title} onOpen={setLightboxIndex} paused={isOpen} />
+      {typeof document !== "undefined" && createPortal(lightbox, document.body)}
+    </>
   );
 
   return (
@@ -230,7 +247,7 @@ const ImgCarousel = ({ images: sourceImages }: { images: GalleryImage[] }) => {
               setLightboxIndex(i % images.length);
             }}
             aria-label={`Abrir ${image.alt} em tela cheia`}
-            className="group aspect-[4/3] w-72 shrink-0 cursor-grab rounded-2xl active:cursor-grabbing"
+            className="group aspect-4/3 w-72 shrink-0 cursor-grab rounded-2xl active:cursor-grabbing"
           >
             <Thumb
               image={image}

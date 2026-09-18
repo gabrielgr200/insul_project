@@ -54,9 +54,9 @@ export default function ArameCards() {
           key={card.title}
           tabIndex={0}
           aria-labelledby={`arame-card-${index}`}
-          className={`group relative isolate min-h-[340px] rounded-[24px] border border-black/[0.06] bg-neutral-100 dark:border-white/10 dark:bg-[#090b0c] outline-none focus-visible:ring-2 focus-visible:ring-[#ff5500] focus-visible:ring-offset-4 lg:min-h-[360px] ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"}`}
+          className={`group relative isolate min-h-85 rounded-[24px] border border-black/6 bg-neutral-100 dark:border-white/10 dark:bg-[#090b0c] outline-none focus-visible:ring-2 focus-visible:ring-[#ff5500] focus-visible:ring-offset-4 lg:min-h-90 ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"}`}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-[24px] motion-safe:will-change-transform [mask-image:radial-gradient(white,black)]">
+          <div className="absolute inset-0 overflow-hidden rounded-[24px] motion-safe:will-change-transform mask-[radial-gradient(white,black)]">
             <Image
               src={`https://d2c3kthzw0ta10.cloudfront.net/img-arame-cards/${card.image}`}
               alt={`Aplicação de arames Insul — imagem ${index + 1}`}
@@ -66,7 +66,7 @@ export default function ArameCards() {
             />
             <div
               aria-hidden="true"
-              className={`absolute inset-0 bg-white/95 opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:bg-[#090b0c]/95 motion-reduce:transition-none [@media(hover:none)]:opacity-100 ${index < 3 ? "[mask-image:linear-gradient(to_bottom,black_0%,black_55%,#0009_75%,#0001_100%)]" : "[mask-image:linear-gradient(to_bottom,black_0%,black_72%,#0002_100%)] lg:[mask-image:linear-gradient(to_right,black_0%,black_48%,#0009_70%,#0001_100%)]"}`}
+              className={`absolute inset-0 bg-white/95 opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:bg-[#090b0c]/95 motion-reduce:transition-none [@media(hover:none)]:opacity-100 ${index < 3 ? "mask-[linear-gradient(to_bottom,black_0%,black_55%,#0009_75%,#0001_100%)]" : "mask-[linear-gradient(to_bottom,black_0%,black_72%,#0002_100%)] lg:mask-[linear-gradient(to_right,black_0%,black_48%,#0009_70%,#0001_100%)]"}`}
             />
           </div>
           <div
@@ -80,12 +80,12 @@ export default function ArameCards() {
             />
             <h2
               id={`arame-card-${index}`}
-              className="poppins max-w-[300px] text-[25px] leading-tight font-semibold tracking-[-.04em] text-[#ff5500] dark:text-white"
+              className="poppins max-w-75 text-[25px] leading-tight font-semibold tracking-[-.04em] text-[#ff5500] dark:text-white"
             >
               {card.title}
             </h2>
             <p
-              className={`poppins mt-3 text-base font-font-normal leading-[1.45] text-[#5c6068] dark:text-white/75 ${index < 3 ? "max-w-[250px]" : "max-w-[210px]"}`}
+              className={`poppins mt-3 text-base font-font-normal leading-[1.45] text-[#5c6068] dark:text-white/75 ${index < 3 ? "max-w-62.5" : "max-w-52.5"}`}
             >
               {card.description}
             </p>

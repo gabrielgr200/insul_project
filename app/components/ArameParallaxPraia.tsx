@@ -64,7 +64,12 @@ const ArameParallaxPraia = () => {
   useGSAP(
     () => {
 
-      gsap.set(cardRef.current, { scale: 0.4, borderRadius: 16 / 0.4 });
+      const satellites = gsap.utils.toArray<HTMLElement>(
+        ".arame-gallery-cell",
+        sectionRef.current,
+      );
+
+      gsap.set(cardRef.current, { scale: 0.46, borderRadius: 16 / 0.46 });
       gsap.set(azulRef.current, { opacity: 0 });
       gsap.set(blurRef.current, { opacity: 0 });
       gsap.set([textVerdeRef.current, textAzulRef.current], {
@@ -86,17 +91,25 @@ const ArameParallaxPraia = () => {
       tl.to(cardRef.current, {
         scale: 1,
         borderRadius: 0,
-        ease: "power2.inOut",
+        ease: "none",
         duration: 1,
       });
 
       tl.to(
-        ".arame-gallery-cell",
+        satellites,
         {
-          opacity: 0,
-          scale: 0.85,
-          ease: "power2.in",
-          duration: 0.6,
+          // Move each image away from the center, preserving the grid's depth.
+          x: (_, target: HTMLElement) => {
+            const grid = target.parentElement!;
+            return (target.offsetLeft + target.offsetWidth / 2 - grid.clientWidth / 2) * 2.4;
+          },
+          y: (_, target: HTMLElement) => {
+            const grid = target.parentElement!;
+            return (target.offsetTop + target.offsetHeight / 2 - grid.clientHeight / 2) * 2.4;
+          },
+          scale: (index) => 2.2 + (index % 3) * 0.3,
+          ease: "none",
+          duration: 1,
         },
         0,
       );
@@ -141,20 +154,20 @@ const ArameParallaxPraia = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-white dark:bg-[#090b0c]"
+      className="relative h-svh w-full overflow-hidden bg-white dark:bg-[#090b0c]"
     >
-      <div className="relative mx-auto h-full max-w-7xl px-4 sm:px-8 lg:max-w-6xl">
-        <div className="absolute inset-0 z-0 grid grid-cols-4 grid-rows-4 gap-2 p-2 sm:gap-3 sm:p-3">
+      <div className="relative mx-auto h-full w-full">
+        <div className="absolute inset-[3%] z-0 grid grid-cols-4 grid-rows-4 gap-2 sm:gap-4">
           {galleryCells.map(({ src, className }) => (
             <div
               key={src}
-              className={`arame-gallery-cell relative isolate overflow-hidden rounded-[6px] ${className}`}
+              className={`arame-gallery-cell relative isolate overflow-hidden rounded-2xl will-change-transform ${className}`}
             >
               <Image
                 src={src}
                 alt=""
                 fill
-                sizes="(min-width: 1024px) 33vw, 40vw"
+                sizes="100vw"
                 className="object-cover"
               />
             </div>
@@ -163,7 +176,7 @@ const ArameParallaxPraia = () => {
       </div>
       <div
         ref={cardRef}
-        className="absolute inset-0 z-10 h-full w-full overflow-hidden"
+        className="absolute inset-0 z-10 h-full w-full overflow-hidden rounded-[35px] will-change-transform"
       >
 
         <Image
@@ -206,10 +219,10 @@ const ArameParallaxPraia = () => {
           src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/img-praia-arame.png"
           alt="Praia"
           fill
-          className="relative z-[1] object-cover"
+          className="relative z-1 object-cover"
         />
 
-        <div ref={verdeRef} className="absolute inset-0 z-[2]">
+        <div ref={verdeRef} className="absolute inset-0 z-2">
           <Image
             src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/arame-pvc-verde.png"
             alt="Arame PVC verde"
@@ -217,7 +230,7 @@ const ArameParallaxPraia = () => {
             className="object-cover"
           />
         </div>
-        <div ref={azulRef} className="absolute inset-0 z-[2]">
+        <div ref={azulRef} className="absolute inset-0 z-2">
           <Image
             src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/arame-pvc-azul.png"
             alt="Arame PVC azul"
@@ -229,11 +242,11 @@ const ArameParallaxPraia = () => {
         <div
           ref={blurRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[70%] -bottom-[160px] z-[3]"
+          className="pointer-events-none absolute inset-x-0 top-[70%] -bottom-40 z-3"
         >
-          <div className="absolute inset-0 backdrop-blur-[2px] [mask-image:linear-gradient(to_bottom,transparent,black_35%)]" />
-          <div className="absolute inset-0 backdrop-blur-[5px] [mask-image:linear-gradient(to_bottom,transparent_15%,black_55%)]" />
-          <div className="absolute inset-0 backdrop-blur-[10px] [mask-image:linear-gradient(to_bottom,transparent_30%,black_70%)]" />
+          <div className="absolute inset-0 backdrop-blur-[2px] mask-[linear-gradient(to_bottom,transparent,black_35%)]" />
+          <div className="absolute inset-0 backdrop-blur-[5px] mask-[linear-gradient(to_bottom,transparent_15%,black_55%)]" />
+          <div className="absolute inset-0 backdrop-blur-[10px] mask-[linear-gradient(to_bottom,transparent_30%,black_70%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,#ffffff80_25%,#ffffff_60%)] dark:bg-[linear-gradient(to_bottom,transparent_0%,#090b0c80_25%,#090b0c_60%)]" />
         </div>
       </div>
