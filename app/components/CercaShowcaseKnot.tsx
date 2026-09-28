@@ -7,8 +7,10 @@ export default function CercaShowcaseKnot({ option }: { option: CercaShowcaseOpt
   const lineMaskId = useId();
   const target = option.knotTarget || { x: 55.7, y: 59.2 };
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 [container-type:size]">
-      <div aria-hidden="true" className="absolute bottom-0 left-1/2 h-[max(56.22cqw,100cqh)] w-[max(100cqw,177.875cqh)] -translate-x-1/2">
+    <div className="pointer-events-none absolute inset-0 z-20 [container-type:size]">
+      <div aria-hidden="true" className={option.detailCanvas === "mesh"
+        ? "absolute top-1/2 left-1/2 h-[max(75cqw,100cqh)] w-[max(100cqw,133.333333cqh)] -translate-x-1/2 -translate-y-1/2"
+        : "absolute bottom-0 left-1/2 h-[max(56.22cqw,100cqh)] w-[max(100cqw,177.875cqh)] -translate-x-1/2"}>
         <svg className="absolute inset-0 size-full">
           <defs>
             <mask id={lineMaskId} maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
@@ -18,6 +20,17 @@ export default function CercaShowcaseKnot({ option }: { option: CercaShowcaseOpt
           </defs>
           <line x1={`${target.x}%`} y1={`${target.y}%`} x2="66%" y2="38%" stroke="white" strokeWidth="2" mask={`url(#${lineMaskId})`} />
         </svg>
+        {option.detailTargetOutline && (
+          <span
+            style={{
+              left: `${target.x}%`,
+              top: `${target.y}%`,
+              width: "2px",
+              height: `${option.detailTargetOutline.height}%`,
+            }}
+            className="absolute -translate-x-1/2 -translate-y-1/2 bg-[#ff5500]"
+          />
+        )}
         <span style={{ left: `${target.x}%`, top: `${target.y}%` }} className="absolute size-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#0003]" />
       </div>
       <div className="absolute right-4 bottom-4 size-40 overflow-hidden rounded-full border-2 border-white bg-[#f5f5f5] shadow-xl dark:bg-[#191b1e] sm:size-52 lg:top-[18%] lg:right-auto lg:bottom-auto lg:left-[61%] lg:size-60">

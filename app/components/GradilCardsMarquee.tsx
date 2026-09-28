@@ -4,15 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const VIDEO_CARDS = [
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-1.mp4",
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-2.mp4",
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-3.mp4",
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-4.mp4",
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-5.mp4",
-  "https://d2c3kthzw0ta10.cloudfront.net/videos-gradil-para/video-gradil-6.mp4",
-];
-
 const IMAGE_CARDS = [
   "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-1-gradil.jpg",
   "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-2-gradil.jpg",
@@ -22,12 +13,12 @@ const IMAGE_CARDS = [
   "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-gradil-6.png",
 ];
 
-type CardMedia = { src: string; alt: string; type: "image" | "video" };
+type CardMedia = { src: string; alt: string };
 
-const ORDERED_CARDS: CardMedia[] = VIDEO_CARDS.flatMap((videoSrc, i) => [
-  { src: videoSrc, alt: "Gradil Insul - vídeo", type: "video" as const },
-  { src: IMAGE_CARDS[i], alt: "Gradil Insul - cor disponível", type: "image" as const },
-]);
+const ORDERED_CARDS: CardMedia[] = IMAGE_CARDS.map((src) => ({
+  src,
+  alt: "Gradil Insul - cor disponível",
+}));
 
 const REPEAT = 4;
 const CARDS: CardMedia[] = Array.from({ length: REPEAT }, () => ORDERED_CARDS).flat();
@@ -92,26 +83,15 @@ const GradilCardsMarquee = () => {
                   : "rounded-tr-[68px] rounded-bl-[68px] sm:rounded-tr-[92px] sm:rounded-bl-[92px] lg:rounded-tr-[120px] lg:rounded-bl-[120px]"
               }`}
             >
-              {card.type === "video" ? (
-                <video
-                  src={card.src}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  aria-label={card.alt}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <Image
-                  src={card.src}
-                  alt={card.alt}
-                  fill
-                  sizes="(min-width: 1024px) 224px, (min-width: 640px) 168px, 120px"
-                  draggable={false}
-                  className="object-cover"
-                />
-              )}
+              <Image
+                src={card.src}
+                alt={card.alt}
+                fill
+                quality={90}
+                sizes="(min-width: 1024px) 224px, (min-width: 640px) 168px, 120px"
+                draggable={false}
+                className="object-cover"
+              />
             </div>
           ))}
         </div>
@@ -119,7 +99,7 @@ const GradilCardsMarquee = () => {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-30 h-20 backdrop-blur-xl sm:h-28 lg:h-32"
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-30 h-20 border-t border-white/45 bg-white/28 shadow-[0_-18px_50px_rgba(0,45,77,0.12)] backdrop-blur-2xl backdrop-saturate-150 sm:h-28 lg:h-32 dark:border-white/15 dark:bg-[#07131f]/35 dark:shadow-[0_-18px_55px_rgba(0,0,0,0.35)]"
         style={{
           opacity: blurOpacity,
           WebkitMaskImage:

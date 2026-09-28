@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Maximize2, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { Maximize2, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
 import type { VideoCardData } from "../assets/data";
 import { useTranslation } from "./LanguageProvider";
 
@@ -19,9 +19,46 @@ const VideoCardCarousel = ({
   const { dict } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [unmutedIndex, setUnmutedIndex] = useState<number | null>(null);
+  const [manualPaused, setManualPaused] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const length = cards.length;
   const drag = useRef({ active: false, moved: false, startX: 0 });
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    observer.observe(section);
+
+    const updatePageVisibility = () => setPageVisible(!document.hidden);
+    updatePageVisibility();
+    document.addEventListener("visibilitychange", updatePageVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", updatePageVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+      if (index === activeIndex && inView && pageVisible && !manualPaused) {
+        void video.play().catch(() => setIsPlaying(false));
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeIndex, inView, pageVisible, manualPaused]);
 
   const getOffset = (index: number) => {
     let diff = index - activeIndex;
@@ -32,6 +69,20 @@ const VideoCardCarousel = ({
 
   const goTo = (index: number) => {
     setActiveIndex(((index % length) + length) % length);
+    setManualPaused(false);
+    setIsPlaying(false);
+  };
+
+  const togglePlayback = () => {
+    const video = videoRefs.current[activeIndex];
+    if (!video) return;
+    if (video.paused) {
+      setManualPaused(false);
+      void video.play().catch(() => setIsPlaying(false));
+    } else {
+      setManualPaused(true);
+      video.pause();
+    }
   };
 
   const goNext = () => goTo(activeIndex + 1);
@@ -54,7 +105,7 @@ const VideoCardCarousel = ({
   };
 
   return (
-    <section className="overflow-hidden py-16">
+    <section ref={sectionRef} className="overflow-hidden py-16">
       <h3 className="mt-4 text-2xl poppins text-center mb-10 font-semibold text-[#ff5500] sm:text-3xl">
         {dict.videoCardCarousel.headingLead} {fenceName}
       </h3>
@@ -95,19 +146,32 @@ const VideoCardCarousel = ({
               }}
             >
               <video
+                ref={(element) => { videoRefs.current[index] = element; }}
                 src={videoSrc}
-                autoPlay
                 loop
                 muted={muted}
                 playsInline
+                preload={isActive ? "metadata" : "none"}
+                onPlay={() => { if (isActive) setIsPlaying(true); }}
+                onPause={() => { if (isActive) setIsPlaying(false); }}
                 className="pointer-events-none h-full w-full object-cover"
               />
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-              <span className="playfair-display absolute top-3 left-4 text-3xl text-white">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (isActive) togglePlayback();
+                  else goTo(index);
+                }}
+                aria-label={isActive && isPlaying ? "Pausar vídeo" : "Reproduzir vídeo"}
+                tabIndex={isVisible ? 0 : -1}
+                className="absolute top-3 left-3 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow transition-colors hover:bg-zinc-200"
+              >
+                {isActive && isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+              </button>
 
               {isActive ? (
                 <button

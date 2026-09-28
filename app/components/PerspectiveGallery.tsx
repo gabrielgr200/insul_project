@@ -34,7 +34,7 @@ function GalleryCard({ image, slot, count, phase, step, onClick }: { image: Gall
   );
 }
 
-export default function PerspectiveGallery({ images, title, onOpen, paused = false }: { images: GalleryImage[]; title?: string; onOpen: (index: number) => void; paused?: boolean }) {
+export default function PerspectiveGallery({ images, title, badge, description, onOpen, paused = false }: { images: GalleryImage[]; title?: string; badge?: string; description?: string; onOpen: (index: number) => void; paused?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const interactions = useRef({ hover: false, focus: false });
@@ -43,7 +43,8 @@ export default function PerspectiveGallery({ images, title, onOpen, paused = fal
   const reducedMotion = useReducedMotion();
   const visible = useInView(sectionRef);
   const { scrollYProgress: textProgress } = useScroll({ target: textRef, offset: ["start 85%", "end 45%"] });
-  const sentence = `Malhas de alta performance que unem qualidade e resistência para proteger quem trabalha no campo todos os dias.`;
+  const sentence = description || `Conheça os detalhes, aplicações e diferenciais de ${title || "nossos produtos"}.`;
+  const eyebrow = badge || (title ? `Explore ${title}` : "Explore e conheça");
   const count = images.length ? Math.ceil(11 / images.length) * images.length : 0;
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function PerspectiveGallery({ images, title, onOpen, paused = fal
   return (
     <section ref={sectionRef} className="poppins overflow-hidden bg-background py-16 text-[#002d4d] dark:text-white sm:py-20">
       <div className="mx-auto max-w-5xl px-6 text-center">
-        <motion.span initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.5 }} className="inline-block rounded-full bg-white px-3 py-1.5 text-sm text-[#ff5500] shadow-[0_8px_24px_#00000020] dark:bg-[#22272b]">Explore e conheça</motion.span>
+        <motion.span initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: reducedMotion ? 0 : 0.5 }} className="inline-block rounded-full bg-white px-3 py-1.5 text-sm text-[#ff5500] shadow-[0_8px_24px_#00000020] dark:bg-[#22272b]">{eyebrow}</motion.span>
         <h2 ref={textRef} aria-label={sentence} className="poppins mt-8 text-[clamp(26px,3.5vw,40px)] leading-[1.12] font-light tracking-[-.025em]">
           <span aria-hidden="true">{sentence.split(" ").map((word, wordIndex, words) => {
             const firstLetter = words.slice(0, wordIndex).join(" ").length + (wordIndex ? 1 : 0);

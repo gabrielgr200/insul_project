@@ -10,7 +10,8 @@ export default function CercaShowcaseMesh({ option }: { option: CercaShowcaseOpt
     <div className="absolute inset-0 overflow-hidden [container-type:size]">
       <div className="absolute top-1/2 left-1/2 h-[max(75cqw,100cqh)] w-[max(100cqw,133.333333cqh)] -translate-x-1/2 -translate-y-1/2">
         <Image src={option.image} alt={option.title} fill sizes="(min-width: 1024px) max(65vw, 120svh), 100vw" className="object-cover" />
-        {(option.meshOutline || (option.widthLabel && option.heightLabel)) && <div style={{ left: `${outline.x}%`, top: `${outline.y}%`, width: `${outline.width}%`, height: `${outline.height}%` }} className="absolute border-2 border-[#ff5500] text-[#002d4d] dark:text-white">
+        {(option.meshOutline || (option.widthLabel && option.heightLabel)) && <div style={{ left: `${outline.x}%`, top: `${outline.y}%`, width: `${outline.width}%`, height: `${outline.height}%` }} className={`absolute text-[#002d4d] dark:text-white ${outline.shape === "hexagon" ? "" : "border-2 border-[#ff5500]"}`}>
+          {outline.shape === "hexagon" && <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 size-full overflow-visible"><polygon points="32,1 68,1 99,50 68,99 32,99 1,50" fill="none" stroke="#ff5500" strokeWidth="2" vectorEffect="non-scaling-stroke" /></svg>}
           {option.widthLabel && <span className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-3 py-1 text-sm font-semibold shadow-sm dark:bg-[#292c31] sm:text-base">{option.widthLabel}</span>}
           {option.heightLabel && <span className="absolute top-1/2 right-full mr-3 -translate-y-1/2 whitespace-nowrap rounded-full bg-white/95 px-3 py-1 text-sm font-semibold shadow-sm dark:bg-[#292c31] sm:text-base">{option.heightLabel}</span>}
         </div>}

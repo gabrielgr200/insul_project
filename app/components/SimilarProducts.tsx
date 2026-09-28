@@ -94,6 +94,7 @@ export const SimilarProductCard = ({
         src={src}
         alt={name}
         fill
+        quality={90}
         sizes="(min-width: 1024px) 33vw, 50vw"
         className="object-cover"
       />
@@ -107,6 +108,7 @@ export const SimilarProductCard = ({
           aria-hidden="true"
           width={320}
           height={320}
+          quality={90}
           className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[95%] w-auto object-contain object-bottom drop-shadow-2xl"
         />
       )}

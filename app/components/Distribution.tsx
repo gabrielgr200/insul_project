@@ -32,7 +32,14 @@ const Distribution = () => {
         .from(".DISTRIBUTION-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.5")
         .from(
           ".DISTRIBUTION-CARD",
-          { y: 20, opacity: 0, duration: 0.5, stagger: 0.12, clearProps: "transform" },
+          {
+            y: 12,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.18,
+            ease: "power3.out",
+            clearProps: "transform",
+          },
           "-=0.3",
         )
         .from(".DISTRIBUTION-MAP", { scale: 0.9, opacity: 0, duration: 0.9 }, "-=0.6");
@@ -68,7 +75,7 @@ const Distribution = () => {
               <div
                 key={center.state}
                 className="DISTRIBUTION-CARD flex items-center gap-3 sm:gap-2 bg-white dark:bg-white/5 dark:backdrop-blur-md border border-zinc-200 dark:border-white/10 rounded-2xl shadow-sm p-3 sm:p-2 w-full max-w-sm lg:max-w-xs
-                transition-[box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-zinc-300 dark:hover:border-white/20 cursor-pointer"
+                transition-[transform,box-shadow,border-color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1 hover:shadow-xl hover:border-zinc-300 dark:hover:border-white/20 cursor-pointer"
               >
                 <div className="w-20 h-20 shrink-0 rounded-xl bg-gradient-to-br from-[#002d4d] to-[#0a5c9c] flex items-center justify-center">
                   <MapPin className="text-white" size={28} />

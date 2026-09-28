@@ -1,8 +1,16 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CercaHeroDetails from "../components/CercaHeroDetails";
+import CercaImageHero from "../components/CercaImageHero";
+import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import VideoCardCarousel from "../components/VideoCardCarousel";
@@ -64,8 +72,46 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 const familyKey = (name: string) => name.split(" ")[1]?.toLowerCase() ?? "";
 
 const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const item = soldadasHexagonais.find((i) => i.slug === slug);
   if (!item) notFound();
+
+  const hasImageHero = Boolean(item.hero);
+
+  useLayoutEffect(() => {
+    if (!hasImageHero || !wrapperRef.current || !contentRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const smoother = ScrollSmoother.create({
+        wrapper: wrapperRef.current!,
+        content: contentRef.current!,
+        smooth: 1.8,
+        effects: true,
+        normalizeScroll: true,
+      });
+      let refreshTimeout: ReturnType<typeof setTimeout>;
+      const refresh = () => {
+        clearTimeout(refreshTimeout);
+        refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+      };
+      const observer = new ResizeObserver(refresh);
+      observer.observe(contentRef.current!);
+      window.addEventListener("load", refresh);
+      refresh();
+
+      return () => {
+        clearTimeout(refreshTimeout);
+        observer.disconnect();
+        window.removeEventListener("load", refresh);
+        smoother.kill();
+      };
+    });
+
+    return () => media.revert();
+  }, [slug, hasImageHero]);
 
   const currentFamily = familyKey(item.name);
   const otherTelas = soldadasHexagonais.filter((i) => i.slug !== slug);
@@ -96,13 +142,18 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
   const badgeLabel =
     item.category === "Soldada" ? "Tela Soldada" : "Tela Hexagonal";
   const hasFullSpec = Boolean(item.features && item.videoSrc);
+  const hasVideoCards = Boolean(item.videoCards?.length);
 
   return (
     <div className="min-h-screen overflow-clip">
       <Header />
 
-      <main className="pb-20 pt-32">
-        {hasFullSpec ? (
+      <div ref={wrapperRef}>
+      <div ref={contentRef} className="relative">
+      <main className={`pb-20 ${item.hero ? "pt-0" : "pt-32"}`}>
+        {item.hero ? (
+          <CercaImageHero hero={item.hero} color={item.color} />
+        ) : hasFullSpec ? (
           <ScrollReveal>
             <CercaHeroDetails
               name={item.name}
@@ -139,14 +190,24 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
           </ScrollReveal>
         )}
 
-        <ImgCarousel perspective title={item.name} images={item.gallery} />
+        <ImgCarousel perspective title={item.name} badge={item.galleryIntro?.badge} description={item.galleryIntro?.text || item.shortDescription} images={item.gallery} />
 
-        <BlurRevealText
-          text={item.description.split("\n\n")}
-          className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
-        />
+        {item.showcase && (
+          <CercaShowcaseTeste
+            key={`showcase-${slug}`}
+            showcase={item.showcase}
+            color={item.color}
+          />
+        )}
 
-        {hasFullSpec && (
+        <div className={item.showcase ? "pt-24" : undefined}>
+          <BlurRevealText
+            text={item.description.split("\n\n")}
+            className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
+          />
+        </div>
+
+        {hasVideoCards && (
           <ScrollReveal>
             <VideoCardCarousel cards={item.videoCards!} fenceName={item.name} />
           </ScrollReveal>
@@ -164,6 +225,8 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
       </main>
 
       <Footer />
+      </div>
+      </div>
     </div>
   );
 };

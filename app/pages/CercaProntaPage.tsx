@@ -113,7 +113,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
       <div ref={contentRef} className="relative">
       <main className={`space-y-24 pb-20 pt-0`}>
         <CercaImageHero key={`hero-${slug}`} hero={cerca.hero} color={cerca.color} />
-        <ImgCarousel perspective title={cerca.name} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
+        <ImgCarousel perspective title={cerca.name} badge={cerca.galleryIntro?.badge} description={cerca.galleryIntro?.text || cerca.shortDescription} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
         {cerca.showcase && <CercaShowcaseTeste key={`showcase-${slug}`} showcase={cerca.showcase} color={cerca.color} />}
         <BlurRevealText
           text={cerca.paragraphs}

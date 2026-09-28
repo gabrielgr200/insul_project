@@ -23,7 +23,6 @@ import { useTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-// The G12 card grows to cover the viewport, including the 12% overscan.
 const G12_IMAGE_SIZES = "max(112vw, 199.2vh)";
 
 const LAYERS = [

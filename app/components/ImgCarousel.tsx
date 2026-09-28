@@ -33,6 +33,7 @@ const Thumb = ({
         src={image.src}
         alt={image.alt}
         fill
+        quality={90}
         sizes={sizes}
         draggable={false}
         className="object-cover"
@@ -45,7 +46,7 @@ const Thumb = ({
   </div>
 );
 
-const ImgCarousel = ({ images: sourceImages, perspective = false, title }: { images: GalleryImage[]; perspective?: boolean; title?: string }) => {
+const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, description }: { images: GalleryImage[]; perspective?: boolean; title?: string; badge?: string; description?: string }) => {
   const imageCount = sourceImages.length;
   const images: CarouselImage[] = sourceImages.map((image, i) => ({
     id: i,
@@ -226,7 +227,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title }: { ima
 
   if (perspective) return (
     <>
-      <PerspectiveGallery images={sourceImages} title={title} onOpen={setLightboxIndex} paused={isOpen} />
+      <PerspectiveGallery images={sourceImages} title={title} badge={badge} description={description} onOpen={setLightboxIndex} paused={isOpen} />
       {typeof document !== "undefined" && createPortal(lightbox, document.body)}
     </>
   );

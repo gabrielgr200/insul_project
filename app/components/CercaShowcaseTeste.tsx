@@ -1,7 +1,6 @@
 "use client";
 
 import { useId, useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { CercaShowcaseData } from "../assets/data";
@@ -18,19 +17,15 @@ export default function CercaShowcaseTeste({ showcase, color }: { showcase: Cerc
 
   return (
     <section aria-labelledby={titleId} className="poppins">
-      <div className="mx-auto max-w-3xl px-5 pb-10 text-center sm:px-10 lg:pb-12">
-        <h2 id={titleId} style={{ color }} className="text-[clamp(30px,4vw,48px)] leading-[1.12] font-bold tracking-[-.04em]">{showcase.title}{showcase.subtitle && <><br /><span className="font-light text-[#002d4d] dark:text-white">{showcase.subtitle}</span></>}</h2>
-        <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed font-light text-black/70 dark:text-white/80 sm:text-base">{showcase.description}</p>
+      <div className="mx-auto max-w-2xl px-5 pb-10 text-center sm:px-10 lg:pb-12">
+        <h2 id={titleId} style={{ color }} className="text-[clamp(30px,4vw,48px)] leading-[1.12] font-bold tracking-[-.04em] poppins">{showcase.title}{showcase.subtitle && <><br /><span className="font-light text-[#002d4d] dark:text-white">{showcase.subtitle}</span></>}</h2>
+        <p className="poppins mx-auto mt-4 max-w-2xl text-sm leading-relaxed font-light text-black/70 dark:text-white/80 sm:text-base">{showcase.description}</p>
       </div>
-      <div className="relative isolate overflow-hidden bg-[#f5f5f5] pt-12 dark:bg-[#191b1e] lg:pt-0">
-        <AnimatePresence>
-          {active.background && (
-            <motion.div key={active.background} aria-hidden="true" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : 0.3 }} className="pointer-events-none absolute inset-0 -z-10">
-              <Image src={active.background} alt="" fill quality={90} sizes="100vw" className="object-cover object-bottom" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <div className="grid items-center gap-8 px-5 sm:px-10 lg:min-h-[680px] lg:grid-cols-[400px_1fr] lg:gap-12 lg:pr-0 lg:pl-[6vw]">
+      <div
+        style={active.background || active.kind === "image" ? { backgroundImage: `url("${active.background || active.image}")`, backgroundPosition: "center", backgroundSize: "cover" } : undefined}
+        className="relative isolate overflow-hidden bg-[#f5f5f5] pt-12 dark:bg-[#191b1e] lg:pt-0"
+      >
+        <div className="relative z-10 grid items-center gap-8 px-5 sm:px-10 lg:min-h-[680px] lg:grid-cols-[400px_1fr] lg:gap-12 lg:pr-0 lg:pl-[6vw]">
           <div className="flex flex-col items-start gap-3">
             {showcase.options.map((option, index) => {
               const expanded = selected === index;
@@ -46,7 +41,9 @@ export default function CercaShowcaseTeste({ showcase, color }: { showcase: Cerc
               <motion.div key={active.title} initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : 0.3 }} className="absolute inset-0">
                 {active.kind === "indication" ? <CercaShowcaseIndication option={active} />
                   : active.kind === "upperMesh" || active.kind === "lowerMesh" ? <CercaShowcaseMesh option={active} />
+                    : active.kind === "meshDetail" ? <><CercaShowcaseMesh option={active} /><CercaShowcaseKnot option={active} /></>
                     : active.kind === "length" ? <CercaShowcaseLength option={active} />
+                      : active.kind === "image" ? <span className="sr-only">{active.title}</span>
                       : active.kind === "knot" ? <span className="sr-only">{active.title}</span>
                         : <CercaShowcaseIndication option={active} />}
               </motion.div>

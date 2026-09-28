@@ -6,7 +6,7 @@ import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import GradilColorFade from "../components/GradilColorFade";
 import GradilCardsMarquee from "../components/GradilCardsMarquee";
-import CercaHeroDetails from "../components/CercaHeroDetails";
+import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
 import VideoCardCarousel from "../components/VideoCardCarousel";
 import VideoCard3D from "../components/VideoCard3DLazy";
 import SimilarProducts, {
@@ -78,6 +78,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
               alt="Gradil"
               width={300}
               height={144}
+              quality={90}
               className="h-20 w-auto shrink-0 object-contain sm:h-28 lg:h-36"
             />
             <GradilColorFade className="-ml-8 -mr-1 h-32 w-20 shrink-0 rounded-sm sm:-ml-12 sm:-mr-2 sm:h-44 sm:w-28 lg:-ml-16 lg:h-64 lg:w-44" />
@@ -86,6 +87,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
               alt={logo.alt}
               width={300}
               height={144}
+              quality={90}
               className="relative z-10 -ml-1.5 h-20 w-auto shrink-0 object-contain sm:-ml-2 sm:h-28 lg:-ml-3 lg:h-36"
             />
           </div>
@@ -103,28 +105,13 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
           <ImgCarousel images={item.gallery} />
         </ScrollReveal>
 
-        <div className="pt-14 pb-24">
-          {item.videoSrc && item.features && item.features.length > 0 && (
-            <ScrollReveal>
-              <div className="mx-auto max-w-2xl px-4 pb-8 text-center sm:px-8">
-                <h2 className="poppins text-3xl font-bold text-[#ff5500] lg:text-4xl">
-                  Veja como é feita a instalação
-                </h2>
-                <p className="poppins mt-3 text-sm text-[#002d4d] dark:text-white sm:text-base">
-                  Clique nos tópicos ao lado do vídeo para conferir o passo a
-                  passo da instalação e como é a malha superior e inferior do{" "}
-                  {item.name}.
-                </p>
-              </div>
-              <CercaHeroDetails
-                name={item.name}
-                badge="Gradil"
-                videoSrc={item.videoSrc}
-                features={item.features}
-              />
-            </ScrollReveal>
-          )}
-        </div>
+        {item.showcase && (
+          <CercaShowcaseTeste
+            key={`showcase-${slug}`}
+            showcase={item.showcase}
+            color={item.color}
+          />
+        )}
 
         {item.videoCards && item.videoCards.length > 0 && (
           <ScrollReveal>
