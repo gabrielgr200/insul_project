@@ -25,18 +25,18 @@ const pages: {
   categories: ProductCategory[];
   backCover?: boolean;
 }[] = [
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Capa.png", categories: [] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Soldada_2.png", categories: [findCategory("Soldada")] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Gradil_3.png", categories: [findCategory("Gradil")] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Fenix_4.png", categories: [] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Info_5.png", categories: [] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Cerca_6.png", categories: [findCategory("Cercas Prontas")] },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Hexagonal_7.png", categories: [findCategory("Hexagonal")] },
+    { src: "/Catalogo/Capa.png", categories: [] },
+    { src: "/Catalogo/Soldada_2.png", categories: [findCategory("Soldada")] },
+    { src: "/Catalogo/Gradil_3.png", categories: [findCategory("Gradil")] },
+    { src: "/Catalogo/Fenix_4.png", categories: [] },
+    { src: "/Catalogo/Info_5.png", categories: [] },
+    { src: "/Catalogo/Cerca_6.png", categories: [findCategory("Cercas Prontas")] },
+    { src: "/Catalogo/Hexagonal_7.png", categories: [findCategory("Hexagonal")] },
     {
-      src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/Torção_8.png",
+      src: "/Catalogo/Torção_8.png",
       categories: [findCategory("Torção Simples"), acessoriosResumo],
     },
-    { src: "https://d2c3kthzw0ta10.cloudfront.net/Catalogo/ContraCapa.png", categories: [], backCover: true },
+    { src: "/Catalogo/ContraCapa.png", categories: [], backCover: true },
   ];
 
 const listVariants = {

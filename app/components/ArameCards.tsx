@@ -58,7 +58,7 @@ export default function ArameCards() {
         >
           <div className="absolute inset-0 overflow-hidden rounded-[24px] motion-safe:will-change-transform mask-[radial-gradient(white,black)]">
             <Image
-              src={`https://d2c3kthzw0ta10.cloudfront.net/img-arame-cards/${card.image}`}
+              src={`/images/img-arame-cards/${card.image}`}
               alt={`Aplicação de arames Insul — imagem ${index + 1}`}
               fill
               sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"

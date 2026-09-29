@@ -22,28 +22,28 @@ const ASSEMBLY_PIECES = [
     // "style" is the exploded (reference-photo) resting spot; dragging all
     // the way to 100% goes further still, past that, in by "toOffset" so
     // the pieces end up looking actually installed on the post.
-    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/fixador.png",
+    src: "/images/poste/fixador.png",
     style: { left: "73%", top: "29%", width: "58%", zIndex: 2 },
     from: { x: 90, y: -10, rotate: 14 },
     toOffset: { x: -16, y: 0 },
     toRotate: 0,
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png",
+    src: "/images/poste/parafuso.png",
     style: { left: "130%", top: "42%", width: "32%", zIndex: 3 },
     from: { x: 150, y: 25, rotate: 24 },
     toOffset: { x: -58, y: -6 },
     toRotate: -8,
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampinha-fixador.png",
+    src: "/images/poste/tampinha-fixador.png",
     style: { left: "173%", top: "47%", width: "28%", zIndex: 1 },
     from: { x: 170, y: 15, rotate: -20 },
     toOffset: { x: -78, y: -10 },
     toRotate: 0,
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampa.png",
+    src: "/images/poste/tampa.png",
     style: { left: "-1%", top: "-21%", width: "106%", zIndex: 1 },
     from: { x: -30, y: -160, rotate: -10 },
     toOffset: { x: 0, y: 34 },
@@ -52,10 +52,10 @@ const ASSEMBLY_PIECES = [
 ];
 
 const CARD_MEDIA = [
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampa.png", imgClass: "h-24 lg:h-28" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/fixador.png", imgClass: "h-28 lg:h-32" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/parafuso.png", imgClass: "h-24 lg:h-28" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/poste/tampinha-fixador.png", imgClass: "h-28 lg:h-32" },
+  { src: "/images/poste/tampa.png", imgClass: "h-24 lg:h-28" },
+  { src: "/images/poste/fixador.png", imgClass: "h-28 lg:h-32" },
+  { src: "/images/poste/parafuso.png", imgClass: "h-24 lg:h-28" },
+  { src: "/images/poste/tampinha-fixador.png", imgClass: "h-28 lg:h-32" },
 ];
 
 const svgStroke = {
@@ -203,7 +203,7 @@ const Pipes = () => {
               style={{ aspectRatio: "385 / 934" }}
             >
               <img
-                src="https://d2c3kthzw0ta10.cloudfront.net/poste/tubo.png"
+                src="/images/poste/tubo.png"
                 alt=""
                 aria-hidden="true"
                 draggable={false}

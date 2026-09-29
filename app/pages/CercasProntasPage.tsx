@@ -24,50 +24,50 @@ import FenceVisualizer, {
 import ScrollReveal from "../components/ScrollReveal";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
-  fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
-  campeira: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
-  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_maxx.png",
-  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
+  fenix: "/images/CercasProntas/Campeira_fenix.png",
+  campeira: "/images/CercasProntas/Campeira.png",
+  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
+  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
 };
 
 const ARC_IMAGES = [
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg", alt: "Cerca Fênix Insul" },
+  { src: "/images/img_fenix_carousel/1.jpeg", alt: "Cerca Fênix Insul" },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_1.jpg",
+    src: "/images/img_campeira_carousel/img_campeira_1.jpg",
     alt: "Cerca Campeira Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-1.jpg",
+    src: "/images/img_campeiraBoi_carousel/campeira-img-1.jpg",
     alt: "Cerca Campeira Boi Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-1.jpeg",
+    src: "/images/img_campeiraMaxx_carousel/img-maxx-1.jpeg",
     alt: "Cerca Campeira Maxx Insul",
   },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/3.jpeg", alt: "Cerca Fênix Insul" },
+  { src: "/images/img_fenix_carousel/3.jpeg", alt: "Cerca Fênix Insul" },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_3.jpg",
+    src: "/images/img_campeira_carousel/img_campeira_3.jpg",
     alt: "Cerca Campeira Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-3.jpg",
+    src: "/images/img_campeiraBoi_carousel/campeira-img-3.jpg",
     alt: "Cerca Campeira Boi Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-3.png",
+    src: "/images/img_campeiraMaxx_carousel/img-maxx-3.png",
     alt: "Cerca Campeira Maxx Insul",
   },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/5.jpeg", alt: "Cerca Fênix Insul" },
+  { src: "/images/img_fenix_carousel/5.jpeg", alt: "Cerca Fênix Insul" },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_5.jpg",
+    src: "/images/img_campeira_carousel/img_campeira_5.jpg",
     alt: "Cerca Campeira Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-5.jpg",
+    src: "/images/img_campeiraBoi_carousel/campeira-img-5.jpg",
     alt: "Cerca Campeira Boi Insul",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraMaxx_carousel/img-maxx-5.jpg",
+    src: "/images/img_campeiraMaxx_carousel/img-maxx-5.jpg",
     alt: "Cerca Campeira Maxx Insul",
   },
 ];
@@ -180,27 +180,27 @@ const CercasProntasPage = () => {
               <BentoGallery
                 images={[
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-gallery-1.png",
+                  src: "/images/imgs-showcase/img-gallery-1.png",
                   alt: "Cercas prontas Insul",
                 },
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/gallery-1.mp4",
+                  src: "/videos/videos-gallery/gallery-1.mp4",
                   alt: "Cerca Fênix Insul",
                 },
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/gallery-2.mp4",
+                  src: "/videos/videos-gallery/gallery-2.mp4",
                   alt: "Cerca Campeira Insul",
                 },
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeiraBoi_carousel/campeira-img-5.jpg",
+                  src: "/images/img_campeiraBoi_carousel/campeira-img-5.jpg",
                   alt: "Cerca Campeira Boi Insul",
                 },
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/5.jpeg",
+                  src: "/images/img_fenix_carousel/5.jpeg",
                   alt: "Cerca Campeira Fênix Insul",
                 },
                 {
-                  src: "https://d2c3kthzw0ta10.cloudfront.net/img_campeira_carousel/img_campeira_3.jpg",
+                  src: "/images/img_campeira_carousel/img_campeira_3.jpg",
                   alt: "Cerca Campeira Insul",
                 },
               ]}

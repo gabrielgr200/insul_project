@@ -5,12 +5,12 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const IMAGE_CARDS = [
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-1-gradil.jpg",
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-2-gradil.jpg",
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-3-gradil.jpeg",
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-4-gradil.jpeg",
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-gradil-5.jpg",
-  "https://d2c3kthzw0ta10.cloudfront.net/CardImg-gradil-marquee/imgVideo-gradil-6.png",
+  "/images/CardImg-gradil-marquee/imgVideo-1-gradil.jpg",
+  "/images/CardImg-gradil-marquee/imgVideo-2-gradil.jpg",
+  "/images/CardImg-gradil-marquee/imgVideo-3-gradil.jpeg",
+  "/images/CardImg-gradil-marquee/imgVideo-4-gradil.jpeg",
+  "/images/CardImg-gradil-marquee/imgVideo-gradil-5.jpg",
+  "/images/CardImg-gradil-marquee/imgVideo-gradil-6.png",
 ];
 
 type CardMedia = { src: string; alt: string };

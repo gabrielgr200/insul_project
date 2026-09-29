@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,6 +15,9 @@ interface CarouselImage {
 }
 
 const LOOPS = 3;
+const subscribeToMount = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 const Thumb = ({
   image,
@@ -58,6 +61,11 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
   ).flat();
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const mounted = useSyncExternalStore(
+    subscribeToMount,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const isOpen = lightboxIndex !== null;
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -228,7 +236,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
   if (perspective) return (
     <>
       <PerspectiveGallery images={sourceImages} title={title} badge={badge} description={description} onOpen={setLightboxIndex} paused={isOpen} />
-      {typeof document !== "undefined" && createPortal(lightbox, document.body)}
+      {mounted && createPortal(lightbox, document.body)}
     </>
   );
 
@@ -261,7 +269,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
         Clique na imagem para abrir em tela cheia.
       </p>
 
-      {typeof document !== "undefined" && createPortal(lightbox, document.body)}
+      {mounted && createPortal(lightbox, document.body)}
     </section>
   );
 };

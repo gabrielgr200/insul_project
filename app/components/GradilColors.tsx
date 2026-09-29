@@ -19,7 +19,7 @@ const COLORS = [
 ];
 
 const srcFor = (file: string) =>
-  `https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_${file}_placas.webp`;
+  `/images/Gradil_Cores/INSUL_00_GRADIL_${file}_placas.webp`;
 
 const GradilColors = () => {
   const { dict } = useTranslation();

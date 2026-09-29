@@ -89,27 +89,27 @@ const SoldadasHexagonais = () => {
               <BentoGallery
                 images={[
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-gallery-PVC.png",
+                    src: "/images/imgs-showcase/img-gallery-PVC.png",
                     alt: "Telas PVC Insul",
                   },
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/video-gallery-moradaLeve.mp4",
+                    src: "/videos/videos-gallery/video-gallery-moradaLeve.mp4",
                     alt: "Video Morada leve Insul",
                   },
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/videos-gallery/video-gallery-hexagonais.mp4",
+                    src: "/videos/videos-gallery/video-gallery-hexagonais.mp4",
                     alt: "Videos hexagonais Insul",
                   },
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
+                    src: "/images/similares-soldadas/img-morada-similar.jpg",
                     alt: "Tela Morada Insul",
                   },
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/imgs-showcase/img-showcase-3.webp",
+                    src: "/images/imgs-showcase/img-showcase-3.webp",
                     alt: "Telas e Alambrados Insul",
                   },
                   {
-                    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-titan-similar.jpg",
+                    src: "/images/similares-soldadas/img-titan-similar.jpg",
                     alt: "Tela Titan Insul",
                   },
                 ]}

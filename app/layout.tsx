@@ -88,8 +88,8 @@ export default function RootLayout({
             <RouteTransition>{children}</RouteTransition>
           </LanguageProvider>
         </ThemeProvider>
+        {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
       </body>
-      {gaMeasurementId && <GoogleAnalytics gaId={gaMeasurementId} />}
     </html>
   );
 }

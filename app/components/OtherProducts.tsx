@@ -7,23 +7,23 @@ const OTHER_MEDIA = [
   {
     to: "/cercas-prontas/fenix",
     color: "#b2020d",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg",
+    src: "/images/img_fenix_carousel/1.jpeg",
     cutout:
-      "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
+      "/images/CercasProntas/Campeira_fenix.png",
   },
   {
     to: "/soldadas-hexagonais/tela-mangueirao-16",
     color: "#b3071b",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/similar-hexagonais/mangueirao16-similar.webp",
+    src: "/images/similar-hexagonais/mangueirao16-similar.webp",
     cutout:
-      "https://d2c3kthzw0ta10.cloudfront.net/telas-hexagonais/mangueirao-16.png",
+      "/images/telas-hexagonais/mangueirao-16.png",
   }, //colocar imagens de uma tela soldada
   {
     to: "/soldadas-hexagonais/tela-morada",
     color: "#12568f",
-    src: "https://d2c3kthzw0ta10.cloudfront.net/similares-soldadas/img-morada-similar.jpg",
+    src: "/images/similares-soldadas/img-morada-similar.jpg",
     cutout:
-      "https://d2c3kthzw0ta10.cloudfront.net/telas-soldada/morada.png",
+      "/images/telas-soldada/morada.png",
   }, // colocar imagens de uma tela hexagonal
 ];
 

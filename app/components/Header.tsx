@@ -218,7 +218,11 @@ const Header = () => {
   );
 
   const goToProductCategory = (title: string) => {
-    if (title === "Soldada" || title === "Hexagonal") {
+    if (
+      title === "Soldada" ||
+      title === "Hexagonal" ||
+      title === "Torção Simples"
+    ) {
       beginPageTransition();
       router.push("/soldadas-hexagonais");
     } else if (title === "Cercas Prontas") {
@@ -247,7 +251,10 @@ const Header = () => {
       };
     }
 
-    if (col.title === "Soldada" || col.title === "Hexagonal") {
+    if (
+      col.title === "Soldada" ||
+      col.title === "Hexagonal"
+    ) {
       return {
         title: col.title,
         items: col.items.map((label) => {
@@ -280,6 +287,47 @@ const Header = () => {
               : () => goToSection("produtos"),
           };
         }),
+      };
+    }
+
+    if (col.title === "Torção Simples") {
+      const torcaoItems = [
+        {
+          label: "Torção Simples (Galvanizado)",
+          productName: "Torção Simples Galvanizada",
+        },
+        {
+          label: "Torção Simples (PVC)",
+          productName: "Simples Torção(PVC verde)",
+        },
+      ];
+      return {
+        title: col.title,
+        items: torcaoItems.map(({ label, productName }) => {
+          const slug = soldadaSlugByLabel[productName];
+          return {
+            label,
+            onClick: slug
+              ? () => {
+                  beginPageTransition();
+                  router.push(`/soldadas-hexagonais/${slug}`);
+                }
+              : () => goToSection("produtos"),
+          };
+        }),
+      };
+    }
+
+    if (col.title === "Acessórios") {
+      return {
+        title: col.title,
+        items: col.items.map((label) => ({
+          label,
+          onClick: () => {
+            beginPageTransition();
+            router.push("/acessorios");
+          },
+        })),
       };
     }
 

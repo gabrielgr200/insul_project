@@ -16,15 +16,15 @@ import ScrollReveal from "../components/ScrollReveal";
 import { gradilModels } from "../assets/data";
 
 const CUTOUT_IMAGES: Record<string, string> = {
-  g4: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G4.png",
-  g5: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G5.png",
-  g12: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G12.png",
+  g4: "/images/img-outromodelo-gradil/img-gradil-G4.png",
+  g5: "/images/img-outromodelo-gradil/img-gradil-G5.png",
+  g12: "/images/img-outromodelo-gradil/img-gradil-G12.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
-  g4: "https://d2c3kthzw0ta10.cloudfront.net/outrosModelos/img-gradil-G4.webp",
-  g5: "https://d2c3kthzw0ta10.cloudfront.net/outrosModelos/img-gradil-G5.jpg",
-  g12: "https://d2c3kthzw0ta10.cloudfront.net/outrosModelos/img-gradil-G12.jpg",
+  g4: "/images/outrosModelos/img-gradil-G4.webp",
+  g5: "/images/outrosModelos/img-gradil-G5.jpg",
+  g12: "/images/outrosModelos/img-gradil-G12.jpg",
 };
 
 const LOGO_IMAGES: Record<
@@ -32,20 +32,20 @@ const LOGO_IMAGES: Record<
   { word: string; model: string; alt: string }
 > = {
   g4: {
-    word: "https://d2c3kthzw0ta10.cloudfront.net/LogoGradilG4Laranja/GradilLaranja_trim.png",
+    word: "/images/LogoGradilG4Laranja/GradilLaranja_trim.png",
     model:
-      "https://d2c3kthzw0ta10.cloudfront.net/LogoGradilG4Laranja/G4Laranja_trim.png",
+      "/images/LogoGradilG4Laranja/G4Laranja_trim.png",
     alt: "G4",
   },
   g5: {
-    word: "https://d2c3kthzw0ta10.cloudfront.net/logo-gradil-g5/GradilLaranja_trim.png",
+    word: "/images/logo-gradil-g5/GradilLaranja_trim.png",
     model:
-      "https://d2c3kthzw0ta10.cloudfront.net/logo-gradil-g5/LaranjaG5_trim.png",
+      "/images/logo-gradil-g5/LaranjaG5_trim.png",
     alt: "G5",
   },
   g12: {
-    word: "https://d2c3kthzw0ta10.cloudfront.net/logo-gradil-g12/Gradil_trim.png",
-    model: "https://d2c3kthzw0ta10.cloudfront.net/logo-gradil-g12/G12_trim.png",
+    word: "/images/logo-gradil-g12/Gradil_trim.png",
+    model: "/images/logo-gradil-g12/G12_trim.png",
     alt: "G12",
   },
 };

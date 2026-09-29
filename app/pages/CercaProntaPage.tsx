@@ -22,17 +22,17 @@ import { useTranslation } from "../components/LanguageProvider";
 import { localizeCerca } from "../utils/localizeCerca";
 
 const CUTOUT_IMAGES: Record<string, string> = {
-  fenix: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_fenix.png",
-  campeira: "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira.png",
-  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_boi.png",
-  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/CercasProntas/Campeira_maxx.png",
+  fenix: "/images/CercasProntas/Campeira_fenix.png",
+  campeira: "/images/CercasProntas/Campeira.png",
+  "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
+  "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
-  fenix: "https://d2c3kthzw0ta10.cloudfront.net/img_fenix_carousel/1.jpeg",
-  campeira: "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-campeira.jpg",
-  "campeira-boi": "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-boi.jpg",
-  "campeira-maxx": "https://d2c3kthzw0ta10.cloudfront.net/img-similares/img-similar-maxx.HEIC",
+  fenix: "/images/img_fenix_carousel/1.jpeg",
+  campeira: "/images/img-similares/img-similar-campeira.jpg",
+  "campeira-boi": "/images/img-similares/img-similar-boi.jpg",
+  "campeira-maxx": "/images/img-similares/img-similar-maxx.jpg",
 };
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
@@ -125,9 +125,11 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
             fenceName={cerca.name}
           />
         </ScrollReveal>
-            <ScrollReveal>
-              <VideoCard3D videoSrc={cerca.video3D || FALLBACK_CERCA.video3D} />
-            </ScrollReveal>
+            {cerca.video3D && (
+              <ScrollReveal>
+                <VideoCard3D videoSrc={cerca.video3D} />
+              </ScrollReveal>
+            )}
         <ScrollReveal>
           <SimilarProducts products={similarCercas} />
         </ScrollReveal>

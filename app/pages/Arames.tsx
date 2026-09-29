@@ -70,7 +70,7 @@ const Wires = () => {
             className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[820px] overflow-hidden sm:h-[1040px]"
           >
             <Image
-              src="https://d2c3kthzw0ta10.cloudfront.net/ceu-arame.png"
+              src="/images/ceu-arame.png"
               alt=""
               fill
               priority
@@ -84,8 +84,17 @@ const Wires = () => {
           >
             <motion.div
               style={{ y: reduceMotion ? 0 : landscapeY }}
-              className="absolute inset-0 bg-[url('https://d2c3kthzw0ta10.cloudfront.net/fundo-page-arames.png')] bg-[length:100%_auto] bg-bottom bg-no-repeat motion-safe:will-change-transform"
-            />
+              className="absolute inset-0 motion-safe:will-change-transform"
+            >
+              <Image
+                src="/images/fundo-page-arames.webp"
+                alt=""
+                width={2560}
+                height={1709}
+                sizes="100vw"
+                className="absolute bottom-0 left-0 h-auto w-full"
+              />
+            </motion.div>
             <motion.div
               style={{ y: reduceMotion ? 0 : blurY }}
               className="absolute inset-x-0 top-[70%] -bottom-[160px] motion-safe:will-change-transform"

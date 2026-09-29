@@ -1013,29 +1013,29 @@ interface UseCategory {
 }
 
 const USE_CATEGORIES: UseCategory[] = [
-  { key: "praia", label: "Praia", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/praia.png" },
-  { key: "casa", label: "Casa", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/casa.png" },
-  { key: "terreno", label: "Terreno", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/terreno.png" },
+  { key: "praia", label: "Praia", icon: "/images/soldadas-icos/praia.png" },
+  { key: "casa", label: "Casa", icon: "/images/soldadas-icos/casa.png" },
+  { key: "terreno", label: "Terreno", icon: "/images/soldadas-icos/terreno.png" },
   {
     key: "industria",
     label: "Indústria",
-    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/industria.png",
+    icon: "/images/soldadas-icos/industria.png",
   },
   {
     key: "construcao",
     label: "Construção",
-    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/construcao.png",
+    icon: "/images/soldadas-icos/construcao.png",
   },
   {
     key: "quadraEsportiva",
     label: "Quadra esportiva",
-    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/quadra-esportiva.png",
+    icon: "/images/soldadas-icos/quadra-esportiva.png",
   },
-  { key: "horta", label: "Horta", icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/horta.png" },
+  { key: "horta", label: "Horta", icon: "/images/soldadas-icos/horta.png" },
   {
     key: "caoMedioPequeno",
     label: "Cão médio/pequeno",
-    icon: "https://d2c3kthzw0ta10.cloudfront.net/soldadas-icos/cao-medio-pequeno.png",
+    icon: "/images/soldadas-icos/cao-medio-pequeno.png",
   },
 ];
 

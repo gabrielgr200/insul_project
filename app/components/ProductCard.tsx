@@ -11,24 +11,24 @@ import { useTranslation } from "./LanguageProvider";
 
 export const ANIMAL_IMAGES: Record<string, string> = {
   Avestruz:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/avestruz.png",
+    "/images/animals/avestruz.png",
   Bovino:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/bovinos.png",
-  Cães: "https://d2c3kthzw0ta10.cloudfront.net/animals/caninos.png",
+    "/images/animals/bovinos.png",
+  Cães: "/images/animals/caninos.png",
   Capivara:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/capivara.png",
+    "/images/animals/capivara.png",
   Galinha:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/galinha.png",
+    "/images/animals/galinha.png",
   Javaporco:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/javaporco.png",
+    "/images/animals/javaporco.png",
   Suínos:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/suinos.png",
+    "/images/animals/suinos.png",
   Ganso:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/ganso.png",
+    "/images/animals/ganso.png",
   Caprino:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/caprino.png",
+    "/images/animals/caprino.png",
   Ovinos:
-    "https://d2c3kthzw0ta10.cloudfront.net/animals/ovino.png",
+    "/images/animals/ovino.png",
 };
 
 const AnimalThumb = ({ animal }: { animal: string }) => {

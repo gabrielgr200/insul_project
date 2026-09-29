@@ -12,18 +12,18 @@ interface ArcImage {
 }
 
 const DEFAULT_ARC_IMAGES: ArcImage[] = [
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/Fachane.png", alt: "Tela FachaNet" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/galinheiro.jpg", alt: "Tela Galinheiro" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/titan.jpg", alt: "Tela Titan" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/mangueirao-18.jpg", alt: "Tela Mangueirão 18" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/morada.jpg", alt: "Tela Morada" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/multyuso.jpg", alt: "Tela MultyUso" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/open.jpg", alt: "Tela Morada Open" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/mangueirao.jpg", alt: "Tela Mangueirão 16" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/soldada-PVC.png", alt: "Tela Brava" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/pinteiro.jpg", alt: "Tela Pinteiro" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/titan-1.jpg", alt: "Tela Titan" },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/telas-arc/viveiro.jpg", alt: "Tela Viveiro" },
+  { src: "/images/telas-arc/Fachane.png", alt: "Tela FachaNet" },
+  { src: "/images/telas-arc/galinheiro.jpg", alt: "Tela Galinheiro" },
+  { src: "/images/telas-arc/titan.jpg", alt: "Tela Titan" },
+  { src: "/images/telas-arc/mangueirao-18.jpg", alt: "Tela Mangueirão 18" },
+  { src: "/images/telas-arc/morada.jpg", alt: "Tela Morada" },
+  { src: "/images/telas-arc/multyuso.jpg", alt: "Tela MultyUso" },
+  { src: "/images/telas-arc/open.jpg", alt: "Tela Morada Open" },
+  { src: "/images/telas-arc/mangueirao.jpg", alt: "Tela Mangueirão 16" },
+  { src: "/images/telas-arc/soldada-PVC.png", alt: "Tela Brava" },
+  { src: "/images/telas-arc/pinteiro.jpg", alt: "Tela Pinteiro" },
+  { src: "/images/telas-arc/titan-1.jpg", alt: "Tela Titan" },
+  { src: "/images/telas-arc/viveiro.jpg", alt: "Tela Viveiro" },
 ];
 
 const SIZES = [94, 107, 119, 109, 121, 113, 113, 121, 109, 119, 107, 94];

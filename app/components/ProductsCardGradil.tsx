@@ -7,26 +7,26 @@ import { useTranslation } from "./LanguageProvider";
 
 const GRADIL_MEDIA = [
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_VERDE_placas.webp",
+    src: "/images/Gradil_Cores/INSUL_00_GRADIL_VERDE_placas.webp",
     to: "/gradil/g4",
     postSpacing: "2,5 m",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_00_GRADIL_AZUL_placas.webp",
+    src: "/images/Gradil_Cores/INSUL_00_GRADIL_AZUL_placas.webp",
     to: "/gradil/g5",
     postSpacing: "2,5 m",
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/Gradil_Cores/INSUL_G12.png",
+    src: "/images/Gradil_Cores/INSUL_G12.png",
     to: "/gradil/g12",
     postSpacing: "2,5 m",
   },
 ];
 
 const GRADIL_HOVER_IMAGES: Record<string, string> = {
-  g4: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/gradil-g4-verde.png",
-  g5: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G4.png",
-  g12: "https://d2c3kthzw0ta10.cloudfront.net/img-outromodelo-gradil/img-gradil-G12.png",
+  g4: "/images/img-outromodelo-gradil/gradil-g4-verde.png",
+  g5: "/images/img-outromodelo-gradil/img-gradil-G4.png",
+  g12: "/images/img-outromodelo-gradil/img-gradil-G12.png",
 };
 
 const ProductsCardGradil = () => {

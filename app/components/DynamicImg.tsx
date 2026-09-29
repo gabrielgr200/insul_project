@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Spinner from "./Spinner";
 
@@ -18,16 +19,17 @@ const ImageLayer = ({ src, fadeIn }: { src: string; fadeIn: boolean }) => {
   }, [fadeIn]);
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${src})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-      }}
-      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+    <div className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
         visible ? "opacity-100" : "opacity-0"
-      }`}
-    />
+      }`}>
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 60vw, 100vw"
+        className="object-cover"
+      />
+    </div>
   );
 };
 
@@ -42,21 +44,11 @@ const DynamicImg = ({ src }: { src?: string }) => {
     if (!src || src === lastSrcRef.current) return;
     lastSrcRef.current = src;
 
-    const img = new window.Image();
-    img.src = src;
     const addLayer = () => {
       if (lastSrcRef.current !== src) return;
       setLayers((prev) => [...prev, { id: nextId.current++, src }]);
     };
-    if (img.complete) {
-      addLayer();
-    } else {
-      img.onload = addLayer;
-      img.onerror = () => {
-        console.error(`DynamicImg: falha ao carregar a imagem "${src}"`);
-        addLayer();
-      };
-    }
+    addLayer();
   }, [src]);
 
   useEffect(() => {

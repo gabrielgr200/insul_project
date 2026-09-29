@@ -26,14 +26,14 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 const G12_IMAGE_SIZES = "max(112vw, 199.2vh)";
 
 const LAYERS = [
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu.webp", z: 10 },
-  { src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/casa.webp", z: 20 },
+  { src: "/images/parallax/ceu.webp", z: 10 },
+  { src: "/images/parallax/casa.webp", z: 20 },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-esquerda.webp",
+    src: "/images/parallax/gradil-esquerda.webp",
     z: 30,
   },
   {
-    src: "https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-direita.webp",
+    src: "/images/parallax/gradil-direita.webp",
     z: 30,
   },
 ];
@@ -399,7 +399,7 @@ const Gradil = () => {
                         style={{ filter: "grayscale(var(--g, 1))" }}
                       >
                         <Image
-                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/ceu-industria.webp"
+                          src="/images/parallax/ceu-industria.webp"
                           alt=""
                           aria-hidden="true"
                           fill
@@ -409,7 +409,7 @@ const Gradil = () => {
                         />
                         <Image
                           ref={industryRef}
-                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/industria.webp"
+                          src="/images/parallax/industria.webp"
                           alt="Indústria protegida por gradil Insul"
                           fill
                           sizes={G12_IMAGE_SIZES}
@@ -418,7 +418,7 @@ const Gradil = () => {
                         />
                         <Image
                           ref={birdRef}
-                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/passaro.webp"
+                          src="/images/parallax/passaro.webp"
                           alt=""
                           aria-hidden="true"
                           fill
@@ -429,7 +429,7 @@ const Gradil = () => {
 
                         <Image
                           ref={gateLRef}
-                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-esquerda-g12.webp"
+                          src="/images/parallax/gradil-esquerda-g12.webp"
                           alt=""
                           aria-hidden="true"
                           width={520}
@@ -440,7 +440,7 @@ const Gradil = () => {
                         />
                         <Image
                           ref={gateRRef}
-                          src="https://d2c3kthzw0ta10.cloudfront.net/parallax/gradil-direita-g12.webp"
+                          src="/images/parallax/gradil-direita-g12.webp"
                           alt=""
                           aria-hidden="true"
                           width={520}

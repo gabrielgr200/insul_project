@@ -11,43 +11,43 @@ gsap.registerPlugin(ScrollTrigger);
 const galleryCells = [
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-1.jpg",
+      "/images/imgs-cards-parallax/imgcard-1.jpg",
     className: "col-start-1 col-span-2 row-start-1"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-2.jpg",
+      "/images/imgs-cards-parallax/imgcard-2.jpg",
     className: "col-start-3 row-start-1"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-3.jpg",
+      "/images/imgs-cards-parallax/imgcard-3.jpg",
     className: "col-start-4 row-start-1"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-4.jpg",
+      "/images/imgs-cards-parallax/imgcard-4.jpg",
     className: "col-start-1 row-start-2 row-span-2"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-5.jpg",
+      "/images/imgs-cards-parallax/imgcard-5.jpg",
     className: "col-start-4 row-start-2 row-span-2"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-6.jpg",
+      "/images/imgs-cards-parallax/imgcard-6.jpg",
     className: "col-start-1 row-start-4"
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-7.jpg",
+      "/images/imgs-cards-parallax/imgcard-7.jpg",
     className: "col-start-2 col-span-2 row-start-4"
 
   },
   {
     src:
-      "https://d2c3kthzw0ta10.cloudfront.net/imgs-cards-parallax/imgcard-8.jpg",
+      "/images/imgs-cards-parallax/imgcard-8.jpg",
     className: "col-start-4 row-start-4"
   },
 ];
@@ -180,7 +180,7 @@ const ArameParallaxPraia = () => {
       >
 
         <Image
-          src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/img-ceu-praia-arame-pvc.png"
+          src="/images/img-parallax-praia/img-ceu-praia-arame-pvc.png"
           alt=""
           fill
           priority
@@ -216,7 +216,7 @@ const ArameParallaxPraia = () => {
         </div>
 
         <Image
-          src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/img-praia-arame.png"
+          src="/images/img-parallax-praia/img-praia-arame.png"
           alt="Praia"
           fill
           className="relative z-1 object-cover"
@@ -224,7 +224,7 @@ const ArameParallaxPraia = () => {
 
         <div ref={verdeRef} className="absolute inset-0 z-2">
           <Image
-            src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/arame-pvc-verde.png"
+            src="/images/img-parallax-praia/arame-pvc-verde.png"
             alt="Arame PVC verde"
             fill
             className="object-cover"
@@ -232,7 +232,7 @@ const ArameParallaxPraia = () => {
         </div>
         <div ref={azulRef} className="absolute inset-0 z-2">
           <Image
-            src="https://d2c3kthzw0ta10.cloudfront.net/img-parallax-praia/arame-pvc-azul.png"
+            src="/images/img-parallax-praia/arame-pvc-azul.png"
             alt="Arame PVC azul"
             fill
             className="object-cover"
