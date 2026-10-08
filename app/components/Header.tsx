@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import {
   Menu,
   Minus,
@@ -95,8 +94,6 @@ const MobileMenuItem = ({
 
 const Header = () => {
   const { t } = useTranslation();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [activeId, setActiveId] = useState("inicio");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("main");
@@ -134,10 +131,6 @@ const Header = () => {
 
   useEffect(() => {
     markSiteLoaded();
-  }, []);
-
-  useEffect(() => {
-    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -367,51 +360,42 @@ const Header = () => {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-[150] flex justify-center overflow-x-clip transition-[padding] duration-300 ease-out ${
-        scrolled ? "px-4 pt-3" : "px-0 pt-0"
+        scrolled ? "px-2 pt-2" : "px-0 pt-0"
       }`}
     >
       <div
-        className={`flex w-full items-center justify-between border-b border-b-zinc-300 bg-white/50 backdrop-blur-lg transition-all duration-300 ease-out dark:border-b-zinc-700 dark:bg-zinc-950/50 ${
-          scrolled
-            ? "max-w-4xl rounded-full border border-zinc-300 !border-b-zinc-300 bg-white/80 px-5 py-2.5 shadow-lg shadow-black/5 dark:border-zinc-700 dark:!border-b-zinc-700 dark:bg-zinc-950/80"
-            : "max-w-none px-4 py-6 sm:px-8 lg:py-7"
+        className={`relative isolate flex w-full items-center justify-between px-4 transition-[padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-8 ${
+          scrolled ? "py-2.5" : "py-6 lg:py-7"
         }`}
       >
-        <Link href="/" className="relative shrink-0">
+        <motion.div
+          aria-hidden="true"
+          initial={false}
+          animate={{ opacity: scrolled ? 1 : 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className={`pointer-events-none absolute inset-x-0 z-0 rounded-full bg-white dark:bg-zinc-950 ${
+            scrolled ? "inset-y-2" : "inset-y-0"
+          }`}
+        />
+        <Link href="/" className="relative z-10 shrink-0">
           <AnimatePresence mode="popLayout" initial={false}>
-            {scrolled ? (
-              <motion.img
-                key="icon"
-                src={
-                  mounted && resolvedTheme === "dark"
-                    ? "/images/loaderLogoBrancoInsul.png"
-                    : "/images/loaderLogoAzulInsul.png"
-                }
-                alt="Insul"
-                initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="h-11 w-11 cursor-pointer"
-              />
-            ) : (
-              <motion.img
-                key="full"
-                src="/images/logos.png"
-                alt="Insul"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="h-20 w-auto max-[453px]:h-14"
-              />
-            )}
+            <motion.img
+              key="full"
+              src="/images/logos.png"
+              alt="Insul"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="h-20 w-auto max-[453px]:h-14"
+            />
           </AnimatePresence>
         </Link>
         <nav
-          className={`hidden min-[1244px]:flex items-center text-xs transition-all duration-300 ease-out ${
-            scrolled ? "space-x-1.5 2xl:space-x-3" : "space-x-4 2xl:space-x-8"
+          className={`absolute left-1/2 z-10 hidden -translate-x-1/2 items-center text-xs transition-all duration-300 ease-out ${
+            scrolled
+              ? "min-[1100px]:flex space-x-1.5 2xl:space-x-3"
+              : "min-[1244px]:flex space-x-4 2xl:space-x-8"
           }`}
         >
           <NavBtn
@@ -459,26 +443,26 @@ const Header = () => {
             megaMenuTop={megaMenuTop}
             compact={scrolled}
           />
+        </nav>
+        <div
+          className={`relative z-10 hidden items-center gap-3 transition-all duration-300 ease-out ${
+            scrolled ? "min-[1100px]:flex" : "min-[1244px]:flex"
+          }`}
+        >
           <FillButton
             href="https://www.casadascercas.com.br"
             target="_blank"
             rel="noreferrer"
-            className={`whitespace-nowrap bg-[#ff5500] text-white rounded-full cursor-pointer border border-[#FF6A1A] transition-all duration-300 ease-out ${
-              scrolled
-                ? "text-sm py-2.5 px-3.5 ml-1 2xl:ml-2"
-                : "text-sm py-4 px-4 2xl:px-6 ml-2 2xl:ml-4"
-            }`}
+            className="ml-2 cursor-pointer whitespace-nowrap rounded-full border border-[#FF6A1A] bg-[#ff5500] px-4 py-2.5 text-sm text-white transition-all duration-300 ease-out 2xl:ml-4 2xl:px-6"
             overlayClassName="bg-white dark:bg-background text-[#ff5500]"
           >
-            <ShoppingBag size={scrolled ? 15 : 16} />
+            <ShoppingBag size={16} />
             <span>{t("nav.lojaVirtual")}</span>
           </FillButton>
-          <div className={`flex items-center gap-2 transition-all duration-300 ease-out ${scrolled ? "ml-1" : ""}`}>
-            <LanguageSwitcher compact={scrolled} />
-            <ThemeSwitcher />
-          </div>
-        </nav>
-        <div className="min-[1244px]:hidden flex items-center gap-3">
+          <LanguageSwitcher compact />
+          <ThemeSwitcher />
+        </div>
+        <div className={`relative z-10 ${scrolled ? "min-[1100px]:hidden" : "min-[1244px]:hidden"} flex items-center gap-3`}>
           <LanguageSwitcher />
           <ThemeSwitcher />
           <div className="relative">

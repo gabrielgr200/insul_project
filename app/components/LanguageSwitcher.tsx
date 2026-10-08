@@ -52,23 +52,21 @@ const LanguageSwitcher = ({ compact = false }: { compact?: boolean }) => {
         aria-expanded={open}
         className={
           compact
-            ? "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-zinc-300 dark:border-zinc-700 bg-white/60 dark:bg-white/10 text-[#002d4d] dark:text-white backdrop-blur transition-colors hover:bg-zinc-100 dark:hover:bg-white/20 cursor-pointer"
-            : "flex items-center gap-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 bg-white/60 dark:bg-white/10 px-3 py-2 text-xs font-medium text-[#002d4d] dark:text-white backdrop-blur transition-colors hover:bg-zinc-100 dark:hover:bg-white/20 cursor-pointer"
+            ? "flex shrink-0 items-center justify-center gap-1.5 rounded-full border border-zinc-300 bg-white/60 px-2.5 py-[7px] text-[11px] font-medium text-[#002d4d] backdrop-blur transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
+            : "flex items-center gap-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 bg-white/60 dark:bg-white/10 px-3 py-[9px] text-xs font-medium text-[#002d4d] dark:text-white backdrop-blur transition-colors hover:bg-zinc-100 dark:hover:bg-white/20 cursor-pointer"
         }
       >
         <Flag locale={locale} className="h-3.5 w-[19px]" />
         <AnimatePresence initial={false}>
-          {!compact && (
-            <motion.span
-              initial={{ opacity: 0, width: 0 }}
-              animate={{ opacity: 1, width: "auto" }}
-              exit={{ opacity: 0, width: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden whitespace-nowrap"
-            >
-              {localeShort[locale]}
-            </motion.span>
-          )}
+          <motion.span
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden whitespace-nowrap"
+          >
+            {localeShort[locale]}
+          </motion.span>
         </AnimatePresence>
       </motion.button>
 

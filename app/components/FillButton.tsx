@@ -62,7 +62,7 @@ const FillButton = React.forwardRef<HTMLElement, FillButtonProps>(
         onClick={onClick}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        className={cn("relative isolate overflow-hidden", className)}
+        className={cn("relative isolate inline-flex items-center justify-center overflow-hidden", className)}
       >
         <span className="relative z-10 flex items-center justify-center gap-2">
           {children}

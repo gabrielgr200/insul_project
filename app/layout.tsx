@@ -10,22 +10,26 @@ import "./globals.css";
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const geistSans = Geist({
+  preload: false,
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
+  preload: false,
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 const poppins = Poppins({
+  preload: false,
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const newBlack = localFont({
+  preload: false,
   variable: "--font-new-black",
   src: [
     {
