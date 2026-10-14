@@ -36,13 +36,13 @@ export const IndustryHeader = () => {
     <section
       ref={sectionRef}
       id="industria"
-      className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-28 sm:mt-20 mb-20"
+      className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 mt-28 sm:mt-20 mb-20"
     >
       <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         {t("industry.label")}
       </h3>
       <div className="relative flex justify-center sm:justify-between items-end mb-12">
-        <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-9xl impact uppercase text-nowrap leading-tight">
+        <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-[clamp(4.75rem,7.5vw,8rem)] impact uppercase text-nowrap leading-tight">
           {t("industry.titulo")}
         </h2>
       </div>

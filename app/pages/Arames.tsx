@@ -92,9 +92,10 @@ const Wires = () => {
                 width={2560}
                 height={1709}
                 sizes="100vw"
-                className="absolute bottom-0 left-0 h-auto w-full"
+                className="absolute bottom-0 left-0 h-auto w-full 2xl:h-full 2xl:object-cover 2xl:object-top"
               />
             </motion.div>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 hidden h-[540px] bg-linear-to-b from-[#e2f5ff]/90 via-[#e2f5ff]/75 to-transparent 2xl:block" />
             <motion.div
               style={{ y: reduceMotion ? 0 : blurY }}
               className="absolute inset-x-0 top-[70%] -bottom-[160px] motion-safe:will-change-transform"

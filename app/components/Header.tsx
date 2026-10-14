@@ -20,7 +20,7 @@ import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
-import { productCategories, soldadasHexagonais, gradilModels } from "../assets/data";
+import { productCategories, soldadasHexagonais, gradilModels, cercasProntas, accessoriesCards, arameCards, arameCardsPvc } from "../assets/data";
 import FillButton from "./FillButton";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -190,143 +190,65 @@ const Header = () => {
     if (id) setActiveId(id);
   };
 
-  const toProdutos = (label: string) => ({
-    label,
-    onClick: () => goToSection("produtos"),
-  });
-
-  const cercaSlugByLabel: Record<string, string> = {
-    "Cerca Fenix": "fenix",
-    "Cerca Campeira Maxx": "campeira-maxx",
-    "Cerca Campeira": "campeira",
-    "Cerca Campeira Boi": "campeira-boi",
-  };
-
-  const soldadaSlugByLabel: Record<string, string> = Object.fromEntries(
-    soldadasHexagonais.map((item) => [item.name, item.slug])
-  );
-
-  const gradilSlugByLabel: Record<string, string> = Object.fromEntries(
-    gradilModels.map((item) => [item.name, item.slug])
-  );
-
-  const goToProductCategory = (title: string) => {
-    if (
-      title === "Soldada" ||
-      title === "Hexagonal" ||
-      title === "Torção Simples"
-    ) {
-      beginPageTransition();
-      router.push("/soldadas-hexagonais");
-    } else if (title === "Cercas Prontas") {
-      beginPageTransition();
-      router.push("/cercas-prontas");
-    } else if (title === "Gradil") {
-      beginPageTransition();
-      router.push("/gradil");
-    } else {
-      goToSection("produtos");
-    }
+  const navigateToProduct = (href: string) => {
+    beginPageTransition();
+    router.push(href);
     closeMobile();
   };
 
-  const produtosColumns = productCategories.map((col) => {
-    if (col.title === "Cercas Prontas") {
-      return {
-        title: col.title,
-        items: col.items.map((label) => ({
-          label,
-          onClick: () => {
-            beginPageTransition();
-            router.push(`/cercas-prontas/${cercaSlugByLabel[label]}`);
-          },
-        })),
-      };
-    }
+  const productGroupTitles: Record<string, string> = {
+    Soldada: "Tela Soldada",
+    Hexagonal: "Tela Hexagonal",
+    "Torção Simples": "Simples Torção",
+  };
 
-    if (
-      col.title === "Soldada" ||
-      col.title === "Hexagonal"
-    ) {
-      return {
-        title: col.title,
-        items: col.items.map((label) => {
-          const slug = soldadaSlugByLabel[label];
-          return {
-            label,
-            onClick: slug
-              ? () => {
-                  beginPageTransition();
-                  router.push(`/soldadas-hexagonais/${slug}`);
-                }
-              : () => goToSection("produtos"),
-          };
-        }),
-      };
-    }
+  const produtosColumns = productCategories.map((category) => {
+    const title = productGroupTitles[category.title] ?? category.title;
+    let products: { label: string; href: string; imageSrc?: string }[];
 
-    if (col.title === "Gradil") {
-      return {
-        title: col.title,
-        items: col.items.map((label) => {
-          const slug = gradilSlugByLabel[label];
-          return {
-            label,
-            onClick: slug
-              ? () => {
-                  beginPageTransition();
-                  router.push(`/gradil/${slug}`);
-                }
-              : () => goToSection("produtos"),
-          };
-        }),
+    if (["Soldada", "Hexagonal", "Torção Simples"].includes(category.title)) {
+      products = soldadasHexagonais
+        .filter((product) => product.category === category.title)
+        .map((product) => ({ label: product.name, href: `/soldadas-hexagonais/${product.slug}`, imageSrc: product.src }));
+    } else if (category.title === "Cercas Prontas") {
+      products = cercasProntas
+        .map((product) => ({ label: product.name, href: `/cercas-prontas/${product.slug}`, imageSrc: product.src }));
+    } else if (category.title === "Gradil") {
+      products = gradilModels.map((product) => ({ label: product.name, href: `/gradil/${product.slug}`, imageSrc: product.src }));
+    } else {
+      const href = category.title === "Acessórios" ? "/acessorios" : "/arames";
+      const accessoryAliases: Record<string, string> = {
+        "Catraca Caixa": "Esticador(caixa)",
+        "Batedor de poste T": "Batedor Manual",
+        "Tubo para Gradil": "Tubos Pintados",
+        "Fixador para Gradil": "Fixador de Gradil",
       };
-    }
-
-    if (col.title === "Torção Simples") {
-      const torcaoItems = [
-        {
-          label: "Torção Simples (Galvanizado)",
-          productName: "Torção Simples Galvanizada",
-        },
-        {
-          label: "Torção Simples (PVC)",
-          productName: "Simples Torção(PVC verde)",
-        },
-      ];
-      return {
-        title: col.title,
-        items: torcaoItems.map(({ label, productName }) => {
-          const slug = soldadaSlugByLabel[productName];
-          return {
-            label,
-            onClick: slug
-              ? () => {
-                  beginPageTransition();
-                  router.push(`/soldadas-hexagonais/${slug}`);
-                }
-              : () => goToSection("produtos"),
-          };
-        }),
+      const accessoryImages: Record<string, string> = {
+        "Tubo para Gradil": "/images/poste/tubo.png",
+        "Fixador para Gradil": "/images/poste/fixador.png",
+        "Tampa para Gradil": "/images/poste/tampa.png",
       };
-    }
-
-    if (col.title === "Acessórios") {
-      return {
-        title: col.title,
-        items: col.items.map((label) => ({
-          label,
-          onClick: () => {
-            beginPageTransition();
-            router.push("/acessorios");
-          },
-        })),
-      };
+      products = category.items.map((name) => {
+        const wireSize = name.match(/\d+/)?.[0];
+        const wire = (name.includes("PVC") ? arameCardsPvc : arameCards)
+          .find((product) => product.name === `BWG ${wireSize}`);
+        const accessory = accessoriesCards.find((product) => product.name === (accessoryAliases[name] ?? name));
+        return {
+          label: name,
+          href,
+          imageSrc: category.title === "Acessórios"
+            ? accessoryImages[name] ?? accessory?.src
+            : wire?.src,
+        };
+      });
     }
 
     return {
-      title: col.title,
-      items: col.items.map(toProdutos),
+      title,
+      items: products.map((product) => ({
+        ...product,
+        onClick: () => navigateToProduct(product.href),
+      })),
     };
   });
 
@@ -359,13 +281,13 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-[150] flex justify-center overflow-x-clip transition-[padding] duration-300 ease-out ${
+      className={`fixed inset-x-0 top-0 z-[150] flex justify-center overflow-x-clip transition-[padding] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
         scrolled ? "px-2 pt-2" : "px-0 pt-0"
       }`}
     >
       <div
-        className={`relative isolate flex w-full items-center justify-between px-4 transition-[padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-8 ${
-          scrolled ? "py-2.5" : "py-6 lg:py-7"
+        className={`relative isolate flex items-center justify-between px-4 transition-[width,padding] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+          scrolled ? "w-[min(100%,1240px)] py-2.5 sm:px-6" : "w-full py-6 lg:py-7 sm:px-8"
         }`}
       >
         <motion.div
@@ -373,7 +295,7 @@ const Header = () => {
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className={`pointer-events-none absolute inset-x-0 z-0 rounded-full bg-white dark:bg-zinc-950 ${
+          className={`pointer-events-none absolute inset-x-0 z-0 rounded-full bg-white dark:bg-zinc-950 transition-[top,bottom] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
             scrolled ? "inset-y-2" : "inset-y-0"
           }`}
         />
@@ -392,10 +314,10 @@ const Header = () => {
           </AnimatePresence>
         </Link>
         <nav
-          className={`absolute left-1/2 z-10 hidden -translate-x-1/2 items-center text-xs transition-all duration-300 ease-out ${
+          className={`absolute left-1/2 z-10 hidden -translate-x-1/2 items-center text-xs transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
             scrolled
-              ? "min-[1100px]:flex space-x-1.5 2xl:space-x-3"
-              : "min-[1244px]:flex space-x-4 2xl:space-x-8"
+              ? "min-[1100px]:flex gap-0.5 2xl:gap-1"
+              : "min-[1244px]:flex gap-4 2xl:gap-8"
           }`}
         >
           <NavBtn
@@ -445,15 +367,15 @@ const Header = () => {
           />
         </nav>
         <div
-          className={`relative z-10 hidden items-center gap-3 transition-all duration-300 ease-out ${
-            scrolled ? "min-[1100px]:flex" : "min-[1244px]:flex"
+          className={`relative z-10 hidden items-center transition-all duration-300 ease-out ${
+            scrolled ? "min-[1100px]:flex gap-2" : "min-[1244px]:flex gap-3"
           }`}
         >
           <FillButton
             href="https://www.casadascercas.com.br"
             target="_blank"
             rel="noreferrer"
-            className="ml-2 cursor-pointer whitespace-nowrap rounded-full border border-[#FF6A1A] bg-[#ff5500] px-4 py-2.5 text-sm text-white transition-all duration-300 ease-out 2xl:ml-4 2xl:px-6"
+            className={`cursor-pointer whitespace-nowrap rounded-full border border-[#FF6A1A] bg-[#ff5500] px-4 py-2.5 text-sm text-white transition-all duration-300 ease-out ${scrolled ? "" : "ml-2 2xl:ml-4 2xl:px-6"}`}
             overlayClassName="bg-white dark:bg-background text-[#ff5500]"
           >
             <ShoppingBag size={16} />
@@ -523,7 +445,7 @@ const Header = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -8, scale: 0.96 }}
                   transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
+                  className="absolute right-0 top-full mt-2 w-64 max-h-[calc(100svh-120px)] overflow-y-auto rounded-xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     {mobileView === "main" && (
@@ -584,11 +506,17 @@ const Header = () => {
                         className="flex flex-col p-1.5"
                       >
                         {produtosColumns.map((col) => (
-                          <MobileMenuItem
-                            key={col.title}
-                            label={col.title}
-                            onClick={() => goToProductCategory(col.title)}
-                          />
+                          <details key={col.title} className="group/product rounded-lg">
+                            <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-white/10 [&::-webkit-details-marker]:hidden">
+                              {col.title}
+                              <ChevronsRight size={14} className="transition-transform group-open/product:rotate-90" />
+                            </summary>
+                            <div className="ml-3 border-l border-zinc-200 pl-1 dark:border-white/10">
+                              {col.items.map((item) => (
+                                <MobileMenuItem key={item.label} label={item.label} onClick={item.onClick} />
+                              ))}
+                            </div>
+                          </details>
                         ))}
                       </motion.div>
                     )}

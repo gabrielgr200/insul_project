@@ -88,7 +88,7 @@ const GradilColors = () => {
   return (
     <section
       ref={sectionRef}
-      className="overflow-hidden bg-white px-6 pb-24 pt-0 dark:bg-zinc-950"
+      className="gradil-colors-wide overflow-hidden bg-white px-6 pb-24 pt-0 dark:bg-zinc-950"
     >
       <div className="mx-auto w-full max-w-6xl px-6 py-20 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
@@ -157,7 +157,7 @@ const GradilColors = () => {
           })}
         </div>
 
-        <div className="relative z-0 mx-auto aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-black/[0.03] dark:bg-white/5 lg:aspect-auto lg:h-full lg:overflow-visible">
+        <div className="gradil-colors-image relative z-0 mx-auto aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-black/[0.03] dark:bg-white/5 lg:aspect-auto lg:h-full lg:overflow-visible">
           <AnimatePresence initial={false}>
             <motion.img
               key={animId}

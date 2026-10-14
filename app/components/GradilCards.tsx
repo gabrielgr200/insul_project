@@ -40,8 +40,8 @@ const GradilCards = () => {
       ref={rootRef}
       className="bg-white px-6 py-24 dark:bg-zinc-950"
     >
-      <div className="mx-auto max-w-6xl">
-        <div ref={rowRef} className="flex h-35 gap-3 sm:h-40">
+      <div className="gradil-specs-wide mx-auto max-w-6xl">
+        <div ref={rowRef} className="gradil-specs-row flex h-35 gap-3 sm:h-40">
           {CARDS.map((card, i) => {
             const isActive = i === active;
             return (
@@ -73,7 +73,7 @@ const GradilCards = () => {
 
         <div className="relative mt-8">
           <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-zinc-300 dark:bg-zinc-700" />
-          <div className="relative flex gap-3">
+          <div className="gradil-specs-steps relative flex gap-3">
             {CARDS.map((_, i) => {
               const isActive = i === active;
               return (

@@ -40,7 +40,7 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
   return (
     <div
       title={label}
-      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
+      className="product-card-thumb flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
     >
       {src && !broken ? (
         <Image
@@ -48,6 +48,7 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
           alt={label}
           width={28}
           height={28}
+          sizes="(min-width: 1920px) 48px, 28px"
           className="h-full w-full object-contain p-0.5"
           onError={() => setBroken(true)}
         />
@@ -372,7 +373,7 @@ const ProductCard = ({
   return (
     <div className="w-full overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/5 ring-1 ring-black/5 cursor-pointer dark:bg-white/5 dark:ring-white/10">
       <div
-        className={`group relative overflow-hidden bg-[#f5f5f5] dark:bg-white/5 ${imageBoxClassName ?? "h-56 sm:h-64"}`}
+        className={`product-card-media group relative overflow-hidden bg-[#f5f5f5] dark:bg-white/5 ${imageBoxClassName ?? "h-56 sm:h-64"}`}
         onMouseEnter={handleInfoPanelEnter}
         onClick={toggleInfoPanel}
       >
@@ -409,7 +410,7 @@ const ProductCard = ({
               }`}
             />
           )}
-          <div className="absolute bottom-4 left-5">
+          <div className="absolute bottom-4 inset-x-3 sm:inset-x-5 break-words">
             <p className="font-bold text-[#ff5500]">{name}</p>
             <p className="text-xs text-[#002d4d]/70 dark:text-white/70">
               {title}
@@ -439,7 +440,7 @@ const ProductCard = ({
 
         {hasSidePanel && (
           <div
-            className={`absolute inset-y-0 right-0 flex w-3/5 flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out dark:bg-white/5 ${
+            className={`product-card-hover-info absolute inset-y-0 right-0 flex w-3/5 flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out dark:bg-white/5 ${
               panelOpen ? "translate-x-0" : "translate-x-full group-hover:translate-x-0"
             }`}
           >
@@ -467,13 +468,14 @@ const ProductCard = ({
                     <div
                       key={use.name}
                       title={use.name}
-                      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
+                      className="product-card-thumb flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
                     >
                       <Image
                         src={use.src}
                         alt={use.name}
                         width={28}
                         height={28}
+                        sizes="(min-width: 1920px) 48px, 28px"
                         className="h-full w-full object-contain p-0.5"
                       />
                     </div>

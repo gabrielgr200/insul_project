@@ -54,10 +54,12 @@ const ProductsCardGradil = () => {
 
   return (
     <section className="bg-white px-6 pb-20 pt-0 dark:bg-zinc-950">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {cards.map((card) => (
-          <ProductCard key={card.name} {...card} />
-        ))}
+      <div className="gradil-products-aligned mx-auto max-w-6xl">
+        <div className="gradil-products-grid grid grid-cols-1 items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map((card) => (
+            <ProductCard key={card.name} {...card} />
+          ))}
+        </div>
       </div>
     </section>
   );

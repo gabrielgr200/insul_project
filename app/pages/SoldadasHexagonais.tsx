@@ -84,8 +84,8 @@ const SoldadasHexagonais = () => {
               fullBleedMedia
             />
 
-            <TelasShowcaseArc />
-            <ScrollReveal>
+            <TelasShowcaseArc wideDesktop />
+            <ScrollReveal className="cercas-gallery-wide">
               <BentoGallery
                 images={[
                   {
@@ -116,7 +116,7 @@ const SoldadasHexagonais = () => {
               />
             </ScrollReveal>
 
-            <ScrollReveal className="text-center pt-40 pb-16">
+            <ScrollReveal className="telas-category-wide text-center pt-40 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
                 Telas Soldadas
               </h3>
@@ -125,13 +125,13 @@ const SoldadasHexagonais = () => {
                 eficientes.
               </p>
             </ScrollReveal>
-            <ScrollReveal className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {soldadaCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="text-center pt-36 pb-16">
+            <ScrollReveal className="telas-category-wide text-center pt-36 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
                 Telas Hexagonais
               </h3>
@@ -141,27 +141,27 @@ const SoldadasHexagonais = () => {
               </p>
             </ScrollReveal>
 
-            <ScrollReveal className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {hexagonalCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </ScrollReveal>
 
-            <ScrollReveal>
+            <ScrollReveal className="telas-torcao-wide cercas-gallery-wide">
               <SimplesTorcaoShowcase />
             </ScrollReveal>
 
-            <ScrollReveal className="grid grid-cols-1 items-start gap-6 pt-16 sm:grid-cols-2">
+            <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 pt-16 sm:grid-cols-2">
               {torcaoSimplesCards.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </ScrollReveal>
 
-            <ScrollReveal>
+            <ScrollReveal className="cercas-simulation-wide">
               <FenceVisualizer />
             </ScrollReveal>
 
-            <ScrollReveal className="mt-16">
+            <ScrollReveal className="cercas-videos-wide mt-16">
               <CardPost
                 title="Veja alguns vídeos sobre as telas"
                 description={

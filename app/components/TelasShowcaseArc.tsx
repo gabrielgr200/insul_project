@@ -63,6 +63,7 @@ interface TelasShowcaseArcProps {
   headingClassName?: string;
   description?: ReactNode;
   ctaLabel?: ReactNode;
+  wideDesktop?: boolean;
 }
 
 const DEFAULT_HEADING_CLASSNAME =
@@ -84,6 +85,7 @@ const TelasShowcaseArc = ({
     </>
   ),
   ctaLabel = "Falar com um especialista",
+  wideDesktop = false,
 }: TelasShowcaseArcProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [displayOffset, setDisplayOffset] = useState(0);
@@ -192,10 +194,10 @@ const TelasShowcaseArc = ({
   return (
     <div
       ref={sectionRef}
-      className="pt-64 relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden bg-white py-20 dark:bg-zinc-950"
+      className={`pt-64 relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden bg-white py-20 dark:bg-zinc-950 ${wideDesktop ? "cercas-showcase-wide" : ""}`}
     >
       <div
-        className={`relative h-[380px] w-full touch-pan-y select-none overflow-hidden sm:h-[420px] ${
+        className={`ARC-STAGE relative h-[380px] w-full touch-pan-y select-none overflow-hidden sm:h-[420px] ${
           isDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
         onPointerDown={handlePointerDown}
@@ -211,8 +213,8 @@ const TelasShowcaseArc = ({
             style={{
               left: `${card.left}%`,
               top: `${card.top}%`,
-              width: card.size,
-              height: card.size,
+              width: `calc(${card.size} * var(--arc-image-unit, 1px))`,
+              height: `calc(${card.size} * var(--arc-image-unit, 1px))`,
               zIndex: i,
             }}
           >
@@ -224,7 +226,7 @@ const TelasShowcaseArc = ({
                 src={card.src}
                 alt={card.alt}
                 fill
-                sizes="121px"
+                sizes={wideDesktop ? "(min-width: 1920px) 200px, 121px" : "121px"}
                 className="object-cover"
                 draggable={false}
               />

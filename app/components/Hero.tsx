@@ -111,7 +111,7 @@ const Hero = ({ ready = true }) => {
             ))}
           </div>
         </div>
-        <div className="flex relative flex-col lg:flex-row lg:min-h-[clamp(560px,calc(50vw-10px),640px)] lg:space-x-12 overflow-clip">
+        <div className={`flex relative flex-col lg:flex-row lg:min-h-[clamp(560px,calc(50vw-10px),640px)] lg:space-x-12 overflow-clip ${styles.heroComposition}`}>
           <div className="lg:w-1/2">
             <div className={styles.heroIndent}>
               <h1 className="font-medium leading-none mb-6">

@@ -161,6 +161,7 @@ const CercasProntasPage = () => {
             <CercasCarousel slides={cercasProntasCarousel} fullBleedMedia />
 
             <TelasShowcaseArc
+              wideDesktop
               images={ARC_IMAGES}
               eyebrow="Cercas Insul"
               heading={
@@ -176,7 +177,7 @@ const CercasProntasPage = () => {
                 </>
               }
             />
-            <ScrollReveal>
+            <ScrollReveal className="cercas-gallery-wide">
               <BentoGallery
                 images={[
                 {
@@ -207,13 +208,13 @@ const CercasProntasPage = () => {
               />
             </ScrollReveal>
 
-            <ScrollReveal className="mt-16 grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+            <ScrollReveal className="cercas-cards-wide mt-16 grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {cercasProntasCardsPages.map((card) => (
                 <ProductCard key={card.name} {...card} />
               ))}
             </ScrollReveal>
 
-            <ScrollReveal>
+            <ScrollReveal className="cercas-simulation-wide">
               <FenceVisualizer
                 items={fenceVisualizerItems}
                 categories={["Todas"]}
@@ -226,7 +227,7 @@ const CercasProntasPage = () => {
               />
             </ScrollReveal>
 
-            <ScrollReveal className="mt-16">
+            <ScrollReveal className="cercas-videos-wide mt-16">
               <CardPost
                 title={dict.cercasProntasPage.cardPostTitle}
                 description={

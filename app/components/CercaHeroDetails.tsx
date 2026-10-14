@@ -469,12 +469,12 @@ const CercaHeroDetails = ({
 
       <div className="absolute inset-0 flex items-center pt-2">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
-          <div className="rounded-3xl bg-black/10 p-6 shadow-2xl backdrop-blur-lg lg:ml-auto lg:w-1/3">
-            <div className="pl-6 lg:pl-10 xl:pl-14">
+          <div className="rounded-3xl bg-black/10 p-6 shadow-2xl backdrop-blur-lg max-h-[calc(100svh-120px)] overflow-y-auto lg:ml-auto lg:w-[42%] xl:w-[40%]">
+            <div className="pl-6 lg:pl-8">
               <span className="inline-block rounded-full border border-[#002d4d]/40 px-4 py-1.5 text-sm font-medium text-[#002d4d]">
                 {badge}
               </span>
-              <h2 className="poppins mt-3 text-3xl font-bold text-[#ff5500] lg:text-4xl xl:text-5xl">
+              <h2 className="poppins mt-3 text-[clamp(28px,3vw,40px)] font-bold text-[#ff5500] break-words">
                 {name}
               </h2>
             </div>

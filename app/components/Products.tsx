@@ -43,7 +43,7 @@ const Products = () => {
     <section
       ref={sectionRef}
       id="produtos"
-      className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
       <h2 className="PRODUCTS-TITLE heading-2 impact text-[#ff5500] text-center sm:text-left">
         {t("products.tituloLinha1")} <br /> {t("products.tituloLinha2")}

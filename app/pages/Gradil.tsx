@@ -120,6 +120,7 @@ const Gradil = () => {
           scrub: 3,
           pin: true,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             if (!tlRef) return;
             const currentTime = self.progress * tlRef.duration();
@@ -168,14 +169,19 @@ const Gradil = () => {
         ? (Array.from(introRef.current.children) as HTMLElement[])
         : [];
 
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const cardW = Math.min(vw * 0.82, 520);
-      const cardH = (cardW * 9) / 16;
-      const OVER_FILL = 1.12;
-      const ratio = Math.max(vw / cardW, vh / cardH) * OVER_FILL;
-      const coverW = cardW * ratio;
-      const coverH = cardH * ratio;
+      const getCardSize = () => {
+        const vw = window.innerWidth;
+        const cardW = vw >= 1920
+          ? Math.min(Math.max(vw * 0.375, 720), 960)
+          : Math.min(vw * 0.82, 520);
+        return { width: cardW, height: (cardW * 9) / 16 };
+      };
+
+      const getCoverSize = () => {
+        const card = getCardSize();
+        const ratio = Math.max(window.innerWidth / card.width, window.innerHeight / card.height) * 1.12;
+        return { width: card.width * ratio, height: card.height * ratio };
+      };
 
       gsap.set(cardStageRef.current, { autoAlpha: 0 });
       gsap.set(cardRef.current, {
@@ -226,7 +232,12 @@ const Gradil = () => {
       )
         .to(
           gradilInfoRef.current,
-          { autoAlpha: 1, y: 41, ease: "power2.out", duration: 0.8 },
+          {
+            autoAlpha: 1,
+            y: () => window.innerWidth >= 1920 ? getCardSize().height * 0.14 : 41,
+            ease: "power2.out",
+            duration: 0.8,
+          },
           C + 3.4,
         )
         .to(
@@ -239,12 +250,17 @@ const Gradil = () => {
           { autoAlpha: 0, y: -40, ease: "power2.in", duration: 0.7 },
           C + 4.8,
         )
-        .to(
+        .fromTo(
           cardRef.current,
           {
+            width: () => getCardSize().width,
+            height: () => getCardSize().height,
+            borderRadius: 16,
+          },
+          {
             yPercent: -8,
-            width: coverW,
-            height: coverH,
+            width: () => getCoverSize().width,
+            height: () => getCoverSize().height,
             borderRadius: 0,
             ease: "power2.inOut",
             duration: 1.4,
@@ -391,7 +407,7 @@ const Gradil = () => {
                   <div style={{ perspective: "1400px" }}>
                     <div
                       ref={cardRef}
-                      className="relative aspect-video w-[min(82vw,520px)] overflow-hidden rounded-2xl shadow-2xl will-change-transform"
+                      className="gradil-showcase-image relative aspect-video w-[min(82vw,520px)] overflow-hidden rounded-2xl shadow-2xl will-change-transform"
                     >
                       <div
                         ref={bgRef}
@@ -458,9 +474,9 @@ const Gradil = () => {
                   ref={gradilInfoRef}
                   className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-6 will-change-transform"
                 >
-                  <div className="grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1fr_min(82vw,520px)_1fr]">
+                  <div className="gradil-showcase-copy grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1fr_min(82vw,520px)_1fr]">
                     <div className="hidden h-73.25 flex-col justify-between text-left text-[#002d4d] dark:text-white lg:flex">
-                      <h2 className="poppins text-left text-[#ff5500] dark:text-[#ff5500] text-5xl font-bold leading-none xl:text-6xl">
+                      <h2 className="poppins text-left text-[#ff5500] dark:text-[#ff5500] text-[clamp(32px,3vw,48px)] font-bold leading-tight break-words">
                         {g.showcase.title}
                       </h2>
                       <p className="poppins max-w-60 text-sm font-medium leading-relaxed">

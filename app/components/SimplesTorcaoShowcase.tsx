@@ -31,7 +31,7 @@ export default function SimplesTorcaoShowcase() {
         </p>
       </div>
 
-      <div className="relative mt-16 h-65 sm:mt-24 sm:h-90">
+      <div className="torcao-media-stage relative mt-16 h-65 sm:mt-24 sm:h-90">
         <div className="pointer-events-none absolute -top-10 left-1/2 size-90 -translate-x-1/2 bg-[radial-gradient(circle,#ff550040_0%,#ff550018_35%,transparent_65%)] dark:bg-[radial-gradient(circle,#ff550075_0%,#ff550026_35%,transparent_65%)] sm:-top-16 sm:size-230" aria-hidden="true" />
         <span className="absolute top-35 left-[5%] z-3 grid size-9.5 animate-torcao-float place-items-center rounded-full border border-[#ffffff12] bg-[#ff5500] text-white motion-reduce:animate-none sm:top-45 sm:left-[13%] sm:size-14.5 [&_svg]:w-4.5 sm:[&_svg]:w-6" aria-hidden="true">
           <ShieldCheck />

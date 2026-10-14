@@ -52,14 +52,14 @@ const Distribution = () => {
     <section
       ref={sectionRef}
       id="distribuicao"
-      className="bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="home-wide-section bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
       <h3 className="DISTRIBUTION-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         {t("distribution.label")}
       </h3>
 
       <div className="relative flex justify-center sm:justify-between items-end mb-12">
-        <h2 className="DISTRIBUTION-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-9xl impact uppercase text-nowrap leading-tight">
+        <h2 className="DISTRIBUTION-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-[clamp(4.75rem,7.5vw,8rem)] impact uppercase text-nowrap leading-tight">
           {t("distribution.tituloLinha1")} <br /> {t("distribution.tituloLinha2")}
         </h2>
       </div>
@@ -96,7 +96,7 @@ const Distribution = () => {
           </div>
         </div>
 
-        <div className="DISTRIBUTION-MAP mt-10 lg:mt-0 lg:translate-x-32 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2">
+        <div className="DISTRIBUTION-MAP mt-10 lg:mt-0 min-w-0 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2">
           <BrazilMap />
         </div>
 

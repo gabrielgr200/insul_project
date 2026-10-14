@@ -56,7 +56,7 @@ export default function PipeFeatures() {
   return (
     <section data-accessory-features aria-label="Características dos tubos" className="bg-white py-16 dark:bg-zinc-950 sm:py-20">
       <div className="mx-auto w-full max-w-[1600px]">
-        <div className="relative ml-16 mr-3 grid w-auto max-w-[1400px] grid-cols-1 gap-x-8 gap-y-14 sm:ml-[100px] sm:mr-3 sm:grid-cols-2 lg:ml-[120px] lg:mr-[14px] lg:grid-cols-3">
+        <div className="pipe-features-grid relative ml-16 mr-3 grid w-auto max-w-[1400px] grid-cols-1 gap-x-8 gap-y-14 sm:ml-[100px] sm:mr-3 sm:grid-cols-2 lg:ml-[120px] lg:mr-[14px] lg:grid-cols-3">
           <span data-accessory-feature-line className="pointer-events-none absolute inset-y-2 left-1/3 hidden w-px -translate-x-1/2 bg-[#002d4d]/15 dark:bg-white/15 lg:block" />
           <span data-accessory-feature-line className="pointer-events-none absolute inset-y-2 left-2/3 hidden w-px -translate-x-1/2 bg-[#002d4d]/15 dark:bg-white/15 lg:block" />
           {features.map((lines, i) => (

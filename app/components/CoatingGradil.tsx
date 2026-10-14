@@ -130,10 +130,10 @@ const LayerLabel = ({
         scale,
         left: `${CENTERS[index] * 100}%`,
         x: "-50%",
-        bottom: index * 40 + 12,
+        bottom: `calc(${index} * var(--coating-label-step, 40px) + 12px)`,
         transformOrigin: "center bottom",
       }}
-      className="absolute flex items-baseline gap-2 whitespace-nowrap"
+      className="coating-layer-label absolute flex items-baseline gap-2 whitespace-nowrap"
     >
       <span className="impact text-2xl leading-none text-[#ff5500] lg:text-4xl">
         {layer.n}
@@ -191,7 +191,7 @@ const CoatingGradil = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-white py-14 dark:bg-zinc-950"
+      className="gradil-coating-wide relative overflow-hidden bg-white py-14 dark:bg-zinc-950"
     >
       <div className="mx-auto w-full max-w-6xl px-6 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins py-3">
@@ -208,7 +208,7 @@ const CoatingGradil = () => {
       </div>
 
       <div className="mt-12 w-[88%] sm:w-[72%]">
-        <div className="relative h-40 w-full lg:h-48">
+        <div className="coating-label-stage relative h-40 w-full lg:h-48">
           {LAYERS.map((layer, i) => (
             <LayerLabel
               key={layer.n}

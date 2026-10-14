@@ -200,7 +200,7 @@ const Book = () => {
     <section
       ref={sectionRef}
       id="catalogo"
-      className="relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
       <h3 className="BOOK-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         {t("book.label")}

@@ -207,7 +207,9 @@ const Accessories = () => {
             autoAlpha: 1,
           },
           {
-            y: "-92svh",
+            y: () => window.innerWidth >= 1024 && window.innerWidth <= 1535
+              ? "-100svh"
+              : "-92svh",
             rotationX: 0,
             scale: 1,
             autoAlpha: 1,
@@ -479,15 +481,15 @@ const Accessories = () => {
               className="relative h-[260svh] bg-white dark:bg-zinc-950"
             >
               <div ref={assemblyStageRef} className="h-svh overflow-hidden">
-                <div className="relative mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center gap-2 px-5 py-5 sm:px-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12 lg:px-16 lg:py-0">
-                  <div ref={heroCopyRef} className="relative -top-4 z-[100] mx-auto w-full max-w-xl sm:-top-6 lg:mx-0">
+                <div className="accessory-hero-wide relative mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center gap-2 px-5 py-5 sm:px-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12 lg:px-16 lg:py-0">
+                  <div ref={heroCopyRef} className="accessory-hero-text relative -top-4 z-[100] mx-auto min-w-0 w-full max-w-xl sm:-top-6 lg:mx-0">
                     <p data-accessory-hero-copy className="poppins mb-4 text-[16px] font-medium tracking-[0.24em] text-[#c54809]">
                       Acessórios para gradil
                     </p>
                     <h1
                       id="accessories-title"
                       data-accessory-hero-copy
-                      className="poppins text-8xl font-light leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+                      className="poppins text-[clamp(36px,4.4vw,64px)] font-light leading-[1.08] tracking-tight"
                     >
                       Cada detalhe,
                       <br />
@@ -519,7 +521,7 @@ const Accessories = () => {
 
                   <div
                     ref={detailPanelRef}
-                    className="absolute inset-x-3 top-[108svh] z-[80] mx-auto h-[84svh] w-auto max-w-[1400px] rounded-[2rem] bg-[#f0f1f3] p-1 sm:inset-x-8 sm:rounded-[2.4rem] sm:p-1.5 lg:inset-x-12 dark:bg-[#3b3f43]"
+                    className="accessory-fixation-panel absolute inset-x-3 top-[108svh] z-[80] mx-auto h-[84svh] w-auto max-w-[1400px] rounded-[2rem] bg-[#f0f1f3] p-1 sm:inset-x-8 sm:rounded-[2.4rem] sm:p-1.5 lg:inset-x-12 dark:bg-[#3b3f43]"
                   >
                     <div className="h-full rounded-[1.75rem] bg-[#e5e7eb] p-2 sm:rounded-[2.15rem] sm:p-2.5 dark:bg-[#2b2e32]">
                       <div className="flex h-full rounded-[1.55rem] bg-[#e5e7eb] sm:rounded-[1.9rem] dark:bg-[#2b2e32]">
@@ -533,9 +535,9 @@ const Accessories = () => {
                           </span>
                         </aside>
 
-                        <div className="min-w-0 flex-1 rounded-[1.55rem] bg-white p-3 sm:rounded-[1.9rem] sm:p-5 lg:p-9 dark:bg-[#191b1d]">
-                          <div data-accessory-panel-reveal className="mb-3 sm:mb-5">
-                            <div className="py-8">
+                        <div className="accessory-fixation-content flex min-h-0 min-w-0 flex-1 flex-col rounded-[1.55rem] bg-white p-3 sm:rounded-[1.9rem] sm:p-5 lg:p-9 dark:bg-[#191b1d]">
+                          <div data-accessory-panel-reveal className="accessory-fixation-heading mb-3 sm:mb-5">
+                            <div className="py-4 xl:py-8">
                               <p className="poppins mb-2 text-[16px] font-medium tracking-[0.2em] text-[#ff5500] sm:text-[16px]">
                                 Sistema de fixação
                               </p>
@@ -545,7 +547,7 @@ const Accessories = () => {
                             </div>
                           </div>
 
-                          <div className="grid h-[calc(100%-5rem)] items-center gap-1 sm:h-[calc(100%-6rem)] lg:grid-cols-[1fr_0.82fr] lg:gap-8">
+                          <div className="accessory-fixation-list grid min-h-0 flex-1 items-center gap-1 lg:grid-cols-[1fr_0.82fr] lg:gap-8">
                             <div className="grid grid-cols-1 gap-1 lg:gap-2">
                               {accessoryDetails.map((item) => {
                                 return (

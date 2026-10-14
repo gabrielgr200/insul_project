@@ -14,6 +14,29 @@
   }
 }
 
+@media (min-width: 1920px) {
+  .heroBanner {
+    max-width: clamp(1600px, 83.3333vw, 2100px);
+  }
+
+  .heroComposition {
+    min-height: clamp(800px, 41.6667vw, 1050px);
+  }
+
+  .heroTitle {
+    font-size: clamp(312.5px, 16.276vw, 410px);
+  }
+
+  .heroSubtext {
+    max-width: clamp(560px, 29.1667vw, 735px);
+    font-size: clamp(22.5px, 1.1719vw, 29.5px);
+  }
+
+  .heroButton {
+    font-size: clamp(20px, 1.0417vw, 26px);
+  }
+}
+
 @media (max-width: 1023px) {
   .heroIndent {
     margin-left: 1.5rem;

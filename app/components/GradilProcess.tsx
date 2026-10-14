@@ -71,7 +71,7 @@ const GradilProcess = () => {
   return (
     <section
       ref={rootRef}
-      className="bg-white px-6 pb-24 pt-0 dark:bg-zinc-950"
+      className="gradil-process-wide bg-white px-6 pb-24 pt-0 dark:bg-zinc-950"
     >
       <div className="mx-auto w-full max-w-6xl px-6 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
@@ -113,7 +113,7 @@ const GradilProcess = () => {
               {i < STEPS.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className={`absolute left-[calc(50%+22px)] right-[calc(-50%+22px)] top-[21px] hidden h-[2px] rounded-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
+                  className={`gradil-process-line absolute left-[calc(50%+22px)] right-[calc(-50%+22px)] top-[21px] hidden h-[2px] rounded-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:block ${
                     lineFilled
                       ? "bg-[#ff5500] shadow-[0_0_8px_rgba(255,85,0,0.55)]"
                       : "bg-[#ff5500]/20"

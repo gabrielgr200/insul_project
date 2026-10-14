@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "./LanguageProvider";
 
 const FaqTitle = ({ text, isOpen }: { text: string; isOpen: boolean }) => (
-  <h3 className="text-lg sm:text-2xl font-semibold uppercase tracking-tight">
+  <h3 className="faq-question text-lg sm:text-2xl font-semibold uppercase tracking-tight">
     {text.split("").map((char: string, i: number) => (
       <span
         key={i}
@@ -59,7 +59,7 @@ const FaqItem = ({ index, question, answer, isOpen, onToggle }: FaqItemProps) =>
           transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           className="overflow-hidden"
         >
-          <p className="pb-6 pl-[44px] sm:pl-20 pr-8 text-sm sm:text-base text-white/50 max-w-2xl">
+          <p className="faq-answer pb-6 pl-[44px] sm:pl-20 pr-8 text-sm sm:text-base text-white/50 max-w-2xl">
             {answer}
           </p>
         </motion.div>
@@ -75,19 +75,19 @@ const Frequently = () => {
 
   return (
     <section id="duvidas" className="bg-[#002d4d] text-white py-20 px-4 sm:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="faq-wide home-wide-section max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-2 text-xs text-white/50 tracking-[0.2em] mb-4">
               <span className="w-2 h-2 rounded-full border border-white/50" />
               {t("faq.eyebrow")}
             </div>
-            <h2 className="text-5xl sm:text-7xl font-bold uppercase tracking-tight">
+            <h2 className="faq-heading text-5xl sm:text-7xl font-bold uppercase tracking-tight">
               {t("faq.titulo")}
             </h2>
           </div>
 
-          <p className="text-xs sm:text-sm text-white/40 uppercase tracking-wide max-w-xs sm:text-right">
+          <p className="faq-description text-xs sm:text-sm text-white/40 uppercase tracking-wide max-w-xs sm:text-right">
             {t("faq.subtitulo")}
           </p>
         </div>
