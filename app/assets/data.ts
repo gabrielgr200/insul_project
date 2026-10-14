@@ -295,6 +295,82 @@ export interface CercaShowcaseOption {
   }[];
 }
 
+// ============================================================================
+// Acessorios
+// ============================================================================
+
+export const accessoriesCards: ProductCardData[] = [
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Catraca Micro",
+    paragraph: "Aço carbono galvanizado 2,50mm, Fio de até 3mm, 160gr",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//catraca micro
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Catraca T7",
+    paragraph: "Aço carbono galvanizado 3,00mm, Fio de até 4mm, 284gr",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//catraca T7
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Esticador(caixa)",
+    paragraph: "Aço carbono galvanizado, Fio de até 3mm, 178gr",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//catraca quadrado
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Poste T",
+    paragraph: "SAE 1055 galvanizado a fogo 600gr, 2,00m, 3,5x3,0cm",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//poste T
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Batedor Manual",
+    paragraph: "Aço carbono alta resistência, 8,50kg",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//batedor manual
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Tubos Pintados",
+    paragraph: "Galvanização pesada + Pintura eletrostática, 40x60x1,45mm, 1,08 | 1,58 | 2,08 | 2,48m",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//tubo gradil
+  {
+    src: "/images/accessory-placeholder.svg",
+    title: "Categoria do acessório",
+    name: "Fixador de Gradil",
+    paragraph: "Resistência a raios UV",
+    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
+    description: "Texto placeholder para a descrição do acessório.",
+    postSpacing: "",
+    animals: [],
+  },//acessorios tubo
+];
 
 // ============================================================================
 // Cercas prontas

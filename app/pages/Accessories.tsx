@@ -27,6 +27,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PipeFeatures from "../components/PipeFeatures";
 import FillButton from "../components/FillButton";
+import ProductCard from "../components/ProductCard";
+import { accessoriesCards } from "../assets/data";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -855,6 +857,19 @@ const Accessories = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </section>
+            <section aria-labelledby="accessory-products-title" className="relative z-20 bg-[#e9ecef] px-5 pb-24 text-[#082d49] sm:px-8 sm:pb-32 lg:px-12">
+              <div className="mx-auto max-w-7xl lg:max-w-6xl">
+                <div className="mb-16 text-center">
+                  <h3 id="accessory-products-title" className="poppins text-3xl font-bold text-[#ff5500]">Acessórios</h3>
+                  <p className="poppins text-[20px] font-light">Texto placeholder para a apresentação dos acessórios.</p>
+                </div>
+                <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+                  {accessoriesCards.map((card) => (
+                    <ProductCard key={card.name} {...card} />
+                  ))}
                 </div>
               </div>
             </section>
