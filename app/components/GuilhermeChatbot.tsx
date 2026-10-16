@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "./LanguageProvider";
 import type { Dictionary } from "../i18n";
+import { useContentTranslation } from "./LanguageProvider";
 
 type NewsletterStatus = "idle" | "submitting" | "success" | "error";
 
@@ -202,6 +203,7 @@ const fetchGeminiReply = async (
 };
 
 const GuilhermeChatbot = () => {
+  const translateText = useContentTranslation();
   const { t, dict, locale } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -434,12 +436,12 @@ const GuilhermeChatbot = () => {
                   <div className="overflow-hidden rounded-2xl">
                     <div className="flex items-center justify-between border-b border-zinc-100 px-4 py-3 dark:border-white/10">
                       <span className="text-xs font-semibold text-zinc-400 dark:text-white/50">
-                        Parte {modalPart + 1}/{MODAL_PARTS.length}
+                        {translateText("Parte")}{modalPart + 1}/{translateText(MODAL_PARTS.length)}
                       </span>
                       <button
                         type="button"
                         onClick={handleModalNext}
-                        aria-label="Próxima parte"
+                        aria-label={translateText("Próxima parte")}
                         className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#ff5500] text-white transition-opacity hover:opacity-90"
                       >
                         <ArrowRight size={16} />
@@ -456,7 +458,7 @@ const GuilhermeChatbot = () => {
 
                     <div className="px-4 py-3">
                       <p className="text-xs leading-relaxed text-zinc-600 dark:text-white/70">
-                        {MODAL_PARTS[modalPart].text}
+                        {translateText(MODAL_PARTS[modalPart].text)}
                       </p>
                     </div>
                   </div>
@@ -545,7 +547,7 @@ const GuilhermeChatbot = () => {
                   />
                 </div>
                 <div>
-                  <p className="text-sm font-bold leading-tight text-white">Guilherme</p>
+                  <p className="text-sm font-bold leading-tight text-white">{translateText("Guilherme")}</p>
                   <p className="flex items-center gap-1 text-[11px] leading-tight text-white/70">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
                     {t("chatbot.consultor")}
@@ -563,9 +565,9 @@ const GuilhermeChatbot = () => {
                         key={shape}
                         type="button"
                         onClick={() => setPhoneShape(shape)}
-                        aria-label={`Formato do chat: ${SHAPE_LABELS[shape]}`}
+                        aria-label={translateText(`Formato do chat: ${SHAPE_LABELS[shape]}`)}
                         aria-pressed={active}
-                        title={SHAPE_LABELS[shape]}
+                        title={translateText(SHAPE_LABELS[shape])}
                         className={`flex h-6 w-6 cursor-pointer items-center justify-center rounded-full transition-colors ${active
                           ? "bg-[#ff5500] text-white"
                           : "text-white/60 hover:text-white"
@@ -584,7 +586,7 @@ const GuilhermeChatbot = () => {
                 className="flex flex-1 flex-col gap-3 overflow-y-auto p-4"
               >
                 <AnimatePresence mode="wait" initial={false}>
-                  {newsletterOpen ? (
+                  {translateText(newsletterOpen ? (
                     newsletterStatus === "success" ? (
                       <motion.div
                         key="success-icon"
@@ -653,10 +655,10 @@ const GuilhermeChatbot = () => {
                                   : "text-white"
                                   }`}
                               >
-                                {seg.content}
+                                {translateText(seg.content)}
                               </a>
                             ) : (
-                              <span key={seg.key}>{seg.content}</span>
+                              <span key={seg.key}>{translateText(seg.content)}</span>
                             ),
                           )}
                         </div>
@@ -674,13 +676,13 @@ const GuilhermeChatbot = () => {
                         </div>
                       )}
                     </motion.div>
-                  )}
+                  ))}
                 </AnimatePresence>
               </div>
 
               <div className={`px-3 ${newsletterOpen ? "pb-2.5" : "py-2.5"}`}>
                 <AnimatePresence mode="wait" initial={false}>
-                  {newsletterStatus === "success" ? (
+                  {translateText(newsletterStatus === "success" ? (
                     <motion.p
                       key="newsletter-success"
                       initial={{ opacity: 0, y: 8 }}
@@ -721,7 +723,7 @@ const GuilhermeChatbot = () => {
                           disabled={isTyping}
                           className="shrink-0 cursor-pointer whitespace-nowrap rounded-full bg-[#002d4d]/5 px-3 py-1.5 text-[10px] font-medium text-[#002d4d] transition-colors hover:bg-[#002d4d]/10 disabled:cursor-default disabled:opacity-50 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
                         >
-                          {topic}
+                          {translateText(topic)}
                         </button>
                       ))}
                     </motion.div>
@@ -761,7 +763,7 @@ const GuilhermeChatbot = () => {
                       />
                       {newsletterStatus === "error" && (
                         <p className="rounded-lg bg-red-50 px-2.5 py-1.5 text-[11px] text-red-700 dark:bg-red-500/10 dark:text-red-300">
-                          {newsletterError}
+                          {translateText(newsletterError)}
                         </p>
                       )}
                       <button
@@ -769,17 +771,17 @@ const GuilhermeChatbot = () => {
                         disabled={newsletterStatus === "submitting"}
                         className="flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-[#ff5500] px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:bg-[#e64d00] disabled:cursor-default disabled:opacity-60"
                       >
-                        {newsletterStatus === "submitting" ? (
+                        {translateText(newsletterStatus === "submitting" ? (
                           t("chatbot.newsletter.enviando")
                         ) : (
                           <>
                             <Send size={13} />
                             {t("chatbot.newsletter.enviar")}
                           </>
-                        )}
+                        ))}
                       </button>
                     </motion.form>
-                  )}
+                  ))}
                 </AnimatePresence>
               </div>
 

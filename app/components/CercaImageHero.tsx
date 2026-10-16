@@ -4,8 +4,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { CercaImageHero as HeroData } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 export default function CercaImageHero({ hero, color }: { hero: HeroData; color: string }) {
+  const translateText = useContentTranslation();
   const titleId = useId();
   const hasScrollTransition = Boolean(hero.scrollTransition);
   const sectionRef = useRef<HTMLElement>(null);
@@ -120,7 +122,7 @@ export default function CercaImageHero({ hero, color }: { hero: HeroData; color:
             transition={{ duration: reducedMotion ? 0 : 1.2, delay: reducedMotion ? 0 : index * 0.2, ease: [0.22, 1, 0.36, 1] }}
             className={`absolute inset-0 motion-safe:will-change-transform ${layer.className || ""}`}
           >
-            <Image src={layer.src} alt={layer.alt} fill preload sizes="100vw" onLoad={() => setLoaded((previous) => ({ ...previous, [layer.src]: true }))} className={layer.imageClassName || "object-contain"} />
+            <Image src={layer.src} alt={translateText(layer.alt)} fill preload sizes="100vw" onLoad={() => setLoaded((previous) => ({ ...previous, [layer.src]: true }))} className={layer.imageClassName || "object-contain"} />
           </motion.div>
         ))}
         {hero.scrollTransition?.layers.map((layer) => (
@@ -132,7 +134,7 @@ export default function CercaImageHero({ hero, color }: { hero: HeroData; color:
           >
             <Image
               src={layer.src}
-              alt={layer.alt}
+              alt={translateText(layer.alt)}
               fill
               sizes="100vw"
               className={layer.imageClassName || "object-cover"}
@@ -149,8 +151,8 @@ export default function CercaImageHero({ hero, color }: { hero: HeroData; color:
       <motion.div style={{ opacity: hasScrollTransition ? firstSceneOpacity : 1 }} className="absolute inset-0 z-30">
       <div className={`z-30 mx-auto max-w-7xl px-5 sm:px-10 ${hero.textClassName || "absolute inset-x-0 top-[37%]"}`}>
         <motion.div style={{ y: reducedMotion ? 0 : textY }} className={`${hero.textBoxClassName || `${hero.textAlign === "left" ? "mr-auto ml-0" : "mr-0 ml-auto"} max-w-[48%]`} text-left motion-safe:will-change-transform`}>
-          <h1 id={titleId} style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">{hero.title}{hero.titleSmallText && <span className="block text-[.56em] font-light tracking-[-.02em]">{hero.titleSmallText}</span>}</h1>
-          <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1.0vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">{hero.description}</p>
+          <h1 id={titleId} style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">{translateText(hero.title)}{hero.titleSmallText && <span className="block text-[.56em] font-light tracking-[-.02em]">{translateText(hero.titleSmallText)}</span>}</h1>
+          <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1.0vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">{translateText(hero.description)}</p>
         </motion.div>
       </div>
       </motion.div>
@@ -164,10 +166,10 @@ export default function CercaImageHero({ hero, color }: { hero: HeroData; color:
         >
           <div className={hero.scrollTransition.textBoxClassName || "ml-auto max-w-[48%]"}>
             <h2 style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">
-              {hero.scrollTransition.title}
+              {translateText(hero.scrollTransition.title)}
             </h2>
             <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">
-              {hero.scrollTransition.description}
+              {translateText(hero.scrollTransition.description)}
             </p>
           </div>
         </motion.div>

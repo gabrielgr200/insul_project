@@ -20,6 +20,7 @@ import ScrollReveal from "../components/ScrollReveal";
 import { cercasProntas } from "../assets/data";
 import { useTranslation } from "../components/LanguageProvider";
 import { localizeCerca } from "../utils/localizeCerca";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const CUTOUT_IMAGES: Record<string, string> = {
   fenix: "/images/CercasProntas/Campeira_fenix.png",
@@ -36,6 +37,7 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 };
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -113,7 +115,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
       <div ref={contentRef} className="relative">
       <main className={`space-y-24 pb-20 pt-0`}>
         <CercaImageHero key={`hero-${slug}`} hero={cerca.hero} color={cerca.color} />
-        <ImgCarousel perspective title={cerca.name} badge={cerca.galleryIntro?.badge} description={cerca.galleryIntro?.text || cerca.shortDescription} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
+        <ImgCarousel perspective title={translateText(cerca.name)} badge={cerca.galleryIntro?.badge} description={translateText(cerca.galleryIntro?.text || cerca.shortDescription)} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
         {cerca.showcase && <CercaShowcaseTeste key={`showcase-${slug}`} showcase={cerca.showcase} color={cerca.color} />}
         <BlurRevealText
           text={cerca.paragraphs}

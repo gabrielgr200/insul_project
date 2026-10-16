@@ -8,6 +8,7 @@ import { Pause, Play, Plus, X } from "lucide-react";
 import { cercasProntas, type CercaSlide } from "../assets/data";
 import { ANIMAL_IMAGES } from "./ProductCard";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const AUTOPLAY_INTERVAL = 5000;
 
@@ -576,6 +577,7 @@ const JavaliCollision = ({
   activeLabel: string;
   trigger: boolean;
 }) => {
+  const translateText = useContentTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const slideAnimals = SLIDE_ANIMALS[activeLabel] ?? [];
   const { dict } = useTranslation();
@@ -670,7 +672,7 @@ const JavaliCollision = ({
               <Image
                 key={animal}
                 src={src}
-                alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.escapingFence}`}
+                alt={translateText(`${dict.animalNames[animal] ?? animal} ${dict.animalChart.escapingFence}`)}
                 width={160}
                 height={160}
                 className={`escape-img absolute w-auto drop-shadow-md ${heightClass}`}
@@ -692,7 +694,7 @@ const JavaliCollision = ({
               <Image
                 key={animal}
                 src={src}
-                alt={`${dict.animalNames[animal] ?? animal} ${dict.animalChart.collidingWithFence}`}
+                alt={translateText(`${dict.animalNames[animal] ?? animal} ${dict.animalChart.collidingWithFence}`)}
                 width={160}
                 height={160}
                 className={`collide-img absolute w-auto drop-shadow-md ${heightClass}`}
@@ -706,6 +708,7 @@ const JavaliCollision = ({
 };
 
 const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
+  const translateText = useContentTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const { dict } = useTranslation();
 
@@ -769,7 +772,7 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
       className="mt-4 w-full overflow-hidden bg-white pt-4 pb-2 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:pt-6 sm:pb-3"
     >
       <p className="poppins mb-3 px-4 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:px-6 sm:text-lg">
-        {activeName}: {dict.animalChart.capacityHeading}
+        {translateText(activeName)}: {dict.animalChart.capacityHeading}
       </p>
       <div className="relative h-96 w-full sm:h-[28rem]">
         {/* Horizontal grid lines are plain CSS, not SVG, so they always span
@@ -865,7 +868,7 @@ const AnimalCoverageChart = ({ activeLabel }: { activeLabel: string }) => {
                 top: `${((BAR_PLOT_BOTTOM + 34) / BAR_CHART_H) * 100}%`,
               }}
             >
-              {item.displayLabel}
+              {translateText(item.displayLabel)}
             </span>
           </div>
         ))}
@@ -918,6 +921,7 @@ const AnimalCirclesReveal = ({
   activeLabel: string;
   open: boolean;
 }) => {
+  const translateText = useContentTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const info = cercasProntas.find((c) => c.name === activeLabel);
   const animals = info?.animals ?? [];
@@ -964,7 +968,7 @@ const AnimalCirclesReveal = ({
               {src && (
                 <Image
                   src={src}
-                  alt={animal}
+                  alt={translateText(animal)}
                   width={28}
                   height={28}
                   className="w-7 h-7 object-contain"
@@ -972,7 +976,7 @@ const AnimalCirclesReveal = ({
               )}
             </div>
             <span className="whitespace-nowrap rounded bg-white/70 px-1 text-[8px] font-medium text-[#002d4d] dark:bg-black/40 dark:text-white">
-              {animal}
+              {translateText(animal)}
             </span>
           </div>
         );
@@ -988,6 +992,7 @@ const CercasCarousel = ({
   slides: CercaSlide[];
   fullBleedMedia?: boolean;
 }) => {
+  const translateText = useContentTranslation();
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [postLanded, setPostLanded] = useState(false);
@@ -1049,9 +1054,9 @@ const CercasCarousel = ({
           type="button"
           onClick={() => setShowAnimals((v) => !v)}
           aria-label={
-            showAnimals
+            translateText(showAnimals
               ? "Esconder animais que a tela contém"
-              : "Mostrar animais que a tela contém"
+              : "Mostrar animais que a tela contém")
           }
           className="absolute z-20 w-7 h-7 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-[#002d4d]/10 hover:bg-[#002d4d]/20 text-[#002d4d] transition-colors duration-200 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white cursor-pointer"
           style={{
@@ -1059,7 +1064,7 @@ const CercasCarousel = ({
             top: `${ANIMALS_BUTTON_TOP_PCT}%`,
           }}
         >
-          {showAnimals ? <X size={14} /> : <Plus size={14} />}
+          {translateText(showAnimals ? <X size={14} /> : <Plus size={14} />)}
         </button>
         <AnimalCirclesReveal activeLabel={slide.label} open={showAnimals} />
 
@@ -1067,23 +1072,23 @@ const CercasCarousel = ({
           ref={titleRef}
           className="absolute poppins left-1/4 top-[22%] z-10 -translate-x-1/2 text-[26px] font-bold tracking-widest text-[#ff5500] dark:text-white"
         >
-          {slide.label}
+          {translateText(slide.label)}
         </p>
 
         <div
           className={`absolute z-10 flex items-center gap-2 ${fullBleedMedia ? "top-40 right-8" : "top-4 right-4"}`}
         >
           <p className="text-sm font-medium text-[#002d4d]/70 dark:text-white/70">
-            {index + 1}/{slides.length}
+            {index + 1}/{translateText(slides.length)}
           </p>
 
           <button
             type="button"
             onClick={() => setIsPlaying((v) => !v)}
-            aria-label={isPlaying ? "Pausar slide" : "Reproduzir slide"}
+            aria-label={translateText(isPlaying ? "Pausar slide" : "Reproduzir slide")}
             className="flex h-7 w-7 items-center justify-center rounded-full bg-[#002d4d]/10 text-[#002d4d] transition-colors duration-200 hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
           >
-            {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+            {translateText(isPlaying ? <Pause size={14} /> : <Play size={14} />)}
           </button>
         </div>
 
@@ -1094,7 +1099,7 @@ const CercasCarousel = ({
                 key={s.label}
                 type="button"
                 onClick={() => goTo(i)}
-                aria-label={`Ir para ${s.label}`}
+                aria-label={translateText(`Ir para ${s.label}`)}
                 className={`shrink-0 w-16 h-2.5 cursor-pointer rounded-full sm:w-20 transition-all duration-200 ${
                   i === index
                     ? "bg-[#002d4d] dark:bg-white"

@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 const EASE = "ease-[cubic-bezier(0.16,1,0.3,1)]";
 
@@ -15,6 +16,7 @@ const TextArrowCTA = ({
   onClick,
   className = "",
 }: TextArrowCTAProps) => {
+  const translateText = useContentTranslation();
   return (
     <button
       type="button"
@@ -29,7 +31,7 @@ const TextArrowCTA = ({
         </span>
 
         <span className="text-sm lg:text-base font-medium text-[#002d4d] dark:text-white poppins">
-          {children}
+          {translateText(children)}
         </span>
 
         <span

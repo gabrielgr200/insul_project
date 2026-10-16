@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { CercaShowcaseOption } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 export default function CercaShowcaseColors({
   option,
@@ -10,6 +11,7 @@ export default function CercaShowcaseColors({
   option: CercaShowcaseOption;
   selectedColor: number;
 }) {
+  const translateText = useContentTranslation();
   const colors = option.colorOptions ?? [];
   const active = colors[selectedColor] ?? colors[0];
 
@@ -20,7 +22,7 @@ export default function CercaShowcaseColors({
       <Image
         key={active.image}
         src={active.image}
-        alt={`Tela de torção simples ${active.title}`}
+        alt={translateText(`Tela de torção simples ${active.title}`)}
         fill
         sizes="(min-width: 1024px) 65vw, 100vw"
         className="object-contain"

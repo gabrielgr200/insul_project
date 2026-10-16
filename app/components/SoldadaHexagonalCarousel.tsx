@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { Pause, Play } from "lucide-react";
 import type { SoldadaHexagonalInfo } from "../assets/data";
 import { ANIMAL_IMAGES } from "./ProductCard";
+import { useContentTranslation } from "./LanguageProvider";
 
 const AUTOPLAY_INTERVAL = 6000;
 
@@ -1137,6 +1138,7 @@ const BAR_PALETTE = [
 const BAR_GRID_TICKS = [0, 0.25, 0.5, 0.75, 1];
 
 const CoverageChart = ({ slide }: { slide: SoldadaHexagonalInfo }) => {
+  const translateText = useContentTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
   const chartType = SLIDE_CHART_TYPE[slide.slug] ?? "usage";
   const isAnimalChart = chartType === "animals";
@@ -1189,7 +1191,7 @@ const CoverageChart = ({ slide }: { slide: SoldadaHexagonalInfo }) => {
       className="mt-4 w-full overflow-hidden bg-white pt-4 pb-2 shadow-lg ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 sm:pt-6 sm:pb-3"
     >
       <p className="poppins mb-3 px-4 text-center text-[15px] font-bold text-[#002d4d] dark:text-white sm:px-6 sm:text-lg">
-        {slide.name}: {isAnimalChart ? "animais que a tela contém" : "onde utilizar"}
+        {translateText(slide.name)}: {translateText(isAnimalChart ? "animais que a tela contém" : "onde utilizar")}
       </p>
       <div className="relative h-96 w-full sm:h-112">
         {BAR_GRID_TICKS.map((t) => {
@@ -1246,7 +1248,7 @@ const CoverageChart = ({ slide }: { slide: SoldadaHexagonalInfo }) => {
                 top: `${((BAR_PLOT_BOTTOM + 34) / BAR_CHART_H) * 100}%`,
               }}
             >
-              {item.label}
+              {translateText(item.label)}
             </span>
           </div>
         ))}
@@ -1274,6 +1276,7 @@ const InstalledMeshOverlay = ({
   hexRx?: number;
   hexRy?: number;
 }) => {
+  const translateText = useContentTranslation();
   const wrapRef = useRef<HTMLDivElement>(null);
 
   const panelWidth = meshType === "hex" ? TOTAL_MESH_WIDTH : MESH_WIDTH;
@@ -1498,7 +1501,7 @@ const InstalledMeshOverlay = ({
             y2={MESH_HEIGHT + SHADOW_OFFSET}
           />
         </g>
-        {meshType === "hex" ? (
+        {translateText(meshType === "hex" ? (
           <g clipPath="url(#hex-panel-clip)">
             <g stroke={color} strokeWidth={0.9} fill="none" opacity={0.9}>
               {hexGrid.map((h) => (
@@ -1543,7 +1546,7 @@ const InstalledMeshOverlay = ({
               })}
             </g>
           </>
-        )}
+        ))}
         {meshType !== "hex" && (
           <>
             <g stroke={color} strokeWidth={0.7} opacity={0.55}>
@@ -1586,7 +1589,7 @@ const InstalledMeshOverlay = ({
             </g>
           </>
         )}
-        {meshType === "hex" ? (
+        {translateText(meshType === "hex" ? (
           hexPostXs.map((x, i) => (
             <rect
               key={`post-${i}`}
@@ -1609,7 +1612,7 @@ const InstalledMeshOverlay = ({
             rx={2}
             fill={postColor}
           />
-        )}
+        ))}
       </svg>
     </div>
   );
@@ -1622,6 +1625,7 @@ const SoldadaHexagonalCarousel = ({
   slides: SoldadaHexagonalInfo[];
   fullBleedMedia?: boolean;
 }) => {
+  const translateText = useContentTranslation();
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const titleRef = useRef<HTMLParagraphElement>(null);
@@ -1696,23 +1700,23 @@ const SoldadaHexagonalCarousel = ({
             ref={titleRef}
             className="absolute poppins left-1/4 top-[22%] z-10 -translate-x-1/2 text-[26px] font-bold tracking-widest text-[#ff5500] dark:text-white"
           >
-            {slide.name}
+            {translateText(slide.name)}
           </p>
 
           <div
             className={`absolute z-10 flex items-center gap-2 ${fullBleedMedia ? "top-40 right-8" : "top-4 right-4"}`}
           >
             <p className="text-sm font-medium text-[#002d4d]/70 dark:text-white/70">
-              {index + 1}/{slides.length}
+              {index + 1}/{translateText(slides.length)}
             </p>
 
             <button
               type="button"
               onClick={() => setIsPlaying((v) => !v)}
-              aria-label={isPlaying ? "Pausar slide" : "Reproduzir slide"}
+              aria-label={translateText(isPlaying ? "Pausar slide" : "Reproduzir slide")}
               className="flex h-7 w-7 items-center justify-center rounded-full bg-[#002d4d]/10 text-[#002d4d] transition-colors duration-200 hover:bg-[#002d4d]/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 cursor-pointer"
             >
-              {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+              {translateText(isPlaying ? <Pause size={14} /> : <Play size={14} />)}
             </button>
           </div>
 
@@ -1723,7 +1727,7 @@ const SoldadaHexagonalCarousel = ({
                   key={s.slug}
                   type="button"
                   onClick={() => goTo(i)}
-                  aria-label={`Ir para ${s.name}`}
+                  aria-label={translateText(`Ir para ${s.name}`)}
                   className={`h-2.5 w-16 shrink-0 cursor-pointer rounded-full transition-all duration-200 sm:w-20 ${i === index
                     ? "bg-[#002d4d] dark:bg-white"
                     : "bg-[#002d4d]/20 hover:bg-[#002d4d]/40 dark:bg-white/20 dark:hover:bg-white/40"

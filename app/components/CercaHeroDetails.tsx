@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronUp, ChevronDown, Plus, X } from "lucide-react";
 import type { CercaFeature } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 const INTRO_END = 4.5;
 
@@ -48,6 +49,7 @@ const CercaHeroDetails = ({
   features,
   badge = "Cerca Pronta(rurais)",
 }: CercaHeroDetailsProps) => {
+  const translateText = useContentTranslation();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [waitingAtCheckpoint, setWaitingAtCheckpoint] = useState(false);
   const [cardOpen, setCardOpen] = useState(false);
@@ -348,7 +350,7 @@ const CercaHeroDetails = ({
 
       {waitingAtCheckpoint && !cardOpen && (
         <div className="pointer-events-none absolute inset-0 z-10 flex -translate-x-24 items-start justify-center gap-3 pt-[19rem]">
-          {hasOptions ? (
+          {translateText(hasOptions ? (
             <div className="flex flex-col gap-3">
               {checkpointOptions!.map((option, idx) => (
                 <div
@@ -359,7 +361,7 @@ const CercaHeroDetails = ({
                   <button
                     type="button"
                     onClick={() => openOption(idx)}
-                    aria-label={option.label}
+                    aria-label={translateText(option.label)}
                     className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
                   >
                     <Plus size={16} />
@@ -373,20 +375,20 @@ const CercaHeroDetails = ({
               <button
                 type="button"
                 onClick={openCard}
-                aria-label="Mostrar informações"
+                aria-label={translateText("Mostrar informações")}
                 className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
               >
                 <Plus size={16} />
               </button>
             </div>
-          )}
+          ))}
           {arrowUnlocked && (
             <div className="relative flex h-9 w-9 items-center justify-center">
               <span className="absolute inset-0 animate-ping rounded-full bg-[#ff5500]/60" />
               <button
                 type="button"
                 onClick={resumeAtCheckpoint}
-                aria-label="Avançar vídeo"
+                aria-label={translateText("Avançar vídeo")}
                 className="pointer-events-auto relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#ff5500] bg-[#ff5500]/20 text-[#ff5500] backdrop-blur-sm transition-transform hover:scale-110 hover:bg-[#ff5500]/30"
               >
                 <ArrowRight size={16} />
@@ -424,7 +426,7 @@ const CercaHeroDetails = ({
                 >
                   <Image
                     src={checkpointCaption.image!}
-                    alt={checkpointCaption.label}
+                    alt={translateText(checkpointCaption.label)}
                     fill
                     sizes="160px"
                     className="object-cover"
@@ -439,17 +441,17 @@ const CercaHeroDetails = ({
               {displayLabel && (
                 <div className="pointer-events-auto flex-1">
                   <p className="poppins text-sm font-bold tracking-wide text-white/90 uppercase">
-                    {displayLabel}
+                    {translateText(displayLabel)}
                   </p>
                   <p className="poppins mt-1 text-sm leading-relaxed text-white/80">
-                    {displayValue}
+                    {translateText(displayValue)}
                   </p>
                 </div>
               )}
               <button
                 type="button"
                 onClick={resumeAtCheckpoint}
-                aria-label="Avançar vídeo"
+                aria-label={translateText("Avançar vídeo")}
                 className="pointer-events-auto flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-white/20 text-white transition-transform hover:scale-110 hover:bg-white/30"
               >
                 <ArrowRight size={16} />
@@ -457,7 +459,7 @@ const CercaHeroDetails = ({
               <button
                 type="button"
                 onClick={closeCard}
-                aria-label="Fechar"
+                aria-label={translateText("Fechar")}
                 className="pointer-events-auto absolute -top-3 -right-3 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-white/60 bg-black text-white transition-colors hover:bg-white/20"
               >
                 <X size={14} />
@@ -472,10 +474,10 @@ const CercaHeroDetails = ({
           <div className="rounded-3xl bg-black/10 p-6 shadow-2xl backdrop-blur-lg max-h-[calc(100svh-120px)] overflow-y-auto lg:ml-auto lg:w-[42%] xl:w-[40%]">
             <div className="pl-6 lg:pl-8">
               <span className="inline-block rounded-full border border-[#002d4d]/40 px-4 py-1.5 text-sm font-medium text-[#002d4d]">
-                {badge}
+                {translateText(badge)}
               </span>
               <h2 className="poppins mt-3 text-[clamp(28px,3vw,40px)] font-bold text-[#ff5500] break-words">
-                {name}
+                {translateText(name)}
               </h2>
             </div>
 
@@ -484,7 +486,7 @@ const CercaHeroDetails = ({
                 <button
                   type="button"
                   onClick={goPrev}
-                  aria-label="Item anterior"
+                  aria-label={translateText("Item anterior")}
                   className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronUp size={16} />
@@ -492,7 +494,7 @@ const CercaHeroDetails = ({
                 <button
                   type="button"
                   onClick={goNext}
-                  aria-label="Próximo item"
+                  aria-label={translateText("Próximo item")}
                   className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-[#002d4d]/60 transition-colors hover:bg-[#002d4d]/10 hover:text-[#002d4d]"
                 >
                   <ChevronDown size={16} />
@@ -512,11 +514,11 @@ const CercaHeroDetails = ({
                           }`}
                       >
                         <span className="text-sm font-medium text-[#002d4d]">
-                          {feature.title}
+                          {translateText(feature.title)}
                         </span>
                         {active && (
                           <p className="mt-1.5 text-sm leading-relaxed text-[#002d4d]/70">
-                            {feature.description}
+                            {translateText(feature.description)}
                           </p>
                         )}
                       </button>
@@ -537,12 +539,12 @@ const CercaHeroDetails = ({
                                 handleMalhaButtonLeave();
                                 stopMalhaHoverCycle();
                               }}
-                              aria-label="Avançar vídeo"
+                              aria-label={translateText("Avançar vídeo")}
                               className="relative flex h-10 w-full cursor-pointer items-center justify-between gap-2 rounded-full bg-transparent pl-5 pr-2 text-xs font-semibold text-[#002d4d]"
                             >
                               <span className="relative block h-4 flex-1 overflow-hidden text-left">
                                 <AnimatePresence mode="wait" initial={false}>
-                                  {malhaHovering ? (
+                                  {translateText(malhaHovering ? (
                                     <motion.span
                                       key={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
                                       initial={{ y: 14, opacity: 0 }}
@@ -551,7 +553,7 @@ const CercaHeroDetails = ({
                                       transition={{ duration: 0.3, ease: "easeOut" }}
                                       className="absolute inset-0 block whitespace-nowrap"
                                     >
-                                      {MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                      {translateText(MALHA_HOVER_OPTIONS[malhaOptionIndex].name)}
                                     </motion.span>
                                   ) : (
                                     <motion.span
@@ -562,9 +564,8 @@ const CercaHeroDetails = ({
                                       transition={{ duration: 0.3, ease: "easeOut" }}
                                       className="absolute inset-0 block whitespace-nowrap"
                                     >
-                                      Conheça outras opções
-                                    </motion.span>
-                                  )}
+                                      {translateText("Conheça outras opções")}</motion.span>
+                                  ))}
                                 </AnimatePresence>
                               </span>
                               <span className="relative block h-7 w-7 shrink-0 overflow-hidden rounded-full bg-transparent">
@@ -573,7 +574,7 @@ const CercaHeroDetails = ({
                                     <motion.img
                                       key={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
                                       src={MALHA_HOVER_OPTIONS[malhaOptionIndex].image}
-                                      alt={MALHA_HOVER_OPTIONS[malhaOptionIndex].name}
+                                      alt={translateText(MALHA_HOVER_OPTIONS[malhaOptionIndex].name)}
                                       initial={{ y: 14, opacity: 0 }}
                                       animate={{ y: 0, opacity: 1 }}
                                       exit={{ y: -14, opacity: 0 }}

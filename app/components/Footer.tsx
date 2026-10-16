@@ -4,6 +4,8 @@ import { ArrowUp } from "lucide-react";
 import { scrollToSection } from "../utils/ScrollToSection";
 import SocialLinks from "./SocialLinks";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
+import FooterDottedWordmark from "./FooterDottedWordmark";
 
 interface FooterItem {
   label: string;
@@ -12,6 +14,7 @@ interface FooterItem {
 }
 
 const FooterLink = ({ item }: { item: FooterItem }) => {
+  const translateText = useContentTranslation();
   if (item.href) {
     return (
       <a
@@ -20,7 +23,7 @@ const FooterLink = ({ item }: { item: FooterItem }) => {
         rel="noreferrer"
         className="text-sm text-white/60 hover:text-[#ff5500] transition-colors"
       >
-        {item.label}
+        {translateText(item.label)}
       </a>
     );
   }
@@ -30,12 +33,13 @@ const FooterLink = ({ item }: { item: FooterItem }) => {
       onClick={() => item.id && scrollToSection(item.id)}
       className="text-sm text-white/60 hover:text-[#ff5500] transition-colors text-left cursor-pointer"
     >
-      {item.label}
+      {translateText(item.label)}
     </button>
   );
 };
 
 const Footer = () => {
+  const translateText = useContentTranslation();
   const { t, dict } = useTranslation();
   const l = dict.footer.links;
 
@@ -85,8 +89,7 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row lg:justify-between gap-12">
           <div className="footer-brand max-w-xs">
             <p className="text-2xl font-bold uppercase tracking-tight">
-              Insul
-            </p>
+              {translateText("Insul")}</p>
             <p className="text-sm text-white/50 leading-relaxed mt-4">
               {t("footer.descricao")}
             </p>
@@ -98,7 +101,7 @@ const Footer = () => {
             {footerColumns.map((col) => (
               <div key={col.title}>
                 <p className="text-xs text-white/40 tracking-widest mb-4">
-                  {col.title}
+                  {translateText(col.title)}
                 </p>
                 <ul className="flex flex-col gap-3">
                   {col.items.map((item) => (
@@ -112,8 +115,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} Insul. {t("footer.direitos")}</p>
+        <FooterDottedWordmark />
+
+        <div className="mt-6 pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <p>© {new Date().getFullYear()} {translateText(" Insul. ")}{t("footer.direitos")}</p>
           <button
             onClick={() => scrollToSection("inicio")}
             className="flex items-center gap-1 hover:text-[#ff5500] transition-colors cursor-pointer"
@@ -123,13 +128,6 @@ const Footer = () => {
         </div>
       </div>
 
-      <span
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute -bottom-[0.14em] left-1/2 -translate-x-1/2
-        text-[18vw] leading-none font-black uppercase text-white/5 whitespace-nowrap"
-      >
-        INSUL
-      </span>
     </footer>
   );
 };

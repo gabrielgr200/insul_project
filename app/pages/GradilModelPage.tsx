@@ -1,11 +1,13 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import GradilColorFade from "../components/GradilColorFade";
+import GradilCardsMarquee from "../components/GradilCardsMarquee";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
-import GradilColorFade from "../components/GradilColorFade";
-import GradilCardsMarquee from "../components/GradilCardsMarquee";
 import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
 import VideoCardCarousel from "../components/VideoCardCarousel";
 import VideoCard3D from "../components/VideoCard3DLazy";
@@ -14,6 +16,7 @@ import SimilarProducts, {
 } from "../components/SimilarProducts";
 import ScrollReveal from "../components/ScrollReveal";
 import { gradilModels } from "../assets/data";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const CUTOUT_IMAGES: Record<string, string> = {
   g4: "/images/img-outromodelo-gradil/img-gradil-G4.png",
@@ -51,8 +54,10 @@ const LOGO_IMAGES: Record<
 };
 
 const GradilModelPage = ({ slug }: { slug: string }) => {
+  const translateText = useContentTranslation();
   const item = gradilModels.find((i) => i.slug === slug);
   if (!item) notFound();
+
 
   const logo = LOGO_IMAGES[slug] || LOGO_IMAGES.g4;
 
@@ -75,7 +80,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
           <div className="flex items-center justify-center">
             <Image
               src={logo.word}
-              alt="Gradil"
+              alt={translateText("Gradil")}
               width={300}
               height={144}
               quality={90}
@@ -84,7 +89,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
             <GradilColorFade className="-ml-8 -mr-1 h-32 w-20 shrink-0 rounded-sm sm:-ml-12 sm:-mr-2 sm:h-44 sm:w-28 lg:-ml-16 lg:h-64 lg:w-44" />
             <Image
               src={logo.model}
-              alt={logo.alt}
+              alt={translateText(logo.alt)}
               width={300}
               height={144}
               quality={90}
@@ -92,7 +97,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
             />
           </div>
           <p className="poppins mt-4 max-w-xl text-center text-sm text-[#002d4d] dark:text-white sm:text-base">
-            {item.tagline}
+            {translateText(item.tagline)}
           </p>
           <GradilCardsMarquee />
         </div>
@@ -132,10 +137,10 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
               >
                 <div className="max-w-md text-center lg:text-left">
                   <h3 className="poppins text-2xl font-bold text-[#ff5500] lg:text-3xl">
-                    {showcase.title}
+                    {translateText(showcase.title)}
                   </h3>
                   <p className="poppins mt-3 text-sm text-[#002d4d] dark:text-white sm:text-base">
-                    {showcase.description}
+                    {translateText(showcase.description)}
                   </p>
                 </div>
                 <div className="w-full lg:w-1/2">
@@ -149,7 +154,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
         <ScrollReveal>
           <SimilarProducts
             products={similarModels}
-            heading="Outros modelos de Gradil"
+            heading={translateText("Outros modelos de Gradil")}
           />
         </ScrollReveal>
       </main>

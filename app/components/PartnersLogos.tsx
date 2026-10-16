@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { useContentTranslation } from "./LanguageProvider";
 
 const partnerLogos = [
   { name: "Empresa 1", image: "/images/Gerdau.png" },
@@ -19,6 +20,7 @@ const allLogos = Array.from({ length: REPEAT_COUNT }, () => partnerLogos).flat()
 const PIXELS_PER_SECOND = 60;
 
 const PartnersLogos = () => {
+  const translateText = useContentTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const repeatStartRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +47,7 @@ const PartnersLogos = () => {
 
   return (
     <section className="py-16 overflow-x-clip bg-white dark:bg-background">
-      <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div className="overflow-hidden">
         <div
           ref={containerRef}
           className="flex gap-16 w-max items-center will-change-transform"
@@ -59,7 +61,7 @@ const PartnersLogos = () => {
               >
                 <Image
                   src={logo.image}
-                  alt={logo.name}
+                  alt={translateText(logo.name)}
                   fill
                   sizes="144px"
                   loading={i < partnerLogos.length ? "eager" : "lazy"}
@@ -72,7 +74,7 @@ const PartnersLogos = () => {
                 ref={i === partnerLogos.length ? repeatStartRef : undefined}
                 className="h-16 w-36 flex items-center justify-center bg-zinc-100 rounded-md text-zinc-400 text-sm font-medium flex-shrink-0"
               >
-                {logo.name}
+                {translateText(logo.name)}
               </div>
             ),
           )}

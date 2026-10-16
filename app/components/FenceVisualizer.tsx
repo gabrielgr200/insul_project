@@ -12,6 +12,7 @@ import NextImage from "next/image";
 import { ImageUp, MoveHorizontal, RefreshCw } from "lucide-react";
 import FillButton from "./FillButton";
 import { soldadasHexagonais } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 export interface FenceVisualizerItem {
   slug: string;
@@ -103,11 +104,11 @@ const FenceVisualizer = ({
   heading = "Veja a cerca no seu terreno",
   description = "Envie uma foto do seu terreno, escolha o tipo de tela e visualize como fica antes e depois da instalação.",
   stepTwoLabel = "2. Tipo de tela",
-  simulationLabel = (name) => (
-    <>Simulação ilustrativa com a {name} — arraste o círculo para comparar.</>
-  ),
+  simulationLabel,
   emptyStateLabel = "Envie uma foto e escolha uma tela ao lado para ver a simulação aqui.",
 }: FenceVisualizerProps) => {
+  const translateText = useContentTranslation();
+  simulationLabel ??= (name) => <>{translateText("Simulação ilustrativa com a ")}{translateText(name)} {translateText(" — arraste o círculo para comparar.")}</>;
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [selectedTela, setSelectedTela] = useState<FenceVisualizerItem | null>(
     null,
@@ -178,13 +179,13 @@ const FenceVisualizer = ({
     <div className="pt-40 pb-16">
       <div className="text-center pb-16">
         <span className="poppins mb-4 inline-flex items-center gap-2 rounded-full border bg-transparent px-4 py-1.5 text-xs font-normal uppercase tracking-widest text-[#002d4d] dark:text-white border-[#ff5500]/15">
-          {eyebrow}
+          {translateText(eyebrow)}
         </span>
         <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
-          {heading}
+          {translateText(heading)}
         </h3>
         <p className="text-[#002d4d] dark:text-white font-light text-[20px] poppins max-w-2xl mx-auto">
-          {description}
+          {translateText(description)}
         </p>
       </div>
 
@@ -193,8 +194,7 @@ const FenceVisualizer = ({
         <div className="flex flex-col gap-8">
           <div>
             <h4 className="poppins font-bold text-[#002d4d] dark:text-white mb-3">
-              1. Foto do terreno
-            </h4>
+              {translateText("1. Foto do terreno")}</h4>
             <input
               ref={fileInputRef}
               type="file"
@@ -202,11 +202,11 @@ const FenceVisualizer = ({
               className="hidden"
               onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
             />
-            {photoUrl ? (
+            {translateText(photoUrl ? (
               <div className="flex items-center gap-3">
                 <img
                   src={photoUrl}
-                  alt="Foto do terreno enviada"
+                  alt={translateText("Foto do terreno enviada")}
                   className="h-16 w-16 rounded-xl object-cover ring-1 ring-[#002d4d]/10"
                   draggable={false}
                 />
@@ -216,8 +216,7 @@ const FenceVisualizer = ({
                   className="poppins inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#002d4d]/15 px-4 py-2 text-xs font-bold text-[#002d4d] hover:border-[#ff5500] hover:text-[#ff5500] dark:text-white dark:border-white/15 transition-colors"
                 >
                   <RefreshCw size={14} />
-                  Trocar foto
-                </button>
+                  {translateText("Trocar foto")}</button>
               </div>
             ) : (
               <button
@@ -227,16 +226,15 @@ const FenceVisualizer = ({
               >
                 <ImageUp size={28} />
                 <span className="text-sm font-semibold">
-                  Enviar foto do terreno
-                </span>
-                <span className="text-xs opacity-70">JPG ou PNG</span>
+                  {translateText("Enviar foto do terreno")}</span>
+                <span className="text-xs opacity-70">{translateText("JPG ou PNG")}</span>
               </button>
-            )}
+            ))}
           </div>
 
           <div>
             <h4 className="poppins font-bold text-[#002d4d] dark:text-white mb-3">
-              {stepTwoLabel}
+              {translateText(stepTwoLabel)}
             </h4>
             {categories.length > 1 && (
               <div className="flex gap-2 mb-4">
@@ -251,7 +249,7 @@ const FenceVisualizer = ({
                         : "bg-[#002d4d]/5 text-[#002d4d]/70 dark:bg-white/10 dark:text-white/70"
                     }`}
                   >
-                    {cat}
+                    {translateText(cat)}
                   </button>
                 ))}
               </div>
@@ -262,7 +260,7 @@ const FenceVisualizer = ({
                   key={tela.slug}
                   type="button"
                   onClick={() => setSelectedTela(tela)}
-                  title={tela.name}
+                  title={translateText(tela.name)}
                   className={`group flex cursor-pointer flex-col items-center gap-1.5 rounded-xl p-1.5 transition-colors ${
                     selectedTela?.slug === tela.slug
                       ? "bg-[#ff5500]/10 ring-2 ring-[#ff5500]"
@@ -271,14 +269,14 @@ const FenceVisualizer = ({
                 >
                   <NextImage
                     src={tela.src}
-                    alt={tela.name}
+                    alt={translateText(tela.name)}
                     width={120}
                     height={120}
                     className="aspect-square w-full rounded-lg object-contain bg-white/60 dark:bg-white/5"
                     draggable={false}
                   />
                   <span className="poppins line-clamp-1 text-center text-[10px] font-semibold text-[#002d4d] dark:text-white">
-                    {tela.name}
+                    {translateText(tela.name)}
                   </span>
                 </button>
               ))}
@@ -289,7 +287,7 @@ const FenceVisualizer = ({
 
         {/* Área de visualização */}
         <div>
-          {photoUrl && selectedTela ? (
+          {translateText(photoUrl && selectedTela ? (
             <>
               <div
                 ref={compareRef}
@@ -304,7 +302,7 @@ const FenceVisualizer = ({
                 <div className="absolute inset-0">
                   <img
                     src={photoUrl}
-                    alt="Terreno com a tela instalada"
+                    alt={translateText("Terreno com a tela instalada")}
                     className="h-full w-full object-cover"
                     draggable={false}
                   />
@@ -326,18 +324,16 @@ const FenceVisualizer = ({
                 >
                   <img
                     src={photoUrl}
-                    alt="Terreno original, sem cerca"
+                    alt={translateText("Terreno original, sem cerca")}
                     className="h-full w-full object-cover"
                     draggable={false}
                   />
                 </div>
 
                 <span className="poppins pointer-events-none absolute left-3 top-3 rounded-full bg-black/50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                  Antes
-                </span>
+                  {translateText("Antes")}</span>
                 <span className="poppins pointer-events-none absolute right-3 top-3 rounded-full bg-black/50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                  Depois
-                </span>
+                  {translateText("Depois")}</span>
 
                 <div
                   className="absolute bottom-0 top-0 w-[2px] bg-white"
@@ -346,7 +342,7 @@ const FenceVisualizer = ({
                   <button
                     type="button"
                     onPointerDown={handleHandlePointerDown}
-                    aria-label="Arraste para comparar antes e depois"
+                    aria-label={translateText("Arraste para comparar antes e depois")}
                     className="absolute top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-white text-[#002d4d] shadow-lg"
                   >
                     <MoveHorizontal size={20} />
@@ -360,9 +356,9 @@ const FenceVisualizer = ({
           ) : (
             <div className="flex h-[320px] w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#002d4d]/15 text-center text-[#002d4d]/50 dark:border-white/15 dark:text-white/50 sm:h-[440px]">
               <ImageUp size={32} />
-              <p className="poppins max-w-xs text-sm">{emptyStateLabel}</p>
+              <p className="poppins max-w-xs text-sm">{translateText(emptyStateLabel)}</p>
             </div>
-          )}
+          ))}
 
           <div className="mt-8 text-center">
             <FillButton
@@ -372,8 +368,7 @@ const FenceVisualizer = ({
               className="poppins inline-block cursor-pointer rounded-full border border-[#FF6A1A] bg-[#ff5500] px-6 py-3 text-sm font-bold text-white"
               overlayClassName="bg-white dark:bg-background text-[#ff5500]"
             >
-              Enviar essa simulação e pedir orçamento
-            </FillButton>
+              {translateText("Enviar essa simulação e pedir orçamento")}</FillButton>
           </div>
         </div>
       </div>

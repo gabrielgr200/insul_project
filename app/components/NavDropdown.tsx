@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { scrollToSection } from "../utils/ScrollToSection";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface NavDropdownItem {
   label: string;
@@ -80,6 +81,7 @@ const NavDropdown = ({
   megaMenuTop = 100,
   compact = false,
 }: NavDropdownProps) => {
+  const translateText = useContentTranslation();
   const [open, setOpen] = useState(false);
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [submenuTop, setSubmenuTop] = useState(0);
@@ -155,12 +157,12 @@ const NavDropdown = ({
             width={32}
             height={32}
             sizes="32px"
-            className="h-full w-full object-contain p-0.5"
+            className="h-full w-full object-cover"
           />
         </span>
       )}
       {item.icon && <item.icon size={14} className="shrink-0" />}
-      <span>{item.label}</span>
+      <span>{translateText(item.label)}</span>
     </motion.a>
   );
 
@@ -192,7 +194,7 @@ const NavDropdown = ({
             : "border-transparent text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
         }`}
       >
-        {label}
+        {translateText(label)}
         <ChevronDown
           size={14}
           className={`transition-transform duration-200 ${
@@ -228,7 +230,7 @@ const NavDropdown = ({
                         onClick={(event) => expandGroup(col.title, event.currentTarget)}
                         className={`relative flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-[#ff5500] ${expandedGroup === col.title ? "bg-zinc-100 text-[#ff5500] dark:bg-white/5" : "text-zinc-700 hover:bg-zinc-100 hover:text-[#ff5500] dark:text-zinc-200 dark:hover:bg-white/5"}`}
                       >
-                        {col.title}
+                        {translateText(col.title)}
                         <ChevronRight size={15} className="shrink-0" />
                       </button>
                     </motion.div>

@@ -20,11 +20,13 @@ import NavDropdown from "./NavDropdown";
 import { useBeginPageTransition } from "./RouteTransition";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
-import { productCategories, soldadasHexagonais, gradilModels, cercasProntas, accessoriesCards, arameCards, arameCardsPvc } from "../assets/data";
+import { productCategories, soldadasHexagonais, gradilModels, cercasProntas } from "../assets/data";
+import { getProductAvatar } from "../assets/productAvatars";
 import FillButton from "./FillButton";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const contatoItems = [
   {
@@ -59,10 +61,11 @@ const MobileMenuItem = ({
   href?: string;
   drill?: boolean;
 }) => {
+  const translateText = useContentTranslation();
   const Icon = drill ? ChevronsRight : ArrowUpRight;
   const content = (
     <>
-      <span className="truncate">{label}</span>
+      <span className="truncate">{translateText(label)}</span>
       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-zinc-100 dark:bg-white/10">
         <Icon size={13} />
       </span>
@@ -80,19 +83,20 @@ const MobileMenuItem = ({
         onClick={onClick}
         className={className}
       >
-        {content}
+        {translateText(content)}
       </a>
     );
   }
 
   return (
     <button type="button" onClick={onClick} className={className}>
-      {content}
+      {translateText(content)}
     </button>
   );
 };
 
 const Header = () => {
+  const translateText = useContentTranslation();
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState("inicio");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -209,38 +213,15 @@ const Header = () => {
     if (["Soldada", "Hexagonal", "Torção Simples"].includes(category.title)) {
       products = soldadasHexagonais
         .filter((product) => product.category === category.title)
-        .map((product) => ({ label: product.name, href: `/soldadas-hexagonais/${product.slug}`, imageSrc: product.src }));
+        .map((product) => ({ label: product.name, href: `/soldadas-hexagonais/${product.slug}`, imageSrc: getProductAvatar(product.slug) }));
     } else if (category.title === "Cercas Prontas") {
       products = cercasProntas
-        .map((product) => ({ label: product.name, href: `/cercas-prontas/${product.slug}`, imageSrc: product.src }));
+        .map((product) => ({ label: product.name, href: `/cercas-prontas/${product.slug}`, imageSrc: getProductAvatar(product.slug) }));
     } else if (category.title === "Gradil") {
-      products = gradilModels.map((product) => ({ label: product.name, href: `/gradil/${product.slug}`, imageSrc: product.src }));
+      products = gradilModels.map((product) => ({ label: product.name, href: `/gradil/${product.slug}`, imageSrc: getProductAvatar(product.slug) }));
     } else {
       const href = category.title === "Acessórios" ? "/acessorios" : "/arames";
-      const accessoryAliases: Record<string, string> = {
-        "Catraca Caixa": "Esticador(caixa)",
-        "Batedor de poste T": "Batedor Manual",
-        "Tubo para Gradil": "Tubos Pintados",
-        "Fixador para Gradil": "Fixador de Gradil",
-      };
-      const accessoryImages: Record<string, string> = {
-        "Tubo para Gradil": "/images/poste/tubo.png",
-        "Fixador para Gradil": "/images/poste/fixador.png",
-        "Tampa para Gradil": "/images/poste/tampa.png",
-      };
-      products = category.items.map((name) => {
-        const wireSize = name.match(/\d+/)?.[0];
-        const wire = (name.includes("PVC") ? arameCardsPvc : arameCards)
-          .find((product) => product.name === `BWG ${wireSize}`);
-        const accessory = accessoriesCards.find((product) => product.name === (accessoryAliases[name] ?? name));
-        return {
-          label: name,
-          href,
-          imageSrc: category.title === "Acessórios"
-            ? accessoryImages[name] ?? accessory?.src
-            : wire?.src,
-        };
-      });
+      products = category.items.map((name) => ({ label: name, href, imageSrc: getProductAvatar(name) }));
     }
 
     return {
@@ -304,7 +285,7 @@ const Header = () => {
             <motion.img
               key="full"
               src="/images/logos.png"
-              alt="Insul"
+              alt={translateText("Insul")}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -392,16 +373,16 @@ const Header = () => {
               type="button"
               onClick={toggleMobile}
               aria-label={
-                !mobileOpen
+                translateText(!mobileOpen
                   ? t("aria.abrirMenu")
                   : mobileView !== "main"
                     ? t("aria.voltar")
-                    : t("aria.fecharMenu")
+                    : t("aria.fecharMenu"))
               }
               className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-[#ff5500] text-[#002d4d] dark:text-white"
             >
               <AnimatePresence mode="wait" initial={false}>
-                {!mobileOpen ? (
+                {translateText(!mobileOpen ? (
                   <motion.span
                     key="menu"
                     initial={{ opacity: 0, rotate: -45 }}
@@ -434,7 +415,7 @@ const Header = () => {
                   >
                     <Minus size={18} />
                   </motion.span>
-                )}
+                ))}
               </AnimatePresence>
             </button>
 
@@ -508,12 +489,12 @@ const Header = () => {
                         {produtosColumns.map((col) => (
                           <details key={col.title} className="group/product rounded-lg">
                             <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-white/10 [&::-webkit-details-marker]:hidden">
-                              {col.title}
+                              {translateText(col.title)}
                               <ChevronsRight size={14} className="transition-transform group-open/product:rotate-90" />
                             </summary>
                             <div className="ml-3 border-l border-zinc-200 pl-1 dark:border-white/10">
                               {col.items.map((item) => (
-                                <MobileMenuItem key={item.label} label={item.label} onClick={item.onClick} />
+                                <MobileMenuItem key={item.label} label={translateText(item.label)} onClick={item.onClick} />
                               ))}
                             </div>
                           </details>
@@ -533,7 +514,7 @@ const Header = () => {
                         {contatoItems.map((item) => (
                           <MobileMenuItem
                             key={item.label}
-                            label={item.label}
+                            label={translateText(item.label)}
                             href={item.href}
                             onClick={closeMobile}
                           />

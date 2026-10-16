@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import type { CercaShowcaseOption } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 export default function CercaShowcaseLength({ option }: { option: CercaShowcaseOption }) {
+  const translateText = useContentTranslation();
   return (
     <div className="relative size-full overflow-hidden">
       <div style={{ aspectRatio: option.lengthImageRatio || "4 / 3", transform: `translateY(${option.lengthImageOffset ?? 17}%)` }} className="absolute bottom-0 left-0 w-full">
@@ -19,10 +23,10 @@ export default function CercaShowcaseLength({ option }: { option: CercaShowcaseO
         </div>
         <div className="absolute top-[44%] right-[5.8%] left-[5.8%] z-20 flex h-[10%] min-h-9 items-center justify-center border-y border-white/70 bg-black text-center text-xs font-medium text-white shadow-[0_6px_8px_#0005] sm:text-base">
           <div className="flex size-full items-center justify-center rounded-[inherit] bg-gradient-to-r from-transparent via-black to-transparent px-6">
-            {option.bandText}
+            {translateText(option.bandText)}
           </div>
         </div>
-        <Image src={option.image} alt={option.title} fill quality={90} sizes="(min-width: 1024px) 65vw, 100vw" className="z-10 object-contain" />
+        <Image src={option.image} alt={translateText(option.title)} fill quality={90} sizes="(min-width: 1024px) 65vw, 100vw" className="z-10 object-contain" />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ const srcFor = (file: string) =>
   `/images/Gradil_Cores/INSUL_00_GRADIL_${file}_placas.webp`;
 
 const GradilColors = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const gc = dict.gradil.colors;
   const DESCRIPTIONS = gc.descriptions;
@@ -92,11 +94,11 @@ const GradilColors = () => {
     >
       <div className="mx-auto w-full max-w-6xl px-6 py-20 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
-          {gc.label}
+          {translateText(gc.label)}
         </h3>
         <div className="relative flex justify-center sm:justify-between items-end mb-12">
           <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-8xl impact uppercase text-nowrap leading-tight">
-            {gc.title1} <br /> {gc.title2}
+            {translateText(gc.title1)} <br /> {translateText(gc.title2)}
           </h2>
         </div>
         <p
@@ -104,7 +106,7 @@ const GradilColors = () => {
             visible ? "opacity-100" : "opacity-0"
           }`}
         >
-          {DESCRIPTIONS[index]}
+          {translateText(DESCRIPTIONS[index])}
         </p>
 
         <div className="mt-4 flex justify-center gap-2 sm:justify-start">
@@ -113,7 +115,7 @@ const GradilColors = () => {
               key={i}
               type="button"
               onClick={() => swapTo(i)}
-              aria-label={`Mostrar texto ${i + 1}`}
+              aria-label={translateText(`Mostrar texto ${i + 1}`)}
               className={`h-2 cursor-pointer rounded-full transition-all duration-500 ease-out ${
                 i === index
                   ? "w-6 bg-[#ff5500]"
@@ -150,7 +152,7 @@ const GradilColors = () => {
                       : "text-[#002d4d] dark:text-white"
                   }`}
                 >
-                  {gc.names[color.file as keyof typeof gc.names]}
+                  {translateText(gc.names[color.file as keyof typeof gc.names])}
                 </span>
               </button>
             );
@@ -162,7 +164,7 @@ const GradilColors = () => {
             <motion.img
               key={animId}
               src={srcFor(COLORS[selected].file)}
-              alt={`Gradil Insul — ${gc.names[COLORS[selected].file as keyof typeof gc.names]} (${COLORS[selected].ral})`}
+              alt={translateText(`Gradil Insul — ${gc.names[COLORS[selected].file as keyof typeof gc.names]} (${COLORS[selected].ral})`)}
               draggable={false}
               initial={{ x: "-100vw" }}
               animate={{ x: "0vw" }}

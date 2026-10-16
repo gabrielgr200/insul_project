@@ -19,6 +19,7 @@ import TelasShowcaseArc from "../components/TelasShowcaseArc";
 import BentoGallery from "../components/BentoGallery";
 import SimplesTorcaoShowcase from "../components/SimplesTorcaoShowcase";
 import ScrollReveal from "../components/ScrollReveal";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const FenceVisualizer = dynamic(() => import("../components/FenceVisualizer"), {
   ssr: false,
@@ -38,6 +39,7 @@ const torcaoSimplesCards = soldadasHexagonaisCardsPages.filter(
 );
 
 const SoldadasHexagonais = () => {
+  const translateText = useContentTranslation();
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -85,7 +87,7 @@ const SoldadasHexagonais = () => {
             />
 
             <TelasShowcaseArc wideDesktop />
-            <ScrollReveal className="cercas-gallery-wide">
+            <ScrollReveal className="cercas-gallery-wide py-24">
               <BentoGallery
                 images={[
                   {
@@ -118,12 +120,9 @@ const SoldadasHexagonais = () => {
 
             <ScrollReveal className="telas-category-wide text-center pt-40 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
-                Telas Soldadas
-              </h3>
+                {translateText("Telas Soldadas")}</h3>
               <p className="text-[#002d4d] dark:text-white font-light text-[20px] poppins">
-                Resistência, praticidade e segurança para cercamentos duráveis e
-                eficientes.
-              </p>
+                {translateText("Resistência, praticidade e segurança para cercamentos duráveis e eficientes.")}</p>
             </ScrollReveal>
             <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
               {soldadaCards.map((card) => (
@@ -131,14 +130,11 @@ const SoldadasHexagonais = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="telas-category-wide text-center pt-36 pb-16">
+            <ScrollReveal className="telas-category-wide text-center py-64 pb-16">
               <h3 className="text-[#ff5500] dark:text-[#ff5500] font-bold text-3xl poppins">
-                Telas Hexagonais
-              </h3>
+                {translateText("Telas Hexagonais")}</h3>
               <p className="text-[#002d4d] dark:text-white font-light text-[20px] poppins">
-                Versatilidade e resistência para proteção, cercamentos e
-                diversas aplicações no campo.
-              </p>
+                {translateText("Versatilidade e resistência para proteção, cercamentos e diversas aplicações no campo.")}</p>
             </ScrollReveal>
 
             <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
@@ -147,7 +143,7 @@ const SoldadasHexagonais = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="telas-torcao-wide cercas-gallery-wide">
+            <ScrollReveal className="telas-torcao-wide cercas-gallery-wide mt-52">
               <SimplesTorcaoShowcase />
             </ScrollReveal>
 
@@ -157,20 +153,18 @@ const SoldadasHexagonais = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="cercas-simulation-wide">
+            <ScrollReveal className="cercas-simulation-wide py-40">
               <FenceVisualizer />
             </ScrollReveal>
 
             <ScrollReveal className="cercas-videos-wide mt-16">
               <CardPost
-                title="Veja alguns vídeos sobre as telas"
+                title={translateText("Veja alguns vídeos sobre as telas")}
                 description={
-                  <>
+                  translateText(<>
                     <span className="font-bold">
-                      Telas soldadas e hexagonais:
-                    </span>{" "}
-                    vídeos mostrando fabricação e detalhes
-                  </>
+                      {translateText("Telas soldadas e hexagonais:")}</span>{translateText(" ")}
+                    {translateText("vídeos mostrando fabricação e detalhes")}</>)
                 }
                 reels={soldadasHexagonaisReels}
               />

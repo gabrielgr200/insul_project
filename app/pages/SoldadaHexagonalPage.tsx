@@ -2,12 +2,12 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Image from "next/image";
 import CercaHeroDetails from "../components/CercaHeroDetails";
 import CercaImageHero from "../components/CercaImageHero";
 import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
@@ -20,6 +20,7 @@ import SimilarProducts, {
 } from "../components/SimilarProducts";
 import ScrollReveal from "../components/ScrollReveal";
 import { soldadasHexagonais } from "../assets/data";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const CUTOUT_IMAGES: Record<string, string> = {
   "tela-titan": "/images/telas-soldada/titan.png",
@@ -84,6 +85,7 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 const familyKey = (name: string) => name.split(" ")[1]?.toLowerCase() ?? "";
 
 const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
+  const translateText = useContentTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const item = soldadasHexagonais.find((i) => i.slug === slug);
@@ -185,10 +187,10 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
             ) : hasFullSpec ? (
               <ScrollReveal>
                 <CercaHeroDetails
-                  name={item.name}
+                  name={translateText(item.name)}
                   videoSrc={item.videoSrc!}
                   features={item.features!}
-                  badge={badgeLabel}
+                  badge={translateText(badgeLabel)}
                 />
               </ScrollReveal>
             ) : (
@@ -219,7 +221,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
               </ScrollReveal>
             )}
 
-            <ImgCarousel perspective title={item.name} badge={item.galleryIntro?.badge} description={item.galleryIntro?.text || item.shortDescription} images={item.gallery} />
+            <ImgCarousel perspective title={translateText(item.name)} badge={item.galleryIntro?.badge} description={translateText(item.galleryIntro?.text || item.shortDescription)} images={item.gallery} />
 
             {item.showcase && (
               <CercaShowcaseTeste
@@ -242,7 +244,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
               </ScrollReveal>
             )}
 
-            {item.showcase3D?.length
+            {translateText(item.showcase3D?.length
               ? item.showcase3D.map((showcase, i) => (
                 <ScrollReveal
                   key={showcase.title}
@@ -254,10 +256,10 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
                   >
                     <div className="max-w-md text-center lg:text-left">
                       <h3 className="poppins text-2xl font-bold text-[#ff5500] lg:text-3xl">
-                        {showcase.title}
+                        {translateText(showcase.title)}
                       </h3>
                       <p className="poppins mt-3 text-sm text-[#002d4d] dark:text-white sm:text-base">
-                        {showcase.description}
+                        {translateText(showcase.description)}
                       </p>
                     </div>
                     <div className="w-full lg:w-1/2">
@@ -270,7 +272,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
                 <ScrollReveal>
                   <VideoCard3D videoSrc={item.video3D} />
                 </ScrollReveal>
-              )}
+              ))}
 
             <ScrollReveal>
               <SimilarProducts products={similarTelas} />

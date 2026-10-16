@@ -12,6 +12,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -81,6 +82,7 @@ const WireLayer = ({
   progress: MotionValue<number>;
   label: string;
 }) => {
+  const translateText = useContentTranslation();
   const { input, output } = imageOpacityFor(index);
   const opacity = useTransform(progress, input, output);
   const enterFrom = index * SEG;
@@ -90,7 +92,7 @@ const WireLayer = ({
   return (
     <motion.img
       src={layer.src}
-      alt={`Arame — ${label}`}
+      alt={translateText(`Arame — ${label}`)}
       draggable={false}
       style={{ opacity, x, zIndex: N - index }}
       className="pointer-events-none absolute inset-0 h-full w-full object-contain"
@@ -109,6 +111,7 @@ const LayerLabel = ({
   progress: MotionValue<number>;
   label: string;
 }) => {
+  const translateText = useContentTranslation();
   const reveal = useTransform(
     progress,
     revealRangeFor(index).input,
@@ -136,19 +139,20 @@ const LayerLabel = ({
       className="coating-layer-label absolute flex items-baseline gap-2 whitespace-nowrap"
     >
       <span className="impact text-2xl leading-none text-[#ff5500] lg:text-4xl">
-        {layer.n}
+        {translateText(layer.n)}
       </span>
       <motion.span
         style={{ fontWeight: weight }}
         className="poppins text-base leading-none text-[#002d4d] dark:text-white lg:text-2xl"
       >
-        {label}
+        {translateText(label)}
       </motion.span>
     </motion.div>
   );
 };
 
 const CoatingGradil = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const c = dict.gradil.coating;
   const [step, setStep] = useState(0);
@@ -195,15 +199,15 @@ const CoatingGradil = () => {
     >
       <div className="mx-auto w-full max-w-6xl px-6 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins py-3">
-          {c.label}
+          {translateText(c.label)}
         </h3>
         <div className="relative flex justify-center sm:justify-between items-end mb-12">
           <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-8xl impact uppercase leading-tight">
-            {c.title}
+            {translateText(c.title)}
           </h2>
         </div>
         <p className="INDUSTRY-TEXT text-center sm:text-left text-base lg:text-lg text-[#002d4d] dark:text-zinc-400 max-w-sm mx-auto sm:mx-0 sm:max-w-none lg:w-full">
-          {c.subtitle}
+          {translateText(c.subtitle)}
         </p>
       </div>
 
@@ -215,7 +219,7 @@ const CoatingGradil = () => {
               layer={layer}
               index={i}
               progress={progress}
-              label={c.layers[i]}
+              label={translateText(c.layers[i])}
             />
           ))}
         </div>
@@ -227,7 +231,7 @@ const CoatingGradil = () => {
               layer={layer}
               index={i}
               progress={progress}
-              label={c.layers[i]}
+              label={translateText(c.layers[i])}
             />
           ))}
         </div>
@@ -238,7 +242,7 @@ const CoatingGradil = () => {
           type="button"
           onClick={() => goTo(step - 1)}
           disabled={step === 0}
-          aria-label={c.prev}
+          aria-label={translateText(c.prev)}
           className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-[#002d4d]/15 text-[#002d4d] transition hover:bg-[#ff5500] hover:text-white disabled:cursor-not-allowed disabled:opacity-30 dark:border-white/20 dark:text-white"
         >
           <svg
@@ -259,14 +263,14 @@ const CoatingGradil = () => {
         </button>
 
         <span className="poppins w-14 text-center text-sm font-semibold tabular-nums text-[#002d4d] dark:text-white/70">
-          {step + 1} / {N}
+          {step + 1} / {translateText(N)}
         </span>
 
         <button
           type="button"
           onClick={() => goTo(step + 1)}
           disabled={step === N - 1}
-          aria-label={c.next}
+          aria-label={translateText(c.next)}
           className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-[#002d4d]/15 text-[#002d4d] transition hover:bg-[#ff5500] hover:text-white disabled:cursor-not-allowed disabled:opacity-30 dark:border-white/20 dark:text-white"
         >
           <svg

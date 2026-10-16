@@ -1,0 +1,25 @@
+.orbit {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 102%;
+  animation: spin 36s linear infinite;
+}
+
+.orbit:hover {
+  animation-play-state: paused;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit {
+    animation: none;
+  }
+}

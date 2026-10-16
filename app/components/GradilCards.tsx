@@ -4,10 +4,12 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const GradilCards = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const CARDS = dict.gradil.cards;
   const [active, setActive] = useState(0);
@@ -54,7 +56,7 @@ const GradilCards = () => {
               >
                 <div className="min-w-0">
                   <h3 className="poppins truncate text-lg font-bold text-[#ff5500] dark:text-white sm:text-xl">
-                    {card.title}
+                    {translateText(card.title)}
                   </h3>
                   <p
                     className={`poppins mt-1 truncate text-sm text-zinc-500 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] dark:text-zinc-400 ${
@@ -63,7 +65,7 @@ const GradilCards = () => {
                         : "-translate-y-1 opacity-0"
                     }`}
                   >
-                    {card.description}
+                    {translateText(card.description)}
                   </p>
                 </div>
               </button>

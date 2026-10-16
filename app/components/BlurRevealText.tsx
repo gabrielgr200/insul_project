@@ -2,6 +2,7 @@
 
 import { Fragment } from "react";
 import { motion, Variants } from "framer-motion";
+import { useContentTranslation } from "./LanguageProvider";
 
 const WORD_STAGGER = 0.08;
 const MAX_TOTAL_STAGGER = 1.2;
@@ -25,7 +26,8 @@ interface BlurRevealTextProps {
 }
 
 const BlurRevealText = ({ text, className }: BlurRevealTextProps) => {
-  const paragraphs = Array.isArray(text) ? text : [text];
+  const translateText = useContentTranslation();
+  const paragraphs = (Array.isArray(text) ? text : [text]).map(translateText);
 
   const totalWords = paragraphs.reduce(
     (sum, p) => sum + p.split(" ").length,
@@ -57,9 +59,9 @@ const BlurRevealText = ({ text, className }: BlurRevealTextProps) => {
                     custom={index * stagger}
                     className="inline-block will-change-[filter,opacity]"
                   >
-                    {w}
+                    {translateText(w)}
                   </motion.span>
-                  {i !== words.length - 1 ? " " : ""}
+                  {translateText(i !== words.length - 1 ? " " : "")}
                 </Fragment>
               );
             })}

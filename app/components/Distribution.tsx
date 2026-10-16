@@ -6,8 +6,10 @@ import { gsap } from "gsap";
 import BrazilMap from "./BrazilMap";
 import GuilhermeChatbot from "./GuilhermeChatbot";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const Distribution = () => {
+  const translateText = useContentTranslation();
   const { t, dict } = useTranslation();
   const distributionCenters = dict.distribution.centers;
   const sectionRef = useRef(null);
@@ -85,10 +87,10 @@ const Distribution = () => {
                     {t("distribution.cardLabel")}
                   </p>
                   <p className="text-[#002d4d] dark:text-white font-bold text-lg leading-tight">
-                    {center.state}
+                    {translateText(center.state)}
                   </p>
                   <p className="text-zinc-500 text-sm flex items-center gap-1">
-                    <ArrowRight size={14} /> {center.city}
+                    <ArrowRight size={14} /> {translateText(center.city)}
                   </p>
                 </div>
               </div>

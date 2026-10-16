@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import FillButton from "./FillButton";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface ArcImage {
   src: string;
@@ -72,21 +73,15 @@ const DEFAULT_HEADING_CLASSNAME =
 const TelasShowcaseArc = ({
   images = DEFAULT_ARC_IMAGES,
   eyebrow = "Telas Insul",
-  heading = (
-    <>
-      Um modelo <br /> para cada necessidade
-    </>
-  ),
+  heading,
   headingClassName = DEFAULT_HEADING_CLASSNAME,
-  description = (
-    <>
-      Da tela leve pro jardim até a mais resistente pro campo, <br /> a Insul
-      tem o modelo certo pra sua propriedade.
-    </>
-  ),
+  description,
   ctaLabel = "Falar com um especialista",
   wideDesktop = false,
 }: TelasShowcaseArcProps) => {
+  const translateText = useContentTranslation();
+  heading ??= <>{translateText("Um modelo")}<br />{translateText("para cada necessidade")}</>;
+  description ??= <>{translateText("Da tela leve pro jardim até a mais resistente pro campo,")}<br />{translateText("a Insul tem o modelo certo pra sua propriedade.")}</>;
   const sectionRef = useRef<HTMLDivElement>(null);
   const [displayOffset, setDisplayOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -224,7 +219,7 @@ const TelasShowcaseArc = ({
             >
               <Image
                 src={card.src}
-                alt={card.alt}
+                alt={translateText(card.alt)}
                 fill
                 sizes={wideDesktop ? "(min-width: 1920px) 200px, 121px" : "121px"}
                 className="object-cover"
@@ -237,11 +232,11 @@ const TelasShowcaseArc = ({
 
       <div className="ARC-TEXT relative z-20 mx-auto -mt-40 w-[88%] max-w-md text-center">
         <span className="poppins mb-0 inline-flex items-center gap-2 rounded-full border bg-transparent px-4 py-1.5 text-xs font-normal uppercase tracking-widest text-[#002d4d] dark:text-white border-[#ff5500]/15">
-          {eyebrow}
+          {translateText(eyebrow)}
         </span>
-        <h2 className={headingClassName}>{heading}</h2>
+        <h2 className={headingClassName}>{translateText(heading)}</h2>
         <p className="poppins pb-8 mx-auto max-w-xl mt-0 text-sm text-[#002d4d]/60 dark:text-white/60">
-          {description}
+          {translateText(description)}
         </p>
         <FillButton
           href="https://wa.me/5551995098453"
@@ -250,7 +245,7 @@ const TelasShowcaseArc = ({
           className="poppins mt-0 inline-block cursor-pointer rounded-full border border-[#FF6A1A] bg-[#ff5500] px-6 py-3 text-sm font-bold text-white"
           overlayClassName="bg-white dark:bg-background text-[#ff5500]"
         >
-          {ctaLabel}
+          {translateText(ctaLabel)}
         </FillButton>
       </div>
     </div>

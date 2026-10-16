@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const svgStroke = {
   viewBox: "0 0 24 24",
@@ -50,20 +51,21 @@ const icons = [
 ];
 
 export default function PipeFeatures() {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const features = dict.gradil.pipes.features;
 
   return (
-    <section data-accessory-features aria-label="Características dos tubos" className="bg-white py-16 dark:bg-zinc-950 sm:py-20">
+    <section data-accessory-features aria-label={translateText("Características dos tubos")} className="bg-white py-16 dark:bg-zinc-950 sm:py-20">
       <div className="mx-auto w-full max-w-[1600px]">
         <div className="pipe-features-grid relative ml-16 mr-3 grid w-auto max-w-[1400px] grid-cols-1 gap-x-8 gap-y-14 sm:ml-[100px] sm:mr-3 sm:grid-cols-2 lg:ml-[120px] lg:mr-[14px] lg:grid-cols-3">
           <span data-accessory-feature-line className="pointer-events-none absolute inset-y-2 left-1/3 hidden w-px -translate-x-1/2 bg-[#002d4d]/15 dark:bg-white/15 lg:block" />
           <span data-accessory-feature-line className="pointer-events-none absolute inset-y-2 left-2/3 hidden w-px -translate-x-1/2 bg-[#002d4d]/15 dark:bg-white/15 lg:block" />
           {features.map((lines, i) => (
             <div key={i} data-accessory-feature className="flex flex-col items-center text-center">
-              <span className="text-[#ff5500]">{icons[i]}</span>
+              <span className="text-[#ff5500]">{translateText(icons[i])}</span>
               <p className="poppins mt-4 leading-relaxed text-[#002d4d] dark:text-zinc-300 lg:text-[17px]">
-                {lines.map((line) => <span key={line} className="block">{line}</span>)}
+                {lines.map((line) => <span key={line} className="block">{translateText(line)}</span>)}
               </p>
             </div>
           ))}

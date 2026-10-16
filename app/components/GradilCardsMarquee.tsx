@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useContentTranslation } from "./LanguageProvider";
 
 const IMAGE_CARDS = [
   "/images/CardImg-gradil-marquee/imgVideo-1-gradil.jpg",
@@ -27,6 +28,7 @@ const TRACK = [...CARDS, ...CARDS];
 const SPEED_PX_PER_SEC = 45;
 
 const GradilCardsMarquee = () => {
+  const translateText = useContentTranslation();
   const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const offsetRef = useRef(0);
@@ -85,7 +87,7 @@ const GradilCardsMarquee = () => {
             >
               <Image
                 src={card.src}
-                alt={card.alt}
+                alt={translateText(card.alt)}
                 fill
                 quality={90}
                 sizes="(min-width: 1024px) 224px, (min-width: 640px) 168px, 120px"

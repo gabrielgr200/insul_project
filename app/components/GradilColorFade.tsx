@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useContentTranslation } from "./LanguageProvider";
 
 const COLOR_IMAGES = [
   "/images/Gradil_Cores/INSUL_00_GRADIL_AMARELO_placas.webp",
@@ -14,6 +15,7 @@ const COLOR_IMAGES = [
 ];
 
 const GradilColorFade = ({ className = "" }: { className?: string }) => {
+  const translateText = useContentTranslation();
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const GradilColorFade = ({ className = "" }: { className?: string }) => {
         <motion.img
           key={COLOR_IMAGES[index]}
           src={COLOR_IMAGES[index]}
-          alt="Gradil - cores disponíveis"
+          alt={translateText("Gradil - cores disponíveis")}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}

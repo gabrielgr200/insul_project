@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { dictionaries, locales, type Locale } from "../i18n";
+import { translateContentText } from "../utils/translateText";
 
 const STORAGE_KEY = "insul-locale";
 
@@ -15,6 +16,7 @@ type LanguageContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (path: string) => string;
+  text: <T>(value: T) => T;
   dict: (typeof dictionaries)[Locale];
 };
 
@@ -58,9 +60,11 @@ const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
     [locale],
   );
 
+  const text = useCallback(<T,>(value: T): T => translateContentText(value, dictionaries[locale]), [locale]);
+
   return (
     <LanguageContext.Provider
-      value={{ locale, setLocale, t, dict: dictionaries[locale] }}
+      value={{ locale, setLocale, t, text, dict: dictionaries[locale] }}
     >
       {children}
     </LanguageContext.Provider>
@@ -75,4 +79,8 @@ export function useTranslation() {
     throw new Error("useTranslation deve ser usado dentro de LanguageProvider");
   }
   return ctx;
+}
+
+export function useContentTranslation() {
+  return useTranslation().text;
 }

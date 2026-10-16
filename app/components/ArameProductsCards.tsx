@@ -1,22 +1,27 @@
+"use client";
+
 import ProductCard from "./ProductCard";
 import ScrollReveal from "./ScrollReveal";
 import { arameCards } from "../assets/data";
+import { useContentTranslation } from "./LanguageProvider";
 
 const ArameProductsCards = () => {
+  const translateText = useContentTranslation();
   return (
     <>
-      <ScrollReveal className="pt-40 pb-16 text-center">
+      <ScrollReveal className="telas-category-wide pt-40 pb-16 text-center">
         <h3 className="poppins text-3xl font-bold text-[#ff5500] dark:text-[#ff5500]">
-          Arames Galvanizados
-        </h3>
+          {translateText("Arames Galvanizados")}</h3>
         <p className="poppins text-[20px] font-light text-[#002d4d] dark:text-white">
-          Do BWG 10 ao BWG 18, cada rolo é galvanizado para resistir ao tempo
-          e se adaptar ao seu projeto.
-        </p>
+          {translateText("Do BWG 10 ao BWG 18, cada rolo é galvanizado para resistir ao tempo e se adaptar ao seu projeto.")}</p>
       </ScrollReveal>
-      <ScrollReveal className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
         {arameCards.map((card) => (
-          <ProductCard key={card.name} {...card} />
+          <ProductCard
+            key={card.name}
+            {...card}
+            imageClassName={`${card.imageClassName ?? "object-contain"} min-[1920px]:scale-110 min-[2560px]:scale-[1.15]`}
+          />
         ))}
       </ScrollReveal>
     </>

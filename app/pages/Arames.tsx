@@ -18,8 +18,10 @@ import ArameParallaxPraia from "../components/ArameParallaxPraia";
 import AramesArc from "../components/AramesArc";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const Wires = () => {
+  const translateText = useContentTranslation();
   const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const landscapeY = useTransform(scrollY, [0, 1100], [0, 160]);
@@ -116,21 +118,17 @@ const Wires = () => {
                 className="relative z-10 mx-auto max-w-3xl motion-safe:will-change-transform"
               >
                 <p className="text-[11px] font-medium tracking-[.24em]">
-                  ARAMES INSUL
-                </p>
+                  {translateText("ARAMES INSUL")}</p>
                 <h1
                   id="arames-title"
                   className="mt-5 text-[clamp(36px,5.5vw,68px)] leading-[1.08] font-normal tracking-[-.045em]"
                 >
-                  Cada fio,{" "}
+                  {translateText("Cada fio,")}{translateText(" ")}
                   <span className="text-[#ff5500] font-semibold">
-                    uma possibilidade.
-                  </span>
+                    {translateText("uma possibilidade.")}</span>
                 </h1>
                 <p className="poppins mx-auto mt-6 max-w-lg text-sm leading-relaxed text-[#536777] sm:text-base">
-                  Conheça a linha de arames galvanizados Insul e encontre <br /> o fio
-                  para o seu próximo projeto.
-                </p>
+                  {translateText("Conheça a linha de arames galvanizados Insul e encontre")}<br /> {translateText("o fio para o seu próximo projeto.")}</p>
               </motion.div>
             </section>
 

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Maximize2, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
 import type { VideoCardData } from "../assets/data";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const OFFSET_STEP = 130;
 const MAX_VISIBLE_OFFSET = 2;
@@ -16,6 +17,7 @@ const VideoCardCarousel = ({
   cards: VideoCardData[];
   fenceName: string;
 }) => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [unmutedIndex, setUnmutedIndex] = useState<number | null>(null);
@@ -107,7 +109,7 @@ const VideoCardCarousel = ({
   return (
     <section ref={sectionRef} className="overflow-hidden py-16">
       <h3 className="mt-4 text-2xl poppins text-center mb-10 font-semibold text-[#ff5500] sm:text-3xl">
-        {dict.videoCardCarousel.headingLead} {fenceName}
+        {dict.videoCardCarousel.headingLead} {translateText(fenceName)}
       </h3>
       <div
         className="relative mx-auto flex h-[380px] max-w-6xl cursor-grab items-center justify-center touch-pan-y select-none active:cursor-grabbing sm:h-[440px]"
@@ -166,14 +168,14 @@ const VideoCardCarousel = ({
                   if (isActive) togglePlayback();
                   else goTo(index);
                 }}
-                aria-label={isActive && isPlaying ? "Pausar vídeo" : "Reproduzir vídeo"}
+                aria-label={translateText(isActive && isPlaying ? "Pausar vídeo" : "Reproduzir vídeo")}
                 tabIndex={isVisible ? 0 : -1}
                 className="absolute top-3 left-3 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow transition-colors hover:bg-zinc-200"
               >
-                {isActive && isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                {translateText(isActive && isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />)}
               </button>
 
-              {isActive ? (
+              {translateText(isActive ? (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -183,13 +185,13 @@ const VideoCardCarousel = ({
                     );
                   }}
                   aria-label={
-                    muted
+                    translateText(muted
                       ? dict.videoCardCarousel.unmuteAria
-                      : dict.videoCardCarousel.muteAria
+                      : dict.videoCardCarousel.muteAria)
                   }
                   className="absolute top-3 right-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
                 >
-                  {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                  {translateText(muted ? <VolumeX size={14} /> : <Volume2 size={14} />)}
                 </button>
               ) : (
                 <div className="absolute top-3 right-3 flex gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
@@ -206,7 +208,7 @@ const VideoCardCarousel = ({
                     <SkipForward size={12} />
                   </span>
                 </div>
-              )}
+              ))}
             </motion.div>
           );
         })}

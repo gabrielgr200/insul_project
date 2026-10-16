@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { GripHorizontal } from "lucide-react";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(Draggable);
 
@@ -61,6 +62,7 @@ const CARD_MEDIA = [
 const HANDLE_SIZE = 40;
 
 const Pipes = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const p = dict.gradil.pipes;
   const pieceRefs = useRef<(HTMLImageElement | null)[]>([]);
@@ -114,20 +116,20 @@ const Pipes = () => {
       <div className="mx-auto grid w-full max-w-6xl gap-10 rounded-3xl bg-[#002d4d]/[0.06] p-8 backdrop-blur-sm dark:bg-white/5 sm:p-12 lg:grid-cols-2 lg:items-center">
         <div className="text-center sm:text-left">
           <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
-            {p.label}
+            {translateText(p.label)}
           </h3>
           <div className="relative flex justify-center sm:justify-between items-end mb-12">
             <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-8xl impact uppercase text-nowrap leading-tight">
-              {p.title1} <br /> {p.title2}
+              {translateText(p.title1)} <br /> {translateText(p.title2)}
             </h2>
           </div>
           <p className="poppins mx-auto mt-4 max-w-2xl text-[#002d4d] dark:text-zinc-400 sm:mx-0 lg:text-[18px]">
-            {p.text}
+            {translateText(p.text)}
           </p>
 
           <div className="mx-auto mt-8 flex w-56 flex-col items-center gap-2 sm:mx-0 sm:items-start">
             <span className="poppins text-xs font-medium uppercase tracking-widest text-[#002d4d]/60 dark:text-white/50">
-              {p.dragHint}
+              {translateText(p.dragHint)}
             </span>
             <div
               ref={trackRef}
@@ -147,7 +149,7 @@ const Pipes = () => {
           <div
             className="relative h-[440px] w-[340px] lg:h-[540px] lg:w-[420px]"
             role="img"
-            aria-label={p.imgAlt}
+            aria-label={translateText(p.imgAlt)}
           >
             <div
               className="relative mt-16 h-[360px] lg:mt-24 lg:h-[440px]"
@@ -188,15 +190,15 @@ const Pipes = () => {
           >
             <img
               src={CARD_MEDIA[i].src}
-              alt={card.title}
+              alt={translateText(card.title)}
               draggable={false}
               className={`absolute -top-10 left-1/2 w-auto -translate-x-1/2 object-contain transition duration-500 ease-out group-hover:-translate-y-2 ${CARD_MEDIA[i].imgClass}`}
             />
             <h3 className="poppins text-lg font-bold uppercase tracking-[0.22em] text-[#ff5500]">
-              {card.title}
+              {translateText(card.title)}
             </h3>
             <p className="poppins mt-2 max-w-[22ch] text-sm leading-relaxed text-[#002d4d]/60 dark:text-zinc-400">
-              {card.desc}
+              {translateText(card.desc)}
             </p>
           </div>
         ))}

@@ -5,56 +5,38 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import gallery1 from "../../public/images/imgs-cards-parallax/imgcard-1.jpg";
+import gallery2 from "../../public/images/imgs-cards-parallax/imgcard-2.jpg";
+import gallery3 from "../../public/images/imgs-cards-parallax/imgcard-3.jpg";
+import gallery4 from "../../public/images/imgs-cards-parallax/imgcard-4.jpg";
+import gallery5 from "../../public/images/imgs-cards-parallax/imgcard-5.jpg";
+import gallery6 from "../../public/images/imgs-cards-parallax/imgcard-6.jpg";
+import gallery7 from "../../public/images/imgs-cards-parallax/imgcard-7.jpg";
+import gallery8 from "../../public/images/imgs-cards-parallax/imgcard-8.jpg";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const galleryCells = [
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-1.jpg",
-    className: "col-start-1 col-span-2 row-start-1"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-2.jpg",
-    className: "col-start-3 row-start-1"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-3.jpg",
-    className: "col-start-4 row-start-1"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-4.jpg",
-    className: "col-start-1 row-start-2 row-span-2"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-5.jpg",
-    className: "col-start-4 row-start-2 row-span-2"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-6.jpg",
-    className: "col-start-1 row-start-4"
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-7.jpg",
-    className: "col-start-2 col-span-2 row-start-4"
+const galleryColumns = [
+  [gallery1, gallery2, gallery3],
+  [gallery4, gallery5, gallery6],
+  [gallery7, null, gallery8],
+  [gallery2, gallery4, gallery6],
+];
 
-  },
-  {
-    src:
-      "/images/imgs-cards-parallax/imgcard-8.jpg",
-    className: "col-start-4 row-start-4"
-  },
+const cardAspectRatios = [
+  ["200 / 254", "200 / 165", "200 / 187"],
+  ["200 / 197", "200 / 281", "200 / 127"],
+  ["200 / 281", "200 / 154", "200 / 172"],
+  ["200 / 140", "200 / 337", "200 / 129"],
 ];
 
 const ArameParallaxPraia = () => {
+  const translateText = useContentTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const slotRef = useRef<HTMLDivElement>(null);
   const verdeRef = useRef<HTMLDivElement>(null);
   const azulRef = useRef<HTMLDivElement>(null);
   const textVerdeRef = useRef<HTMLDivElement>(null);
@@ -69,7 +51,11 @@ const ArameParallaxPraia = () => {
         sectionRef.current,
       );
 
-      gsap.set(cardRef.current, { scale: 0.46, borderRadius: 16 / 0.46 });
+      const slotBounds = () => {
+        const slot = slotRef.current!.getBoundingClientRect();
+        const section = sectionRef.current!.getBoundingClientRect();
+        return { x: slot.left - section.left, y: slot.top - section.top, width: slot.width, height: slot.height };
+      };
       gsap.set(azulRef.current, { opacity: 0 });
       gsap.set(blurRef.current, { opacity: 0 });
       gsap.set([textVerdeRef.current, textAzulRef.current], {
@@ -80,7 +66,7 @@ const ArameParallaxPraia = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
+          start: () => `top+=${Math.max(0, sectionRef.current!.clientHeight - window.innerHeight)} top`,
           end: "+=350%",
           scrub: 1,
           pin: true,
@@ -88,8 +74,17 @@ const ArameParallaxPraia = () => {
         },
       });
 
-      tl.to(cardRef.current, {
-        scale: 1,
+      tl.fromTo(cardRef.current, {
+        x: () => slotBounds().x,
+        y: () => slotBounds().y,
+        width: () => slotBounds().width,
+        height: () => slotBounds().height,
+        borderRadius: 16,
+      }, {
+        x: 0,
+        y: () => Math.max(0, sectionRef.current!.clientHeight - window.innerHeight),
+        width: () => sectionRef.current!.clientWidth,
+        height: () => window.innerHeight,
         borderRadius: 0,
         ease: "none",
         duration: 1,
@@ -100,11 +95,11 @@ const ArameParallaxPraia = () => {
         {
           // Move each image away from the center, preserving the grid's depth.
           x: (_, target: HTMLElement) => {
-            const grid = target.parentElement!;
+            const grid = galleryRef.current!;
             return (target.offsetLeft + target.offsetWidth / 2 - grid.clientWidth / 2) * 2.4;
           },
           y: (_, target: HTMLElement) => {
-            const grid = target.parentElement!;
+            const grid = galleryRef.current!;
             return (target.offsetTop + target.offsetHeight / 2 - grid.clientHeight / 2) * 2.4;
           },
           scale: (index) => 2.2 + (index % 3) * 0.3,
@@ -154,29 +149,45 @@ const ArameParallaxPraia = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative h-svh w-full overflow-hidden bg-white dark:bg-[#090b0c]"
+      className="relative min-h-svh w-full overflow-hidden bg-white dark:bg-[#090b0c]"
     >
-      <div className="relative mx-auto h-full w-full">
-        <div className="absolute inset-[3%] z-0 grid grid-cols-4 grid-rows-4 gap-2 sm:gap-4">
-          {galleryCells.map(({ src, className }) => (
-            <div
-              key={src}
-              className={`arame-gallery-cell relative isolate overflow-hidden rounded-2xl will-change-transform ${className}`}
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
+      <div className="relative mx-auto w-full p-4">
+        <div
+          ref={galleryRef}
+          className="relative z-0 grid grid-cols-2 items-start gap-4 md:grid-cols-4"
+        >
+          {galleryColumns.map((column, columnIndex) => (
+            <div key={columnIndex} className="grid gap-4">
+              {column.map((src, imageIndex) => src ? (
+                <div
+                  key={imageIndex}
+                  style={{ aspectRatio: cardAspectRatios[columnIndex][imageIndex] }}
+                  className="arame-gallery-cell relative isolate w-full overflow-hidden rounded-2xl will-change-transform"
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="(min-width: 768px) 24vw, 47vw"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  key={imageIndex}
+                  ref={slotRef}
+                  aria-hidden="true"
+                  style={{ aspectRatio: cardAspectRatios[columnIndex][imageIndex] }}
+                  className="w-full rounded-2xl"
+                />
+              ))}
             </div>
           ))}
         </div>
       </div>
       <div
         ref={cardRef}
-        className="absolute inset-0 z-10 h-full w-full overflow-hidden rounded-[35px] will-change-transform"
+        className="absolute left-0 top-0 z-10 h-full w-full overflow-hidden rounded-2xl will-change-transform"
       >
 
         <Image
@@ -192,13 +203,11 @@ const ArameParallaxPraia = () => {
           className="absolute left-6 top-1/4 z-0 max-w-xs text-left sm:left-16 sm:max-w-sm"
         >
           <p className="text-4xl font-light text-[#ff5500] sm:text-2xl">
-            Arame com revestimento em<br />
-            <span className="text-[#1d5b34] font-bold text-6xl">PVC verde</span>
+            {translateText("Arame com revestimento em")}<br />
+            <span className="text-[#1d5b34] font-bold text-6xl">{translateText("PVC verde")}</span>
           </p>
           <p className="poppins mt-6 text-sm font-light text-[#002d4d] sm:text-base">
-            Mais proteção contra corrosão e um acabamento discreto para
-            áreas externas.
-          </p>
+            {translateText("Mais proteção contra corrosão e um acabamento discreto para áreas externas.")}</p>
         </div>
 
         <div
@@ -206,18 +215,16 @@ const ArameParallaxPraia = () => {
           className="absolute left-6 top-1/4 z-0 max-w-xs text-left sm:left-16 sm:max-w-sm"
         >
           <p className="text-4xl font-light text-[#ff5500] sm:text-2xl">
-            Também disponível em<br />
-            <span className="text-[#1065a1] font-bold text-6xl">PVC azul</span>
+            {translateText("Também disponível em")}<br />
+            <span className="text-[#1065a1] font-bold text-6xl">{translateText("PVC azul")}</span>
           </p>
           <p className="poppins mt-6 text-sm text-[#002d4d] font-light sm:text-base">
-            A mesma resistência, com um visual diferenciado para o seu
-            projeto.
-          </p>
+            {translateText("A mesma resistência, com um visual diferenciado para o seu projeto.")}</p>
         </div>
 
         <Image
           src="/images/img-parallax-praia/img-praia-arame.png"
-          alt="Praia"
+          alt={translateText("Praia")}
           fill
           className="relative z-1 object-cover"
         />
@@ -225,7 +232,7 @@ const ArameParallaxPraia = () => {
         <div ref={verdeRef} className="absolute inset-0 z-2">
           <Image
             src="/images/img-parallax-praia/arame-pvc-verde.png"
-            alt="Arame PVC verde"
+            alt={translateText("Arame PVC verde")}
             fill
             className="object-cover"
           />
@@ -233,7 +240,7 @@ const ArameParallaxPraia = () => {
         <div ref={azulRef} className="absolute inset-0 z-2">
           <Image
             src="/images/img-parallax-praia/arame-pvc-azul.png"
-            alt="Arame PVC azul"
+            alt={translateText("Arame PVC azul")}
             fill
             className="object-cover"
           />

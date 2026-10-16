@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 export default function SearchBarShowcase() {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const { query, suggestions, mostSearched } = dict.searchShowcase;
 
@@ -122,7 +124,7 @@ export default function SearchBarShowcase() {
           <path d="m21 21-4.35-4.35" />
         </svg>
         <span className="poppins min-h-[24px] flex-1 truncate text-sm text-[#002d4d] md:text-lg dark:text-white">
-          {displayedText}
+          {translateText(displayedText)}
           <span className="ml-[1px] inline-block h-[18px] w-[2px] animate-pulse bg-[#002d4d] align-middle dark:bg-white" />
         </span>
       </div>
@@ -158,10 +160,10 @@ export default function SearchBarShowcase() {
               <path d="m21 21-4.35-4.35" />
             </svg>
             <span className="poppins truncate text-[#002d4d]/80 dark:text-white/80">
-              {s}
+              {translateText(s)}
             </span>
             <span className="ml-auto hidden flex-shrink-0 text-sm text-[#002d4d]/40 sm:inline dark:text-white/30">
-              {mostSearched}
+              {translateText(mostSearched)}
             </span>
           </div>
         ))}

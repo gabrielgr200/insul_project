@@ -5,10 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { SplitText } from "gsap/SplitText";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const TextReveal = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const PARAGRAPHS = dict.textReveal.paragrafos;
   const containerRef = useRef<HTMLElement>(null);
@@ -101,7 +103,7 @@ const TextReveal = () => {
               }}
               className="text-center text-[#002d4d] dark:text-white poppins font-light text-3xl sm:text-4xl md:text-5xl lg:text-4xl leading-tight max-w-md mx-auto sm:max-w-none"
             >
-              {text}
+              {translateText(text)}
             </p>
           </div>
         ))}

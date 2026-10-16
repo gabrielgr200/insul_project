@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   BadgeDollarSign,
@@ -6,6 +8,7 @@ import {
   Fence,
   ShieldCheck,
 } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 const cards = [
   {
@@ -44,9 +47,10 @@ const cards = [
 ];
 
 export default function ArameCards() {
+  const translateText = useContentTranslation();
   return (
     <section
-      aria-label="Arames em destaque"
+      aria-label={translateText("Arames em destaque")}
       className="relative z-10 grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2 lg:grid-cols-6"
     >
       {cards.map((card, index) => (
@@ -59,7 +63,7 @@ export default function ArameCards() {
           <div className="absolute inset-0 overflow-hidden rounded-[24px] motion-safe:will-change-transform mask-[radial-gradient(white,black)]">
             <Image
               src={`/images/img-arame-cards/${card.image}`}
-              alt={`Aplicação de arames Insul — imagem ${index + 1}`}
+              alt={translateText(`Aplicação de arames Insul — imagem ${index + 1}`)}
               fill
               sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
               className={`object-cover transition-transform duration-700 ease-out motion-reduce:transition-none ${index === 4 ? "-scale-x-100 group-hover:scale-x-[-1.05] group-hover:scale-y-105 group-focus:scale-x-[-1.05] group-focus:scale-y-105" : "group-hover:scale-105 group-focus:scale-105"}`}
@@ -82,12 +86,12 @@ export default function ArameCards() {
               id={`arame-card-${index}`}
               className="poppins max-w-75 text-[25px] leading-tight font-semibold tracking-[-.04em] text-[#ff5500] dark:text-white"
             >
-              {card.title}
+              {translateText(card.title)}
             </h2>
             <p
               className={`poppins mt-3 text-base font-font-normal leading-[1.45] text-[#5c6068] dark:text-white/75 ${index < 3 ? "max-w-62.5" : "max-w-52.5"}`}
             >
-              {card.description}
+              {translateText(card.description)}
             </p>
           </div>
         </article>

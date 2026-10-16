@@ -105,7 +105,9 @@ const HomePage = () => {
             <SearchBarShowcase />
           </section>
           <VideoShowcase />
-          <IndustryHeader />
+          <section className="py-20 sm:py-28">
+            <IndustryHeader />
+          </section>
           <TextReveal />
           <IndustryTimeline />
           <hr className="text-zinc-100" />

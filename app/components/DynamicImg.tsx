@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Spinner from "./Spinner";
+import { useContentTranslation } from "./LanguageProvider";
 
 const ImageLayer = ({ src, fadeIn }: { src: string; fadeIn: boolean }) => {
   const [visible, setVisible] = useState(!fadeIn);
@@ -34,6 +35,7 @@ const ImageLayer = ({ src, fadeIn }: { src: string; fadeIn: boolean }) => {
 };
 
 const DynamicImg = ({ src }: { src?: string }) => {
+  const translateText = useContentTranslation();
   const nextId = useRef(0);
   const [layers, setLayers] = useState<{ id: number; src: string }[]>(() =>
     src ? [{ id: nextId.current++, src }] : [],
@@ -70,7 +72,7 @@ const DynamicImg = ({ src }: { src?: string }) => {
           justify-center text-zinc-500 ${!src && "bg-zinc-200"}`}
         >
           {!src && (
-            <span className="text-lg">Shop by room image placeholder</span>
+            <span className="text-lg">{translateText("Shop by room image placeholder")}</span>
           )}
         </div>
         {layers.map((layer, i) => (

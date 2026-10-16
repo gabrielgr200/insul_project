@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Anvil, Award, ShieldCheck } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 
 const finishes = [
@@ -12,23 +13,21 @@ const finishes = [
 ];
 
 export default function SimplesTorcaoShowcase() {
+  const translateText = useContentTranslation();
   const [selected, setSelected] = useState(0);
 
   return (
     <section className="poppins relative isolate mt-18 overflow-hidden rounded-3xl bg-white text-center text-[#002d4d] dark:bg-[#090b0c] dark:text-white sm:mt-28 sm:rounded-[32px]" aria-labelledby="torcao-title">
       <div className="relative z-3 px-5 pt-12 sm:px-6 sm:pt-18">
         <span className="text-[11px] font-medium tracking-[.22em] text-[#002d4d] dark:text-white">
-          TELAS DE TORÇÃO SIMPLES
-        </span>
+          {translateText("TELAS DE TORÇÃO SIMPLES")}</span>
         <h2 id="torcao-title" className="my-5 text-[clamp(32px,4.5vw,56px)] leading-[1.12] text-[#ff5500] font-semibold tracking-[-.045em]">
-          Proteção que acompanha<br />
+          {translateText("Proteção que acompanha")}<br />
           <span className="text-[#074674] dark:text-white font-light">
-            o seu espaço.
-          </span>
+            {translateText("o seu espaço.")}</span>
         </h2>
         <p className="mx-auto max-w-132.5 text-[13px] leading-[1.8] text-[#002d4d] dark:text-white sm:text-[15px]">
-          Conheça as telas de torção simples Insul. Diferentes acabamentos para o cercamento do seu projeto.
-        </p>
+          {translateText("Conheça as telas de torção simples Insul. Diferentes acabamentos para o cercamento do seu projeto.")}</p>
       </div>
 
       <div className="torcao-media-stage relative mt-16 h-65 sm:mt-24 sm:h-90">
@@ -47,7 +46,7 @@ export default function SimplesTorcaoShowcase() {
             const position = (index - selected + finishes.length) % finishes.length;
             return (
               <div key={finish.file} className="absolute -top-4 left-1/2 h-65 w-62.5 transition-[transform,opacity,filter] duration-800 ease-[cubic-bezier(.22,1,.36,1)] data-[position=0]:z-2 data-[position=0]:transform-[translateX(-50%)] data-[position=0]:opacity-100 data-[position=0]:drop-shadow-[0_20px_26px_#0008] data-[position=1]:z-1 data-[position=1]:transform-[translateX(2%)_translateY(48px)_rotate(12deg)_scale(.65)] data-[position=1]:opacity-55 data-[position=2]:z-1 data-[position=2]:transform-[translateX(-102%)_translateY(48px)_rotate(-12deg)_scale(.65)] data-[position=2]:opacity-55 motion-reduce:transition-none sm:top-2 sm:h-90 sm:w-85" data-position={position} aria-hidden={index !== selected}>
-                <Image src={`/images/tela-torcao-simples/${finish.file}`} alt={`Tela de torção simples ${finish.name}`} fill sizes="(max-width: 640px) 62vw, 380px" className="scale-[1.3] object-contain" />
+                <Image src={`/images/tela-torcao-simples/${finish.file}`} alt={translateText(`Tela de torção simples ${finish.name}`)} fill sizes="(max-width: 640px) 62vw, 380px" className="scale-[1.3] object-contain" />
               </div>
             );
           })}
@@ -55,11 +54,11 @@ export default function SimplesTorcaoShowcase() {
       </div>
 
       <div id="torcao-acabamentos" className="relative z-4 scroll-mt-30 bg-[linear-gradient(transparent,#fff_55px)] px-5 pt-12 pb-10 dark:bg-[linear-gradient(transparent,#090b0c_55px)] sm:bg-[linear-gradient(transparent,#fff_75px)] sm:dark:bg-[linear-gradient(transparent,#090b0c_75px)] sm:pt-16">
-        <p className="mb-4 text-[10px] tracking-[.2em] text-[#6b7280] dark:text-[#93979a]">ESCOLHA O ACABAMENTO</p>
-        <div className="flex flex-wrap justify-center gap-2.5" role="group" aria-label="Acabamento da tela de torção simples">
+        <p className="mb-4 text-[10px] tracking-[.2em] text-[#6b7280] dark:text-[#93979a]">{translateText("ESCOLHA O ACABAMENTO")}</p>
+        <div className="flex flex-wrap justify-center gap-2.5" role="group" aria-label={translateText("Acabamento da tela de torção simples")}>
           {finishes.map((finish, index) => (
             <button key={finish.name} type="button" aria-pressed={selected === index} onClick={() => setSelected(index)} className="flex cursor-pointer items-center gap-2.25 rounded-full border border-black/10 bg-black/3 px-3 py-2.5 text-[11px] text-[#4a5568] transition-colors duration-200 hover:border-[#ff742e] focus-visible:outline-2 focus-visible:outline-offset-5 focus-visible:outline-[#002d4d] aria-pressed:border-[#ff742e] aria-pressed:bg-[#ff550015] aria-pressed:text-[#002d4d] motion-reduce:transition-none dark:border-[#ffffff24] dark:bg-[#111314] dark:text-[#b8bbbd] dark:focus-visible:outline-white dark:aria-pressed:text-white sm:px-4.25 sm:py-2.75 sm:text-xs">
-              <span className={`size-3 rounded-full ${finish.color}`} />{finish.name}
+              <span className={`size-3 rounded-full ${finish.color}`} />{translateText(finish.name)}
             </button>
           ))}
         </div>

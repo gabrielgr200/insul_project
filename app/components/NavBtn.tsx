@@ -1,6 +1,7 @@
 'use client';
 
 import { scrollToSection } from "../utils/ScrollToSection";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface NavBtnProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface NavBtnProps {
 }
 
 const NavBtn = ({ children, to, active = false, onNavigate, onClick, compact = false }: NavBtnProps) => {
+  const translateText = useContentTranslation();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (onClick) {
@@ -35,7 +37,7 @@ const NavBtn = ({ children, to, active = false, onNavigate, onClick, compact = f
           : "border-transparent text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
       }`}
     >
-      {children}
+      {translateText(children)}
     </a>
   );
 };

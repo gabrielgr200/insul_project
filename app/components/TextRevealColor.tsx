@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,8 @@ const gradientFor = (base: string) =>
   `linear-gradient(to right, ${ACCENT} 0%, ${ACCENT} 42%, ${base} 58%, ${base} 100%)`;
 
 const TextRevealColor = ({ text, className = "" }: TextRevealColorProps) => {
+  const translateText = useContentTranslation();
+  text = translateText(text);
   const ref = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
@@ -83,8 +86,8 @@ const TextRevealColor = ({ text, className = "" }: TextRevealColorProps) => {
             color: "transparent",
           }}
         >
-          {word}
-          {i < words.length - 1 ? " " : ""}
+          {translateText(word)}
+          {translateText(i < words.length - 1 ? " " : "")}
         </span>
       ))}
     </p>

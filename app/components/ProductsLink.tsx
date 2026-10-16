@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 const linkClassName = `group flex justify-between items-center text-2xl
       font-light py-4 border-b cursor-pointer border-zinc-200 dark:border-zinc-700
@@ -18,11 +19,13 @@ const arrow = (
 interface ProductsLinkProps {
   children: React.ReactNode;
   to?: string;
+  centered?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }
 
-const ProductsLink = ({ children, to, onMouseEnter, onMouseLeave }: ProductsLinkProps) => {
+const ProductsLink = ({ children, to, centered = false, onMouseEnter, onMouseLeave }: ProductsLinkProps) => {
+  const translateText = useContentTranslation();
   if (to) {
     return (
       <Link
@@ -31,8 +34,8 @@ const ProductsLink = ({ children, to, onMouseEnter, onMouseLeave }: ProductsLink
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <span>{children}</span>
-        {arrow}
+        <span className={centered ? "flex-1 text-center font-semibold" : undefined}>{translateText(children)}</span>
+        {translateText(arrow)}
       </Link>
     );
   }
@@ -43,8 +46,8 @@ const ProductsLink = ({ children, to, onMouseEnter, onMouseLeave }: ProductsLink
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <span>{children}</span>
-      {arrow}
+      <span className={centered ? "flex-1 text-center font-semibold" : undefined}>{translateText(children)}</span>
+      {translateText(arrow)}
     </p>
   );
 };

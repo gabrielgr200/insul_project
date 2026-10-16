@@ -9,6 +9,7 @@ import {
   RotateCw,
   SkipForward,
 } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 export interface CardPostReel {
   src: string;
@@ -26,6 +27,7 @@ interface CardPostProps {
 }
 
 const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProps) => {
+  const translateText = useContentTranslation();
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [playing, setPlaying] = useState(() => reels.map(() => false));
   const [muted, setMuted] = useState(() => reels.map(() => true));
@@ -67,17 +69,16 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
       <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8 dark:bg-white/5">
         <div className="relative mx-auto max-w-xl text-center">
           <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
-            {badge}
+            {translateText(badge)}
           </span>
           <h3 className="mt-4 text-2xl font-bold poppins text-[#ff5500] sm:text-3xl">
-            {title}
+            {translateText(title)}
           </h3>
           <p className="mt-2 text-sm text-[#002d4d] dark:text-white poppins">
-            {description}
+            {translateText(description)}
           </p>
           <p className="mt-6 rounded-xl bg-amber-100 px-4 py-3 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-300">
-            Vídeos de exemplo — conteúdo real ainda não foi cadastrado.
-          </p>
+            {translateText("Vídeos de exemplo — conteúdo real ainda não foi cadastrado.")}</p>
         </div>
       </section>
     );
@@ -87,13 +88,13 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
     <section className="relative overflow-hidden rounded-3xl bg-zinc-50 px-4 py-12 backdrop-blur-xl sm:px-8 dark:bg-white/5">
       <div className="relative mx-auto max-w-xl text-center">
         <span className="inline-block rounded-full border border-[#ff5500] px-3 py-1 text-xs text-[#002d4d] dark:text-white">
-          {badge}
+          {translateText(badge)}
         </span>
         <h3 className="mt-4 text-2xl font-bold poppins text-[#ff5500] sm:text-3xl">
-          {title}
+          {translateText(title)}
         </h3>
         <p className="mt-2 text-sm text-[#002d4d] dark:text-white poppins">
-          {description}
+          {translateText(description)}
         </p>
       </div>
 
@@ -120,21 +121,21 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
             <button
               type="button"
               onClick={() => togglePlay(i)}
-              aria-label={playing[i] ? "Pausar vídeo" : "Reproduzir vídeo"}
+              aria-label={translateText(playing[i] ? "Pausar vídeo" : "Reproduzir vídeo")}
               className="absolute left-2 top-2 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow"
             >
-              {playing[i] ? (
+              {translateText(playing[i] ? (
                 <Pause size={13} fill="black" />
               ) : (
                 <Play size={13} fill="black" className="ml-0.5" />
-              )}
+              ))}
             </button>
 
             <div className="absolute left-1/2 top-2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/60 px-1.5 py-1 opacity-0 backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
               <button
                 type="button"
                 onClick={() => replay(i)}
-                aria-label="Reiniciar vídeo"
+                aria-label={translateText("Reiniciar vídeo")}
                 className="flex h-5 w-5 cursor-pointer items-center justify-center text-white"
               >
                 <RotateCw size={13} />
@@ -142,7 +143,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
               <button
                 type="button"
                 onClick={() => skipToNext(i)}
-                aria-label="Próximo vídeo"
+                aria-label={translateText("Próximo vídeo")}
                 className="flex h-5 w-5 cursor-pointer items-center justify-center text-white"
               >
                 <SkipForward size={13} />
@@ -152,14 +153,14 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
             <button
               type="button"
               onClick={() => toggleMute(i)}
-              aria-label={muted[i] ? "Ativar som" : "Silenciar vídeo"}
+              aria-label={translateText(muted[i] ? "Ativar som" : "Silenciar vídeo")}
               className="absolute right-2 top-2 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow"
             >
-              {muted[i] ? <VolumeX size={13} /> : <Volume2 size={13} />}
+              {translateText(muted[i] ? <VolumeX size={13} /> : <Volume2 size={13} />)}
             </button>
 
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2.5 pt-8">
-              <p className="text-xs font-medium text-white">{reel.name}</p>
+              <p className="text-xs font-medium text-white">{translateText(reel.name)}</p>
             </div>
           </div>
         ))}

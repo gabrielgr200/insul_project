@@ -2,6 +2,7 @@
 
 import { SimilarProductCard } from "./SimilarProducts";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const OTHER_MEDIA = [
   {
@@ -28,19 +29,20 @@ const OTHER_MEDIA = [
 ];
 
 const OtherProducts = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const o = dict.gradil.other;
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-8">
       <h3 className="poppins mb-8 text-4xl font-bold text-[#ff5500] dark:text-white">
-        {o.title}
+        {translateText(o.title)}
       </h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {OTHER_MEDIA.map((m, i) => (
           <SimilarProductCard
             key={m.to}
             {...m}
-            title={o.products[i].title}
+            title={translateText(o.products[i].title)}
             name={o.products[i].name}
           />
         ))}

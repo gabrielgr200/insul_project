@@ -5,10 +5,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const GradilProcess = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const p = dict.gradil.process;
   const STEPS = p.steps;
@@ -75,21 +77,21 @@ const GradilProcess = () => {
     >
       <div className="mx-auto w-full max-w-6xl px-6 text-center sm:text-left">
         <h3 className="INDUSTRY-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-light text-2xl poppins">
-          {p.label}
+          {translateText(p.label)}
         </h3>
         <div className="relative flex justify-center sm:justify-between items-end mb-12">
           <h2 className="INDUSTRY-TITLE text-center sm:text-left text-[#ff5500] text-[clamp(2.5rem,11vw,4.75rem)] lg:text-8xl impact uppercase text-nowrap leading-tight">
-            {p.title}
+            {translateText(p.title)}
           </h2>
         </div>
         <p className="GRADIL-PROCESS-TEXT poppins mx-auto mt-4 max-w-2xl text-[#002d4d] dark:text-zinc-400 sm:mx-0 lg:text-[18px]">
-          {p.capacityLead}
+          {translateText(p.capacityLead)}
           <span className="font-bold text-[#ff5500] dark:text-white">
-            {p.capacityM2}
+            {translateText(p.capacityM2)}
           </span>
-          {p.capacityMid}
+          {translateText(p.capacityMid)}
           <span className="font-bold text-[#ff5500] dark:text-white">
-            {p.capacityModels}
+            {translateText(p.capacityModels)}
           </span>
           .
         </p>
@@ -136,7 +138,7 @@ const GradilProcess = () => {
                       : "border border-[#ff5500]/40 bg-transparent text-[#002d4d] dark:text-white/70"
                   } ${isActive ? "scale-110 shadow-lg shadow-[#ff5500]/30" : ""}`}
                 >
-                  {step.num}
+                  {translateText(step.num)}
                 </div>
               </div>
 
@@ -145,7 +147,7 @@ const GradilProcess = () => {
                   isActive ? "text-[#ff5500]" : "text-[#002d4d] dark:text-white"
                 }`}
               >
-                {step.title}
+                {translateText(step.title)}
               </h3>
 
               <div
@@ -157,7 +159,7 @@ const GradilProcess = () => {
               >
                 <div className="overflow-hidden">
                   <p className="poppins mx-auto max-w-[15rem] text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                    {step.desc}
+                    {translateText(step.desc)}
                   </p>
                 </div>
               </div>

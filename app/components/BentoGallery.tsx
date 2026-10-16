@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface BentoImage {
   src: string;
@@ -43,6 +46,7 @@ const isVideoSrc = (src: string) => {
 };
 
 const BentoGallery = ({ images }: BentoGalleryProps) => {
+  const translateText = useContentTranslation();
   return (
     <div className="grid grid-cols-2 auto-rows-[140px] gap-3 md:grid-cols-8 md:auto-rows-[150px]">
       {images.map((image, i) =>
@@ -53,7 +57,7 @@ const BentoGallery = ({ images }: BentoGalleryProps) => {
           >
             <video
               src={image.src}
-              aria-label={image.alt}
+              aria-label={translateText(image.alt)}
               className="h-full w-full object-cover"
               style={{ objectPosition: image.objectPosition ?? "center" }}
               autoPlay
@@ -70,7 +74,7 @@ const BentoGallery = ({ images }: BentoGalleryProps) => {
           >
             <Image
               src={image.src}
-              alt={image.alt}
+              alt={translateText(image.alt)}
               fill
               sizes={CELL_IMAGE_SIZES[i]}
               className="object-cover"

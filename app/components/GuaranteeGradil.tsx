@@ -1,8 +1,10 @@
 "use client";
 
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const GuaranteeGradil = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const g = dict.gradil.guarantee;
   return (
@@ -25,17 +27,17 @@ const GuaranteeGradil = () => {
 
           <div>
             <h2 className="poppins text-2xl font-bold leading-tight text-white sm:text-3xl lg:text-[2.1rem]">
-              {g.title1}
-              <br /> {g.title2}
+              {translateText(g.title1)}
+              <br /> {translateText(g.title2)}
             </h2>
-            <p className="poppins mt-3 text-sm text-white/85">{g.note}</p>
+            <p className="poppins mt-3 text-sm text-white/85">{translateText(g.note)}</p>
           </div>
         </div>
 
         <div className="hidden h-28 w-px shrink-0 bg-white/40 md:block" />
 
         <p className="poppins max-w-md text-base font-light leading-relaxed text-white sm:text-lg">
-          {g.side}
+          {translateText(g.side)}
         </p>
       </div>
     </section>

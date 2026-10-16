@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 export interface SimilarProductItem
   extends Pick<ProductCardData, "src" | "title" | "name" | "to"> {
@@ -25,6 +26,7 @@ export const SimilarProductCard = ({
   color,
   cutout,
 }: SimilarCardProps) => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const imgRef = useRef<HTMLImageElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
@@ -75,7 +77,7 @@ export const SimilarProductCard = ({
       <Image
         ref={imgRef}
         src={src}
-        alt={name}
+        alt={translateText(name)}
         fill
         quality={90}
         sizes="(min-width: 1024px) 33vw, 50vw"
@@ -99,7 +101,7 @@ export const SimilarProductCard = ({
 
       <div className="relative flex items-start justify-between">
         <span className="poppins text-xs font-semibold tracking-wide text-white/90 uppercase">
-          {title}
+          {translateText(title)}
         </span>
         <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
           <span
@@ -111,7 +113,7 @@ export const SimilarProductCard = ({
       </div>
 
       <div className="relative flex flex-col gap-0.5">
-        <span className="poppins text-base font-bold text-white">{name}</span>
+        <span className="poppins text-base font-bold text-white">{translateText(name)}</span>
         <span className="poppins truncate text-[11px] text-white/75">
           {dict.productCard.seeDetails}
         </span>

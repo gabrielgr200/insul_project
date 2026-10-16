@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ChevronDown } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 export const ANIMAL_IMAGES: Record<string, string> = {
   Avestruz:
@@ -32,6 +33,7 @@ export const ANIMAL_IMAGES: Record<string, string> = {
 };
 
 const AnimalThumb = ({ animal }: { animal: string }) => {
+  const translateText = useContentTranslation();
   const [broken, setBroken] = useState(false);
   const { dict } = useTranslation();
   const src = ANIMAL_IMAGES[animal] ?? null;
@@ -39,13 +41,13 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
 
   return (
     <div
-      title={label}
+      title={translateText(label)}
       className="product-card-thumb flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
     >
-      {src && !broken ? (
+      {translateText(src && !broken ? (
         <Image
           src={src}
-          alt={label}
+          alt={translateText(label)}
           width={28}
           height={28}
           sizes="(min-width: 1920px) 48px, 28px"
@@ -56,7 +58,7 @@ const AnimalThumb = ({ animal }: { animal: string }) => {
         <span className="text-[10px] font-semibold text-[#002d4d]/70 dark:text-white/70">
           {label.charAt(0)}
         </span>
-      )}
+      ))}
     </div>
   );
 };
@@ -167,6 +169,8 @@ const ProductCard = ({
   imageClassName,
   imageBoxClassName,
 }: ProductCardData) => {
+  const translateText = useContentTranslation();
+  paragraph = translateText(paragraph);
   const { dict } = useTranslation();
   const hasSidePanel = Boolean(
     postSpacing || animals?.length > 0 || indicatedFor?.length,
@@ -378,42 +382,39 @@ const ProductCard = ({
         onClick={toggleInfoPanel}
       >
         <div
-          className={`absolute inset-y-0 left-0 transition-[width] duration-500 ease-in-out ${
-            hasSidePanel
+          className={`absolute inset-y-0 left-0 transition-[width] duration-500 ease-in-out ${hasSidePanel
               ? panelOpen
                 ? "w-2/5"
                 : "w-full group-hover:w-2/5"
               : "w-full"
-          }`}
+            }`}
         >
           <Image
             src={src}
-            alt={name}
+            alt={translateText(name)}
             fill
             sizes="(min-width: 640px) 50vw, 100vw"
-            className={`transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${
-              hoverImage
+            className={`transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${hoverImage
                 ? panelOpen
                   ? "opacity-0"
                   : "opacity-100 group-hover:opacity-0"
                 : ""
-            }`}
+              }`}
           />
           {hoverImage && (
             <Image
               src={hoverImage}
-              alt={name}
+              alt={translateText(name)}
               fill
               sizes="(min-width: 640px) 50vw, 100vw"
-              className={`object-cover object-left transition-opacity duration-500 ${
-                panelOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-              }`}
+              className={`object-cover object-left transition-opacity duration-500 ${panelOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                }`}
             />
           )}
           <div className="absolute bottom-4 inset-x-3 sm:inset-x-5 break-words">
-            <p className="font-bold text-[#ff5500]">{name}</p>
+            <p className="font-bold text-[#ff5500]">{translateText(name)}</p>
             <p className="text-xs text-[#002d4d]/70 dark:text-white/70">
-              {title}
+              {translateText(title)}
             </p>
           </div>
 
@@ -440,14 +441,13 @@ const ProductCard = ({
 
         {hasSidePanel && (
           <div
-            className={`product-card-hover-info absolute inset-y-0 right-0 flex w-3/5 flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out dark:bg-white/5 ${
-              panelOpen ? "translate-x-0" : "translate-x-full group-hover:translate-x-0"
-            }`}
+            className={`product-card-hover-info absolute inset-y-0 right-0 flex w-3/5 flex-col items-center justify-center gap-3 bg-[#f5f5f5] p-4 text-center transition-transform duration-500 ease-in-out dark:bg-white/5 ${panelOpen ? "translate-x-0" : "translate-x-full group-hover:translate-x-0"
+              }`}
           >
             {postSpacing && (
               <div ref={diagramRef}>
                 <PostSpacingDiagram
-                  value={postSpacing}
+                  value={translateText(postSpacing)}
                   label={dict.productCard.postSpacingLabel}
                 />
               </div>
@@ -467,12 +467,12 @@ const ProductCard = ({
                   {indicatedFor?.map((use) => (
                     <div
                       key={use.name}
-                      title={use.name}
+                      title={translateText(use.name)}
                       className="product-card-thumb flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#002d4d]/10 ring-1 ring-[#002d4d]/15 dark:bg-white/10 dark:ring-white/15"
                     >
                       <Image
                         src={use.src}
-                        alt={use.name}
+                        alt={translateText(use.name)}
                         width={28}
                         height={28}
                         sizes="(min-width: 1920px) 48px, 28px"
@@ -500,7 +500,7 @@ const ProductCard = ({
             ))}
           </div>
           <p className="text-sm px-4 py-4 leading-relaxed text-zinc-500 dark:text-white/60">
-            {shortDescription}
+            {translateText(shortDescription)}
           </p>
         </div>
       </div>
@@ -510,13 +510,13 @@ const ProductCard = ({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={
-          open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`
+          translateText(open ? `Recolher detalhes de ${name}` : `Ver detalhes de ${name}`)
         }
         className="group flex w-full items-center justify-center gap-1.5 py-2 text-zinc-400 transition-colors hover:text-zinc-600 cursor-pointer dark:text-white/40 dark:hover:text-white/70"
       >
         <ChevronDown ref={chevronRef} size={18} />
         <span className="max-w-0 overflow-hidden whitespace-nowrap text-xs font-medium opacity-0 transition-all duration-200 ease-out group-hover:max-w-12 group-hover:opacity-100">
-          {open ? "Fechar" : "Abrir"}
+          {translateText(open ? "Fechar" : "Abrir")}
         </span>
       </button>
     </div>

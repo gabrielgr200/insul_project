@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { Maximize2, Pause, Play, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { useContentTranslation } from "./LanguageProvider";
 
 const MAX_TILT = 10;
 const TICK_COUNT = 46;
@@ -43,6 +44,7 @@ const CornerBracket = ({
 );
 
 const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
+  const translateText = useContentTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const volumeRef = useRef<HTMLDivElement>(null);
@@ -247,13 +249,13 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
 
           <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-md bg-black/60 px-2 py-1 backdrop-blur-sm">
-            {isPlaying ? (
+            {translateText(isPlaying ? (
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
             ) : (
               <span className="h-1.5 w-1.5 rounded-[2px] bg-white" />
-            )}
+            ))}
             <span className="text-[10px] font-medium tracking-widest text-white/80 uppercase">
-              {isPlaying ? "Active" : "Paused"}
+              {translateText(isPlaying ? "Active" : "Paused")}
             </span>
           </div>
 
@@ -261,7 +263,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
             <button
               type="button"
               onClick={toggleFullscreen}
-              aria-label="Tela cheia"
+              aria-label={translateText("Tela cheia")}
               className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
             >
               <Maximize2 size={12} />
@@ -269,7 +271,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
             <button
               type="button"
               onClick={skipForward}
-              aria-label="Avançar 10 segundos"
+              aria-label={translateText("Avançar 10 segundos")}
               className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md bg-black/60 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/80"
             >
               <SkipForward size={12} />
@@ -285,18 +287,18 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
             <button
               type="button"
               onClick={togglePlay}
-              aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+              aria-label={translateText(isPlaying ? "Pausar" : "Reproduzir")}
               className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
             >
-              {isPlaying ? <Pause size={12} /> : <Play size={12} />}
+              {translateText(isPlaying ? <Pause size={12} /> : <Play size={12} />)}
             </button>
             <button
               type="button"
               onClick={toggleMute}
-              aria-label={isMuted ? "Ativar som" : "Silenciar"}
+              aria-label={translateText(isMuted ? "Ativar som" : "Silenciar")}
               className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-dashed border-white/30 text-white transition-colors hover:border-white/60"
             >
-              {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
+              {translateText(isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />)}
             </button>
 
             <div

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ImageIcon, X } from "lucide-react";
 import type { GalleryImage } from "../assets/data";
 import PerspectiveGallery from "./PerspectiveGallery";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface CarouselImage {
   id: number;
@@ -50,6 +51,7 @@ const Thumb = ({
 );
 
 const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, description }: { images: GalleryImage[]; perspective?: boolean; title?: string; badge?: string; description?: string }) => {
+  const translateText = useContentTranslation();
   const imageCount = sourceImages.length;
   const images: CarouselImage[] = sourceImages.map((image, i) => ({
     id: i,
@@ -155,7 +157,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
           <button
             type="button"
             onClick={close}
-            aria-label="Fechar"
+            aria-label={translateText("Fechar")}
             className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <X size={20} />
@@ -167,7 +169,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
               e.stopPropagation();
               goPrev();
             }}
-            aria-label="Imagem anterior"
+            aria-label={translateText("Imagem anterior")}
             className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <ChevronLeft size={22} />
@@ -178,7 +180,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
               e.stopPropagation();
               goNext();
             }}
-            aria-label="Próxima imagem"
+            aria-label={translateText("Próxima imagem")}
             className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <ChevronRight size={22} />
@@ -235,7 +237,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
 
   if (perspective) return (
     <>
-      <PerspectiveGallery images={sourceImages} title={title} badge={badge} description={description} onOpen={setLightboxIndex} paused={isOpen} />
+      <PerspectiveGallery images={sourceImages} title={translateText(title)} badge={badge} description={translateText(description)} onOpen={setLightboxIndex} paused={isOpen} />
       {mounted && createPortal(lightbox, document.body)}
     </>
   );
@@ -255,7 +257,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
               if (drag.current.moved) return;
               setLightboxIndex(i % images.length);
             }}
-            aria-label={`Abrir ${image.alt} em tela cheia`}
+            aria-label={translateText(`Abrir ${image.alt} em tela cheia`)}
             className="group aspect-4/3 w-72 shrink-0 cursor-grab rounded-2xl active:cursor-grabbing"
           >
             <Thumb
@@ -266,8 +268,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
         ))}
       </div>
       <p className="mt-3 px-4 text-sm text-zinc-500 sm:px-8">
-        Clique na imagem para abrir em tela cheia.
-      </p>
+        {translateText("Clique na imagem para abrir em tela cheia.")}</p>
 
       {mounted && createPortal(lightbox, document.body)}
     </section>

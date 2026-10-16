@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useContentTranslation } from "./LanguageProvider";
 
 interface TimelineItem {
   title: string;
@@ -15,6 +16,7 @@ interface ScrollTimelineProps {
 }
 
 const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
+  const translateText = useContentTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const isLight = theme === "light";
   const isGlass = theme === "glass";
@@ -87,16 +89,16 @@ const ScrollTimeline = ({ items, theme = "light" }: ScrollTimelineProps) => {
                 <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:mb-4 group-hover:max-h-40 group-hover:opacity-100">
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={translateText(item.title)}
                     className="h-40 w-full rounded-xl object-cover"
                   />
                 </div>
               )}
               <h3 className={`mb-2 text-xl font-bold ${titleClasses}`}>
-                {item.title}
+                {translateText(item.title)}
               </h3>
               <p className={`text-sm leading-relaxed ${descClasses}`}>
-                {item.description}
+                {translateText(item.description)}
               </p>
             </motion.div>
           );

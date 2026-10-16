@@ -22,6 +22,7 @@ import FenceVisualizer, {
   type FenceVisualizerItem,
 } from "../components/FenceVisualizer";
 import ScrollReveal from "../components/ScrollReveal";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
   fenix: "/images/CercasProntas/Campeira_fenix.png",
@@ -73,6 +74,7 @@ const ARC_IMAGES = [
 ];
 
 const CercasProntasPage = () => {
+  const translateText = useContentTranslation();
   const contentRef = useRef<HTMLDivElement>(null);
   const { dict } = useTranslation();
 
@@ -163,48 +165,46 @@ const CercasProntasPage = () => {
             <TelasShowcaseArc
               wideDesktop
               images={ARC_IMAGES}
-              eyebrow="Cercas Insul"
+              eyebrow={translateText("Cercas Insul")}
               heading={
-                <>
-                  Sua propriedade. <br /> Seu espaço. <br /> A cerca certa.
-                </>
+                translateText(<>
+                  {translateText("Sua propriedade.")}<br /> {translateText(" Seu espaço. ")}<br /> {translateText("A cerca certa.")}</>)
               }
-              headingClassName="poppins font-bold pt-6 pb-8 text-4xl text-[#002d4d] sm:text-5xl dark:text-white"
+              headingClassName="poppins font-bold pt-8 pb-8 text-4xl text-[#002d4d] sm:text-5xl dark:text-white"
               description={
-                <>
-                  Da contenção de gado à segurança do sítio, <br /> a Insul tem
-                  a cerca pronta certa pra sua área.
-                </>
+                translateText(<>
+                  {translateText("Da contenção de gado à segurança do sítio,")}<br /> {translateText("a Insul tem a cerca pronta certa pra sua área.")}</>)
               }
             />
-            <ScrollReveal className="cercas-gallery-wide">
+
+            <ScrollReveal className="cercas-gallery-wide py-24">
               <BentoGallery
                 images={[
-                {
-                  src: "/images/imgs-showcase/img-gallery-1.png",
-                  alt: "Cercas prontas Insul",
-                },
-                {
-                  src: "/videos/videos-gallery/gallery-1.mp4",
-                  alt: "Cerca Fênix Insul",
-                },
-                {
-                  src: "/videos/videos-gallery/gallery-2.mp4",
-                  alt: "Cerca Campeira Insul",
-                },
-                {
-                  src: "/images/img_campeiraBoi_carousel/campeira-img-5.jpg",
-                  alt: "Cerca Campeira Boi Insul",
-                },
-                {
-                  src: "/images/img_fenix_carousel/5.jpeg",
-                  alt: "Cerca Campeira Fênix Insul",
-                },
-                {
-                  src: "/images/img_campeira_carousel/img_campeira_3.jpg",
-                  alt: "Cerca Campeira Insul",
-                },
-              ]}
+                  {
+                    src: "/images/imgs-showcase/img-gallery-1.png",
+                    alt: "Cercas prontas Insul",
+                  },
+                  {
+                    src: "/videos/videos-gallery/gallery-1.mp4",
+                    alt: "Cerca Fênix Insul",
+                  },
+                  {
+                    src: "/videos/videos-gallery/gallery-2.mp4",
+                    alt: "Cerca Campeira Insul",
+                  },
+                  {
+                    src: "/images/img_campeiraBoi_carousel/campeira-img-5.jpg",
+                    alt: "Cerca Campeira Boi Insul",
+                  },
+                  {
+                    src: "/images/img_fenix_carousel/5.jpeg",
+                    alt: "Cerca Campeira Fênix Insul",
+                  },
+                  {
+                    src: "/images/img_campeira_carousel/img_campeira_3.jpg",
+                    alt: "Cerca Campeira Insul",
+                  },
+                ]}
               />
             </ScrollReveal>
 
@@ -214,29 +214,29 @@ const CercasProntasPage = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="cercas-simulation-wide">
+            <ScrollReveal className="cercas-simulation-wide py-10">
               <FenceVisualizer
                 items={fenceVisualizerItems}
                 categories={["Todas"]}
-                heading="Veja a cerca no seu terreno"
-                description="Envie uma foto do seu terreno, escolha o modelo de cerca e visualize como fica antes e depois da instalação."
+                heading={translateText("Veja a cerca no seu terreno")}
+                description={translateText("Envie uma foto do seu terreno, escolha o modelo de cerca e visualize como fica antes e depois da instalação.")}
                 stepTwoLabel="2. Modelo de cerca"
                 simulationLabel={(name) => (
-                  <>Simulação ilustrativa com a {name} — arraste o círculo para comparar.</>
+                  <>{translateText("Simulação ilustrativa com a ")}{translateText(name)} {translateText(" — arraste o círculo para comparar.")}</>
                 )}
               />
             </ScrollReveal>
 
-            <ScrollReveal className="cercas-videos-wide mt-16">
+            <ScrollReveal className="cercas-videos-wide mt-30">
               <CardPost
                 title={dict.cercasProntasPage.cardPostTitle}
                 description={
-                  <>
+                  translateText(<>
                     <span className="font-bold">
                       {dict.cercasProntasPage.cardPostDescriptionLead}
                     </span>
                     {dict.cercasProntasPage.cardPostDescriptionRest}
-                  </>
+                  </>)
                 }
                 reels={cercasProntasReels}
               />

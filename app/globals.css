@@ -18,9 +18,9 @@
     }
 }
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *):not(:where([data-theme="light"], [data-theme="light"] *)));
 
-@variant dark (&:where(.dark, .dark *));
+@variant dark (&:where(.dark, .dark *):not(:where([data-theme="light"], [data-theme="light"] *)));
 
 @font-face {
     font-family: "impact01";
@@ -567,7 +567,7 @@ html {
 
     .cercas-showcase-wide .ARC-TEXT {
         max-width: clamp(620px, 32.2917vw, 800px);
-        margin-top: clamp(-340px, -13.28125vw, -260px);
+        margin-top: clamp(-300px, -11.71875vw, -220px);
     }
 
     .cercas-showcase-wide .ARC-TEXT h2 {

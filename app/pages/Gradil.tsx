@@ -20,6 +20,7 @@ import Pipes from "../components/Pipes";
 import OtherProducts from "../components/OtherProducts";
 import ScrollReveal from "../components/ScrollReveal";
 import { useTranslation } from "../components/LanguageProvider";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -54,6 +55,7 @@ const MOTION_REDUCED = [
 const COMPACT_NAVBAR_AT = 8.3;
 
 const Gradil = () => {
+  const translateText = useContentTranslation();
   const { dict } = useTranslation();
   const g = dict.gradil;
   const sectionRef = useRef<HTMLElement>(null);
@@ -344,16 +346,16 @@ const Gradil = () => {
                 className="pointer-events-none absolute inset-x-0 top-[28%] z-15 px-6 text-center will-change-transform"
               >
                 <h1 className="poppins mx-auto max-w-2xl text-3xl font-bold text-[#ff5500] sm:text-4xl lg:text-[48px]">
-                  {g.hero.title1} <br /> {g.hero.title2}
+                  {translateText(g.hero.title1)} <br /> {translateText(g.hero.title2)}
                 </h1>
                 <p className="poppins mx-auto mt-6 max-w-xl text-sm text-[#002d4d] sm:text-base">
-                  <span className="font-bold">{g.hero.subtitleLead}</span>
-                  {g.hero.subtitleRest}
+                  <span className="font-bold">{translateText(g.hero.subtitleLead)}</span>
+                  {translateText(g.hero.subtitleRest)}
                 </p>
 
                 <div className="mt-6 flex flex-col items-center gap-2 text-[#002d4d]">
                   <span className="poppins text-xs font-light tracking-widest">
-                    {g.hero.scroll}
+                    {translateText(g.hero.scroll)}
                   </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -393,13 +395,13 @@ const Gradil = () => {
                   className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
                 >
                   <p className="poppins absolute left-0 top-[30%] w-full whitespace-nowrap text-center text-6xl font-extrabold uppercase leading-none text-zinc-300 dark:text-zinc-400 sm:text-[10rem]">
-                    {g.showcase.words[0]}
+                    {translateText(g.showcase.words[0])}
                   </p>
                   <p className="poppins absolute left-0 top-1/2 w-full whitespace-nowrap text-center text-6xl font-extrabold uppercase leading-none text-zinc-300 dark:text-zinc-400 sm:text-[10rem]">
-                    {g.showcase.words[1]}
+                    {translateText(g.showcase.words[1])}
                   </p>
                   <p className="poppins absolute left-0 top-[78%] w-full whitespace-nowrap text-center text-6xl font-extrabold uppercase leading-none text-zinc-300 dark:text-zinc-400 sm:text-[10rem]">
-                    {g.showcase.words[2]}
+                    {translateText(g.showcase.words[2])}
                   </p>
                 </div>
 
@@ -426,7 +428,7 @@ const Gradil = () => {
                         <Image
                           ref={industryRef}
                           src="/images/parallax/industria.webp"
-                          alt="Indústria protegida por gradil Insul"
+                          alt={translateText("Indústria protegida por gradil Insul")}
                           fill
                           sizes={G12_IMAGE_SIZES}
                           draggable={false}
@@ -477,25 +479,25 @@ const Gradil = () => {
                   <div className="gradil-showcase-copy grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1fr_min(82vw,520px)_1fr]">
                     <div className="hidden h-73.25 flex-col justify-between text-left text-[#002d4d] dark:text-white lg:flex">
                       <h2 className="poppins text-left text-[#ff5500] dark:text-[#ff5500] text-[clamp(32px,3vw,48px)] font-bold leading-tight break-words">
-                        {g.showcase.title}
+                        {translateText(g.showcase.title)}
                       </h2>
                       <p className="poppins max-w-60 text-sm font-medium leading-relaxed">
-                        {g.showcase.left}
+                        {translateText(g.showcase.left)}
                       </p>
                     </div>
                     <div className="hidden lg:block" aria-hidden="true" />
                     <div className="hidden h-73.25 flex-col justify-end gap-4 text-left text-[#002d4d] dark:text-white lg:flex">
                       <p className="poppins max-w-[16rem] text-sm leading-relaxed">
-                        {g.showcase.modelsLead}
+                        {translateText(g.showcase.modelsLead)}
                         <span className="font-semibold text-[#ff5500]">
-                          {g.showcase.models}
+                          {translateText(g.showcase.models)}
                         </span>
-                        {g.showcase.modelsRest}
+                        {translateText(g.showcase.modelsRest)}
                       </p>
                       <p className="poppins max-w-[16rem] text-sm leading-relaxed">
-                        {g.showcase.securityLead}
+                        {translateText(g.showcase.securityLead)}
                         <span className="font-semibold text-[#ff5500]">
-                          {g.showcase.design}
+                          {translateText(g.showcase.design)}
                         </span>
                         .
                       </p>

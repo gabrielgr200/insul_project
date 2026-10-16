@@ -11,6 +11,7 @@ import { productCategories } from "../assets/data";
 import type { ProductCategory } from "../assets/data";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { useTranslation } from "./LanguageProvider";
+import { useContentTranslation } from "./LanguageProvider";
 
 const findCategory = (title: string): ProductCategory =>
   productCategories.find((category) => category.title === title)!;
@@ -72,6 +73,7 @@ const itemVariants = {
 };
 
 const CategoryToggle = ({ category }: { category: ProductCategory }) => {
+  const translateText = useContentTranslation();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -129,7 +131,7 @@ const CategoryToggle = ({ category }: { category: ProductCategory }) => {
                 bg-white shadow-md border border-zinc-200 hover:text-[#ff5500] hover:bg-zinc-50
                 transition-colors duration-150 px-3 py-2 rounded-lg"
               >
-                {item}
+                {translateText(item)}
               </motion.a>
             ))}
           </motion.div>
@@ -140,7 +142,7 @@ const CategoryToggle = ({ category }: { category: ProductCategory }) => {
         onClick={() => setOpen((o) => !o)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        aria-label={`${t("book.ver")} ${category.title}`}
+        aria-label={translateText(`${t("book.ver")} ${category.title}`)}
         className="flex items-center justify-center w-11 h-11 rounded-full
         bg-[#ff5500] text-white shadow-xl border border-[#FF6A1A] cursor-pointer
         transition-colors duration-150 ease-in hover:bg-white hover:text-[#ff5500]"
@@ -162,6 +164,7 @@ interface FlipBookHandle {
 }
 
 const Book = () => {
+  const translateText = useContentTranslation();
   const { t } = useTranslation();
   const bookRef = useRef<FlipBookHandle>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -253,7 +256,7 @@ const Book = () => {
               <div key={i} className="page relative bg-white shadow-2xl @container">
                 <Image
                   src={src}
-                  alt={`${t("book.pagina")} ${i + 1}`}
+                  alt={translateText(`${t("book.pagina")} ${i + 1}`)}
                   fill
                   sizes="(min-width: 1024px) 460px, (min-width: 640px) 340px, 250px"
                   quality={70}
@@ -272,13 +275,13 @@ const Book = () => {
                     <div className="absolute left-0 top-[4.1%] h-[6.2%] w-[46.7%] flex items-center gap-[3%] pl-[6%] pr-[4%]">
                       <img
                         src="/images/logo_site.png"
-                        alt="Insul"
+                        alt={translateText("Insul")}
                         className="h-[52%] w-auto object-contain"
                       />
                       <div className="w-px h-[60%] bg-[#ff5500]/40 shrink-0" />
                       <img
                         src="/images/logo_casa_das_cercas.png"
-                        alt="Casa das Cercas"
+                        alt={translateText("Casa das Cercas")}
                         className="h-[68%] w-auto object-contain"
                       />
                     </div>

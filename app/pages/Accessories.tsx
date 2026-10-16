@@ -8,7 +8,7 @@ import alicateImage from "../../public/images/accessories/ferramentas/alicate.pn
 import catracaDetailImage from "../../public/images/accessories/ferramentas/img-catraca.png";
 import chaveDetailImage from "../../public/images/accessories/ferramentas/img-chave.png";
 import alicateDetailImage from "../../public/images/accessories/ferramentas/img-alicate.png";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useMotionValue, useTransform, type MotionValue } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -28,7 +28,10 @@ import Footer from "../components/Footer";
 import PipeFeatures from "../components/PipeFeatures";
 import FillButton from "../components/FillButton";
 import ProductCard from "../components/ProductCard";
+import { accessorySlug } from "../utils/accessorySlug";
+import AccessoryInstallationVideos from "../components/AccessoryInstallationVideos";
 import { accessoriesCards } from "../assets/data";
+import { useContentTranslation } from "../components/LanguageProvider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -76,12 +79,13 @@ function IntroLetter({ letter, index, total, progress }: { letter: string; index
 }
 
 function AssemblyArtwork() {
+  const translateText = useContentTranslation();
   return (
     <div className="relative h-full aspect-[902/1500]">
       <div data-accessory-hero-image="tube" className="absolute left-0 top-[17%] h-[83%] w-[58%]">
         <Image
           src="/images/poste/tubo.png"
-          alt="Tubo de aço galvanizado para montagem do gradil"
+          alt={translateText("Tubo de aço galvanizado para montagem do gradil")}
           fill
           priority
           sizes="(max-width: 1023px) 45vw, 35vw"
@@ -90,16 +94,16 @@ function AssemblyArtwork() {
       </div>
       <div className="absolute inset-0">
         <div data-accessory-hero-image="lid" className="hero-part-lid absolute left-[1%] top-[1%] h-[16%] w-[58%]">
-          <Image src="/images/poste/tampa.png" alt="Tampa superior do poste" fill sizes="25vw" className="object-contain" />
+          <Image src="/images/poste/tampa.png" alt={translateText("Tampa superior do poste")} fill sizes="25vw" className="object-contain" />
         </div>
         <div data-accessory-hero-image="fastener" className="hero-part-fastener absolute left-[46%] top-[40%] h-[18%] w-[30%]">
-          <Image src="/images/poste/fixador.png" alt="Fixador do gradil no poste" fill sizes="20vw" className="object-contain" />
+          <Image src="/images/poste/fixador.png" alt={translateText("Fixador do gradil no poste")} fill sizes="20vw" className="object-contain" />
         </div>
         <div data-accessory-hero-image="screw" className="hero-part-screw absolute left-[71%] top-[49%] h-[9%] w-[17%]">
-          <Image src="/images/poste/parafuso.png" alt="Parafuso de fixação" fill sizes="15vw" className="object-contain" />
+          <Image src="/images/poste/parafuso.png" alt={translateText("Parafuso de fixação")} fill sizes="15vw" className="object-contain" />
         </div>
         <div data-accessory-hero-image="cap" className="hero-part-cap absolute left-[86%] top-[51%] h-[13%] w-[14%]">
-          <Image src="/images/poste/tampinha-fixador.png" alt="Tampinha de acabamento do fixador" fill sizes="10vw" className="object-contain" />
+          <Image src="/images/poste/tampinha-fixador.png" alt={translateText("Tampinha de acabamento do fixador")} fill sizes="10vw" className="object-contain" />
         </div>
       </div>
     </div>
@@ -107,6 +111,7 @@ function AssemblyArtwork() {
 }
 
 const Accessories = () => {
+  const translateText = useContentTranslation();
   const [mountingModel, setMountingModel] = useState<"chumbar" | "parafusar">("chumbar");
   const contentRef = useRef<HTMLDivElement>(null);
   const assemblySectionRef = useRef<HTMLElement>(null);
@@ -118,8 +123,8 @@ const Accessories = () => {
   const accessoryCardsStageRef = useRef<HTMLDivElement>(null);
   const cardsIntroTextRef = useRef<HTMLHeadingElement>(null);
   const firstCardArtworkRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: introTextProgress } = useScroll({ target: cardsIntroTextRef, offset: ["start 85%", "end 45%"] });
-  const cardsIntroSentence = "Do encaixe ao acabamento, cada peça garante uma instalação precisa, firme e durável do gradil.";
+  const introTextProgress = useMotionValue(0);
+  const cardsIntroSentence = translateText("Do encaixe ao acabamento, cada peça garante uma instalação precisa, firme e durável do gradil.");
 
   useLayoutEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -351,15 +356,26 @@ const Accessories = () => {
         });
 
         if (cardsIntro) {
+          const updateIntroReveal = () => {
+            const heading = cardsIntroTextRef.current;
+            if (!heading) return;
+            const top = heading.getBoundingClientRect().top;
+            const start = window.innerHeight * 0.82;
+            const entranceOffset = Number(gsap.getProperty(cardsIntro, "yPercent")) * cardsIntro.offsetHeight / 100;
+            const end = Math.max(window.innerHeight * 0.45, top - entranceOffset);
+            introTextProgress.set(gsap.utils.clamp(0, 1, (start - top) / (start - end)));
+          };
           gsap.to(cardsIntro, {
             yPercent: 0,
             ease: "none",
+            onUpdate: updateIntroReveal,
             scrollTrigger: {
               trigger: cardsStage,
               start: "top bottom",
               end: () => `top ${cardTop()}px`,
               scrub: 1,
               invalidateOnRefresh: true,
+              onRefresh: updateIntroReveal,
             },
           });
         }
@@ -380,43 +396,12 @@ const Accessories = () => {
         );
         const stage = installationShowcase.querySelector<HTMLElement>("[data-accessory-install-stage]");
         const frame = stage?.querySelector<HTMLElement>("[data-accessory-install-frame]");
+        const background = frame?.querySelector<HTMLElement>("[data-accessory-install-background]");
         const copy = stage?.querySelector<HTMLElement>("[data-accessory-install-copy]");
-        const screens = stage?.querySelectorAll<HTMLElement>("[data-accessory-install-screen]");
-        const steps = stage?.querySelectorAll<HTMLElement>("[data-accessory-install-step]");
-        const progressBars = stage?.querySelectorAll<HTMLElement>("[data-accessory-install-progress]");
-        if (stage && frame && copy && screens?.length === 2 && steps?.length === 2 && progressBars?.length === 2) {
+        if (stage && frame && copy) {
           const wide = window.matchMedia("(min-width: 1024px)").matches;
           gsap.set(copy, { autoAlpha: 0, x: wide ? -36 : 0, y: wide ? 0 : 24 });
           gsap.set(frame, { transformOrigin: "center center" });
-          gsap.set(screens[1], { autoAlpha: 0 });
-          gsap.set(steps[1], { opacity: 0.48 });
-          gsap.set(progressBars, { scaleY: 0, transformOrigin: "center top" });
-          const cycleTimeline = gsap.timeline({ paused: true, repeat: -1 });
-          cycleTimeline
-            .to(progressBars[0], { scaleY: 1, duration: 3, ease: "none" }, 0.55)
-            .to(screens[0], { autoAlpha: 0, duration: 0.35 }, "+=0.1")
-            .to(screens[1], { autoAlpha: 1, duration: 0.35 }, "<")
-            .to(steps[0], { opacity: 0.48, duration: 0.35 }, "<")
-            .to(steps[1], { opacity: 1, duration: 0.35 }, "<")
-            .to(progressBars[1], { scaleY: 1, duration: 3, ease: "none" }, "+=0.1")
-            .to(screens[1], { autoAlpha: 0, duration: 0.35 }, "+=0.1")
-            .to(screens[0], { autoAlpha: 1, duration: 0.35 }, "<")
-            .to(steps[1], { opacity: 0.48, duration: 0.35 }, "<")
-            .to(steps[0], { opacity: 1, duration: 0.35 }, "<")
-            .set(progressBars, { scaleY: 0 });
-
-          let cycleStarted = false;
-          const resetCycle = () => {
-            if (cycleStarted) {
-              cycleStarted = false;
-              cycleTimeline.pause(0);
-              gsap.set(progressBars, { scaleY: 0 });
-              gsap.set(screens[0], { autoAlpha: 1 });
-              gsap.set(screens[1], { autoAlpha: 0 });
-              gsap.set(steps[0], { opacity: 1 });
-              gsap.set(steps[1], { opacity: 0.48 });
-            }
-          };
           const showcaseTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: stage,
@@ -426,15 +411,6 @@ const Accessories = () => {
               scrub: 1,
               invalidateOnRefresh: true,
               anticipatePin: 1,
-              onUpdate: (self) => {
-                if (self.progress >= 0.82 && !cycleStarted) {
-                  cycleStarted = true;
-                  cycleTimeline.play();
-                } else if (self.progress < 0.74) {
-                  resetCycle();
-                }
-              },
-              onLeaveBack: resetCycle,
             },
           });
           showcaseTimeline.fromTo(frame,
@@ -445,7 +421,32 @@ const Accessories = () => {
             { x: 0, scale: 1, duration: 1, ease: "none", immediateRender: true },
             0,
           );
-          showcaseTimeline.to(copy, { autoAlpha: 1, x: 0, y: 0, duration: 0.2, ease: "power2.out" }, 0.76);
+          showcaseTimeline.fromTo(copy,
+            { autoAlpha: 0, x: wide ? -36 : 0, y: wide ? 0 : 24 },
+            { autoAlpha: 1, x: 0, y: 0, duration: 0.2, ease: "power2.out", immediateRender: true },
+            0.76,
+          );
+          if (background) {
+            const videoBounds = () => {
+              const video = frame.querySelector<HTMLVideoElement>('[aria-hidden="false"] video')!;
+              return {
+                x: video.offsetLeft - 8,
+                y: video.offsetTop - 8,
+                width: video.offsetWidth + 16,
+                height: video.offsetHeight + 16,
+              };
+            };
+            showcaseTimeline.fromTo(background,
+              {
+                x: () => videoBounds().x,
+                y: () => videoBounds().y,
+                width: () => videoBounds().width,
+                height: () => videoBounds().height,
+              },
+              { x: 0, y: 0, width: () => frame.clientWidth, height: () => frame.clientHeight, duration: 0.44, ease: "power2.inOut", immediateRender: true },
+              0.56,
+            );
+          }
         }
       }
       if (footer) {
@@ -466,7 +467,7 @@ const Accessories = () => {
       resizeObserver.disconnect();
       smoother.kill();
     };
-  }, []);
+  }, [introTextProgress]);
 
   return (
     <div className="min-h-screen overflow-clip bg-white text-[#082d49] dark:bg-zinc-950 dark:text-white">
@@ -484,20 +485,17 @@ const Accessories = () => {
                 <div className="accessory-hero-wide relative mx-auto grid h-full w-full max-w-[1600px] grid-cols-1 items-center gap-2 px-5 py-5 sm:px-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-12 lg:px-16 lg:py-0">
                   <div ref={heroCopyRef} className="accessory-hero-text relative -top-4 z-[100] mx-auto min-w-0 w-full max-w-xl sm:-top-6 lg:mx-0">
                     <p data-accessory-hero-copy className="poppins mb-4 text-[16px] font-medium tracking-[0.24em] text-[#c54809]">
-                      Acessórios para gradil
-                    </p>
+                      {translateText("Acessórios para gradil")}</p>
                     <h1
                       id="accessories-title"
                       data-accessory-hero-copy
                       className="poppins text-[clamp(36px,4.4vw,64px)] font-light leading-[1.08] tracking-tight"
                     >
-                      Cada detalhe,
-                      <br />
-                      <span className="poppins font-bold text-[#ff5500]">faz diferença.</span>
+                      {translateText("Cada detalhe,")}<br />
+                      <span className="poppins font-bold text-[#ff5500]">{translateText("faz diferença.")}</span>
                     </h1>
                     <p data-accessory-hero-copy className="poppins font-light mt-5 max-w-lg text-base leading-7 text-[#082d49]/75 dark:text-white sm:text-lg sm:leading-8">
-                      Peças que encaixam com precisão e garantem uma instalação completa e durável.
-                    </p>
+                      {translateText("Peças que encaixam com precisão e garantem uma instalação completa e durável.")}</p>
                     <div data-accessory-hero-copy>
                       <FillButton
                         href="https://www.casadascercas.com.br/acessorios"
@@ -507,7 +505,7 @@ const Accessories = () => {
                         overlayClassName="bg-white dark:bg-background text-[#ff5500]"
                       >
                         <ArrowUpRight size={19} strokeWidth={2} />
-                        <span>Saiba mais</span>
+                        <span>{translateText("Saiba mais")}</span>
                       </FillButton>
                     </div>
                   </div>
@@ -525,11 +523,11 @@ const Accessories = () => {
                   >
                     <div className="h-full rounded-[1.75rem] bg-[#e5e7eb] p-2 sm:rounded-[2.15rem] sm:p-2.5 dark:bg-[#2b2e32]">
                       <div className="flex h-full rounded-[1.55rem] bg-[#e5e7eb] sm:rounded-[1.9rem] dark:bg-[#2b2e32]">
-                        <aside data-accessory-panel-reveal aria-label="Navegação dos acessórios" className="flex w-[52px] shrink-0 flex-col items-center rounded-l-[1.55rem] bg-[#e5e7eb] pb-3 pt-11 sm:w-[84px] sm:pb-5 sm:pt-12 lg:w-[104px] lg:pt-16 dark:bg-[#2b2e32]">
-                          <Image src="/images/loaderLogoAzulInsul.png" alt="Insul" width={64} height={64} className="size-9 object-contain dark:hidden sm:size-11" />
-                          <Image src="/images/loaderLogoBrancoInsul.png" alt="Insul" width={64} height={64} className="hidden size-9 object-contain dark:block sm:size-11" />
+                        <aside data-accessory-panel-reveal aria-label={translateText("Navegação dos acessórios")} className="flex w-[52px] shrink-0 flex-col items-center rounded-l-[1.55rem] bg-[#e5e7eb] pb-3 pt-11 sm:w-[84px] sm:pb-5 sm:pt-12 lg:w-[104px] lg:pt-16 dark:bg-[#2b2e32]">
+                          <Image src="/images/loaderLogoAzulInsul.png" alt={translateText("Insul")} width={64} height={64} className="size-9 object-contain dark:hidden sm:size-11" />
+                          <Image src="/images/loaderLogoBrancoInsul.png" alt={translateText("Insul")} width={64} height={64} className="hidden size-9 object-contain dark:block sm:size-11" />
 
-                          <span title="Perfil" aria-label="Perfil" className="mt-auto grid size-10 place-items-center rounded-full bg-[#ff5500]/10 text-[#ff5500] sm:size-12">
+                          <span title={translateText("Perfil")} aria-label={translateText("Perfil")} className="mt-auto grid size-10 place-items-center rounded-full bg-[#ff5500]/10 text-[#ff5500] sm:size-12">
                             <CircleUserRound size={24} strokeWidth={1.7} className="sm:hidden" />
                             <CircleUserRound size={28} strokeWidth={1.7} className="hidden sm:block" />
                           </span>
@@ -539,11 +537,9 @@ const Accessories = () => {
                           <div data-accessory-panel-reveal className="accessory-fixation-heading mb-3 sm:mb-5">
                             <div className="py-4 xl:py-8">
                               <p className="poppins mb-2 text-[16px] font-medium tracking-[0.2em] text-[#ff5500] sm:text-[16px]">
-                                Sistema de fixação
-                              </p>
+                                {translateText("Sistema de fixação")}</p>
                               <h2 className="poppins text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-                                Cada peça no seu lugar.
-                              </h2>
+                                {translateText("Cada peça no seu lugar.")}</h2>
                             </div>
                           </div>
 
@@ -561,10 +557,10 @@ const Accessories = () => {
                                         <item.icon size={20} strokeWidth={1.8} />
                                       </span>
                                       <h3 className="text-xs font-semibold transition-colors duration-200 group-hover/item:text-[#ff5500] group-focus-within/item:text-[#ff5500] sm:text-sm">
-                                        {item.name}
+                                        {translateText(item.name)}
                                       </h3>
                                       <p className="mt-1 max-w-[38ch] text-[10px] leading-4 text-[#082d49]/65 transition-colors duration-200 group-hover/item:text-[#ff5500] group-focus-within/item:text-[#ff5500] sm:text-xs sm:leading-5 dark:text-white/60">
-                                        {item.description}
+                                        {translateText(item.description)}
                                       </p>
                                     </div>
                                   </article>
@@ -584,18 +580,18 @@ const Accessories = () => {
             <section
               ref={accessoryCardsSectionRef}
               aria-labelledby="accessory-cards-title"
-              className="relative z-20 min-h-[230svh] bg-white px-5 pb-24 pt-10 dark:bg-zinc-950 sm:px-8 sm:pb-32 sm:pt-16 lg:px-12"
+              className="relative z-20 min-h-[230svh] bg-white px-5 pb-24 dark:bg-zinc-950 sm:px-8 sm:pb-32 sm:pt-16 lg:px-12"
             >
               <div
                 ref={accessoryCardsStageRef}
                 className="relative z-20 mx-auto h-[82svh] w-full max-w-[1200px] sm:h-[76svh]"
               >
                 <div data-accessory-cards-intro className="absolute inset-0 z-0 flex flex-col items-center justify-center rounded-[2rem] bg-white px-6 text-center dark:bg-zinc-950">
-                  <span className="poppins inline-block rounded-full bg-white px-3 py-1.5 text-sm text-[#ff5500] shadow-[0_8px_24px_#00000020] dark:bg-[#22272b]">Detalhes da instalação</span>
-                  <h2 id="accessory-cards-title" ref={cardsIntroTextRef} aria-label={cardsIntroSentence} className="poppins mt-8 max-w-3xl text-[clamp(26px,3.5vw,40px)] font-light leading-[1.12] tracking-[-.025em] text-[#082d49] dark:text-white">
+                  <span className="poppins inline-block rounded-full bg-white px-3 py-1.5 text-sm text-[#ff5500] shadow-[0_8px_24px_#00000020] dark:bg-[#22272b]">{translateText("Detalhes da instalação")}</span>
+                  <h2 id="accessory-cards-title" ref={cardsIntroTextRef} aria-label={translateText(cardsIntroSentence)} className="poppins mt-8 max-w-3xl text-[clamp(26px,3.5vw,40px)] font-light leading-[1.12] tracking-[-.025em] text-[#082d49] dark:text-white">
                     <span aria-hidden="true">{cardsIntroSentence.split(" ").map((word, wordIndex, words) => {
                       const firstLetter = words.slice(0, wordIndex).join(" ").length + (wordIndex ? 1 : 0);
-                      return <span key={wordIndex} className="inline-block">{Array.from(word).map((letter, index) => <IntroLetter key={index} letter={letter} index={firstLetter + index} total={cardsIntroSentence.length} progress={introTextProgress} />)}<span>{"\u00a0"}</span></span>;
+                      return <span key={wordIndex} className="inline-block">{Array.from(word).map((letter, index) => <IntroLetter key={index} letter={letter} index={firstLetter + index} total={cardsIntroSentence.length} progress={introTextProgress} />)}<span>{translateText("\u00a0")}</span></span>;
                     })}</span>
                   </h2>
                 </div>
@@ -634,16 +630,16 @@ const Accessories = () => {
                         >
                           <span data-accessory-card-copy className="mb-6 inline-flex w-fit items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-xs font-medium tracking-wide text-[#082d49]/70 dark:bg-white/10 dark:text-white/70">
                             <item.icon size={15} strokeWidth={1.8} />
-                            {parafusarText ? "Fixação parafusada" : `Acessório ${String(index + 1).padStart(2, "0")}`}
+                            {translateText(parafusarText ? "Fixação parafusada" : `Acessório ${String(index + 1).padStart(2, "0")}`)}
                           </span>
                           <h2 data-accessory-card-copy className="poppins max-w-lg text-3xl font-bold leading-tight tracking-tight text-[#ff5500] sm:text-4xl lg:text-5xl dark:text-[#ff5500]">
-                            {parafusarText ? "Tubo para parafusar" : item.name}
+                            {translateText(parafusarText ? "Tubo para parafusar" : item.name)}
                           </h2>
                           <p data-accessory-card-copy className="poppins mt-5 max-w-md text-base leading-7 text-[#082d49]/65 sm:text-lg sm:leading-8 dark:text-white/60">
-                            {parafusarText ? "Com base de fixação, ideal para instalações sobre pisos e superfícies de concreto." : item.description}
+                            {translateText(parafusarText ? "Com base de fixação, ideal para instalações sobre pisos e superfícies de concreto." : item.description)}
                           </p>
                           <p data-accessory-card-copy className="poppins mt-auto hidden pt-10 text-sm text-[#082d49]/50 lg:block dark:text-white/40">
-                            {parafusarText ? "Instalação sobre piso com base parafusada" : "Componentes do sistema de fixação do gradil"}
+                            {translateText(parafusarText ? "Instalação sobre piso com base parafusada" : "Componentes do sistema de fixação do gradil")}
                           </p>
                         </motion.div>
                       </AnimatePresence>
@@ -654,7 +650,7 @@ const Accessories = () => {
                       <div className="relative flex aspect-[4/3] w-[94%] items-center justify-center overflow-hidden rounded-[1.5rem] p-0">
                         <div data-accessory-card-rectangle aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[1.5rem] bg-white dark:bg-[#24272a]" />
                         <div ref={index === 0 ? firstCardArtworkRef : undefined} data-accessory-artwork className="relative aspect-[4/3] w-full">
-                          {index === 0 ? (
+                          {translateText(index === 0 ? (
                             <>
                               <AnimatePresence mode="wait" initial={false}>
                                 <motion.div
@@ -674,7 +670,7 @@ const Accessories = () => {
                                   >
                                     <Image
                                       src={`/images/tubos-card-acessorio/montagem-${mountingModel}.png`}
-                                      alt={`Tubo para ${mountingModel} com detalhes da instalação`}
+                                      alt={translateText(`Tubo para ${mountingModel} com detalhes da instalação`)}
                                       fill
                                       unoptimized
                                       sizes="(max-width: 1023px) 94vw, 48vw"
@@ -706,7 +702,7 @@ const Accessories = () => {
                               <div data-accessory-tampa-layer className="absolute inset-0">
                                 <Image
                                   src="/images/tubos-card-acessorio/tubo-tampa.png"
-                                  alt="Tubo com tampa instalada"
+                                  alt={translateText("Tubo com tampa instalada")}
                                   fill
                                   unoptimized
                                   sizes="(max-width: 1023px) 94vw, 48vw"
@@ -717,7 +713,7 @@ const Accessories = () => {
                                 <div className="absolute inset-0" style={{ transform: "translateX(-13%) scale(0.86)" }}>
                                   <Image
                                     src="/images/tubos-card-acessorio/modelo-tampa.png"
-                                    alt="Detalhe ampliado da tampa do tubo"
+                                    alt={translateText("Detalhe ampliado da tampa do tubo")}
                                     fill
                                     unoptimized
                                     sizes="(max-width: 1023px) 94vw, 48vw"
@@ -729,20 +725,20 @@ const Accessories = () => {
                           ) : (
                             <Image
                               src={item.image}
-                              alt={item.name}
+                              alt={translateText(item.name)}
                               fill
                               sizes="(max-width: 1023px) 90vw, 48vw"
                               className="object-contain p-3 sm:p-6"
                             />
-                          )}
+                          ))}
                         </div>
                       </div>
                       {index === 0 && (
                         <div className="z-20 mt-3 flex items-center justify-center gap-7 text-white">
                           <button
                             type="button"
-                            aria-label="Mostrar tubo para chumbar"
-                            title="Tubo para chumbar"
+                            aria-label={translateText("Mostrar tubo para chumbar")}
+                            title={translateText("Tubo para chumbar")}
                             onClick={() => setMountingModel("chumbar")}
                             disabled={mountingModel === "chumbar"}
                             className="grid size-10 place-items-center transition-colors hover:text-[#ff5500] disabled:cursor-default disabled:opacity-35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5500] focus-visible:ring-offset-2 sm:size-11"
@@ -751,8 +747,8 @@ const Accessories = () => {
                           </button>
                           <button
                             type="button"
-                            aria-label="Mostrar tubo para parafusar"
-                            title="Tubo para parafusar"
+                            aria-label={translateText("Mostrar tubo para parafusar")}
+                            title={translateText("Tubo para parafusar")}
                             onClick={() => setMountingModel("parafusar")}
                             disabled={mountingModel === "parafusar"}
                             className="grid size-10 place-items-center transition-colors hover:text-[#ff5500] disabled:cursor-default disabled:opacity-35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5500] focus-visible:ring-offset-2 sm:size-11"
@@ -769,31 +765,31 @@ const Accessories = () => {
             <section aria-labelledby="accessory-tools-title" className="relative z-20 bg-[#e9ecef] px-5 py-20 text-[#082d49] sm:px-8 sm:py-28 lg:px-12">
               <div className="mx-auto max-w-[1200px]">
                 <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
-                  <span className="poppins inline-flex rounded-full bg-white px-4 py-1.5 text-xs font-medium text-[#082d49]/75">Ferramentas e acessórios</span>
-                  <h2 id="accessory-tools-title" className="poppins mt-5 text-[clamp(32px,4vw,52px)] font-bold leading-tight tracking-tight text-[#0b4f83]">Cada detalhe faz a instalação acontecer.</h2>
-                  <p className="poppins mx-auto mt-4 max-w-md text-sm leading-6 text-[#082d49]/70 sm:text-base">Catracas, chave balancim e alicate para emendar arame: soluções para cada etapa da montagem.</p>
+                  <span className="poppins inline-flex rounded-full bg-white px-4 py-1.5 text-xs font-medium text-[#082d49]/75">{translateText("Ferramentas e acessórios")}</span>
+                  <h2 id="accessory-tools-title" className="poppins mt-5 text-[clamp(32px,4vw,52px)] font-bold leading-tight tracking-tight text-[#0b4f83]">{translateText("Cada detalhe faz a instalação acontecer.")}</h2>
+                  <p className="poppins mx-auto mt-4 max-w-md text-sm leading-6 text-[#082d49]/70 sm:text-base">{translateText("Catracas, chave balancim e alicate para emendar arame: soluções para cada etapa da montagem.")}</p>
                 </div>
                 <div className="grid gap-5 md:grid-cols-3 md:items-start">
                   {accessoryTools.map((tool, index) => (
                     <div key={tool.name} className="flex flex-col gap-5">
                       {index === 1 && (
                         <article data-accessory-tool-card className="flex min-h-[270px] flex-col items-center overflow-hidden rounded-[1.5rem] bg-[#f4f6f8] px-6 pt-7 text-center text-[#082d49]">
-                          <span className="poppins rounded-full bg-white px-3 py-1 text-xs">Instalação</span>
-                          <h3 className="poppins mt-6 text-2xl font-bold text-[#ff5500] tracking-tight">{tool.detailName}</h3>
-                          <p className="poppins mt-2 max-w-[26ch] text-sm leading-5 text-[#082d49]/65">{tool.detailDescription}</p>
+                          <span className="poppins rounded-full bg-white px-3 py-1 text-xs">{translateText("Instalação")}</span>
+                          <h3 className="poppins mt-6 text-2xl font-bold text-[#ff5500] tracking-tight">{translateText(tool.detailName)}</h3>
+                          <p className="poppins mt-2 max-w-[26ch] text-sm leading-5 text-[#082d49]/65">{translateText(tool.detailDescription)}</p>
                           <div className="relative mt-auto aspect-[847/306] w-4/5 overflow-hidden rounded-t-2xl">
-                            <Image src={tool.detailImage} alt={tool.detailName} fill sizes="(max-width: 767px) 80vw, (max-width: 1200px) 25vw, 271px" className="object-cover" />
+                            <Image src={tool.detailImage} alt={translateText(tool.detailName)} fill sizes="(max-width: 767px) 80vw, (max-width: 1200px) 25vw, 271px" className="object-cover" />
                           </div>
                         </article>
                       )}
                       <article data-accessory-tool-card className="group relative flex min-h-[470px] flex-col items-center overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#082d49] via-[#496e8b] to-[#f2f3f6] px-6 pt-7 text-center text-white">
-                        <span className="poppins rounded-full bg-[#082d49]/30 px-3 py-1 text-xs">{String(index + 1).padStart(2, "0")} / Acessórios</span>
-                        <h3 className="poppins mt-7 text-2xl font-bold tracking-tight sm:text-3xl">{tool.name}</h3>
-                        <p className="poppins mt-2 max-w-[30ch] text-sm leading-5 text-white/85">{tool.description}</p>
+                        <span className="poppins rounded-full bg-[#082d49]/30 px-3 py-1 text-xs">{String(index + 1).padStart(2, "0")} {translateText(" / Acessórios")}</span>
+                        <h3 className="poppins mt-7 text-2xl font-bold tracking-tight sm:text-3xl">{translateText(tool.name)}</h3>
+                        <p className="poppins mt-2 max-w-[30ch] text-sm leading-5 text-white/85">{translateText(tool.description)}</p>
                         <div className="relative mt-8 w-full flex-1 origin-bottom-center translate-y-[42%] rotate-[3deg] overflow-hidden rounded-t-[1.25rem] bg-[#e5e7e979] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:rotate-0 max-md:translate-y-0 max-md:rotate-0 motion-reduce:transition-none">
                           <Image
                             src={tool.image}
-                            alt={tool.name}
+                            alt={translateText(tool.name)}
                             fill
                             sizes="(max-width: 767px) 90vw, (max-width: 1200px) 30vw, 340px"
                             className="object-contain object-center p-4"
@@ -803,11 +799,11 @@ const Accessories = () => {
                       </article>
                       {index !== 1 && (
                         <article data-accessory-tool-card className="flex min-h-[270px] flex-col items-center overflow-hidden rounded-[1.5rem] bg-[#f4f6f8] px-6 pt-7 text-center text-[#082d49]">
-                          <span className="poppins rounded-full bg-white px-3 py-1 text-xs">Instalação</span>
-                          <h3 className="poppins mt-6 text-2xl font-bold text-[#ff5500] tracking-tight">{tool.detailName}</h3>
-                          <p className="poppins mt-2 max-w-[26ch] text-sm leading-5 text-[#082d49]/65">{tool.detailDescription}</p>
+                          <span className="poppins rounded-full bg-white px-3 py-1 text-xs">{translateText("Instalação")}</span>
+                          <h3 className="poppins mt-6 text-2xl font-bold text-[#ff5500] tracking-tight">{translateText(tool.detailName)}</h3>
+                          <p className="poppins mt-2 max-w-[26ch] text-sm leading-5 text-[#082d49]/65">{translateText(tool.detailDescription)}</p>
                           <div className="relative mt-auto aspect-[847/306] w-4/5 overflow-hidden rounded-t-2xl">
-                            <Image src={tool.detailImage} alt={tool.detailName} fill sizes="(max-width: 767px) 80vw, (max-width: 1200px) 25vw, 271px" className="object-cover" />
+                            <Image src={tool.detailImage} alt={translateText(tool.detailName)} fill sizes="(max-width: 767px) 80vw, (max-width: 1200px) 25vw, 271px" className="object-cover" />
                           </div>
                         </article>
                       )}
@@ -817,60 +813,25 @@ const Accessories = () => {
               </div>
             </section>
             <section data-accessory-install-showcase aria-labelledby="accessory-install-title" className="relative z-20 bg-[#e9ecef] px-5 pb-24 pt-12 text-[#082d49] sm:px-8 sm:pb-32 sm:pt-20 lg:px-12">
-              <div className="mx-auto max-w-[1200px] text-center">
+              <div className="mx-auto max-w-[1200px] text-center pt-26">
                 <span data-accessory-install-heading className="poppins inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-medium text-[#082d49]/75">
-                  <Eye size={15} strokeWidth={1.8} /> Feitos para a instalação
-                </span>
-                <h2 data-accessory-install-heading id="accessory-install-title" className="poppins mx-auto mt-5 max-w-3xl text-[clamp(32px,4vw,52px)] font-bold leading-tight text-[#0b4f83] tracking-tight">Do poste à montagem, <br /> tudo se encaixa.</h2>
-                <p data-accessory-install-heading className="poppins mx-auto mt-4 max-w-lg text-sm leading-6 text-[#082d49]/70 sm:text-base">O poste T de aço e o batedor manual se complementam para uma instalação firme e prática.</p>
+                  <Eye size={15} strokeWidth={1.8} /> {translateText("Feitos para a instalação")}</span>
+                <h2 data-accessory-install-heading id="accessory-install-title" className="poppins mx-auto mt-5 max-w-3xl text-[clamp(32px,4vw,52px)] font-bold leading-tight text-[#0b4f83] tracking-tight">{translateText("Do poste à montagem, ")}<br /> {translateText(" tudo se encaixa.")}</h2>
+                <p data-accessory-install-heading className="poppins mx-auto mt-4 max-w-lg text-sm leading-6 text-[#082d49]/70 sm:text-base">{translateText("O poste T de aço e o batedor manual se complementam para uma instalação firme e prática.")}</p>
                 <div data-accessory-install-stage className="relative mx-auto mt-16 grid h-[calc(100svh-110px)] min-h-[650px] max-w-[1200px] items-center text-left sm:mt-20 lg:mt-24 lg:h-[78svh] lg:min-h-[570px] lg:grid-cols-[31%_69%]">
-                  <div data-accessory-install-copy className="relative z-10 flex flex-col gap-7 px-3 pb-5 sm:px-6 lg:gap-10 lg:pb-0 lg:pr-9">
-                    <h3 className="poppins text-2xl font-semibold text-[#0b4f83] tracking-tight">Instalação em cada etapa.</h3>
-                    <div data-accessory-install-step className="relative pl-5">
-                      <div aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-[2px] bg-[#082d49]/20">
-                        <div data-accessory-install-progress className="h-full w-full bg-[#ff5500]" />
-                      </div>
-                      <span className="poppins text-xs font-medium uppercase tracking-widest text-[#ff5500]">01 / Estrutura</span>
-                      <h4 className="poppins mt-2 text-xl font-semibold">Poste T de aço</h4>
-                      <p className="poppins mt-2 text-sm leading-6 text-[#082d49]/65">A base resistente que sustenta a instalação da cerca.</p>
-                    </div>
-                    <div data-accessory-install-step className="relative pl-5">
-                      <div aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-[2px] bg-[#082d49]/20">
-                        <div data-accessory-install-progress className="h-full w-full bg-[#ff5500]" />
-                      </div>
-                      <span className="poppins text-xs font-medium uppercase tracking-widest text-[#ff5500]">02 / Instalação</span>
-                      <h4 className="poppins mt-2 text-xl font-semibold">Batedor manual</h4>
-                      <p className="poppins mt-2 text-sm leading-6 text-[#082d49]/65">Ferramenta de apoio para posicionar o poste com praticidade.</p>
-                    </div>
-                  </div>
-                  <div data-accessory-install-frame className="relative z-20 h-[42svh] min-h-[260px] overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#d7dade] via-[#eef0f3] to-[#9badba] p-5 shadow-[0_24px_55px_#082d4914] sm:p-8 lg:h-[66svh] lg:p-10">
-                    <div data-accessory-install-screen role="img" aria-label="Espaço reservado para a imagem do poste T de aço" className="absolute inset-0 flex flex-col items-center justify-center p-8">
-                      <div className="flex h-full w-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#082d49]/25 bg-white/85">
-                        <span className="poppins text-xs uppercase tracking-widest text-[#ff5500]">01 / Poste T de aço</span>
-                        <span className="poppins mt-4 text-lg text-[#082d49]/55">Imagem do poste T de aço</span>
-                        <span className="poppins mt-2 text-xs text-[#082d49]/40">Placeholder para a imagem</span>
-                      </div>
-                    </div>
-                    <div data-accessory-install-screen role="img" aria-label="Espaço reservado para a imagem do batedor manual" className="absolute inset-0 flex flex-col items-center justify-center p-8">
-                      <div className="flex h-full w-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#082d49]/25 bg-white/85">
-                        <span className="poppins text-xs uppercase tracking-widest text-[#ff5500]">02 / Batedor manual</span>
-                        <span className="poppins mt-4 text-lg text-[#082d49]/55">Imagem do batedor manual</span>
-                        <span className="poppins mt-2 text-xs text-[#082d49]/40">Placeholder para a imagem</span>
-                      </div>
-                    </div>
-                  </div>
+                  <AccessoryInstallationVideos />
                 </div>
               </div>
             </section>
             <section aria-labelledby="accessory-products-title" className="relative z-20 bg-[#e9ecef] px-5 pb-24 text-[#082d49] sm:px-8 sm:pb-32 lg:px-12">
               <div className="mx-auto max-w-7xl lg:max-w-6xl">
                 <div className="mb-16 text-center">
-                  <h3 id="accessory-products-title" className="poppins text-3xl font-bold text-[#ff5500]">Acessórios</h3>
-                  <p className="poppins text-[20px] font-light">Texto placeholder para a apresentação dos acessórios.</p>
+                  <h3 id="accessory-products-title" className="poppins text-3xl font-bold text-[#ff5500]">{translateText("Acessórios")}</h3>
+                  <p className="poppins text-[20px] font-light">{translateText("Texto placeholder para a apresentação dos acessórios.")}</p>
                 </div>
-                <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
+                <div data-theme="light" className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
                   {accessoriesCards.map((card) => (
-                    <ProductCard key={card.name} {...card} />
+                    <ProductCard key={card.name} {...card} to={`/acessorios/${accessorySlug(card.name)}`} />
                   ))}
                 </div>
               </div>

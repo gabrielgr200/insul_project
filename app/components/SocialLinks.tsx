@@ -8,6 +8,7 @@ import {
   FaInstagram,
   FaGlobe,
 } from "react-icons/fa6";
+import { useContentTranslation } from "./LanguageProvider";
 
 const socials = [
   { label: "Facebook", href: "https://www.facebook.com/casadascercas", Icon: FaFacebookF, color: "#1877F2" },
@@ -23,6 +24,7 @@ const socials = [
 ];
 
 const SocialLinks = () => {
+  const translateText = useContentTranslation();
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
@@ -50,14 +52,14 @@ const SocialLinks = () => {
                 : "opacity-0 translate-y-1 pointer-events-none"
             }`}
           >
-            {s.label}
+            {translateText(s.label)}
           </span>
 
           <a
             href={s.href}
             target="_blank"
             rel="noreferrer"
-            aria-label={s.label}
+            aria-label={translateText(s.label)}
             onMouseEnter={() => setHovered(s.label)}
             onMouseLeave={() => setHovered(null)}
             className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10
