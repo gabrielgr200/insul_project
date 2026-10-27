@@ -383,10 +383,10 @@ const ProductCard = ({
       >
         <div
           className={`absolute inset-y-0 left-0 transition-[width] duration-500 ease-in-out ${hasSidePanel
-              ? panelOpen
-                ? "w-2/5"
-                : "w-full group-hover:w-2/5"
-              : "w-full"
+            ? panelOpen
+              ? "w-2/5"
+              : "w-full group-hover:w-2/5"
+            : "w-full"
             }`}
         >
           <Image
@@ -395,10 +395,10 @@ const ProductCard = ({
             fill
             sizes="(min-width: 640px) 50vw, 100vw"
             className={`transition-opacity duration-500 ${imageClassName ?? "object-contain"} ${hoverImage
-                ? panelOpen
-                  ? "opacity-0"
-                  : "opacity-100 group-hover:opacity-0"
-                : ""
+              ? panelOpen
+                ? "opacity-0"
+                : "opacity-100 group-hover:opacity-0"
+              : ""
               }`}
           />
           {hoverImage && (

@@ -228,6 +228,7 @@ export interface CercaImageHero {
   textAlign?: "left" | "right";
   textBoxClassName?: string;
   background?: string;
+  backgroundImageClassName?: string;
   sectionClassName?: string;
   textClassName?: string;
   blurTop?: string;
@@ -307,7 +308,7 @@ export const accessoriesCards: ProductCardData[] = [
     name: "Catraca Micro",
     paragraph: "Aço carbono galvanizado 2,50mm, Fio de até 3mm, 160gr",
     shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
-    description: "Texto placeholder para a descrição do acessório.",
+    description: "A catraca para arame liso galvanizada é usada para a instalação de telas, cercas prontas e cercas de arame liso. É um produto fácil de utilizar e que valoriza muito o alambrado, permitindo que ele se mantenha firme e esticado ao longo do tempo de uso.\n\nEsse modelo de catraca, além de poder ser usado no começo de uma cerca ou alambrado, tem a capacidade de emendar arames em qualquer parte de um cercamento. São muito utilizadas, por exemplo, para emendar 2 rolos de cercas prontas (campeiras e fênix) em rolos de 50 ou 100 m.\n\nPode-se usá-la para tensionar e emendar 100 m de cada lado, sendo usada ao centro de uma puxada total de 200 m.\n\nGeralmente, após algum período, por conta da oscilação de temperatura, os arames tendem a dilatar e a contrair, ocasionando um aspecto de frouxo ou não tensionado às telas.\n\nAssim, a catraca para arame liso galvanizada é uma solução simples e duradoura. Com apenas uma chave ou alicate, qualquer pessoa pode acionar a catraca para esticar arame liso e proporcionar novamente a tensão máxima aos arames.\n\nEsse modelo de catraca galvanizada para esticar arame liso apresenta capacidade de tracionar até 800 kgf por fio, sendo vendido em quantidade unitária ou em caixa com 25 unidades, dependendo da necessidade de cada projeto de cercamento.\n\nCaso você pretenda usar arames farpados ou arames lisos com mais de 3 mm de espessura, é recomendado o uso da catraca T7, pois ela é mais reforçada para suportar trabalhos pesados.",
     postSpacing: "",
     animals: [],
   },//catraca micro
@@ -317,8 +318,8 @@ export const accessoriesCards: ProductCardData[] = [
     title: "Categoria do acessório",
     name: "Catraca T7",
     paragraph: "Aço carbono galvanizado 3,00mm, Fio de até 4mm, 284gr",
-    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
-    description: "Texto placeholder para a descrição do acessório.",
+    shortDescription: "Catraca reforçada em aço carbono galvanizado de 3,00 mm, indicada para fios de até 4 mm e trabalhos pesados.",
+    description: "A Catraca T7 é produzida em aço carbono galvanizado de 3,00 mm, indicada para fios de até 4 mm e com peso de 284 g.\n\nSeu modelo reforçado é recomendado para trabalhos pesados, incluindo o uso de arames farpados e arames lisos com mais de 3 mm de espessura. É uma alternativa à Catraca Micro para projetos que exigem uma peça mais robusta.",
     postSpacing: "",
     animals: [],
   },//catraca T7
@@ -328,8 +329,8 @@ export const accessoriesCards: ProductCardData[] = [
     title: "Categoria do acessório",
     name: "Esticador(caixa)",
     paragraph: "Aço carbono galvanizado, Fio de até 3mm, 178gr",
-    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
-    description: "Texto placeholder para a descrição do acessório.",
+    shortDescription: "Esticador em aço carbono galvanizado, para fios de até 3 mm, com peso de 178 g.",
+    description: "O Esticador (caixa) é produzido em aço carbono galvanizado e indicado para fios de até 3 mm. A peça possui peso de 178 g.\n\nTexto placeholder para os detalhes de aplicação e instalação do Esticador.",
     postSpacing: "",
     animals: [],
   },//catraca quadrado
@@ -383,7 +384,7 @@ export const accessoriesCards: ProductCardData[] = [
     description: "Texto placeholder para a descrição do acessório.",
     postSpacing: "",
     animals: [],
-  },
+  },//Chave
   {
     src: "/images/imgs_cards_acessorios/alicate.png",
     title: "Categoria do acessório",
@@ -393,7 +394,7 @@ export const accessoriesCards: ProductCardData[] = [
     description: "Texto placeholder para a descrição do acessório.",
     postSpacing: "",
     animals: [],
-  },
+  },//Alicate
   {
     src: "/images/imgs_cards_acessorios/tampinha.png",
     imageClassName: "object-contain scale-[1.6]",
@@ -404,7 +405,7 @@ export const accessoriesCards: ProductCardData[] = [
     description: "Texto placeholder para a descrição do acessório.",
     postSpacing: "",
     animals: [],
-  },
+  },//Tampa
   {
     src: "/images/imgs_cards_acessorios/parabolt.png",
     imageClassName: "object-contain scale-[1.48]",
@@ -415,7 +416,7 @@ export const accessoriesCards: ProductCardData[] = [
     description: "Texto placeholder para a descrição do acessório.",
     postSpacing: "",
     animals: [],
-  },
+  },//Parabolt
 ];
 
 // ============================================================================
@@ -517,11 +518,15 @@ const cercasProntas: CercaProntaInfo[] = [
       ],
     },
     hero: {
-      title: "Tela Fênix",
+      // title: "Tela Fênix",
+      // description:
+      //   "Feita para durar. Pensada para proteger. Durabilidade garantida.",
+      title: "",
       description:
-        "Feita para durar. Pensada para proteger. Durabilidade garantida.",
+        "",
       background:
         "/images/hero-telas/hero-campeira/ceu-campeira.png",
+      backgroundImageClassName: "object-cover",
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[37%]",
       textAlign: "right",
@@ -531,14 +536,14 @@ const cercasProntas: CercaProntaInfo[] = [
           src: fenixFarm.src,
           alt: "",
           className: "z-10",
-          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain",
+          imageClassName: "object-cover object-bottom-left",
         },
         {
           src: "/images/hero-telas/hero-fenix/tela-aberta.png",
           alt: "Tela aberta da cerca Fênix",
           animated: true,
           className: "z-20",
-          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain",
+          imageClassName: "object-cover object-bottom-left",
         },
       ],
     },
@@ -733,11 +738,15 @@ const cercasProntas: CercaProntaInfo[] = [
       ],
     },
     hero: {
-      title: "Campeira Maxx",
+      // title: "Campeira Maxx",
+      // description:
+      //   "Resistência para proteger. Tecnologia para durar. Conheça a cerca pronta Insul com nó em X e aço galvanizado a fogo.",
+      title: "",
       description:
-        "Resistência para proteger. Tecnologia para durar. Conheça a cerca pronta Insul com nó em X e aço galvanizado a fogo.",
+        "",
       background:
         "/images/hero-telas/hero-maxx/por-do-sol.png",
+      backgroundImageClassName: "object-cover",
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[30%]",
       blurTop: "85%",
@@ -745,14 +754,14 @@ const cercasProntas: CercaProntaInfo[] = [
         {
           src: "/images/hero-telas/hero-maxx/paisagem.png",
           alt: "",
-          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain",
+          imageClassName: "object-cover object-bottom-left",
         },
         {
           src: "/images/hero-telas/hero-maxx/tela-aberta-maxx.png",
           alt: "Tela aberta da Campeira Maxx",
           animated: true,
           className: "z-20",
-          imageClassName: "origin-bottom-left scale-y-[0.85] object-contain",
+          imageClassName: "object-cover object-bottom-left",
         },
       ],
     },
@@ -941,9 +950,12 @@ const cercasProntas: CercaProntaInfo[] = [
       ],
     },
     hero: {
-      title: "Campeira",
+      // title: "Campeira",
+      // description:
+      //   "Conheça a cerca Campeira Insul e os detalhes da sua estrutura para proteger o seu campo.",
+      title: "",
       description:
-        "Conheça a cerca Campeira Insul e os detalhes da sua estrutura para proteger o seu campo.",
+        "",
       background: campeiraSky.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[26%]",
@@ -986,7 +998,13 @@ const cercasProntas: CercaProntaInfo[] = [
           "Modelo tradicional para divisas rurais, resistente e de fácil instalação.",
       },
     },
-    videoCards: [],
+    videoCards: [
+      { src: "/videos/videos-reels_campeira/video-reels-1.mp4", category: "Campeira", title: "Vídeo 1", description: "" },
+      { src: "/videos/videos-reels_campeira/video-reels_2.mp4", category: "Campeira", title: "Vídeo 2", description: "" },
+      { src: "/videos/videos-reels_campeira/video-reels_3.mp4", category: "Campeira", title: "Vídeo 3", description: "" },
+      { src: "/videos/videos-reels_campeira/video-reels_4.mp4", category: "Campeira", title: "Vídeo 4", description: "" },
+      { src: "/videos/videos-reels_campeira/video-reels_5.mp4", category: "Campeira", title: "Vídeo 5", description: "" },
+    ],
     gallery: [
       {
         src: "/images/img_campeira_carousel/img_campeira_1.jpg",
@@ -1079,9 +1097,12 @@ const cercasProntas: CercaProntaInfo[] = [
       ],
     },
     hero: {
-      title: "Campeira Boi",
+      // title: "Campeira Boi",
+      // description:
+      //   "Conheça a cerca Campeira Boi Insul, desenvolvida para o cercamento de áreas rurais e a contenção de bovinos.",
+      title: "",
       description:
-        "Conheça a cerca Campeira Boi Insul, desenvolvida para o cercamento de áreas rurais e a contenção de bovinos.",
+        "",
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[26%]",
       blurTop: "85%",
@@ -1123,7 +1144,13 @@ const cercasProntas: CercaProntaInfo[] = [
           "Desenvolvida para rebanhos bovinos, com fios espaçados para máxima contenção.",
       },
     },
-    videoCards: [],
+    videoCards: [
+      { src: "/videos/videos-reels_campeiraBoi/video-reels-1.mp4", category: "Campeira Boi", title: "Vídeo 1", description: "" },
+      { src: "/videos/videos-reels_campeiraBoi/video-reels-2.mp4", category: "Campeira Boi", title: "Vídeo 2", description: "" },
+      { src: "/videos/videos-reels_campeiraBoi/video-reels-3.mp4", category: "Campeira Boi", title: "Vídeo 3", description: "" },
+      { src: "/videos/videos-reels_campeiraBoi/video-reels-4.mp4", category: "Campeira Boi", title: "Vídeo 4", description: "" },
+      { src: "/videos/videos-reels_campeiraBoi/video-reels-5.mp4", category: "Campeira Boi", title: "Vídeo 5", description: "" },
+    ],
     gallery: [
       {
         src: "/images/img_campeiraBoi_carousel/campeira-img-1.jpg",
@@ -1323,9 +1350,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Cercamento resistente à maresia e ao sol, com aço galvanizado e revestimento em PVC, para regiões litorâneas.",
     },
     hero: {
-      title: "Tela Brava",
+      // title: "Tela Brava",
+      // description:
+      //   "Feita para o litoral: revestimento em PVC e proteção UV.",
+      title: "",
       description:
-        "Feita para o litoral: revestimento em PVC e proteção UV.",
+        "",
       background: "/images/hero-telas/hero-brava/praia-hero-4k-new.jpg",
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[26%]",
@@ -1461,9 +1491,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Estrutura reforçada para proteger o que é importante, seja em casa, na fábrica ou na empresa.",
     },
     hero: {
-      title: "Tela Titan",
+      // title: "Tela Titan",
+      // description:
+      //   "Resistência de sobra para proteger o que mais importa, em qualquer tipo de propriedade.",
+      title: "",
       description:
-        "Resistência de sobra para proteger o que mais importa, em qualquer tipo de propriedade.",
+        "",
       background: "/images/hero-telas/hero-titan/casa-hero-4k-new.jpg",
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[24%]",
@@ -1607,9 +1640,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Resistente, de visual leve e instalação prática, ela protege residências, condomínios e comércios sem bloquear a vista.",
     },
     hero: {
-      title: "Tela Morada",
+      // title: "Tela Morada",
+      // description:
+      //   "Cercamento resistente e de visual leve, com fabricação INSUL,\npara projetos residenciais e comerciais.",
+      title: "",
       description:
-        "Cercamento resistente e de visual leve, com fabricação INSUL,\npara projetos residenciais e comerciais.",
+        "",
       background: moradaParking.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[29%]",
@@ -1738,9 +1774,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Uma solução para quem precisa cercar com praticidade, seja em casa ou na empresa.",
     },
     hero: {
-      title: "Tela Morada Open",
+      // title: "Tela Morada Open",
+      // description:
+      //   "Cercamento econômico e de visual limpo,\npara projetos residenciais e comerciais.",
+      title: "",
       description:
-        "Cercamento econômico e de visual limpo,\npara projetos residenciais e comerciais.",
+        "",
       background: openHome.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[24%]",
@@ -1890,9 +1929,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Prática de instalar e econômica, a Tela Morada Leve protege hortas, jardins e quintais sem pesar no bolso nem no visual.",
     },
     hero: {
-      title: "Tela Morada Leve",
+      // title: "Tela Morada Leve",
+      // description:
+      //   "Leveza, praticidade e economia para cercamentos\nresidenciais, hortas e jardins.",
+      title: "",
       description:
-        "Leveza, praticidade e economia para cercamentos\nresidenciais, hortas e jardins.",
+        "",
       background: leveHome.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[22%]",
@@ -2041,9 +2083,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Da casa à empresa, do jardim ao pátio, a Tela Multy Uso se adapta a cada projeto com resistência e praticidade.",
     },
     hero: {
-      title: "Tela Multy Uso",
+      // title: "Tela Multy Uso",
+      // description:
+      //   "Uma solução versátil e resistente para cercamentos\nem diferentes ambientes.",
+      title: "",
       description:
-        "Uma solução versátil e resistente para cercamentos\nem diferentes ambientes.",
+        "",
       background: multyUsoHome.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[28%]",
@@ -2172,9 +2217,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Reforço prático para reboco, alvenaria e argamassa, com malha compacta e resistente.",
     },
     hero: {
-      title: "Tela FachaNet",
+      // title: "Tela FachaNet",
+      // description:
+      //   "Reforço para reboco, alvenaria e argamassa, ajudando a evitar fissuras na construção.",
+      title: "",
       description:
-        "Reforço para reboco, alvenaria e argamassa, ajudando a evitar fissuras na construção.",
+        "",
       background: fachaNetWall.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[30%]",
@@ -2274,9 +2322,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Uma solução robusta para quem precisa de mais do que um cercamento comum.",
     },
     hero: {
-      title: "Tela MultyMax",
+      // title: "Tela MultyMax",
+      // description:
+      //   "Feita para projetos exigentes: estrutura firme, acabamento limpo e durabilidade.",
+      title: "",
       description:
-        "Feita para projetos exigentes: estrutura firme, acabamento limpo e durabilidade.",
+        "",
       background: multyMaxCourt.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[33%]",
@@ -2348,7 +2399,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "A Tela MultyMax Insul combina alta resistência, versatilidade e praticidade para diferentes aplicações. Com estrutura reforçada e materiais de qualidade, oferece segurança, facilidade na instalação e durabilidade, sendo uma solução eficiente para projetos que exigem mais desempenho.",
     description:
-      "Página de exemplo para a Tela MultyMax. A descrição completa, imagens e especificações técnicas reais serão adicionadas em breve.",
+      "A tela Multy Max Insul é a escolha perfeita para projetos que exigem alta precisão, segurança e um acabamento sofisticado. Produzida com fios de aço galvanizado de 2,00 mm e disponível em duas opções de malha – 2,5 cm x 2,5 cm e 5 cm x 5 cm –, essa tela oferece versatilidade e desempenho superior. Seja em alturas de 1,00 m, 1,50 m ou 2,00 m (dependendo da malha), a Multy Max é projetada para atender às demandas mais exigentes da serralheria, combinando resistência estrutural com design diferenciado.\n\nCom o respaldo da tecnologia exclusiva Insul e utilizando arame Gerdau galvanizado a fogo, a Multy Max se destaca pela durabilidade excepcional e pela resistência à corrosão. Seus rolos de 15 metros garantem facilidade de manuseio, enquanto as malhas mais fechadas oferecem maior segurança e um acabamento visual premium.\n\nEssa tela é ideal para aplicações que demandam soluções confiáveis, práticas e com alta qualidade técnica, sendo um destaque no mercado por sua inovação e eficiência.\n\nPara revendedores e varejistas: A tela Multy Max Insul é um produto indispensável no portfólio. Sua ampla gama de aplicações e especificações técnicas a tornam um diferencial competitivo, capaz de atrair consumidores que buscam performance e qualidade. Oferecer a Multy Max é sinônimo de agregar valor ao seu mix de produtos, fidelizando clientes com uma solução versátil, de alta demanda e com a confiabilidade da marca Insul.",
     gallery: [
       {
         src: "/images/imgs-gallery/multymax/img-gallery-multymax1.jpg",
@@ -2383,9 +2434,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Mais resistência para reforçar rebocos, alvenarias e argamassas em aplicações exigentes.",
     },
     hero: {
-      title: "Tela FachaNetMax",
+      // title: "Tela FachaNetMax",
+      // description:
+      //   "Reforço de maior resistência para reboco, alvenaria e argamassa na construção civil.",
+      title: "",
       description:
-        "Reforço de maior resistência para reboco, alvenaria e argamassa na construção civil.",
+        "",
       background: fachaNetWall.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[30%]",
@@ -2485,9 +2539,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Praticidade na instalação e resistência para enfrentar o clima de quem mora perto do mar.",
     },
     hero: {
-      title: "Tela Brava Leve",
+      // title: "Tela Brava Leve",
+      // description:
+      //   "Cercamento leve com revestimento em PVC e proteção UV\npara áreas residenciais e litorâneas.",
+      title: "",
       description:
-        "Cercamento leve com revestimento em PVC e proteção UV\npara áreas residenciais e litorâneas.",
+        "",
       background: bravaLeveBeach.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[30%]",
@@ -2598,7 +2655,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
         alt: "Cerca Insul",
       },
     ],
-    videoCards: bravaVideoCards,
+    // videoCards: bravaVideoCards,
     video3D: bravaVideo3D,
   }, //brava-leve
 
@@ -2613,9 +2670,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Uma cerca robusta para quem precisa de tranquilidade na rotina rural.",
     },
     hero: {
-      title: "Tela Mangueirão 16",
+      // title: "Tela Mangueirão 16",
+      // description:
+      //   "Feita para o dia a dia do campo: firme com os animais e durável contra o tempo.",
+      title: "",
       description:
-        "Feita para o dia a dia do campo: firme com os animais e durável contra o tempo.",
+        "",
       background: mangueirao16Field.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[30%]",
@@ -2687,7 +2747,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "A Mangueirão 16 Insul é uma solução robusta para quem busca um cercamento confiável no ambiente rural. Sua estrutura foi desenvolvida para suportar o uso diário, contribuindo para a contenção dos animais e oferecendo praticidade no manejo e na instalação.",
     description:
-      "A Tela Mangueirão 16 Insul é indicada para cercamentos rurais e contenção de animais, oferecendo resistência e praticidade no manejo diário. Produzida em aço galvanizado a fogo, possui fio de 1,65 mm e malha hexagonal de 3 polegadas (7,6 cm), uma combinação pensada para delimitar áreas com firmeza e acompanhar as necessidades de diferentes propriedades.\n\nSua estrutura é adequada para sítios, fazendas, pastagens e outros espaços que precisam de um cercamento funcional. A malha hexagonal favorece a flexibilidade da tela e ajuda a manter a contenção, enquanto a galvanização protege o aço contra a corrosão causada pela exposição ao ambiente.\n\nCom instalação prática e construção resistente, a Mangueirão 16 é uma solução confiável para quem busca organizar e proteger áreas rurais no dia a dia.",
+      "A tela hexagonal Mangueirão 16 Insul é a solução definitiva para quem busca resistência e confiabilidade na contenção de animais de pequeno e médio porte, como: ovinos, caprinos, suínos, cães, etc. Este produto é fabricado com arame galvanizado a fogo da renomada Gerdau, assegurando uma proteção excepcional contra corrosão e desgaste ao longo do tempo. A tela Mangueirão 16 é reconhecida por sua robustez, sendo ideal para instalações que exigem alta durabilidade e segurança.\n\nA Insul é conhecida por sua excelência em telas hexagonais, e a Mangueirão 16 se destaca como um dos produtos mais tradicionais e confiáveis do mercado. Sua fabricação rigorosa, combinada com materiais de alta qualidade, resulta em uma tela que não apenas cumpre, mas supera as expectativas em termos de durabilidade. Essa durabilidade reduz significativamente a necessidade de manutenção frequente, oferecendo um excelente custo-benefício ao longo dos anos.\n\nA tela hexagonal Mangueirão 16 Insul foi projetada para durar, resistindo às condições mais adversas e mantendo sua integridade estrutural por muito mais tempo do que outras opções disponíveis. Além disso, a resistência da tela garante que seus animais estarão mais seguros, minimizando o risco de fugas e danos.\n\nOutro diferencial importante da Mangueirão 16 Insul é o custo reduzido de manutenção. Devido à alta qualidade dos materiais e ao processo de fabricação avançado, a tela mantém sua funcionalidade com um mínimo de intervenção, permitindo que se economize em reparos e substituições. Essa economia, somada à durabilidade do produto, torna a Mangueirão 16 uma escolha inteligente para quem deseja maximizar o retorno do investimento.\n\nPara reforçar nosso compromisso com a qualidade, a Insul oferece uma garantia de 2 anos* para a tela hexagonal Mangueirão 16. Essa garantia é um testemunho da confiança que temos na longevidade e desempenho do nosso produto, assegurando que seja um investimento seguro e duradouro.\n\nLojistas e revendedores, a tela hexagonal Mangueirão 16 Insul é um dos produtos mais vendidos no varejo, o que o torna um produto essencial na composição do seu mix de produtos. Além da praticidade da venda fracionada, você estará oferecendo ao seu público um item de alta demanda, com excelente aceitação no mercado e de ótima lucratividade. Apostar na Mangueirão 16 é investir em um produto que se destaca pela confiança e qualidade, gerando benefícios econômicos e de mercado para sua loja.",
     gallery: [
       {
         src: "/images/imgs-gallery/mangueirao-16/img-gallery-mague161.jpg",
@@ -2750,9 +2810,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Segurança para os animais e tranquilidade para quem cuida deles.",
     },
     hero: {
-      title: "Tela Mangueirão 18",
+      // title: "Tela Mangueirão 18",
+      // description:
+      //   "Feita para quem cria animais de pequeno e médio porte com segurança e economia.",
+      title: "",
       description:
-        "Feita para quem cria animais de pequeno e médio porte com segurança e economia.",
+        "",
       titleColor: "#ffffff",
       descriptionColor: "#ffffff",
       background: "/images/hero-telas/mangueirao18/ovelhas-hero-4k.jpg",
@@ -2826,7 +2889,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "A Mangueirão 18 Insul combina robustez e eficiência para aplicações que exigem um cercamento de alta resistência. Indicada para áreas de manejo e contenção animal, sua estrutura proporciona segurança e estabilidade, tornando-se uma opção confiável para o dia a dia no campo.",
     description:
-      "A Tela Mangueirão 18 Insul foi desenvolvida para cercamentos rurais e para a contenção de ovinos, suínos e animais de pequeno e médio porte. Produzida em aço galvanizado a fogo, possui fio de 1,24 mm e malha hexagonal de 3 polegadas (7,6 cm), oferecendo uma estrutura prática para delimitar áreas e apoiar o manejo diário.\n\nSua malha flexível se adapta a diferentes espaços, como sítios, fazendas, pastagens e áreas de contenção. A galvanização ajuda a proteger o aço contra a corrosão causada pela exposição ao ambiente, contribuindo para a durabilidade da tela no uso rural.\n\nCom espaçamento entre mourões de até 4 metros, a Mangueirão 18 oferece uma instalação funcional e segura para propriedades que precisam de um cercamento confiável e resistente.",
+      "A tela hexagonal Mangueirão 18 Insul é a solução perfeita para cercamentos residenciais e rurais que exigem segurança, praticidade e eficiência.\n\nProduzida com fio de aço galvanizado BWG 18 (1,24 mm) e com o exclusivo padrão de torção reversa Insul, essa tela garante resistência estrutural e durabilidade em diferentes condições de uso. Disponível em alturas de 0,80 m a 1,80 m e comercializada em rolos de 50 metros, a Mangueirão 18 é ideal para a contenção de animais de pequeno e médio porte, como suínos, ovinos e caprinos, combinando proteção confiável com baixo custo de instalação.\n\nDesenvolvida no Brasil com a reconhecida tecnologia Insul, a tela Mangueirão 18 utiliza arames galvanizados a fogo, que oferecem alta resistência à corrosão e excelente durabilidade. Com sua malha de 3” (7,6 cm), essa tela proporciona uma barreira eficaz sem perder a leveza e a facilidade de instalação, características que a tornam uma escolha estratégica para propriedades rurais e projetos residenciais. Sua versatilidade e desempenho garantem um cercamento de qualidade com menor manutenção, agregando valor ao investimento.\n\nPara revendedores e varejistas: A tela Mangueirão 18 Insul é um produto indispensável no portfólio. Sua ampla aplicação em cercamentos, somada à facilidade de manuseio e ao custo competitivo, atende a uma demanda crescente do mercado por soluções práticas e acessíveis. Incluir a Mangueirão 18 no mix de produtos significa oferecer uma opção confiável, com a qualidade e tecnologia da marca Insul, que conquista a fidelidade dos clientes e fortalece as vendas.",
     gallery: [
       {
         src: "/images/imgs-gallery/mangueirao18/img-gallery-magueirao181.jpg",
@@ -2876,9 +2939,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Praticidade na instalação e proteção na medida certa para o espaço rural.",
     },
     hero: {
-      title: "Tela Galinheiro 18",
+      // title: "Tela Galinheiro 18",
+      // description:
+      //   "Cerque o galinheiro sem complicação e deixe os predadores do lado de fora.",
+      title: "",
       description:
-        "Cerque o galinheiro sem complicação e deixe os predadores do lado de fora.",
+        "",
       background: galinheiroField.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[27%]",
@@ -2950,7 +3016,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "A Galinheiro 18 Insul é uma opção prática para a criação e proteção de aves, oferecendo uma estrutura adequada para delimitar espaços com segurança. Sua malha proporciona boa resistência e facilita a montagem de cercamentos para galinhas e outros animais de pequeno porte.",
     description:
-      "A Tela Galinheiro 18 Insul é indicada para cercar galinheiros, viveiros e coelheiras, além de delimitar hortas, jardins e áreas rurais. Fabricada em aço galvanizado a fogo, possui fio de 1,24 mm e malha hexagonal de 2 polegadas (5 cm), oferecendo uma estrutura prática para proteger aves e outros animais de pequeno porte.\n\nA abertura da malha ajuda a manter o espaço delimitado sem bloquear completamente a visibilidade. A galvanização protege o aço contra a corrosão e contribui para a durabilidade do cercamento em ambientes externos, como sítios e quintais.\n\nCom instalação funcional e espaçamento entre mourões de até 4 metros, a Tela Galinheiro 18 é uma solução versátil para organizar e proteger pequenos espaços com segurança.",
+      "A tela Galinheiro 18 Insul é a solução confiável e eficiente para cercamentos que exigem segurança, praticidade e durabilidade. Produzida com fio de aço galvanizado BWG 18 (1,24 mm) e o exclusivo padrão de torção reversa Insul, essa tela combina resistência estrutural com facilidade de instalação.\n\nCom uma malha de 2” (5 cm) e alturas disponíveis de 1,20 m a 1,80 m, é ideal para cercamentos residenciais e rurais, sendo amplamente utilizada para contenção de animais de pequeno porte e na criação de galinheiros. Desenvolvida com a avançada tecnologia da Insul e utilizando arame galvanizado a fogo, a tela Galinheiro 18 oferece excelente proteção contra corrosão e uma vida útil prolongada, garantida por 2 anos.\n\nComercializada em rolos de 50 metros, proporciona um cercamento eficiente e de baixo custo, sem abrir mão da qualidade. Seja para proteger áreas residenciais, delimitar espaços rurais ou garantir o bem-estar dos animais, a Galinheiro 18 é a escolha prática e versátil que atende às necessidades mais diversas.\n\nPara revendedores e varejistas: A tela Galinheiro 18 Insul é um produto indispensável no mix de ofertas. Com alta procura no mercado e ampla aplicabilidade, é uma solução que alia qualidade, preço competitivo e a confiança da marca Insul. Incluir a Galinheiro 18 no portfólio significa garantir um produto que entrega valor ao cliente e fortalece a rentabilidade do negócio, atendendo às demandas com excelência e praticidade.",
     gallery: [
       {
         src: "/images/imgs-gallery/galinheiro/img-gallery-galinheiro1.jpg",
@@ -3005,9 +3071,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Cerque com firmeza e mantenha os filhotes protegidos de predadores pequenos.",
     },
     hero: {
-      title: "Tela Pinteiro 22",
+      // title: "Tela Pinteiro 22",
+      // description:
+      //   "Malha fina para proteger os filhotes mais delicados, com segurança desde os primeiros dias.",
+      title: "",
       description:
-        "Malha fina para proteger os filhotes mais delicados, com segurança desde os primeiros dias.",
+        "",
       background: pinteiroField.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[27%]",
@@ -3076,7 +3145,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
     description:
-      "A Tela Pinteiro 22 Insul é indicada para a criação e proteção de pintos, codornas e outras aves pequenas. Fabricada em aço galvanizado a fogo, possui fio de 0,71 mm e malha hexagonal com abertura de 1/2 polegada, oferecendo uma estrutura prática para viveiros e gaiolas.\n\nAlém da criação de aves, a tela pode ser utilizada para delimitar hortas e pequenos espaços em quintais e propriedades rurais. Seu formato ajuda a manter a área protegida e organizada, com boa ventilação e visibilidade para o ambiente.\n\nCom espaçamento entre mourões de até 4,5 metros, a Tela Pinteiro 22 é uma opção funcional para projetos que precisam de um cercamento leve e resistente para pequenas criações.",
+      "A tela Pinteiro Insul é a escolha ideal para quem busca eficiência, praticidade e economia em cercamentos. Produzida com fios de aço galvanizado BWG 22 (0,71 mm) e com o sistema de torção reversa, essa tela combina leveza e resistência para atender às necessidades mais específicas.\n\nCom malha de 1” (2,50 cm) e alturas de até 1,50 m, é perfeita para a contenção de pequenos animais, além de ser amplamente utilizada no cercamento de hortas, criadouros de pintos e codornas. Sua instalação é fácil e seu custo é reduzido, tornando-a uma solução versátil e acessível.\n\nFabricada no Brasil com a reconhecida tecnologia Insul, a tela Pinteiro Insul oferece durabilidade e segurança, com garantia de 2 anos. Comercializada em rolos de 50 metros, é um produto que se adapta a diferentes ambientes, proporcionando cercamentos confiáveis e esteticamente agradáveis. Seja no campo ou na área urbana, essa tela é projetada para oferecer proteção eficiente com um excelente custo-benefício.\n\nPara revendedores e varejistas: A tela Pinteiro Insul é um item essencial no mix de produtos. Sua ampla aplicabilidade, aliada à qualidade e confiabilidade da marca Insul, atende a uma grande variedade de demandas dos clientes. Incluir esse produto no portfólio é sinônimo de oferecer soluções versáteis e econômicas, capazes de impulsionar as vendas e fortalecer o relacionamento com o consumidor final.",
     gallery: [
       {
         src: "/images/imgs-gallery/pinteiro/img-gallery-pinteiro1.jpg",
@@ -3120,9 +3189,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Segurança para as criações menores, com acabamento prático e resistente.",
     },
     hero: {
-      title: "Tela Viveiro 24",
+      // title: "Tela Viveiro 24",
+      // description:
+      //   "Malha fechada para proteger aves pequenas de predadores, com praticidade na instalação.",
+      title: "",
       description:
-        "Malha fechada para proteger aves pequenas de predadores, com praticidade na instalação.",
+        "",
       background: viveiroField.src,
       sectionClassName: "aspect-video",
       textClassName: "absolute inset-x-0 top-[20%]",
@@ -3191,7 +3263,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Conteúdo de exemplo — especificações reais desta tela ainda não foram cadastradas.",
     description:
-      "A Tela Viveiro 24 Insul foi desenvolvida para cercar viveiros e proteger aves pequenas, pintos e outras criações. Produzida em aço galvanizado a fogo, possui fio de 0,56 mm e malha hexagonal de 1/2 polegada (1,25 cm), que ajuda a manter os animais delimitados e dificulta a entrada de ameaças externas.\n\nA malha fechada é adequada para viveiros, gaiolas e espaços de criação que precisam de proteção sem perder a ventilação e a visibilidade. A galvanização oferece uma camada de proteção contra a corrosão, importante para o uso em ambientes externos.\n\nCom espaçamento entre mourões de até 4,5 metros, a Tela Viveiro 24 é uma opção prática para organizar e proteger pequenas criações em sítios, quintais e propriedades rurais.",
+      "A tela Viveiro Insul é a solução definitiva para projetos que exigem proteção e versatilidade. Produzida com fios de aço galvanizado BWG 24 (0,56 mm) e com o exclusivo padrão de torção reversa Insul, essa tela combina leveza, resistência e durabilidade.\n\nCom malha de 1/2” (1,25 cm) e alturas que variam de 0,60 m a 1,50 m, é ideal para a construção de viveiros de pássaros e outras aplicações que demandam uma barreira eficaz contra a invasão de pequenos animais, como morcegos, pássaros e roedores.\n\nCom garantia de 2 anos e fabricada no Brasil com a reconhecida tecnologia Insul, a tela Viveiro Insul se destaca também por sua aplicação na construção civil, sendo amplamente utilizada como reforço em rebocos, garantindo acabamento mais resistente e seguro. Comercializada em rolos de 50 metros, é uma escolha econômica e eficiente para quem busca alta qualidade com instalação simplificada.\n\nPara revendedores e varejistas: A tela Viveiro Insul é um produto indispensável no mix de ofertas. Sua versatilidade de uso, aliada ao baixo custo e à confiabilidade da marca Insul, atende às demandas de clientes em diversos segmentos. Incluir a tela Viveiro Insul no portfólio é garantir uma solução que gera valor ao consumidor final e impulsiona as vendas, fortalecendo a confiança no seu negócio.",
     gallery: [
       {
         src: "/images/imgs-gallery/viveiro/img-gallery-viveiro1.jpg",
@@ -3233,9 +3305,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Um clássico do cercamento, com qualidade e durabilidade para qualquer projeto.",
     },
     hero: {
-      title: "Simples Torção",
+      // title: "Simples Torção",
+      // description:
+      //   "A cerca tradicional que resolve do quintal à quadra, com resistência comprovada.",
+      title: "",
       description:
-        "A cerca tradicional que resolve do quintal à quadra, com resistência comprovada.",
+        "",
       descriptionColor: "#ffffff",
       background: torcaoGalvanizadaField.src,
       sectionClassName: "aspect-video",
@@ -3306,7 +3381,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples galvanizada da Insul: resistente, versátil e ideal para cercamentos em áreas residenciais, comerciais, industriais e rurais. Produzida com arame galvanizado, oferece proteção contra corrosão, boa durabilidade e fácil instalação, garantindo segurança sem perder a visibilidade do ambiente.",
     description:
-      "A Tela Torção Simples Galvanizada Insul é uma solução versátil para cercamentos residenciais, comerciais, industriais, esportivos e rurais. Produzida com fio de aço de 2,10 mm galvanizado a fogo, possui malha em losango de 3 polegadas (7,6 cm), que combina resistência, visibilidade e praticidade para delimitar diferentes espaços.\n\nA galvanização ajuda a proteger o aço contra a corrosão e a exposição às condições externas. O formato flexível da tela facilita a instalação e permite acompanhar terrenos com relevo, tornando-a adequada para quadras, escolas, estacionamentos, indústrias, pastos, plantações e jardins.\n\nCom espaçamento entre mourões de até 4 metros, a Torção Simples Galvanizada oferece uma estrutura funcional para projetos que precisam de um cercamento firme, durável e integrado ao ambiente.",
+      "A tela Simples Torção Insul é a solução perfeita para quem busca versatilidade, durabilidade e excelente acabamento em cercamentos. Produzida com fios de aço galvanizado de alta qualidade Gerdau e disponível em diferentes espessuras (de 1,65 mm a 3,40 mm), essa tela se destaca por sua robustez e adaptação a diversas necessidades.\n\nCom alturas de até 4 metros e opções de malha que variam de 1.1/2” a 3”, ela é ideal para aplicações que vão desde cercamentos de quadras esportivas e rodovias até fechamentos industriais, aeroportos e zoneamentos urbanos.\n\nA tecnologia de simples torção aplicada na fabricação da Tela Simples Torção Insul garante máxima resistência e flexibilidade, permitindo perfeita adaptação aos mais variados relevos do terreno. Produzida no Brasil com o rigor técnico da Insul, cada rolo de 25 metros oferece um produto de alta performance, projetado para proporcionar segurança e durabilidade com garantia de 5 anos. Essa tela é a escolha confiável para espaços que exigem qualidade superior e proteção duradoura.\n\nPara revendedores e varejistas: A tela Simples Torção Insul é uma oportunidade estratégica de oferecer um produto indispensável para uma ampla gama de projetos. Sua versatilidade, aliada à qualidade reconhecida da marca Insul, atende às necessidades de diferentes mercados e consumidores, agregando valor ao mix de produtos e impulsionando as vendas com um item que alia excelência técnica e confiabilidade.",
     gallery: [
       {
         src: "/images/imgs-gallery/torcao/img-gallery-torcao1.jpg",
@@ -3397,10 +3472,14 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Acabamento discreto nas cores verde e azul, para combinar com qualquer ambiente.",
     },
     hero: {
-      title: "Torção Simples",
-      titleSmallText: "(Verde e Azul PVC)",
+      // title: "Torção Simples",
+      // titleSmallText: "(Verde e Azul PVC)",
+      // description:
+      //   "Proteção duradoura com um toque a mais de estilo para áreas externas.",
+      title: "",
+      titleSmallText: "",
       description:
-        "Proteção duradoura com um toque a mais de estilo para áreas externas.",
+        "",
       titleColor: "#ffffff",
       descriptionColor: "#ffffff",
       textAlign: "left",
@@ -3439,7 +3518,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples PVC verde da Insul: prática, resistente e com acabamento discreto para cercamentos residenciais, comerciais, industriais e rurais. Seu revestimento em PVC verde ajuda a proteger contra corrosão, aumenta a durabilidade e combina melhor com áreas externas, jardins e espaços arborizados.",
     description:
-      "A Tela de Torção Simples com revestimento em PVC Insul combina resistência, durabilidade e proteção contra a corrosão. Produzida com arame galvanizado e revestida em PVC, é indicada para cercamentos residenciais, comerciais, esportivos e rurais.\n\nSua malha em losango de 3 polegadas (7,6 cm) oferece boa visibilidade e se adapta a terrenos com diferentes relevos. O revestimento ajuda a proteger a tela contra a umidade e as intempéries, além de proporcionar um acabamento uniforme.\n\nDisponível nas cores verde e azul, é uma opção versátil para quadras, jardins, áreas de lazer, propriedades e outros espaços que precisam de um cercamento resistente e com baixa manutenção.",
+      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 25 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
     gallery: [
       {
         src: "/images/imgs-gallery/torcao-pvc/img-gallery-pvcverde1.jpg",
@@ -3504,9 +3583,12 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       text: "Explore os detalhes da Torção Simples PVC Azul, uma opção resistente para cercamentos residenciais, comerciais e esportivos.",
     },
     hero: {
-      title: "Torção Simples PVC Azul",
+      // title: "Torção Simples PVC Azul",
+      // description:
+      //   "Resistência e proteção com acabamento azul para cercamentos residenciais, comerciais e esportivos.",
+      title: "",
       description:
-        "Resistência e proteção com acabamento azul para cercamentos residenciais, comerciais e esportivos.",
+        "",
       titleColor: "#ffffff",
       descriptionColor: "#ffffff",
       textAlign: "right",
@@ -3550,7 +3632,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples PVC azul da Insul: resistente, durável e com acabamento diferenciado para cercamentos residenciais, comerciais, industriais e esportivos. O revestimento em PVC azul ajuda a proteger contra corrosão, aumenta a vida útil da tela e traz um visual mais moderno e personalizado ao ambiente.",
     description:
-      "A Tela de Torção Simples com revestimento em PVC Insul combina resistência, durabilidade e proteção contra a corrosão. Produzida com arame galvanizado e revestida em PVC, é indicada para cercamentos residenciais, comerciais, esportivos e rurais.\n\nSua malha em losango de 3 polegadas (7,6 cm) oferece boa visibilidade e se adapta a terrenos com diferentes relevos. O revestimento ajuda a proteger a tela contra a umidade e as intempéries, além de proporcionar um acabamento uniforme.\n\nDisponível nas cores verde e azul, é uma opção versátil para quadras, jardins, áreas de lazer, propriedades e outros espaços que precisam de um cercamento resistente e com baixa manutenção.",
+      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 25 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
     gallery: [
       {
         src: "/images/tela-torcao-simples/torção-PVC-azul.png",

@@ -1,7 +1,6 @@
 import type { CercaProntaTranslation } from "../utils/localizeCerca";
 
 const pt = {
-  // BEGIN additional visible copy
   additional: {
     posteTPostSpacing: "8-8 até 10-10 m",
     "Poste_T_de_aco": "Poste T de aço",
@@ -695,6 +694,7 @@ const pt = {
     toneladas: "Ton. processadas / mês",
   },
   products: {
+    intro: "Produzimos mais de 25 modelos de telas, gradis, alambrados e cercas prontas em diversas variações. \nQual é a melhor para o seu negócio?",
     descriptions: {
       "Cercas Prontas(rurais)": "Praticidade e resistência para cercar e proteger sua propriedade rural.",
       Gradil: "Painéis de aço que combinam segurança, design e instalação prática.",
@@ -702,8 +702,8 @@ const pt = {
       Acessórios: "Peças que completam a montagem e garantem firmeza ao cercamento.",
       Arames: "Arames galvanizados e revestidos em PVC para diferentes projetos.",
     } as Record<string, string>,
-    tituloLinha1: "NOSSOS",
-    tituloLinha2: "PRODUTOS",
+    tituloLinha1: "NOSSOS PRODUTOS",
+    // tituloLinha2: "",
     rooms: {
       "Cercas Prontas(rurais)": "Cercas Prontas(rurais)",
       Gradil: "Gradil",

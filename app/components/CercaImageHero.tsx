@@ -97,83 +97,83 @@ export default function CercaImageHero({ hero, color }: { hero: HeroData; color:
   return (
     <section ref={sectionRef} aria-labelledby={titleId} style={hasScrollTransition && releasedStageHeight !== null ? { height: `${releasedStageHeight}px` } : undefined} className={`poppins relative isolate bg-white text-[#002d4d] dark:bg-[#090b0c] ${hasScrollTransition ? "h-[190vh] overflow-clip" : `overflow-hidden ${hero.sectionClassName || "aspect-video"}`}`}>
       <div className={hasScrollTransition ? "sticky top-0 h-screen overflow-hidden" : "contents"}>
-      {hero.background && <Image src={hero.background} alt="" fill preload sizes="100vw" className={!hasScrollTransition && hero.sectionClassName === "aspect-video" ? "object-contain" : "object-cover object-left"} />}
-      {hero.scrollTransition && (
-        <motion.div
-          aria-hidden="true"
-          style={{ opacity: secondSceneOpacity }}
-          className="pointer-events-none absolute inset-0 z-[1]"
-        >
-          <Image
-            src={hero.scrollTransition.background}
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </motion.div>
-      )}
-      <div className="pointer-events-none absolute inset-0">
-        {hero.layers.map((layer, index) => (
+        {hero.background && <Image src={hero.background} alt="" fill preload sizes="100vw" className={hero.backgroundImageClassName || (!hasScrollTransition && hero.sectionClassName === "aspect-video" ? "object-contain" : "object-cover object-left")} />}
+        {hero.scrollTransition && (
           <motion.div
-            key={layer.src}
-            initial={layer.animated ? { opacity: 0, y: reducedMotion ? 0 : 90, x: reducedMotion ? 0 : index % 2 === 0 ? -35 : 35 } : false}
-            animate={{ opacity: !layer.animated || loaded[layer.src] ? 1 : 0, y: !layer.animated || loaded[layer.src] || reducedMotion ? 0 : 90, x: !layer.animated || loaded[layer.src] || reducedMotion ? 0 : index % 2 === 0 ? -35 : 35 }}
-            transition={{ duration: reducedMotion ? 0 : 1.2, delay: reducedMotion ? 0 : index * 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className={`absolute inset-0 motion-safe:will-change-transform ${layer.className || ""}`}
-          >
-            <Image src={layer.src} alt={translateText(layer.alt)} fill preload sizes="100vw" onLoad={() => setLoaded((previous) => ({ ...previous, [layer.src]: true }))} className={layer.imageClassName || "object-contain"} />
-          </motion.div>
-        ))}
-        {hero.scrollTransition?.layers.map((layer) => (
-          <motion.div
-            key={layer.src}
             aria-hidden="true"
             style={{ opacity: secondSceneOpacity }}
-            className={`absolute inset-0 ${layer.className || ""}`}
+            className="pointer-events-none absolute inset-0 z-[1]"
           >
             <Image
-              src={layer.src}
-              alt={translateText(layer.alt)}
+              src={hero.scrollTransition.background}
+              alt=""
               fill
               sizes="100vw"
-              className={layer.imageClassName || "object-cover"}
+              className="object-cover"
             />
           </motion.div>
-        ))}
-      </div>
-      <motion.div aria-hidden="true" style={{ y: reducedMotion ? 0 : blurY, top: hero.blurTop || "85%" }} className="pointer-events-none absolute inset-x-0 -bottom-[160px] z-20 motion-safe:will-change-transform">
-        <div className="absolute inset-0 backdrop-blur-[2px] [mask-image:linear-gradient(to_bottom,transparent,black_35%)]" />
-        <div className="absolute inset-0 backdrop-blur-[5px] [mask-image:linear-gradient(to_bottom,transparent_15%,black_55%)]" />
-        <div className="absolute inset-0 backdrop-blur-[10px] [mask-image:linear-gradient(to_bottom,transparent_30%,black_70%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,#ffffff80_25%,#ffffff_60%)] dark:bg-[linear-gradient(to_bottom,transparent_0%,#090b0c80_25%,#090b0c_60%)]" />
-      </motion.div>
-      <motion.div style={{ opacity: hasScrollTransition ? firstSceneOpacity : 1 }} className="absolute inset-0 z-30">
-      <div className={`z-30 mx-auto max-w-7xl px-5 sm:px-10 ${hero.textClassName || "absolute inset-x-0 top-[37%]"}`}>
-        <motion.div style={{ y: reducedMotion ? 0 : textY }} className={`${hero.textBoxClassName || `${hero.textAlign === "left" ? "mr-auto ml-0" : "mr-0 ml-auto"} max-w-[48%]`} text-left motion-safe:will-change-transform`}>
-          <h1 id={titleId} style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">{translateText(hero.title)}{hero.titleSmallText && <span className="block text-[.56em] font-light tracking-[-.02em]">{translateText(hero.titleSmallText)}</span>}</h1>
-          <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1.0vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">{translateText(hero.description)}</p>
+        )}
+        <div className="pointer-events-none absolute inset-0">
+          {hero.layers.map((layer, index) => (
+            <motion.div
+              key={layer.src}
+              initial={layer.animated ? { opacity: 0, y: reducedMotion ? 0 : 90, x: reducedMotion ? 0 : index % 2 === 0 ? -35 : 35 } : false}
+              animate={{ opacity: !layer.animated || loaded[layer.src] ? 1 : 0, y: !layer.animated || loaded[layer.src] || reducedMotion ? 0 : 90, x: !layer.animated || loaded[layer.src] || reducedMotion ? 0 : index % 2 === 0 ? -35 : 35 }}
+              transition={{ duration: reducedMotion ? 0 : 1.2, delay: reducedMotion ? 0 : index * 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className={`absolute inset-0 motion-safe:will-change-transform ${layer.className || ""}`}
+            >
+              <Image src={layer.src} alt={translateText(layer.alt)} fill preload sizes="100vw" onLoad={() => setLoaded((previous) => ({ ...previous, [layer.src]: true }))} className={layer.imageClassName || "object-contain"} />
+            </motion.div>
+          ))}
+          {hero.scrollTransition?.layers.map((layer) => (
+            <motion.div
+              key={layer.src}
+              aria-hidden="true"
+              style={{ opacity: secondSceneOpacity }}
+              className={`absolute inset-0 ${layer.className || ""}`}
+            >
+              <Image
+                src={layer.src}
+                alt={translateText(layer.alt)}
+                fill
+                sizes="100vw"
+                className={layer.imageClassName || "object-cover"}
+              />
+            </motion.div>
+          ))}
+        </div>
+        <motion.div aria-hidden="true" style={{ y: reducedMotion ? 0 : blurY, top: hero.blurTop || "85%" }} className="pointer-events-none absolute inset-x-0 -bottom-[160px] z-20 motion-safe:will-change-transform">
+          <div className="absolute inset-0 backdrop-blur-[2px] [mask-image:linear-gradient(to_bottom,transparent,black_35%)]" />
+          <div className="absolute inset-0 backdrop-blur-[5px] [mask-image:linear-gradient(to_bottom,transparent_15%,black_55%)]" />
+          <div className="absolute inset-0 backdrop-blur-[10px] [mask-image:linear-gradient(to_bottom,transparent_30%,black_70%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,#ffffff80_25%,#ffffff_60%)] dark:bg-[linear-gradient(to_bottom,transparent_0%,#090b0c80_25%,#090b0c_60%)]" />
         </motion.div>
-      </div>
-      </motion.div>
-      {hero.scrollTransition && (
-        <motion.div
-          style={{
-            opacity: secondSceneOpacity,
-            y: reducedMotion ? 0 : secondTextY,
-          }}
-          className={`z-30 mx-auto max-w-7xl px-5 text-left sm:px-10 ${hero.scrollTransition.textClassName || "absolute inset-x-0 top-[26%]"}`}
-        >
-          <div className={hero.scrollTransition.textBoxClassName || "ml-auto max-w-[48%]"}>
-            <h2 style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">
-              {translateText(hero.scrollTransition.title)}
-            </h2>
-            <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">
-              {translateText(hero.scrollTransition.description)}
-            </p>
+        <motion.div style={{ opacity: hasScrollTransition ? firstSceneOpacity : 1 }} className="absolute inset-0 z-30">
+          <div className={`z-30 mx-auto max-w-7xl px-5 sm:px-10 ${hero.textClassName || "absolute inset-x-0 top-[37%]"}`}>
+            <motion.div style={{ y: reducedMotion ? 0 : textY }} className={`${hero.textBoxClassName || `${hero.textAlign === "left" ? "mr-auto ml-0" : "mr-0 ml-auto"} max-w-[48%]`} text-left motion-safe:will-change-transform`}>
+              <h1 id={titleId} style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">{translateText(hero.title)}{hero.titleSmallText && <span className="block text-[.56em] font-light tracking-[-.02em]">{translateText(hero.titleSmallText)}</span>}</h1>
+              <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1.0vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">{translateText(hero.description)}</p>
+            </motion.div>
           </div>
         </motion.div>
-      )}
+        {hero.scrollTransition && (
+          <motion.div
+            style={{
+              opacity: secondSceneOpacity,
+              y: reducedMotion ? 0 : secondTextY,
+            }}
+            className={`z-30 mx-auto max-w-7xl px-5 text-left sm:px-10 ${hero.scrollTransition.textClassName || "absolute inset-x-0 top-[26%]"}`}
+          >
+            <div className={hero.scrollTransition.textBoxClassName || "ml-auto max-w-[48%]"}>
+              <h2 style={{ color: hero.titleColor || color }} className="poppins mt-5 text-[clamp(22px,5vw,60px)] leading-[1.08] font-bold tracking-[-.045em]">
+                {translateText(hero.scrollTransition.title)}
+              </h2>
+              <p style={hero.descriptionColor ? { color: hero.descriptionColor } : undefined} className="poppins mt-3 whitespace-pre-line text-[clamp(10px,1vw,16px)] font-light leading-relaxed text-[#002d4d] sm:text-base">
+                {translateText(hero.scrollTransition.description)}
+              </p>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

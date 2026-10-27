@@ -2,7 +2,6 @@ import type { Dictionary } from "./pt";
 import type { CercaProntaTranslation } from "../utils/localizeCerca";
 
 const en: Dictionary = {
-  // BEGIN additional visible copy
   additional: {
     posteTPostSpacing: "8-8 to 10-10 m",
     "Poste_T_de_aco": "Steel T-post",
@@ -652,7 +651,6 @@ const en: Dictionary = {
     "Recolher_detalhes_de_name": "Collapse details of {name}",
     "Acessorio_number": "Accessory {number}",
   } as Record<string, string>,
-  // END additional visible copy
 
 
 
@@ -696,6 +694,7 @@ const en: Dictionary = {
     toneladas: "Tons processed / month",
   },
   products: {
+    intro: "We produce more than 25 models of wire mesh, fence panels, chain-link fencing and ready-made fences in a variety of options. \nWhich is best for your business?",
     descriptions: {
       "Cercas Prontas(rurais)": "Practical, strong fencing to protect your rural property.",
       Gradil: "Steel panels combining security, design and easy installation.",
@@ -703,8 +702,8 @@ const en: Dictionary = {
       Acessórios: "Parts that complete installation and keep your fencing secure.",
       Arames: "Galvanized and PVC-coated wire for a variety of projects.",
     } as Record<string, string>,
-    tituloLinha1: "OUR",
-    tituloLinha2: "PRODUCTS",
+    tituloLinha1: "OUR PRODUCTS",
+    // tituloLinha2: "",
     rooms: {
       "Cercas Prontas(rurais)": "Ready-made Fences (rural)",
       Gradil: "Railing",

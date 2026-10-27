@@ -234,7 +234,7 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
             <div className={item.showcase ? "pt-24" : undefined}>
               <BlurRevealText
                 text={item.description.split("\n\n")}
-                className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
+                className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
               />
             </div>
 

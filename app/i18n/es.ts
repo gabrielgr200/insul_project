@@ -2,7 +2,6 @@ import type { Dictionary } from "./pt";
 import type { CercaProntaTranslation } from "../utils/localizeCerca";
 
 const es: Dictionary = {
-  // BEGIN additional visible copy
   additional: {
     posteTPostSpacing: "8-8 hasta 10-10 m",
     "Poste_T_de_aco": "Poste T de acero",
@@ -652,7 +651,6 @@ const es: Dictionary = {
     "Recolher_detalhes_de_name": "Contraer detalles de {name}",
     "Acessorio_number": "Accesorio {number}",
   } as Record<string, string>,
-  // END additional visible copy
 
 
 
@@ -696,6 +694,7 @@ const es: Dictionary = {
     toneladas: "Ton. procesadas / mes",
   },
   products: {
+    intro: "Producimos más de 25 modelos de mallas, paneles de cercado, cercas de simple torsión y cercas prefabricadas en diversas variantes. \n¿Cuál es la mejor para su negocio?",
     descriptions: {
       "Cercas Prontas(rurais)": "Practicidad y resistencia para cercar y proteger su propiedad rural.",
       Gradil: "Paneles de acero que combinan seguridad, diseño y fácil instalación.",
@@ -703,8 +702,8 @@ const es: Dictionary = {
       Acessórios: "Piezas que completan el montaje y dan firmeza al cercado.",
       Arames: "Alambres galvanizados y revestidos de PVC para distintos proyectos.",
     } as Record<string, string>,
-    tituloLinha1: "NUESTROS",
-    tituloLinha2: "PRODUCTOS",
+    tituloLinha1: "NUESTROS PRODUCTOS",
+    // tituloLinha2: "",
     rooms: {
       "Cercas Prontas(rurais)": "Cercas Prefabricadas (rurales)",
       Gradil: "Reja",

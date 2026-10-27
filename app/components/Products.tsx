@@ -82,8 +82,11 @@ const Products = () => {
       className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
     >
       <h2 className="PRODUCTS-TITLE heading-2 impact text-[#ff5500] text-center sm:text-left">
-        {t("products.tituloLinha1")} <br /> {t("products.tituloLinha2")}
+        {t("products.tituloLinha1")} {/* <br /> {t("products.tituloLinha2")} */}
       </h2>
+      <p className="DISTRIBUTION-TEXT text-center whitespace-pre-line sm:text-left text-base lg:text-lg text-[#002d4d] dark:text-white max-w-sm mx-auto sm:mx-0 sm:max-w-none">
+        {t("products.intro")}
+      </p>
 
       <div className="mt-6 flex justify-end gap-2">
         <button type="button" onClick={() => moveCarousel(-1)} disabled={!canGoBack} aria-label={translateText("Categorias anteriores")} aria-controls="products-carousel" className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-zinc-700 transition-colors hover:border-[#ff5500] hover:text-[#ff5500] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5500] disabled:cursor-default disabled:opacity-25 dark:border-zinc-700 dark:text-zinc-200">
