@@ -1,5 +1,6 @@
 .hero{position:relative;isolation:isolate;margin:12px;border-radius:30px;padding:132px 4% 24px;overflow:hidden;background:#eeeee8;color:#082d49}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.2;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23808080' filter='url(%23n)' opacity='.4' d='M0 0h160v160H0z'/%3E%3C/svg%3E")}
+.solidBackground::before{content:none}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6%;max-width:2100px;margin:auto;min-height:530px;align-items:center}
 .copy{position:relative;z-index:2;padding:15px 0 25px}
 .badge{display:inline-flex;gap:9px;align-items:center;border:1px solid #082d4915;border-radius:30px;padding:7px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.13em;background:#ffffff70}

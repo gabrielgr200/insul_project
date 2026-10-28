@@ -71,10 +71,13 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
       <div ref={wrapperRef}>
         <div ref={contentRef} className="relative">
           <main>
-            <ProductDetailHero name={product.name} category="Acessórios" description={product.shortDescription} image={product.src} specifications={product.paragraph} circularOrbit={hasFullPage} imageScale={hasFullPage ? 1.2 : 1} />
+            <ProductDetailHero name={product.name} category="Acessórios" description={product.shortDescription} image={product.src} specifications={product.paragraph} circularOrbit={hasFullPage} imageScale={hasFullPage ? 1.2 : 1} backgroundColor={isRatchet ? "#E9ECEF" : undefined} />
             {hasFullPage ? <>
-              <div id="product-details" className="scroll-mt-28">
+              <div id="product-details" className="scroll-mt-28 pt-40">
+                {/* Galeria anterior:
                 <ImgCarousel perspective title={text(product.name)} images={[1, 2, 3].map(index => ({ src: isMicro ? `/images/imgs-gallery/catraca_micro/img-gallery-micro_${index}.jpg` : "/images/accessory-placeholder.svg", alt: `${isMicro ? "" : "Imagem placeholder — "}${product.name} — ${index}` }))} />
+                */}
+                <ImgCarousel perspective clipcut title={text(product.name)} images={[1, 2, 3].map(index => ({ src: isMicro ? `/images/imgs-gallery/catraca_micro/img-gallery-micro_${index}.jpg` : "/images/accessory-placeholder.svg", alt: `${isMicro ? "" : "Imagem placeholder — "}${product.name} — ${index}` }))} />
               </div>
               <section className="py-16">
                 <BlurRevealText text={product.description.split("\n\n")} className="poppins mx-auto max-w-[1300px] px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8" />

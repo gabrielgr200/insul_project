@@ -516,7 +516,8 @@ const Gradil = () => {
               />
 
               <ScrollReveal className="-mx-6 mt-24 sm:mt-32">
-                <ImgCarousel images={gradilGallery} />
+                {/* Galeria anterior: <ImgCarousel images={gradilGallery} /> */}
+                <ImgCarousel images={gradilGallery} perspective clipcut showIntro={false} />
               </ScrollReveal>
             </section>
 

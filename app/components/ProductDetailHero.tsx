@@ -7,9 +7,9 @@ import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/reac
 import { useContentTranslation } from "./LanguageProvider";
 import styles from "./ProductDetailHero.module.css";
 
-type Props = { name: string; category: string; description: string; image: string; specifications?: string; circularOrbit?: boolean; imageScale?: number };
+type Props = { name: string; category: string; description: string; image: string; specifications?: string; circularOrbit?: boolean; imageScale?: number; backgroundColor?: string };
 
-export default function ProductDetailHero({ name, category, description, image, specifications, circularOrbit = false, imageScale = 1 }: Props) {
+export default function ProductDetailHero({ name, category, description, image, specifications, circularOrbit = false, imageScale = 1, backgroundColor }: Props) {
   const text = useContentTranslation();
   const reducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState(false);
@@ -20,7 +20,7 @@ export default function ProductDetailHero({ name, category, description, image, 
   const details = (specifications || category).split(/,\s+/).map(value => value.trim()).filter(Boolean).slice(0, 3);
 
   return (
-    <section className={`${styles.hero} poppins`} aria-labelledby="product-hero-title">
+    <section className={`${styles.hero} ${backgroundColor ? styles.solidBackground : ""} poppins`} style={backgroundColor ? { backgroundColor } : undefined} aria-labelledby="product-hero-title">
       <div className={styles.grid}>
         <motion.div className={styles.copy} initial={{ opacity: 0, y: reducedMotion ? 0 : 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <h1 id="product-hero-title" className="poppins font-bold">{text(name.replace(/ Insul$/i, ""))}<span>.</span></h1>

@@ -219,6 +219,13 @@ const Header = () => {
         .map((product) => ({ label: product.name, href: `/cercas-prontas/${product.slug}`, imageSrc: getProductAvatar(product.slug) }));
     } else if (category.title === "Gradil") {
       products = gradilModels.map((product) => ({ label: product.name, href: `/gradil/${product.slug}`, imageSrc: getProductAvatar(product.slug) }));
+    } else if (category.title === "Acessórios") {
+      const accessoryPages: Record<string, string> = {
+        "Catraca Micro": "/acessorios/catraca-micro",
+        "Catraca T7": "/acessorios/catraca-t7",
+        "Catraca Caixa": "/acessorios/esticador-caixa",
+      };
+      products = category.items.map((name) => ({ label: name, href: accessoryPages[name] ?? "/acessorios", imageSrc: getProductAvatar(name) }));
     } else {
       const href = category.title === "Acessórios" ? "/acessorios" : "/arames";
       products = category.items.map((name) => ({ label: name, href, imageSrc: getProductAvatar(name) }));

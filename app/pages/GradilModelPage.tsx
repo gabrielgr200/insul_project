@@ -1,12 +1,15 @@
 "use client";
 
 import { notFound } from "next/navigation";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Image from "next/image";
 import GradilColorFade from "../components/GradilColorFade";
-import GradilCardsMarquee from "../components/GradilCardsMarquee";
+import ImgCarousel from "../components/ImgCarousel";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import CercaShowcaseTeste from "../components/CercaShowcaseTeste";
 import VideoCardCarousel from "../components/VideoCardCarousel";
@@ -55,6 +58,39 @@ const LOGO_IMAGES: Record<
 
 const GradilModelPage = ({ slug }: { slug: string }) => {
   const translateText = useContentTranslation();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!wrapperRef.current || !contentRef.current) return;
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const smoother = ScrollSmoother.create({
+        wrapper: wrapperRef.current!,
+        content: contentRef.current!,
+        smooth: 1.8,
+        effects: true,
+        normalizeScroll: true,
+      });
+      let refreshTimeout: ReturnType<typeof setTimeout>;
+      const refresh = () => {
+        clearTimeout(refreshTimeout);
+        refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+      };
+      const observer = new ResizeObserver(refresh);
+      observer.observe(contentRef.current!);
+      window.addEventListener("load", refresh);
+      refresh();
+      return () => {
+        clearTimeout(refreshTimeout);
+        observer.disconnect();
+        window.removeEventListener("load", refresh);
+        smoother.kill();
+      };
+    });
+    return () => media.revert();
+  }, [slug]);
   const item = gradilModels.find((i) => i.slug === slug);
   if (!item) notFound();
 
@@ -75,18 +111,22 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
   return (
     <div className="min-h-screen overflow-clip">
       <Header />
+      <div ref={wrapperRef}>
+      <div ref={contentRef} className="relative">
       <main className="pb-20 pt-16">
-        <div className="mx-auto flex max-w-5xl flex-col items-center px-4 py-28">
-          <div className="flex items-center justify-center">
+        <div className="relative top-[100px] mx-auto flex w-full max-w-[1300px] flex-col items-center justify-center px-4 pb-4 pt-16 text-center sm:pt-20">
+          <div className="flex w-full items-center justify-center">
             <Image
               src={logo.word}
               alt={translateText("Gradil")}
-              width={300}
-              height={144}
+              width={slug === "g4" ? 3416 : 3394}
+              height={slug === "g4" ? 920 : 899}
+              sizes="(min-width: 1024px) 550px, (min-width: 640px) 430px, 310px"
+              preload
               quality={90}
               className="h-20 w-auto shrink-0 object-contain sm:h-28 lg:h-36"
             />
-            <GradilColorFade className="-ml-8 -mr-1 h-32 w-20 shrink-0 rounded-sm sm:-ml-12 sm:-mr-2 sm:h-44 sm:w-28 lg:-ml-16 lg:h-64 lg:w-44" />
+            <GradilColorFade key={slug} model={slug} className="-ml-8 -mr-1 h-32 w-20 shrink-0 rounded-sm sm:-ml-12 sm:-mr-2 sm:h-44 sm:w-28 lg:-ml-16 lg:h-64 lg:w-44" />
             <Image
               src={logo.model}
               alt={translateText(logo.alt)}
@@ -96,19 +136,11 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
               className="relative z-10 -ml-1.5 h-20 w-auto shrink-0 object-contain sm:-ml-2 sm:h-28 lg:-ml-3 lg:h-36"
             />
           </div>
-          <p className="poppins mt-4 max-w-xl text-center text-sm text-[#002d4d] dark:text-white sm:text-base">
+          <p className="poppins mx-auto mt-4 w-full max-w-xl text-center text-sm text-[#002d4d] dark:text-white sm:text-base">
             {translateText(item.tagline)}
           </p>
-          <GradilCardsMarquee />
         </div>
-        <BlurRevealText
-          text={item.description.split("\n\n")}
-          className="mx-auto poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
-        />
-
-        <ScrollReveal className="pt-24 pb-24">
-          <ImgCarousel images={item.gallery} />
-        </ScrollReveal>
+        <ImgCarousel key={slug} images={item.gallery} title={item.name} perspective clipcut showIntro={false} />
 
         {item.showcase && (
           <CercaShowcaseTeste
@@ -117,6 +149,13 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
             color={item.color}
           />
         )}
+
+        <section className="py-16 sm:py-24">
+          <BlurRevealText
+            text={item.description.split("\n\n")}
+            className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"
+          />
+        </section>
 
         {item.videoCards && item.videoCards.length > 0 && (
           <ScrollReveal>
@@ -159,6 +198,8 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
         </ScrollReveal>
       </main>
       <Footer />
+      </div>
+      </div>
     </div>
   );
 };

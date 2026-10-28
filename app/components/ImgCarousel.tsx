@@ -50,7 +50,7 @@ const Thumb = ({
   </div>
 );
 
-const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, description }: { images: GalleryImage[]; perspective?: boolean; title?: string; badge?: string; description?: string }) => {
+const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, description, showIntro = true, clipcut = false }: { images: GalleryImage[]; perspective?: boolean; title?: string; badge?: string; description?: string; showIntro?: boolean; clipcut?: boolean }) => {
   const translateText = useContentTranslation();
   const imageCount = sourceImages.length;
   const images: CarouselImage[] = sourceImages.map((image, i) => ({
@@ -237,7 +237,7 @@ const ImgCarousel = ({ images: sourceImages, perspective = false, title, badge, 
 
   if (perspective) return (
     <>
-      <PerspectiveGallery images={sourceImages} title={translateText(title)} badge={badge} description={translateText(description)} onOpen={setLightboxIndex} paused={isOpen} />
+      <PerspectiveGallery images={sourceImages} title={translateText(title)} badge={badge} description={translateText(description)} onOpen={setLightboxIndex} paused={isOpen} showIntro={showIntro} clipcut={clipcut} />
       {mounted && createPortal(lightbox, document.body)}
     </>
   );

@@ -2,13 +2,35 @@
 
 import { useTranslation } from "./LanguageProvider";
 import { useContentTranslation } from "./LanguageProvider";
+import { useEffect, useRef } from "react";
 
 const GuaranteeGradil = () => {
   const translateText = useContentTranslation();
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const g = dict.gradil.guarantee;
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || locale !== "pt") return;
+    const media = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+    let visible = false;
+    const update = () => {
+      if (media.matches && visible && !document.hidden) void video.play().catch(() => {});
+      else video.pause();
+    };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); });
+    observer.observe(video);
+    media.addEventListener("change", update);
+    document.addEventListener("visibilitychange", update);
+    return () => { observer.disconnect(); media.removeEventListener("change", update); document.removeEventListener("visibilitychange", update); video.pause(); };
+  }, [locale]);
   return (
-    <section className="overflow-hidden bg-gradient-to-r from-[#ff5500] via-[#d94400] to-[#a83400] px-6 py-16 sm:py-20">
+    <section className="overflow-hidden bg-gradient-to-r from-[#ff5500] via-[#d94400] to-[#a83400]">
+      {locale === "pt" && <div className="relative hidden lg:block motion-reduce:lg:hidden">
+        <video ref={videoRef} src="/videos/motion_gradil.mp4" poster="/videos/motion-gradil-preview.jpg" width={3840} height={560} muted loop playsInline preload="metadata" aria-hidden="true" className="block h-auto w-full" />
+        <div className="sr-only"><h2>{g.title1} {g.title2}</h2><p>{g.side}</p></div>
+      </div>}
+      <div className={`px-6 py-16 sm:py-20 ${locale === "pt" ? "lg:hidden motion-reduce:lg:block" : ""}`}>
       <div className="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-8">
         <div className="flex items-center gap-6">
           <svg
@@ -39,6 +61,7 @@ const GuaranteeGradil = () => {
         <p className="poppins max-w-md text-base font-light leading-relaxed text-white sm:text-lg">
           {translateText(g.side)}
         </p>
+      </div>
       </div>
     </section>
   );

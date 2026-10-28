@@ -221,7 +221,10 @@ const SoldadaHexagonalPage = ({ slug }: { slug: string }) => {
               </ScrollReveal>
             )}
 
+            {/* Galeria anterior:
             <ImgCarousel perspective title={translateText(item.name)} badge={item.galleryIntro?.badge} description={translateText(item.galleryIntro?.text || item.shortDescription)} images={item.gallery} />
+            */}
+            <ImgCarousel perspective clipcut title={translateText(item.name)} badge={item.galleryIntro?.badge} description={translateText(item.galleryIntro?.text || item.shortDescription)} images={item.gallery} />
 
             {item.showcase && (
               <CercaShowcaseTeste
