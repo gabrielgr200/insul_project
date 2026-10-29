@@ -4263,40 +4263,17 @@ const gradilModels: GradilModelInfo[] = [
     ),
     videoCards: [
       {
-        src: "/videos/videos-gradil-para/video-gradil-1.mp4",
-        category: "MATERIAL",
-        title: "Aço Carbono",
-        description:
-          "Única alambrado no Brasil com arames de 650kgf de carga de ruptura.",
+        "src": "/videos/videos-g12/reel-g12-1.mp4",
+        "category": "Gradil G12",
+        "title": "Vídeo 1",
+        "description": ""
       },
       {
-        src: "/videos/videos-gradil-para/video-gradil-2.mp4",
-        category: "ESTRUTURA",
-        title: "Nó em X",
-        description:
-          "Nó forjado que não deixa rebarbas e garante segurança contra impactos.",
-      },
-      {
-        src: "/videos/videos-gradil-para/video-gradil-3.mp4",
-        category: "TERRENO",
-        title: "Qualquer Relevo",
-        description:
-          "Acompanha aclives e declives sem dificuldade na instalação.",
-      },
-      {
-        src: "/videos/videos-g4/video-reel-g4.mp4",
-        category: "ECONOMIA",
-        title: "Instalação Rápida",
-        description:
-          "Espaçamento maior entre mourões gera até 50% de economia.",
-      },
-      {
-        src: "/videos/videos-gradil-para/video-gradil-5.mp4",
-        category: "PROTEÇÃO",
-        title: "Malha Bimodal",
-        description:
-          "Fechada embaixo para contenção, aberta em cima para economia.",
-      },
+        "src": "/videos/videos-g12/reel-g12-2.mp4",
+        "category": "Gradil G12",
+        "title": "Vídeo 2",
+        "description": ""
+      }
     ],
     showcase3D: [
       {
@@ -4304,17 +4281,13 @@ const gradilModels: GradilModelInfo[] = [
         description:
           "Gire, pause e explore de perto o acabamento da malha soldada e da pintura eletrostática que garantem durabilidade e um visual moderno ao Gradil G12.",
         videoSrc:
-          "/videos/videos-g4/video-3d-g4-1.mp4",
-      },
-      {
-        title: "Manual de como instalar o Gradil",
-        description:
-          "Confira o sistema de fixação aos mourões metálicos, pensado para reduzir o tempo de instalação sem abrir mão da rigidez estrutural do painel.",
-        videoSrc:
-          "/videos/videos-g4/video-3d-g4-2.mp4",
+          "/videos/videos-g12/video-3d-g12.mp4",
       },
     ],
-    gallery: gradilGallery,
+    gallery: Array.from({ length: 9 }, (_, index) => ({
+      src: `/images/img_gradil/img_G12/optimized/img_gradilG12_${index + 1}.webp`,
+      alt: `Gradil G12 instalado ${index + 1}`,
+    })),
   },
 ];
 

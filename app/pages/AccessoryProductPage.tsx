@@ -24,7 +24,7 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!["catraca-micro", "catraca-t7", "esticador-caixa"].includes(slug) || !wrapperRef.current || !contentRef.current) return;
+    if (!wrapperRef.current || !contentRef.current) return;
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
@@ -59,9 +59,16 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
   const isMicro = slug === "catraca-micro";
   const isRatchet = isMicro || slug === "catraca-t7";
   const isStretcher = slug === "esticador-caixa";
-  const hasFullPage = isRatchet || isStretcher;
+  const isOriginalRatchetPage = isRatchet || isStretcher;
+  const relatedNames = isOriginalRatchetPage
+    ? ["Catraca Micro", "Catraca T7", "Esticador(caixa)", "Chave balancim"]
+    : ["poste-t", "batedor-manual"].includes(slug)
+      ? ["Poste T", "Batedor Manual", "Catraca Micro", "Alicate para emendar arame"]
+      : ["chave-balancim", "alicate-para-emendar-arame"].includes(slug)
+        ? ["Catraca Micro", "Catraca T7", "Chave balancim", "Alicate para emendar arame"]
+        : ["Tubos Pintados", "Fixador de Gradil", "Tampa para Gradil", "Parabolt para fixador"];
   const similarProducts = accessoriesCards
-    .filter(item => item.name !== product.name && ["Catraca Micro", "Catraca T7", "Esticador(caixa)", "Chave balancim"].includes(item.name))
+    .filter(item => item.name !== product.name && relatedNames.includes(item.name))
     .slice(0, 3)
     .map(item => ({ src: item.src, cutout: item.src, name: item.name, title: "Acessórios", color: "#082d49", to: `/acessorios/${accessorySlug(item.name)}` }));
 
@@ -71,8 +78,8 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
       <div ref={wrapperRef}>
         <div ref={contentRef} className="relative">
           <main>
-            <ProductDetailHero name={product.name} category="Acessórios" description={product.shortDescription} image={product.src} specifications={product.paragraph} circularOrbit={hasFullPage} imageScale={hasFullPage ? 1.2 : 1} backgroundColor={isRatchet ? "#E9ECEF" : undefined} />
-            {hasFullPage ? <>
+            <ProductDetailHero name={product.name} category="Acessórios" description={product.shortDescription} image={product.src} specifications={product.paragraph} circularOrbit imageScale={1.2} backgroundColor={isStretcher ? undefined : "#E9ECEF"} />
+            <>
               <div id="product-details" className="scroll-mt-28 pt-40">
                 {/* Galeria anterior:
                 <ImgCarousel perspective title={text(product.name)} images={[1, 2, 3].map(index => ({ src: isMicro ? `/images/imgs-gallery/catraca_micro/img-gallery-micro_${index}.jpg` : "/images/accessory-placeholder.svg", alt: `${isMicro ? "" : "Imagem placeholder — "}${product.name} — ${index}` }))} />
@@ -82,10 +89,10 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
               <section className="py-16">
                 <BlurRevealText text={product.description.split("\n\n")} className="poppins mx-auto max-w-[1300px] px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8" />
               </section>
-              <RatchetComparison />
+              {isRatchet && <RatchetComparison />}
               {[
-                { src: isMicro ? "/videos/videos-catraca-micro/video-3d-1.mp4" : "", title: `${product.name} em detalhes`, description: isMicro ? "Uma solução prática para manter os arames firmes e esticados na instalação de telas e cercas prontas." : isStretcher ? "Esticador em aço carbono galvanizado, para fios de até 3 mm. Peso: 178 g." : "Aço carbono galvanizado de 3,00 mm, para fios de até 4 mm. Peso: 284 g." },
-                { src: isMicro ? "/videos/videos-catraca-micro/video-3d-2.mp4" : "", title: isMicro ? "Praticidade para tensionar e emendar" : isStretcher ? "Conheça o Esticador" : "Resistência para trabalhos pesados", description: isMicro ? "A Catraca Micro permite ajustar a tensão e emendar arames em diferentes pontos do cercamento." : isStretcher ? "Texto placeholder para os detalhes de aplicação e instalação do Esticador." : "A Catraca T7 é uma opção reforçada para trabalhos com arames farpados ou lisos de maior espessura." },
+                { src: isMicro ? "/videos/videos-catraca-micro/video-3d-1.mp4" : "", title: `${product.name} em detalhes`, description: isMicro ? "Uma solução prática para manter os arames firmes e esticados na instalação de telas e cercas prontas." : isStretcher ? "Esticador em aço carbono galvanizado, para fios de até 3 mm. Peso: 178 g." : isRatchet ? "Aço carbono galvanizado de 3,00 mm, para fios de até 4 mm. Peso: 284 g." : product.paragraph },
+                { src: isMicro ? "/videos/videos-catraca-micro/video-3d-2.mp4" : "", title: isMicro ? "Praticidade para tensionar e emendar" : isStretcher ? "Conheça o Esticador" : isRatchet ? "Resistência para trabalhos pesados" : "Aplicação e instalação", description: isMicro ? "A Catraca Micro permite ajustar a tensão e emendar arames em diferentes pontos do cercamento." : isStretcher ? "Texto placeholder para os detalhes de aplicação e instalação do Esticador." : isRatchet ? "A Catraca T7 é uma opção reforçada para trabalhos com arames farpados ou lisos de maior espessura." : `Texto placeholder para os detalhes de aplicação e instalação: ${product.name}.` },
               ].map((video, index) => (
                 <ScrollReveal key={video.title} className="mx-auto max-w-6xl px-4 py-16 sm:px-8">
                   <div className={`flex flex-col items-center gap-10 lg:justify-between ${index === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}>
@@ -98,11 +105,7 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
                 </ScrollReveal>
               ))}
               <div className="py-20"><SimilarProducts products={similarProducts} /></div>
-            </> : <section id="product-details" className="poppins mx-auto max-w-5xl scroll-mt-28 px-6 py-20 text-[#082d49] dark:text-white">
-              <h2 className="text-3xl font-bold">{text(product.name)}</h2>
-              <p className="mt-5 leading-relaxed opacity-70">{text(product.description)}</p>
-              <p className="mt-5 leading-relaxed">{text(product.paragraph)}</p>
-            </section>}
+            </>
           </main>
           <Footer />
         </div>

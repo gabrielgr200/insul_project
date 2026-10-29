@@ -3,6 +3,7 @@
 import ProductCard from "./ProductCard";
 import ScrollReveal from "./ScrollReveal";
 import { arameCardsPvc } from "../assets/data";
+import { wireProductHref } from "../assets/wireProducts";
 import { useContentTranslation } from "./LanguageProvider";
 
 const ArameProductsCardsPvc = () => {
@@ -20,6 +21,7 @@ const ArameProductsCardsPvc = () => {
           <ProductCard
             key={card.name}
             {...card}
+            to={wireProductHref(card.name, true)}
             imageClassName={`${card.imageClassName ?? "object-contain"} min-[1920px]:scale-110 min-[2560px]:scale-[1.15]`}
           />
         ))}

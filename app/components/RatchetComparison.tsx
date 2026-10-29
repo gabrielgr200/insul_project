@@ -46,13 +46,13 @@ function ComparisonCard({ name, orange }: { name: string; orange: boolean }) {
   );
 }
 
-export default function RatchetComparison() {
+export default function RatchetComparison({ title = "Compare as catracas", firstName = "Catraca Micro", secondName = "Catraca T7" }: { title?: string; firstName?: string; secondName?: string }) {
   return (
     <section aria-labelledby="ratchet-comparison-title" className="poppins mx-auto max-w-[1300px] px-4 py-16 sm:px-8">
-      <h2 id="ratchet-comparison-title" className="mb-10 text-center text-3xl font-bold text-[#082d49] dark:text-white sm:text-4xl">Compare as catracas</h2>
+      <h2 id="ratchet-comparison-title" className="mb-10 text-center text-3xl font-bold text-[#082d49] dark:text-white sm:text-4xl">{title}</h2>
       <div className="grid gap-8 md:grid-cols-2">
-        <ComparisonCard name="Catraca Micro" orange={false} />
-        <ComparisonCard name="Catraca T7" orange />
+        <ComparisonCard name={firstName} orange={false} />
+        <ComparisonCard name={secondName} orange />
       </div>
     </section>
   );

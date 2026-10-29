@@ -22,6 +22,7 @@ import { scrollToSection } from "../utils/ScrollToSection";
 import { markSiteLoaded } from "../utils/siteLoaded";
 import { productCategories, soldadasHexagonais, gradilModels, cercasProntas } from "../assets/data";
 import { getProductAvatar } from "../assets/productAvatars";
+import { wireProducts } from "../assets/wireProducts";
 import FillButton from "./FillButton";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -224,11 +225,21 @@ const Header = () => {
         "Catraca Micro": "/acessorios/catraca-micro",
         "Catraca T7": "/acessorios/catraca-t7",
         "Catraca Caixa": "/acessorios/esticador-caixa",
+        "Poste T": "/acessorios/poste-t",
+        "Batedor de poste T": "/acessorios/batedor-manual",
+        "Tubo para Gradil": "/acessorios/tubos-pintados",
+        "Fixador para Gradil": "/acessorios/fixador-de-gradil",
+        "Chave balancim": "/acessorios/chave-balancim",
+        "Alicate para emendar arame": "/acessorios/alicate-para-emendar-arame",
+        "Tampa para Gradil": "/acessorios/tampa-para-gradil",
+        "Parabolt para fixador": "/acessorios/parabolt-para-fixador",
       };
       products = category.items.map((name) => ({ label: name, href: accessoryPages[name] ?? "/acessorios", imageSrc: getProductAvatar(name) }));
     } else {
-      const href = category.title === "Acessórios" ? "/acessorios" : "/arames";
-      products = category.items.map((name) => ({ label: name, href, imageSrc: getProductAvatar(name) }));
+      products = category.items.map((name) => {
+        const product = wireProducts.find(item => item.menuLabel === name);
+        return { label: name, href: product ? `/arames/${product.slug}` : "/arames", imageSrc: getProductAvatar(name) };
+      });
     }
 
     return {

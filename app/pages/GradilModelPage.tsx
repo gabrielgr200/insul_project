@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Image from "next/image";
 import GradilColorFade from "../components/GradilColorFade";
+import GradilProtectionShowcase from "../components/GradilProtectionShowcase";
 import ImgCarousel from "../components/ImgCarousel";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -157,14 +158,20 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
           />
         </section>
 
+        {slug === "g12" && <GradilProtectionShowcase />}
+
         {item.videoCards && item.videoCards.length > 0 && (
-          <ScrollReveal>
+          <ScrollReveal className="pt-16 sm:pt-24">
             <VideoCardCarousel cards={item.videoCards} fenceName={item.name} />
           </ScrollReveal>
         )}
 
         {item.showcase3D?.map((showcase, i) =>
-          showcase.videoSrc ? (
+          showcase.videoSrc ? slug === "g12" ? (
+            <ScrollReveal key={showcase.title}>
+              <VideoCard3D videoSrc={showcase.videoSrc} />
+            </ScrollReveal>
+          ) : (
             <ScrollReveal
               key={showcase.title}
               className="mx-auto max-w-6xl px-4 py-16 sm:px-8"
