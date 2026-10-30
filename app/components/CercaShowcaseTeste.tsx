@@ -2,23 +2,35 @@
 
 import { useId, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { CercaShowcaseData } from "../assets/data";
 import CercaShowcaseIndication from "./CercaShowcaseIndication";
 import CercaShowcaseMesh from "./CercaShowcaseMesh";
 import CercaShowcaseKnot from "./CercaShowcaseKnot";
-import CercaShowcaseLength from "./CercaShowcaseLength";
+import type { SimulatorProduct } from "./terrainSimulatorTypes";
 import CercaShowcaseColors from "./CercaShowcaseColors";
 import { useContentTranslation } from "./LanguageProvider";
 
-export default function CercaShowcaseTeste({ showcase, color }: { showcase: CercaShowcaseData; color: string }) {
+const TerrainSimulator = dynamic(() => import("./TerrainSimulator"), {
+  ssr: false,
+  loading: () => <div className="grid min-h-[400px] place-items-center text-sm text-[#082d49]">Carregando simulador…</div>,
+});
+
+export default function CercaShowcaseTeste({ showcase, color, product }: { showcase: CercaShowcaseData; color: string; product: SimulatorProduct }) {
   const translateText = useContentTranslation();
   const titleId = useId();
   const [selected, setSelected] = useState(0);
   const [selectedColor, setSelectedColor] = useState(0);
   const reducedMotion = useReducedMotion();
-  const active = showcase.options[selected];
+  const simulatorOption = { title: "Simulador", description: "Escolha um cenário e ajuste o cercado para visualizar a instalação deste produto.", image: "", background: undefined, kind: "simulator" as const };
+  const hasLength = showcase.options.some(option => option.kind === "length" || option.title === "Comprimento");
+  const options = showcase.options.map(option => option.kind === "length" || option.title === "Comprimento" ? simulatorOption : option);
+  if (!hasLength) options.push(simulatorOption);
+  const active = options[selected];
+  const isSimulator = active.kind === "simulator";
+  const meshOption = showcase.options.find(option => option.widthLabel && option.heightLabel);
 
   return (
     <section aria-labelledby={titleId} className="poppins">
@@ -36,9 +48,9 @@ export default function CercaShowcaseTeste({ showcase, color }: { showcase: Cerc
             className="pointer-events-none object-cover"
           />
         )}
-        <div className="relative z-10 grid items-center gap-8 px-5 sm:px-10 lg:min-h-[680px] lg:grid-cols-[400px_1fr] lg:gap-12 lg:pr-0 lg:pl-[6vw]">
-          <div className="flex flex-col items-start gap-3">
-            {showcase.options.map((option, index) => {
+        <div className={`relative z-10 ${isSimulator ? "min-h-[1040px] lg:h-[max(760px,90svh)] lg:min-h-0" : "grid items-center gap-8 px-5 sm:px-10 lg:min-h-[680px] lg:grid-cols-[400px_1fr] lg:gap-12 lg:pr-0 lg:pl-[6vw]"}`}>
+          <div className={`flex flex-col items-start gap-3 ${isSimulator ? "relative z-20 w-full px-5 pb-6 sm:px-10 lg:absolute lg:left-[6vw] lg:top-1/2 lg:w-[240px] lg:-translate-y-1/2 lg:px-0 lg:pb-0" : ""}`}>
+            {options.map((option, index) => {
               const expanded = selected === index;
               if (expanded) {
                 return (
@@ -104,13 +116,13 @@ export default function CercaShowcaseTeste({ showcase, color }: { showcase: Cerc
               );
             })}
           </div>
-          <div className="relative aspect-[4/3] min-w-0 overflow-hidden lg:aspect-auto lg:h-[max(680px,90svh)]">
+          <div className={isSimulator ? "relative h-[840px] min-w-0 lg:absolute lg:inset-0 lg:h-auto" : "relative aspect-[4/3] min-w-0 overflow-hidden lg:aspect-auto lg:h-[max(680px,90svh)]"}>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div key={active.title} initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : 0.3 }} className="absolute inset-0">
-                {translateText(active.kind === "indication" ? <CercaShowcaseIndication option={active} />
+                {isSimulator ? <TerrainSimulator product={product} meshWidth={meshOption?.widthLabel} meshHeight={meshOption?.heightLabel} /> : translateText(active.kind === "indication" ? <CercaShowcaseIndication option={active} />
                   : active.kind === "upperMesh" || active.kind === "lowerMesh" ? <CercaShowcaseMesh option={active} />
                     : active.kind === "meshDetail" ? <><CercaShowcaseMesh option={active} /><CercaShowcaseKnot option={active} /></>
-                    : active.kind === "length" ? <CercaShowcaseLength option={active} />
+                    
                     : active.kind === "colors" ? <CercaShowcaseColors option={active} selectedColor={selectedColor} />
                       : active.kind === "image" ? <span className="sr-only">{translateText(active.title)}</span>
                       : active.kind === "knot" ? <span className="sr-only">{translateText(active.title)}</span>

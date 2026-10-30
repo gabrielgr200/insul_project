@@ -18,6 +18,21 @@ import { accessoriesCards } from "../assets/data";
 import { accessorySlug } from "../utils/accessorySlug";
 import { useContentTranslation } from "../components/LanguageProvider";
 
+const accessoryGalleryFiles: Record<string, string[]> = {
+  "poste-t": [1, 2, 3, 4, 5, 6, 7].map(index => `posteT/img-posteT-${index}.webp`),
+  "catraca-micro": [1, 2, 3].map(index => `catracaMicro/img-catraca-micro-${index}.jpg`),
+  "catraca-t7": [1, 2, 3, 4].map(index => `catracaT7/img-catraca-T7_${index}.${index === 4 ? "webp" : "jpg"}`),
+  "esticador-caixa": [1, 2, 3, 4, 5, 6].map(index => `esticador/img-esticador-${index}.webp`),
+  "chave-balancim": [1, 2, 3, 4].map(index => `balancim/img-balancim-${index}.jpg`),
+  "fixador-de-gradil": [1, 2, 3, 4, 5].map(index => `fixador/img-fixador-${index}.jpg`),
+  "tubos-pintados": [
+    ...[1, 2, 3, 4, 5].map(index => `tubo/img-tubo-${index}.webp`),
+    "tubo/img-tubochumbar-1.webp",
+    "tubo/img-tubochumbar-2.webp",
+  ],
+  "alicate-para-emendar-arame": ["ferramentas/alicate.png", "ferramentas/img-alicate.png"],
+};
+
 export default function AccessoryProductPage({ slug }: { slug: string }) {
   const text = useContentTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -56,6 +71,11 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
 
   const product = accessoriesCards.find(item => accessorySlug(item.name) === slug);
   if (!product) notFound();
+  const hasGallery = !["batedor-manual", "alicate-para-emendar-arame", "parabolt-para-fixador"].includes(slug);
+  const galleryFiles = accessoryGalleryFiles[slug];
+  const galleryImages = galleryFiles
+    ? galleryFiles.map((file, index) => ({ src: `/images/accessories/${file}`, alt: `${product.name} — ${index + 1}` }))
+    : [1, 2, 3].map(index => ({ src: "/images/accessory-placeholder.svg", alt: `Imagem placeholder — ${product.name} — ${index}` }));
   const isMicro = slug === "catraca-micro";
   const isRatchet = isMicro || slug === "catraca-t7";
   const isStretcher = slug === "esticador-caixa";
@@ -66,7 +86,7 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
       ? ["Poste T", "Batedor Manual", "Catraca Micro", "Alicate para emendar arame"]
       : ["chave-balancim", "alicate-para-emendar-arame"].includes(slug)
         ? ["Catraca Micro", "Catraca T7", "Chave balancim", "Alicate para emendar arame"]
-        : ["Tubos Pintados", "Fixador de Gradil", "Tampa para Gradil", "Parabolt para fixador"];
+        : ["Tubos Pintados", "Fixador de Gradil", "Parabolt para fixador", "Poste T"];
   const similarProducts = accessoriesCards
     .filter(item => item.name !== product.name && relatedNames.includes(item.name))
     .slice(0, 3)
@@ -80,12 +100,12 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
           <main>
             <ProductDetailHero name={product.name} category="Acessórios" description={product.shortDescription} image={product.src} specifications={product.paragraph} circularOrbit imageScale={1.2} backgroundColor={isStretcher ? undefined : "#E9ECEF"} />
             <>
-              <div id="product-details" className="scroll-mt-28 pt-40">
+              {hasGallery && <div id="product-details" className="scroll-mt-28 pt-40">
                 {/* Galeria anterior:
                 <ImgCarousel perspective title={text(product.name)} images={[1, 2, 3].map(index => ({ src: isMicro ? `/images/imgs-gallery/catraca_micro/img-gallery-micro_${index}.jpg` : "/images/accessory-placeholder.svg", alt: `${isMicro ? "" : "Imagem placeholder — "}${product.name} — ${index}` }))} />
                 */}
-                <ImgCarousel perspective clipcut title={text(product.name)} images={[1, 2, 3].map(index => ({ src: isMicro ? `/images/imgs-gallery/catraca_micro/img-gallery-micro_${index}.jpg` : "/images/accessory-placeholder.svg", alt: `${isMicro ? "" : "Imagem placeholder — "}${product.name} — ${index}` }))} />
-              </div>
+                <ImgCarousel perspective clipcut title={text(product.name)} images={galleryImages} />
+              </div>}
               <section className="py-16">
                 <BlurRevealText text={product.description.split("\n\n")} className="poppins mx-auto max-w-[1300px] px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8" />
               </section>

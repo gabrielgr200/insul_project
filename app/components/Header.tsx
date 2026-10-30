@@ -231,7 +231,6 @@ const Header = () => {
         "Fixador para Gradil": "/acessorios/fixador-de-gradil",
         "Chave balancim": "/acessorios/chave-balancim",
         "Alicate para emendar arame": "/acessorios/alicate-para-emendar-arame",
-        "Tampa para Gradil": "/acessorios/tampa-para-gradil",
         "Parabolt para fixador": "/acessorios/parabolt-para-fixador",
       };
       products = category.items.map((name) => ({ label: name, href: accessoryPages[name] ?? "/acessorios", imageSrc: getProductAvatar(name) }));

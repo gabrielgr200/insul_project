@@ -18,9 +18,7 @@ import { useTranslation } from "../components/LanguageProvider";
 import { localizeCerca } from "../utils/localizeCerca";
 import TelasShowcaseArc from "../components/TelasShowcaseArc";
 import BentoGallery from "../components/BentoGallery";
-import FenceVisualizer, {
-  type FenceVisualizerItem,
-} from "../components/FenceVisualizer";
+
 import ScrollReveal from "../components/ScrollReveal";
 import { useContentTranslation } from "../components/LanguageProvider";
 
@@ -105,18 +103,6 @@ const CercasProntasPage = () => {
         src: c.heroSlide.src,
         label: c.name,
         hotspot: c.heroSlide.hotspot,
-      })),
-    [localizedCercas],
-  );
-
-  const fenceVisualizerItems: FenceVisualizerItem[] = useMemo(
-    () =>
-      localizedCercas.map((c) => ({
-        slug: c.slug,
-        name: c.name,
-        src: LOCAL_CARD_SRC[c.slug] ?? c.src,
-        paragraph: c.paragraph,
-        color: c.color,
       })),
     [localizedCercas],
   );
@@ -214,18 +200,7 @@ const CercasProntasPage = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="cercas-simulation-wide py-10">
-              <FenceVisualizer
-                items={fenceVisualizerItems}
-                categories={["Todas"]}
-                heading={translateText("Veja a cerca no seu terreno")}
-                description={translateText("Envie uma foto do seu terreno, escolha o modelo de cerca e visualize como fica antes e depois da instalação.")}
-                stepTwoLabel="2. Modelo de cerca"
-                simulationLabel={(name) => (
-                  <>{translateText("Simulação ilustrativa com a ")}{translateText(name)} {translateText(" — arraste o círculo para comparar.")}</>
-                )}
-              />
-            </ScrollReveal>
+
 
             <ScrollReveal className="cercas-videos-wide mt-30">
               <CardPost

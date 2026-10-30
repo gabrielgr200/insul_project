@@ -4,14 +4,21 @@ import { useId, useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-// Replace each slide's placeholder copy with the product's comparison details.
-const slides = [
-  { title: "Características", description: "Texto placeholder para apresentar as características deste modelo.", items: ["Característica do produto", "Informação sobre o material", "Detalhe da estrutura"] },
-  { title: "Aplicações", description: "Texto placeholder para explicar as aplicações e indicações deste modelo.", items: ["Indicação de uso do produto", "Tipo de cercamento indicado", "Detalhe sobre a instalação"] },
-  { title: "Especificações", description: "Texto placeholder para apresentar as especificações técnicas deste modelo.", items: ["Medida ou dimensão do produto", "Informação técnica do modelo", "Detalhe adicional do produto"] },
+type ComparisonSlide = { title: string; description: string; items: string[] };
+
+const microSlides: ComparisonSlide[] = [
+  { title: "Características", description: "Modelo compacto para manter o arame liso e as cercas de tela firmes e tensionados.", items: ["Aço carbono galvanizado", "Parede: 2,5 mm", "Capacidade de enrolamento: até 3 mm"] },
+  { title: "Aplicações", description: "Permite tensionar e emendar arames em diferentes pontos do cercamento.", items: ["Esticar arame liso, ovalado e cercas de tela"] },
+  { title: "Especificações", description: "Uma opção leve para os projetos compatíveis com a capacidade da Micro.", items: ["Peso e Dimensões: 0,200kg - 75mm x 57mm x 26mm"] },
 ];
 
-function ComparisonCard({ name, orange }: { name: string; orange: boolean }) {
+const t7Slides: ComparisonSlide[] = [
+  { title: "Características", description: "Modelo reforçado para cercamentos que exigem uma peça mais robusta.", items: ["Aço carbono galvanizado", "Parede: 3 mm", "Capacidade de enrolamento: até 3,5 m"] },
+  { title: "Aplicações", description: "Indicada para trabalhos pesados e arames que exigem mais robustez do que a Micro oferece.", items: ["Esticar arame liso, ovalado, farpados e cercas de tela"] },
+  { title: "Especificações", description: "Chapa mais espessa e maior limite de diâmetro do fio em comparação à Micro.", items: ["Peso e Dimensões: 0,300kg - 94mm x 81mm x 31mm"] },
+];
+
+function ComparisonCard({ name, orange, slides }: { name: string; orange: boolean; slides: ComparisonSlide[] }) {
   const [active, setActive] = useState(0);
   const id = useId();
   const reducedMotion = useReducedMotion();
@@ -51,8 +58,8 @@ export default function RatchetComparison({ title = "Compare as catracas", first
     <section aria-labelledby="ratchet-comparison-title" className="poppins mx-auto max-w-[1300px] px-4 py-16 sm:px-8">
       <h2 id="ratchet-comparison-title" className="mb-10 text-center text-3xl font-bold text-[#082d49] dark:text-white sm:text-4xl">{title}</h2>
       <div className="grid gap-8 md:grid-cols-2">
-        <ComparisonCard name={firstName} orange={false} />
-        <ComparisonCard name={secondName} orange />
+        <ComparisonCard name={firstName} orange={false} slides={microSlides} />
+        <ComparisonCard name={secondName} orange slides={t7Slides} />
       </div>
     </section>
   );

@@ -146,7 +146,7 @@ const GradilModelPage = ({ slug }: { slug: string }) => {
         {item.showcase && (
           <CercaShowcaseTeste
             key={`showcase-${slug}`}
-            showcase={item.showcase}
+            showcase={item.showcase} product={item}
             color={item.color}
           />
         )}

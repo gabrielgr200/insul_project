@@ -1,7 +1,6 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -20,13 +19,6 @@ import BentoGallery from "../components/BentoGallery";
 import SimplesTorcaoShowcase from "../components/SimplesTorcaoShowcase";
 import ScrollReveal from "../components/ScrollReveal";
 import { useContentTranslation } from "../components/LanguageProvider";
-
-const FenceVisualizer = dynamic(() => import("../components/FenceVisualizer"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[440px] w-full animate-pulse rounded-2xl bg-black/5 dark:bg-white/5" />
-  ),
-});
 
 const soldadaCards = soldadasHexagonaisCardsPages.filter(
   (c) => c.title === "Tela Soldada",
@@ -153,9 +145,7 @@ const SoldadasHexagonais = () => {
               ))}
             </ScrollReveal>
 
-            <ScrollReveal className="cercas-simulation-wide py-40">
-              <FenceVisualizer />
-            </ScrollReveal>
+
 
             <ScrollReveal className="cercas-videos-wide mt-16">
               <CardPost

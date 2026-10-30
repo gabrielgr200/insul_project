@@ -119,7 +119,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
         <ImgCarousel perspective title={translateText(cerca.name)} badge={cerca.galleryIntro?.badge} description={translateText(cerca.galleryIntro?.text || cerca.shortDescription)} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
         */}
         <ImgCarousel perspective clipcut title={translateText(cerca.name)} badge={cerca.galleryIntro?.badge} description={translateText(cerca.galleryIntro?.text || cerca.shortDescription)} images={cerca.gallery.length > 0 ? cerca.gallery : FALLBACK_CERCA.gallery} />
-        {cerca.showcase && <CercaShowcaseTeste key={`showcase-${slug}`} showcase={cerca.showcase} color={cerca.color} />}
+        {cerca.showcase && <CercaShowcaseTeste key={`showcase-${slug}`} showcase={cerca.showcase} product={cerca} color={cerca.color} />}
         <BlurRevealText
           text={cerca.paragraphs}
           className="mx-auto max-w-[1300px] poppins px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8"

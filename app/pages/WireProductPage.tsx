@@ -8,7 +8,6 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WireProductHero from "../components/WireProductHero";
-import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import SimilarProducts from "../components/SimilarProducts";
 import ScrollReveal from "../components/ScrollReveal";
@@ -48,7 +47,6 @@ export default function WireProductPage({ slug }: { slug: string }) {
       <div ref={wrapperRef}><div ref={contentRef} className="relative">
         <main>
           <WireProductHero product={product} />
-          <ImgCarousel perspective clipcut title={`${product.title} ${product.name}`} images={[1, 2, 3].map(index => ({ src: "/images/accessory-placeholder.svg", alt: `Imagem placeholder — ${product.title} ${product.name} — ${index}` }))} />
           <section className="py-16">
             <BlurRevealText text={product.description.split("\n\n")} className="poppins mx-auto max-w-[1300px] px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8" />
             <p className="poppins mx-auto mt-8 max-w-[1300px] px-4 text-sm leading-relaxed text-[#082d49]/65 dark:text-white/65 sm:px-8">{text(product.paragraph)}</p>

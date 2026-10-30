@@ -396,17 +396,6 @@ export const accessoriesCards: ProductCardData[] = [
     animals: [],
   },//Alicate
   {
-    src: "/images/imgs_cards_acessorios/tampinha.png",
-    imageClassName: "object-contain scale-[1.6]",
-    title: "Categoria do acessório",
-    name: "Tampa para Gradil",
-    paragraph: "Texto placeholder para a descrição do acessório.",
-    shortDescription: "Texto placeholder para a descrição do acessório. Substituir pelas informações do produto.",
-    description: "Texto placeholder para a descrição do acessório.",
-    postSpacing: "",
-    animals: [],
-  },//Tampa
-  {
     src: "/images/imgs_cards_acessorios/parabolt.png",
     imageClassName: "object-contain scale-[1.48]",
     title: "Categoria do acessório",
@@ -4352,7 +4341,6 @@ const productCategories: ProductCategory[] = [
       "Batedor de poste T",
       "Tubo para Gradil",
       "Fixador para Gradil",
-      "Tampa para Gradil",
       "Parabolt para fixador",
     ],
   },
