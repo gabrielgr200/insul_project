@@ -11,7 +11,7 @@ import {
 import { useContentTranslation } from "./LanguageProvider";
 
 const socials = [
-  { label: "Facebook", href: "https://www.facebook.com/casadascercas", Icon: FaFacebookF, color: "#1877F2" },
+  { label: "Facebook", href: "https://www.facebook.com/insultelas", Icon: FaFacebookF, color: "#1877F2" },
   {
     label: "WhatsApp",
     href: "https://wa.me/5551995098453",

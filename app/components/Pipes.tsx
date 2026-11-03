@@ -10,19 +10,8 @@ import { useContentTranslation } from "./LanguageProvider";
 
 gsap.registerPlugin(Draggable);
 
-// Positioned against "tubo.png" (the bare post, no accessories baked in —
-// so nothing can duplicate/ghost behind the animated pieces). Percentages
-// are relative to the tube's OWN box (not the outer container), measured
-// off the reference exploded-view photo (INSUL_POSTE-02_A.-v2.png) so the
-// spread matches that composition.
 const ASSEMBLY_PIECES = [
   {
-    // All positions below were measured with pixel-level detection
-    // (color/alpha masking) directly against conjunto.webp, converted to
-    // percentages relative to the tube's own bounding box — not eyeballed.
-    // "style" is the exploded (reference-photo) resting spot; dragging all
-    // the way to 100% goes further still, past that, in by "toOffset" so
-    // the pieces end up looking actually installed on the post.
     src: "/images/poste/fixador.png",
     style: { left: "73%", top: "29%", width: "58%", zIndex: 2 },
     from: { x: 90, y: -10, rotate: 14 },

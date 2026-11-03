@@ -1146,10 +1146,37 @@ const pt = {
   },
 
   cercasProntas: {
+    "campeira-java": {
+      "title": "Cerca Pronta(rurais)",
+      "paragraph": "Fio 2,50 mm, Nó em X (Stiff Stay), Malha 20x15 cm no topo e 10x15 cm na base",
+      "shortDescription": "Cercamentos rurais em geral, contenção de ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
+      "paragraphs": [
+      "A Campeira Java Insul é indicada para cercamentos rurais em geral, cercas para ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
+      "Com fio de 2,50 mm e nó em X (Stiff Stay), possui malha de 20 × 15 cm no topo e de 10 × 15 cm na base. As alturas disponíveis são 1,20 m, 1,40 m, 1,80 m e 2,00 m, em rolos de 50 e 100 m. O distanciamento entre mourões é de 8 a 10 m."
+],
+      "animals": [
+      "Bovino",
+      "Capivara",
+      "Cães",
+      "Caprino",
+      "Avestruz",
+      "Ovinos",
+      "Suínos",
+      "Javaporco",
+      "Galinha",
+      "Ganso"
+],
+      "hotspot": {
+            "title": "Cerca Campeira Java Insul",
+            "description": "Conheça os detalhes e as aplicações da Campeira Java."
+      },
+      "features": [],
+      "videoCards": [],
+      "gallery": []
+},
     fenix: {
       title: "Cerca Pronta(rurais)",
-      paragraph:
-        "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+      paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 10x20 cm no topo e 10x10 cm na base, Nó em X (stiff stay)",
       shortDescription:
         "Tela de simples torção em aço de alto carbono, com instalação até 6x mais rápida e até 50% menos mourões. Segurança e durabilidade para qualquer propriedade.",
       paragraphs: [
@@ -1243,8 +1270,7 @@ const pt = {
     },
     "campeira-maxx": {
       title: "Cerca Pronta(rurais)",
-      paragraph:
-        "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+      paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x22 cm no topo e 10x22 cm na base, Nó em X (stiff stay)",
       shortDescription:
         "Nó em X exclusivo da Insul, feito para conter bovinos e equinos e proteger a lavoura contra grandes animais. Ruptura de até 700 kgf e 5 anos de garantia.",
       paragraphs: [
@@ -1370,8 +1396,7 @@ const pt = {
     },
     campeira: {
       title: "Cerca Pronta(rurais)",
-      paragraph:
-        "Fio 2,30 mm, Aço galvanizado a fogo, Malha bifásica, Nó tradicional",
+      paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x30 cm no topo e 10x30 cm na base, Nó tradicional",
       shortDescription:
         "Modelo tradicional e consagrado da Insul, ideal para contenção de ovinos, caprinos e suínos. Fio galvanizado a fogo com 5 anos de garantia.",
       paragraphs: [
@@ -1455,8 +1480,7 @@ const pt = {
     },
     "campeira-boi": {
       title: "Cerca Pronta(rurais)",
-      paragraph:
-        "Fio 2,50 mm, Aço galvanizado a fogo, Malha 30 cm x 20 cm, Nó em X (stiff stay)",
+      paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x30 cm, Nó em X (stiff stay)",
       shortDescription:
         "Nó em X exclusivo e malha 30x20cm para contenção de bovinos e animais de grande porte, com ruptura de até 700 kgf mesmo em terrenos irregulares.",
       paragraphs: [

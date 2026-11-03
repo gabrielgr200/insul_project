@@ -1,18 +1,24 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { simulatorSpec, type Application, type SimulatorProduct, type SimulatorState } from "./terrainSimulatorTypes";
+import { simulatorSpec, type Application, type SimulatorProduct, type SimulatorState, type SimulatorSpec } from "./terrainSimulatorTypes";
 import type { createTerrainSimulator } from "./terrainSimulatorEngine";
 import styles from "./TerrainSimulator.module.css";
 
 type Engine = ReturnType<typeof createTerrainSimulator>;
 const applications: [Application,string][] = [["terrain","Terreno livre"],["house","Casa"],["company","Empresa"],["park","Praça / local público"],["dog","Canil com cachorro"]];
-const defaults = (height: number): SimulatorState => ({width:10,depth:8,height,rotation:-12,angle:23,zoom:1,application:"terrain"});
+const javaApplications: [Application,string][] = [["rural","Cercamento rural"],["sheep","Ovinos"],["goat","Caprinos"],["dog","Cães"],["cattle","Bovinos"],["crops","Proteção de lavouras"],["boar","Javali / javaporco"],["peccary","Cateto"],["whiteLippedPeccary","Queixada"]];
+const fenixApplications: [Application,string][] = [["rural","Cercamento no campo"],["house","Casa"],["dog","Animais de pequeno porte"],["sheep","Animais de médio porte"],["cattle","Animais de grande porte"],["company","Grandes obras / alambrados"]];
+const maxxApplications: [Application,string][] = [...javaApplications,["house","Chácaras e fazendas"]];
+const campeiraApplications: [Application,string][] = [["rural","Cercamento rural"],["sheep","Criação de ovinos"],["cattle","Criação de bovinos"],["pig","Criação de suínos"],["crops","Proteção de lavouras"],["house","Chácaras e fazendas"]];
+const torcaoApplications: [Application,string][] = [["terrain","Cercamentos em geral"],["relief","Terreno com relevo"],["sport","Quadra esportiva"]];
+const torcaoPvcApplications: [Application,string][] = [...torcaoApplications,["coast","Área litorânea"]];
+const defaults = (spec: SimulatorSpec): SimulatorState => ({width:10,depth:8,height:spec.heights.includes(1.5)?1.5:spec.heights[0],rotation:-12,angle:23,zoom:spec.java?1.2:1,application:spec.java||spec.fenix||spec.maxx||spec.boi||spec.campeira?"rural":"terrain",spacing:spec.spacing});
 
 export default function TerrainSimulator({product,meshWidth,meshHeight}:{product:SimulatorProduct;meshWidth?:string;meshHeight?:string}){
   const id=useId();
   const spec=useMemo(()=>simulatorSpec(product,meshWidth,meshHeight),[product,meshWidth,meshHeight]);
-  const [state,setState]=useState(()=>defaults(spec.heights.includes(1.5)?1.5:spec.heights[0]));
+  const [state,setState]=useState(()=>defaults(spec));
   const [error,setError]=useState("");
   const host=useRef<HTMLDivElement>(null),engine=useRef<Engine|null>(null),latest=useRef(state);
   useEffect(()=>{latest.current=state;engine.current?.update(state);},[state]);
@@ -25,16 +31,18 @@ export default function TerrainSimulator({product,meshWidth,meshHeight}:{product
     return()=>{cancelled=true;instance?.dispose();engine.current=null;};
   },[spec]);
   function change<K extends keyof SimulatorState>(key:K,value:SimulatorState[K]){setState(previous=>({...previous,[key]:value}));}
-  const range=(key:"width"|"depth"|"rotation"|"angle"|"zoom",label:string,min:number,max:number,step:number=1)=> <label htmlFor={`${id}-${key}`} className={styles.control}>{label}<output>{key==="zoom"?`${Math.round(state[key]*100)}%`:key==="width"||key==="depth"?`${state[key].toFixed(1).replace(".",",")} m`:`${state[key]}°`}</output><input id={`${id}-${key}`} type="range" min={min} max={max} step={step} value={state[key]} onChange={event=>change(key,Number(event.target.value))}/></label>;
+  const range=(key:"width"|"depth"|"rotation"|"angle"|"zoom"|"spacing",label:string,min:number,max:number,step:number=1)=> <label htmlFor={`${id}-${key}`} className={styles.control}>{label}<output>{key==="zoom"?`${Math.round(state[key]*100)}%`:key==="width"||key==="depth"||key==="spacing"?`${state[key].toFixed(1).replace(".",",")} m`:`${state[key]}°`}</output><input id={`${id}-${key}`} type="range" min={min} max={max} step={step} value={state[key]} onChange={event=>change(key,Number(event.target.value))}/></label>;
   return <div className={styles.simulator}>
     <div className={styles.layout}>
       <div className={styles.controls}>
         <h3>{product.name}</h3>
-        <label className={styles.control} htmlFor={`${id}-application`}>Aplicação do cercamento<select id={`${id}-application`} value={state.application} onChange={event=>change("application",event.target.value as Application)}>{applications.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>
+        <label className={styles.control} htmlFor={`${id}-application`}>Aplicação do cercamento<select id={`${id}-application`} value={state.application} onChange={event=>change("application",event.target.value as Application)}>{(spec.torcaoPvc?torcaoPvcApplications:spec.torcao?torcaoApplications:spec.campeira?campeiraApplications:spec.maxx||spec.boi?maxxApplications:spec.fenix?fenixApplications:spec.java?javaApplications:applications).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>
         {range("width","Largura",3,18,.1)}{range("depth","Profundidade",3,18,.1)}
-        <label className={styles.control} htmlFor={`${id}-height`}>Altura {spec.morada?"":"ilustrativa"}<select id={`${id}-height`} value={state.height} onChange={event=>change("height",Number(event.target.value))}>{spec.heights.map(height=><option key={height} value={height}>{height.toFixed(2).replace(".",",")} m</option>)}</select></label>
-        {range("rotation","Rotação",-180,180)}{range("angle","Ângulo da câmera",5,65)}{range("zoom","Escala visual",.4,1.8,.01)}
-        <button type="button" onClick={()=>{setState(defaults(spec.heights.includes(1.5)?1.5:spec.heights[0]));engine.current?.center();}}>Restaurar ajustes</button>
+        <label className={styles.control} htmlFor={`${id}-height`}>Altura {spec.morada||spec.java||spec.fenix||spec.maxx||spec.boi||spec.campeira||spec.torcao?"":"ilustrativa"}<select id={`${id}-height`} disabled={spec.heights.length===1} value={state.height} onChange={event=>change("height",Number(event.target.value))}>{spec.heights.map(height=><option key={height} value={height}>{height.toFixed(2).replace(".",",")} m</option>)}</select></label>
+        {(spec.java||spec.fenix||spec.maxx||spec.boi||spec.campeira)&&range("spacing","Distância entre mourões",spec.boi?7:8,10,.5)}
+        {spec.torcao&&<span className={styles.control}>Distância entre mourões: 3 m</span>}
+        {range("rotation","Rotação",-180,180)}{range("angle","Ângulo da câmera",5,65)}{range("zoom","Escala visual",.4,3,.01)}
+        <button type="button" onClick={()=>{setState(defaults(spec));engine.current?.center();}}>Restaurar ajustes</button>
       </div>
       <div className={styles.preview}>
         <div className={styles.stage}>

@@ -23,6 +23,7 @@ import ScrollReveal from "../components/ScrollReveal";
 import { useContentTranslation } from "../components/LanguageProvider";
 
 const LOCAL_CARD_SRC: Record<string, string> = {
+  "campeira-java": "/images/CercasProntas/Campeira_java.png",
   fenix: "/images/CercasProntas/Campeira_fenix.png",
   campeira: "/images/CercasProntas/Campeira.png",
   "campeira-maxx": "/images/CercasProntas/Campeira_maxx.png",
@@ -74,11 +75,11 @@ const ARC_IMAGES = [
 const CercasProntasPage = () => {
   const translateText = useContentTranslation();
   const contentRef = useRef<HTMLDivElement>(null);
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
 
   const localizedCercas = useMemo(
-    () => cercasProntas.map((c) => localizeCerca(c, dict.cercasProntas[c.slug])),
-    [dict],
+    () => cercasProntas.map((c) => localizeCerca(c, locale === "pt" ? undefined : dict.cercasProntas[c.slug])),
+    [dict, locale],
   );
 
   const cercasProntasCardsPages: ProductCardData[] = useMemo(
@@ -99,7 +100,7 @@ const CercasProntasPage = () => {
 
   const cercasProntasCarousel = useMemo(
     () =>
-      localizedCercas.map((c) => ({
+      localizedCercas.filter((c) => c.slug !== "campeira-java").map((c) => ({
         src: c.heroSlide.src,
         label: c.name,
         hotspot: c.heroSlide.hotspot,

@@ -18,6 +18,7 @@ const avatarFiles: Record<string, string> = {
   "tela-torcao-simples-galvanizada": "torção-galvanizado.png",
   "tela-torcao-simples-pvc-verde": "torção-pvc(verde).png",
   "tela-torcao-simples-pvc-azul": "torção-pvc(azul).png",
+  "campeira-java": "java.png",
   fenix: "fenix.png",
   "campeira-maxx": "maxx.png",
   campeira: "campeira.png",

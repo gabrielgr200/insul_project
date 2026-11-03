@@ -23,6 +23,7 @@ import { localizeCerca } from "../utils/localizeCerca";
 import { useContentTranslation } from "../components/LanguageProvider";
 
 const CUTOUT_IMAGES: Record<string, string> = {
+  "campeira-java": "/images/CercasProntas/Campeira_java.png",
   fenix: "/images/CercasProntas/Campeira_fenix.png",
   campeira: "/images/CercasProntas/Campeira.png",
   "campeira-boi": "/images/CercasProntas/Campeira_boi.png",
@@ -30,6 +31,7 @@ const CUTOUT_IMAGES: Record<string, string> = {
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
+  "campeira-java": "/images/imgs-gallery/Java/CDC Aplicação Java 01.png",
   fenix: "/images/img_fenix_carousel/1.jpeg",
   campeira: "/images/img-similares/img-similar-campeira.jpg",
   "campeira-boi": "/images/img-similares/img-similar-boi.jpg",
@@ -38,12 +40,12 @@ const BACKGROUND_IMAGES: Record<string, string> = {
 
 const CercaProntaPage = ({ slug }: { slug: string }) => {
   const translateText = useContentTranslation();
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!["campeira-maxx", "fenix", "campeira", "campeira-boi"].includes(slug) || !wrapperRef.current || !contentRef.current) return;
+    if (!["campeira-java", "campeira-maxx", "fenix", "campeira", "campeira-boi"].includes(slug) || !wrapperRef.current || !contentRef.current) return;
 
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
     const media = gsap.matchMedia();
@@ -80,12 +82,12 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
 
   const FALLBACK_CERCA = useMemo(() => {
     const base = cercasProntas.find((c) => c.slug === "fenix")!;
-    return localizeCerca(base, dict.cercasProntas.fenix);
-  }, [dict]);
+    return localizeCerca(base, locale === "pt" ? undefined : dict.cercasProntas.fenix);
+  }, [dict, locale]);
 
   const cerca = useMemo(
-    () => localizeCerca(baseCerca, dict.cercasProntas[baseCerca.slug]),
-    [baseCerca, dict],
+    () => localizeCerca(baseCerca, locale === "pt" ? undefined : dict.cercasProntas[baseCerca.slug]),
+    [baseCerca, dict, locale],
   );
 
   const similarCercas: SimilarProductItem[] = useMemo(
@@ -94,7 +96,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
         .filter((c) => c.slug !== slug)
         .slice(0, 3)
         .map((c) => {
-          const localized = localizeCerca(c, dict.cercasProntas[c.slug]);
+          const localized = localizeCerca(c, locale === "pt" ? undefined : dict.cercasProntas[c.slug]);
           return {
             to: localized.to,
             title: localized.title,
@@ -104,7 +106,7 @@ const CercaProntaPage = ({ slug }: { slug: string }) => {
             cutout: CUTOUT_IMAGES[c.slug],
           };
         }),
-    [slug, dict],
+    [slug, dict, locale],
   );
 
   return (

@@ -22,7 +22,7 @@ export default function CercaShowcaseIndication({ option }: { option: CercaShowc
   const reducedMotion = useReducedMotion();
 
   return (
-    <div className="absolute inset-0 flex items-end justify-center">
+    <div className="absolute inset-0 flex items-end justify-center min-[1600px]:justify-end">
       <div className="relative aspect-[4/3] w-full lg:max-w-[calc(max(680px,90svh)*4/3)]">
         <Image src={option.image} alt={translateText(option.title)} fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-contain object-bottom" />
         <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 size-full">

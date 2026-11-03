@@ -210,6 +210,7 @@ export interface CercaProntaInfo {
   paragraphs: string[];
   postSpacing: string;
   lengths: string[];
+  heights?: string[];
   animals: string[];
   heroSlide: CercaHeroSlide;
   hero: CercaImageHero;
@@ -279,6 +280,7 @@ export interface CercaShowcaseOption {
   heightLabel?: string;
   meshOutline?: { x: number; y: number; width: number; height: number; shape?: "hexagon" | "diamond" };
   detailImage?: string;
+  detailImageScale?: number;
   knotTarget?: { x: number; y: number };
   detailTargetOutline?: { width: number; height: number };
   detailCanvas?: "mesh";
@@ -414,6 +416,182 @@ export const accessoriesCards: ProductCardData[] = [
 
 const cercasProntas: CercaProntaInfo[] = [
   {
+    "slug": "campeira-java",
+    "to": "/cercas-prontas/campeira-java",
+    "name": "Cerca Campeira Java Insul",
+    "title": "Cerca Pronta(rurais)",
+    "color": "#451d18",
+    "src": "/videos/videos-reels/campeira-java.mp4",
+    "paragraph": "Fio 2,50 mm, Nó em X (Stiff Stay), Malha 20x15 cm no topo e 10x15 cm na base",
+    "shortDescription": "Cercamentos rurais em geral, contenção de ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
+    "paragraphs": [
+      "A Campeira Java Insul é indicada para cercamentos rurais em geral, cercas para ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
+      "Com fio de 2,50 mm e nó em X (Stiff Stay), possui malha de 20 × 15 cm no topo e de 10 × 15 cm na base. As alturas disponíveis são 1,20 m, 1,40 m, 1,80 m e 2,00 m, em rolos de 50 e 100 m. O distanciamento entre mourões é de 8 a 10 m."
+],
+    "postSpacing": "8-8 até 10-10m",
+    "lengths": ["50m", "100m"],
+    "heights": ["1,20 m", "1,40 m", "1,80 m", "2,00 m"],
+    "animals": [
+      "Bovino",
+      "Capivara",
+      "Cães",
+      "Caprino",
+      "Avestruz",
+      "Ovinos",
+      "Suínos",
+      "Javaporco",
+      "Galinha",
+      "Ganso"
+    ],
+    "galleryIntro": {
+      "badge": "Seu campo bem cercado, na prática",
+      "text": "Conheça as diferentes aplicações da Campeira Java e veja como ela ajuda a proteger sua propriedade, trazendo mais segurança e tranquilidade para o dia a dia no campo."
+    },
+    "hero": {
+      "title": "",
+      "description": "",
+      "background": "/images/hero-telas/hero-java/hero-campeiraJava.png",
+      "backgroundImageClassName": "object-cover",
+      "sectionClassName": "aspect-video",
+      "blurTop": "85%",
+      "layers": [
+        {
+          "src": "/images/hero-telas/hero-java/tela-aberta-java.png",
+          "alt": "Cerca Campeira Java aberta",
+          "animated": true,
+          "className": "z-20",
+          "imageClassName": "object-cover object-bottom-left"
+        }
+      ]
+    },
+    "heroSlide": {
+      "src": "/images/hero-telas/hero-java/hero-campeiraJava.png",
+      "hotspot": {
+        "x": 45,
+        "y": 50,
+        "title": "Cerca Campeira Java Insul",
+        "description": "Conheça os detalhes e as aplicações da Campeira Java."
+      }
+    },
+    "showcase": {
+      "title": "Conheça a Campeira Java.",
+      "description": "Explore as aplicações e os detalhes desta cerca pronta Insul.",
+      "options": [
+        {
+          "title": "Indicação",
+          "description": "Cercamentos rurais em geral, cerca para ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
+          "image": "/images/imagens-teste/java/tela-indicacao-campeiraJava.png",
+          "background": "/images/imagens-teste/java/img-terreno-indicado-java.png",
+          "kind": "indication",
+          "hotspots": [
+            {
+              "title": "Malha superior",
+              "description": "Malha de 20 × 15 cm na parte superior da Campeira Java.",
+              "x": 37.8,
+              "y": 26.3,
+              "targetX": 46.0,
+              "targetY": 26.3
+            },
+            {
+              "title": "Malha inferior",
+              "description": "Malha de 10 × 15 cm na base da Campeira Java.",
+              "x": 38.3,
+              "y": 57.4,
+              "targetX": 46.5,
+              "targetY": 57.4
+            }
+          ]
+        },
+        {
+          "title": "Malha superior",
+          "description": "Malha de 20 × 15 cm na parte superior da Campeira Java.",
+          "image": "/images/imagens-teste/java/malha-superior.png",
+          "kind": "upperMesh",
+          "widthLabel": "15 cm",
+          "heightLabel": "20 cm",
+          "meshOutline": { "x": 37.05, "y": 46.65, "width": 14.6, "height": 25.7 }
+        },
+        {
+          "title": "Malha inferior",
+          "description": "Malha de 10 × 15 cm na base da Campeira Java.",
+          "image": "/images/imagens-teste/java/malha-inferior.png",
+          "kind": "lowerMesh",
+          "widthLabel": "15 cm",
+          "heightLabel": "10 cm",
+          "meshOutline": { "x": 36.1, "y": 44.85, "width": 14.6, "height": 12.4 }
+        },
+        {
+          "title": "Nó em X",
+          "description": "Conheça o detalhe da união dos fios.",
+          "image": "/images/imagens-teste/java/img-no-X-java.png",
+          "background": "/images/imagens-teste/java/img-no-X-java.png",
+          "detailImage": "/images/imagens-teste/java/no-em-x-detalhe.png",
+          "detailImageScale": 1.65,
+          "kind": "knot",
+          "knotTarget": {
+            "x": 50.2,
+            "y": 74.2
+          }
+        }
+      ]
+    },
+    "gallery": [
+      {
+        "src": "/images/imgs-gallery/Java/CDC Aplicação Java 01.png",
+        "alt": "Aplicação da Cerca Campeira Java — 1"
+      },
+      {
+        "src": "/images/imgs-gallery/Java/CDC Aplicação Java 02.png",
+        "alt": "Aplicação da Cerca Campeira Java — 2"
+      },
+      {
+        "src": "/images/imgs-gallery/Java/CDC Aplicação Java 03.png",
+        "alt": "Aplicação da Cerca Campeira Java — 3"
+      },
+      {
+        "src": "/images/imgs-gallery/Java/WhatsApp Image 2026-08-25 at 10.15.34.jpeg",
+        "alt": "Aplicação da Cerca Campeira Java — 4"
+      },
+      {
+        "src": "/images/imgs-gallery/Java/WhatsApp Image 2026-08-25 at 10.15.35.jpeg",
+        "alt": "Aplicação da Cerca Campeira Java — 5"
+      }
+    ],
+    "videoCards": [
+      {
+        "src": "/videos/videos-javaporco/video-reel-javaporco-1.mp4",
+        "category": "Campeira Java",
+        "title": "Campeira Java — Vídeo 1",
+        "description": ""
+      },
+      {
+        "src": "/videos/videos-javaporco/video-reel-javaporco-2.mp4",
+        "category": "Campeira Java",
+        "title": "Campeira Java — Vídeo 2",
+        "description": ""
+      },
+      {
+        "src": "/videos/videos-javaporco/video-reel-javaporco-3.mp4",
+        "category": "Campeira Java",
+        "title": "Campeira Java — Vídeo 3",
+        "description": ""
+      },
+      {
+        "src": "/videos/videos-javaporco/video-reel-javaporco-4.mp4",
+        "category": "Campeira Java",
+        "title": "Campeira Java — Vídeo 4",
+        "description": ""
+      },
+      {
+        "src": "/videos/videos-javaporco/video-reel-javaporco-5.mp4",
+        "category": "Campeira Java",
+        "title": "Campeira Java — Vídeo 5",
+        "description": ""
+      }
+    ],
+    "video3D": "/videos/videos-javaporco/video-3d-java.mp4"
+  }, //Java
+  {
     slug: "fenix",
     galleryIntro: {
       badge: "Uma nova forma de cercar sua propriedade.",
@@ -427,7 +605,7 @@ const cercasProntas: CercaProntaInfo[] = [
         {
           title: "Indicação",
           description:
-            "Segurança para residências, áreas rurais, empresas e espaços esportivos.",
+            "Cercamentos definitivos para casa e campo, resistência a animais de todos os portes e grandes obras em substituição aos alambrados tradicionais.",
           image: fenixIndication.src,
           background: fenixIndicationBackground.src,
           kind: "indication",
@@ -497,10 +675,10 @@ const cercasProntas: CercaProntaInfo[] = [
         {
           title: "Comprimento",
           description:
-            "Disponível em rolos de 25 e 50 metros, com espaçamento entre mourões de 5 a 6 metros.",
+            "Disponível em rolos de 25 e 50 metros, com espaçamento entre mourões de 8 a 10 metros.",
           image: fenixFenceLength.src,
           kind: "length",
-          bandText: "espaçamento entre mourões 5 - 6m",
+          bandText: "espaçamento entre mourões 8 - 10m",
           lengthImageRatio: `${fenixFenceLength.width} / ${fenixFenceLength.height}`,
           lengthImageOffset: 0,
         },
@@ -542,7 +720,7 @@ const cercasProntas: CercaProntaInfo[] = [
     color: "#b2020d",
     src: "/images/CercasProntas/Campeira_fenix.png",
     paragraph:
-      "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+      "Fio 2,50 mm, Aço galvanizado a fogo, Malha 10x20 cm no topo e 10x10 cm na base, Nó em X (stiff stay)",
     shortDescription:
       "Tela de simples torção em aço de alto carbono, com instalação até 6x mais rápida e até 50% menos mourões. Segurança e durabilidade para qualquer propriedade.",
     paragraphs: [
@@ -551,8 +729,9 @@ const cercasProntas: CercaProntaInfo[] = [
       "A Tela Alambrada Fênix Insul é indicada para o cercamento de residências, condomínios, empresas, indústrias, escolas, quadras esportivas, chácaras, sítios, áreas públicas e demais propriedades que necessitem de uma solução prática, segura e de alto desempenho.",
       "Aliando tecnologia, resistência e excelente custo-benefício, a Tela Alambrada Fênix Insul oferece ampla visibilidade, baixa necessidade de manutenção e alta durabilidade, tornando-se uma escolha inteligente para projetos que buscam rapidez na instalação, economia e qualidade em um único sistema de cercamento.",
     ],
-    postSpacing: "5 - 6m",
+    postSpacing: "8-8 até 10-10m",
     lengths: ["25m", "50m"],
+    heights: ["1,00 m", "1,20 m", "1,40 m", "1,80 m"],
     animals: [
       "Bovino",
       "Capivara",
@@ -667,8 +846,7 @@ const cercasProntas: CercaProntaInfo[] = [
       options: [
         {
           title: "Indicação",
-          description:
-            "Proteção para animais, pastagens e propriedades rurais.",
+          description: "Cercamentos rurais em geral, ovinos, caprinos, cães, bovinos e javaporcos, fechamento de chácaras e fazendas e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
           image:
             "/images/imagens-teste/maxx/img-indicado.png",
           background:
@@ -760,7 +938,7 @@ const cercasProntas: CercaProntaInfo[] = [
     color: "#042c53",
     src: "/videos/videos-reels/campeira-maxx.mp4",
     paragraph:
-      "Fio 2,50 mm, Aço galvanizado a fogo, Malha bifásica, Nó em X (stiff stay)",
+      "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x22 cm no topo e 10x22 cm na base, Nó em X (stiff stay)",
     shortDescription:
       "Nó em X exclusivo da Insul, feito para conter bovinos e equinos e proteger a lavoura contra grandes animais. Ruptura de até 700 kgf e 5 anos de garantia.",
     paragraphs: [
@@ -769,8 +947,9 @@ const cercasProntas: CercaProntaInfo[] = [
       "A Campeira Maxx também se destaca pela sua praticidade na instalação. A cerca vem pronta para uso, o que facilita o processo de instalação e economiza tempo e mão de obra. Esta praticidade, combinada com a alta durabilidade do produto, resulta em uma solução de cercamento que exige menor manutenção ao longo do tempo, proporcionando economia a longo prazo. Outro grande diferencial da Campeira Maxx é a garantia de 5 anos que a Insul oferece, refletindo a confiança na qualidade e na durabilidade do produto. Além disso, a harmonia estética da cerca é um ponto importante, pois, além de funcional, ela se integra perfeitamente ao ambiente, conferindo uma aparência organizada e profissional à propriedade.",
       "Para varejistas e revendedores, a cerca pronta Campeira Maxx Insul representa uma oportunidade única de agregar valor ao seu mix de produtos. Sua exclusividade e diferenciais de qualidade aumentam o potencial de vendas e fortalecem a reputação da loja como fornecedora de produtos de alta qualidade e também de oferecer uma alternativa mais moderna, prática e resistente à cerca de confecção manual de arame ovalado. A alta demanda por cercas resistentes e duradouras, aliada à exclusividade da tecnologia de nó em X e toda qualidade oferecida pela cerca pronta Campeira Maxx Insul, garante um alto potencial de vendas e fidelização de clientes. Com um produto tão completo, a satisfação do cliente é garantida, reduzindo reclamações, aumentando a fidelização e seus lucros. Escolha a cerca pronta Campeira Maxx Insul e descubra como uma cerca pode fazer a diferença em sua propriedade, unindo inovação, qualidade e praticidade em um só produto.",
     ],
-    postSpacing: "6 - 8m",
+    postSpacing: "8-8 até 10-10m",
     lengths: ["50m", "100m"],
+    heights: ["0,80 m", "1,20 m", "1,40 m", "1,80 m"],
     animals: [
       "Bovino",
       "Capivara",
@@ -881,8 +1060,7 @@ const cercasProntas: CercaProntaInfo[] = [
       options: [
         {
           title: "Indicação",
-          description:
-            "Cerca indicada para conter animais de médio porte, como ovinos, caprinos e suínos.",
+          description: "Cerca para criação de ovinos, bovinos e suínos, proteção de lavouras e fechamento de chácaras e fazendas.",
           image: campeiraIndication.src,
           background: campeiraIndicationBackground.src,
           kind: "indication",
@@ -963,8 +1141,7 @@ const cercasProntas: CercaProntaInfo[] = [
     title: "Cerca Pronta(rurais)",
     color: "#ff711b",
     src: "/images/CercasProntas/Campeira.png",
-    paragraph:
-      "Fio 2,30 mm, Aço galvanizado a fogo, Malha bifásica, Nó tradicional",
+    paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x30 cm no topo e 10x30 cm na base, Nó tradicional",
     shortDescription:
       "Modelo tradicional e consagrado da Insul, ideal para contenção de ovinos, caprinos e suínos. Fio galvanizado a fogo com 5 anos de garantia.",
     paragraphs: [
@@ -974,8 +1151,9 @@ const cercasProntas: CercaProntaInfo[] = [
       "Outro diferencial importante é a adaptação ao relevo do terreno, permitindo que a cerca se integre de forma contínua e eficaz, independentemente das variações topográficas. Essa característica garante uma contenção segura e estável, adaptada às necessidades específicas de cada propriedade. A harmonia estética é outro ponto de destaque da Campeira Insul. Além de funcional, a cerca confere uma aparência organizada e profissional à propriedade, valorizando o ambiente rural e demonstrando cuidado e atenção aos detalhes.",
       "Para lojistas e revendedores, incluir a cerca pronta Campeira Insul em seu mix de produtos é uma decisão estratégica que agrega valor ao portfólio. Ao oferecer um produto de alta qualidade, que é reconhecido e confiado pelos consumidores, você atrai um público exigente e fideliza clientes que buscam soluções duradouras e eficientes. Com a crescente demanda por cercas prontas, a Campeira Insul garante um alto potencial de vendas e contribui para o fortalecimento da reputação do seu estabelecimento.",
     ],
-    postSpacing: "6 - 8m",
+    postSpacing: "8-8 até 10-10m",
     lengths: ["50m", "100m"],
+    heights: ["0,80 m", "1,20 m", "1,40 m"],
     animals: ["Bovino", "Cães", "Caprino", "Suínos", "Ovinos"],
     heroSlide: {
       src: "/images/hero-telas/hero-campeira/hero-campeira.png",
@@ -1046,8 +1224,7 @@ const cercasProntas: CercaProntaInfo[] = [
       options: [
         {
           title: "Indicação",
-          description:
-            "Cerca indicada para conter animais de médio e grande porte, como bovinos e equinos.",
+          description: "Cercamentos rurais, chácaras e fazendas, cercas para ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
           image: campeiraBoiIndication.src,
           background: campeiraBoiIndicationBackground.src,
           kind: "indication",
@@ -1109,8 +1286,7 @@ const cercasProntas: CercaProntaInfo[] = [
     title: "Cerca Pronta(rurais)",
     color: "#959e24",
     src: "/images/CercasProntas/Campeira_boi.png",
-    paragraph:
-      "Fio 2,50 mm, Aço galvanizado a fogo, Malha 30 cm x 20 cm, Nó em X (stiff stay)",
+    paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 20x30 cm, Nó em X (stiff stay)",
     shortDescription:
       "Nó em X exclusivo e malha 30x20cm para contenção de bovinos e animais de grande porte, com ruptura de até 700 kgf mesmo em terrenos irregulares.",
     paragraphs: [
@@ -1120,9 +1296,10 @@ const cercasProntas: CercaProntaInfo[] = [
       "Para varejistas e revendedores, a inclusão da cerca pronta Campeira Boi Insul no mix de produtos representa uma excelente oportunidade de negócio. Este produto exclusivo e de alta qualidade atrai um público qualificado, composto por proprietários rurais que buscam soluções robustas e duráveis. Ao disponibilizar a Campeira Boi em sua loja, você não apenas oferece um produto diferenciado que atende às necessidades do mercado, mas também oferece uma alternativa mais moderna, prática e resistente à cerca de confecção manual de arame ovalado, além de fortalece a reputação do seu estabelecimento como um fornecedor de itens de primeira linha. A alta demanda por cercas resistentes e duradouras, aliada à exclusividade da tecnologia de nó em X e toda qualidade oferecida pela cerca pronta Campeira Boi Insul, garante um alto potencial de vendas e fidelização de clientes.",
       "A Insul oferece uma garantia de 5 anos para a Campeira Boi, refletindo nossa confiança na qualidade e na durabilidade deste produto. Além de sua funcionalidade superior, a cerca também se integra de maneira harmoniosa ao ambiente, proporcionando uma estética organizada e profissional para sua propriedade. A cerca pronta Campeira Boi Insul é, portanto, a escolha ideal para quem precisa de uma solução de cercamento confiável, resistente e duradoura, que ofereça segurança tanto para os animais quanto para a propriedade. Com a combinação única de inovação, qualidade e praticidade, a Campeira Boi Insul é um investimento seguro e eficaz para o seu negócio.",
     ],
-    postSpacing: "6 - 8m",
+    postSpacing: "7-7 até 10-10m",
     lengths: ["50m", "100m"],
-    animals: ["Bovino"],
+    heights: ["1,20 m"],
+    animals: ["Ovinos", "Caprino", "Cães", "Bovino", "Javaporco"],
     heroSlide: {
       src: "/images/hero-telas/hero-boi/hero-campeiraBoi.webp",
       hotspot: {
@@ -1227,6 +1404,7 @@ export interface SoldadaHexagonalInfo {
   paragraph: string;
   postSpacing: string;
   heights?: string[];
+  lengths?: string[];
   indicatedFor: SoldadaIndicatedUse[];
   shortDescription: string;
   description: string;
@@ -3350,9 +3528,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     },
     src: "/images/tela-torcao-simples/torcao-card/galvanizado.png",
-    paragraph:
-      'Fio 2,10 mm, Aço galvanizado a fogo, Malha em losango 3"(7,6cm)',
-    postSpacing: "até 4m",
+    paragraph: "Fio 2,76 mm, Aço galvanizado a fogo, Malha em losango 7,6x7,6 cm",
+    postSpacing: "3-3m",
+    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["20m"],
     indicatedFor: [
       {
         name: "Quadras, escolas, indústrias e estacionamentos",
@@ -3370,7 +3549,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples galvanizada da Insul: resistente, versátil e ideal para cercamentos em áreas residenciais, comerciais, industriais e rurais. Produzida com arame galvanizado, oferece proteção contra corrosão, boa durabilidade e fácil instalação, garantindo segurança sem perder a visibilidade do ambiente.",
     description:
-      "A tela Simples Torção Insul é a solução perfeita para quem busca versatilidade, durabilidade e excelente acabamento em cercamentos. Produzida com fios de aço galvanizado de alta qualidade Gerdau e disponível em diferentes espessuras (de 1,65 mm a 3,40 mm), essa tela se destaca por sua robustez e adaptação a diversas necessidades.\n\nCom alturas de até 4 metros e opções de malha que variam de 1.1/2” a 3”, ela é ideal para aplicações que vão desde cercamentos de quadras esportivas e rodovias até fechamentos industriais, aeroportos e zoneamentos urbanos.\n\nA tecnologia de simples torção aplicada na fabricação da Tela Simples Torção Insul garante máxima resistência e flexibilidade, permitindo perfeita adaptação aos mais variados relevos do terreno. Produzida no Brasil com o rigor técnico da Insul, cada rolo de 25 metros oferece um produto de alta performance, projetado para proporcionar segurança e durabilidade com garantia de 5 anos. Essa tela é a escolha confiável para espaços que exigem qualidade superior e proteção duradoura.\n\nPara revendedores e varejistas: A tela Simples Torção Insul é uma oportunidade estratégica de oferecer um produto indispensável para uma ampla gama de projetos. Sua versatilidade, aliada à qualidade reconhecida da marca Insul, atende às necessidades de diferentes mercados e consumidores, agregando valor ao mix de produtos e impulsionando as vendas com um item que alia excelência técnica e confiabilidade.",
+      "A tela Simples Torção Insul é a solução perfeita para quem busca versatilidade, durabilidade e excelente acabamento em cercamentos. Produzida com fios de aço galvanizado de alta qualidade Gerdau e disponível em diferentes espessuras (de 1,65 mm a 3,40 mm), essa tela se destaca por sua robustez e adaptação a diversas necessidades.\n\nCom alturas de até 4 metros e opções de malha que variam de 1.1/2” a 3”, ela é ideal para aplicações que vão desde cercamentos de quadras esportivas e rodovias até fechamentos industriais, aeroportos e zoneamentos urbanos.\n\nA tecnologia de simples torção aplicada na fabricação da Tela Simples Torção Insul garante máxima resistência e flexibilidade, permitindo perfeita adaptação aos mais variados relevos do terreno. Produzida no Brasil com o rigor técnico da Insul, cada rolo de 20 metros oferece um produto de alta performance, projetado para proporcionar segurança e durabilidade com garantia de 5 anos. Essa tela é a escolha confiável para espaços que exigem qualidade superior e proteção duradoura.\n\nPara revendedores e varejistas: A tela Simples Torção Insul é uma oportunidade estratégica de oferecer um produto indispensável para uma ampla gama de projetos. Sua versatilidade, aliada à qualidade reconhecida da marca Insul, atende às necessidades de diferentes mercados e consumidores, agregando valor ao mix de produtos e impulsionando as vendas com um item que alia excelência técnica e confiabilidade.",
     gallery: [
       {
         src: "/images/imgs-gallery/torcao/img-gallery-torcao1.jpg",
@@ -3487,9 +3666,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     showcase: torcaoPvcShowcase,
     src: "/images/tela-torcao-simples/torcao-card/pvc-verde.png",
-    paragraph:
-      'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
-    postSpacing: "até 4m",
+    paragraph: "Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 7,6x7,6 cm",
+    postSpacing: "3-3m",
+    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["20m"],
     indicatedFor: [
       {
         name: "Cercamento em áreas verdes e litorâneas",
@@ -3507,7 +3687,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples PVC verde da Insul: prática, resistente e com acabamento discreto para cercamentos residenciais, comerciais, industriais e rurais. Seu revestimento em PVC verde ajuda a proteger contra corrosão, aumenta a durabilidade e combina melhor com áreas externas, jardins e espaços arborizados.",
     description:
-      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 25 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
+      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 20 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
     gallery: [
       {
         src: "/images/imgs-gallery/torcao-pvc/img-gallery-pvcverde1.jpg",
@@ -3601,9 +3781,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     showcase: torcaoPvcShowcase,
     src: "/images/tela-torcao-simples/torcao-card/pvc-azul.png",
-    paragraph:
-      'Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 3"(7,6cm)',
-    postSpacing: "até 4m",
+    paragraph: "Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 7,6x7,6 cm",
+    postSpacing: "3-3m",
+    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["20m"],
     indicatedFor: [
       {
         name: "Cercamento em áreas verdes e litorâneas",
@@ -3621,7 +3802,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "Tela torção simples PVC azul da Insul: resistente, durável e com acabamento diferenciado para cercamentos residenciais, comerciais, industriais e esportivos. O revestimento em PVC azul ajuda a proteger contra corrosão, aumenta a vida útil da tela e traz um visual mais moderno e personalizado ao ambiente.",
     description:
-      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 25 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
+      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 20 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
     gallery: [
       {
         src: "/images/tela-torcao-simples/torção-PVC-azul.png",
@@ -4319,6 +4500,7 @@ const productCategories: ProductCategory[] = [
   {
     title: "Cercas Prontas",
     items: [
+      "Cerca Campeira Java",
       "Cerca Fenix",
       "Cerca Campeira Maxx",
       "Cerca Campeira",

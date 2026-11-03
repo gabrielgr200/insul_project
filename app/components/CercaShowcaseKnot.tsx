@@ -38,7 +38,7 @@ export default function CercaShowcaseKnot({ option }: { option: CercaShowcaseOpt
         <span style={{ left: `${target.x}%`, top: `${target.y}%` }} className="absolute size-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#0003]" />
       </div>
       <div className="absolute right-4 bottom-4 size-40 overflow-hidden rounded-full border-2 border-white bg-[#f5f5f5] shadow-xl dark:bg-[#191b1e] sm:size-52 lg:top-[18%] lg:right-auto lg:bottom-auto lg:left-[61%] lg:size-60">
-        {translateText(option.detailImage ? <Image src={option.detailImage} alt={translateText(`Detalhe ampliado: ${option.title}`)} fill quality={90} sizes="240px" className="object-contain" /> : (
+        {translateText(option.detailImage ? <Image src={option.detailImage} alt={translateText(`Detalhe ampliado: ${option.title}`)} fill quality={90} sizes="400px" className="object-cover" style={{ transform: `scale(${option.detailImageScale ?? 1})` }} /> : (
           <Image src={option.image} alt={translateText(`Detalhe ampliado: ${option.title}`)} width={4269} height={2400} quality={90} sizes="2400px" className="absolute max-w-none" style={{ width: "1000%", height: "auto", left: `${50 - target.x * 10}%`, top: `${50 - target.y * 10 * 2400 / 4269}%` }} />
         ))}
       </div>

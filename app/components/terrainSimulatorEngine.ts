@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import type { SimulatorSpec, SimulatorState, Application } from "./terrainSimulatorTypes";
+import { bimodalMeshLevels } from "./terrainSimulatorTypes";
 
 export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, initial: SimulatorState, onZoom: (zoom: number) => void) {
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -19,6 +20,7 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
   function disposeGroup(group: THREE.Group, materials=false) {
     group.traverse(object => { if(object instanceof THREE.Mesh || object instanceof THREE.LineSegments){object.geometry.dispose();if(materials){const ms=Array.isArray(object.material)?object.material:[object.material];ms.forEach(m=>m.dispose());}} });
   }
+  const groundHeight = (x:number,z:number) => state.application === "relief" ? .07*x+.04*z : 0;
   function buildFence() {
     root.remove(fence); disposeGroup(fence); fence=new THREE.Group();root.add(fence);
     const {width:w,depth:d,height:h}=state;
@@ -26,13 +28,17 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
     const segments: [THREE.Vector3,THREE.Vector3][]=[];
     for(let side=0;side<4;side++){
       const [ax,az]=corners[side],[bx,bz]=corners[(side+1)%4],length=Math.hypot(bx-ax,bz-az);
-      const at=(x:number,y:number)=>new THREE.Vector3(ax+(bx-ax)*x/length,y,az+(bz-az)*x/length);
-      for(let x=0;x<length-.001;x+=spec.spacing){const post=new THREE.Mesh(new THREE.BoxGeometry(.105,h+.2,.105),concrete);post.position.copy(at(x,(h+.2)/2));fence.add(post);}
+      const at=(x:number,y:number)=>{const point=new THREE.Vector3(ax+(bx-ax)*x/length,y,az+(bz-az)*x/length);point.y+=groundHeight(point.x,point.z);return point;};
+      for(let x=0;x<length-.001;x+=state.spacing){const post=new THREE.Mesh(new THREE.BoxGeometry(.105,h+.2,.105),concrete);post.position.copy(at(x,(h+.2)/2));fence.add(post);}
       if(spec.kind==="rect"){
-        for(let x=0;x<length;x+=spec.meshWidth)segments.push([at(x,.025),at(x,h)]);
-        segments.push([at(length,.025),at(length,h)]);
-        for(let y=.025;y<h;y+=spec.meshHeight)segments.push([at(0,y),at(length,y)]);
-        segments.push([at(0,h),at(length,h)]);
+        for(let x=0;x<length;x+=spec.meshWidth)segments.push([at(x,spec.boi?0:.025),at(x,h)]);
+        segments.push([at(length,spec.boi?0:.025),at(length,h)]);
+        if(spec.lowerMeshHeight){
+          for(const y of bimodalMeshLevels(spec,h))segments.push([at(0,y),at(length,y)]);
+        }else if(spec.boi){
+          for(let row=0;row<=Math.round(h/spec.meshHeight);row++){const y=Math.max(0,h-row*spec.meshHeight);segments.push([at(0,y),at(length,y)]);}
+        }else for(let y=.025;y<h;y+=spec.meshHeight)segments.push([at(0,y),at(length,y)]);
+        if(!spec.lowerMeshHeight&&!spec.boi)segments.push([at(0,h),at(length,h)]);
       }else if(spec.kind==="hex"){
         const cw=Math.max(.04,spec.meshWidth),ch=Math.max(.04,spec.meshHeight);
         for(let y=ch/2,row=0;y<h;y+=ch*.866,row++)for(let x=0;x<length;x+=cw*1.5){
@@ -58,6 +64,63 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
     function mesh(geometry:THREE.BufferGeometry,color:THREE.ColorRepresentation,x:number,y:number,z:number){const m=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color,roughness:.8}));m.position.set(x,y,z);scenery.add(m);return m;}
     const box=(w:number,h:number,d:number,c:number,x:number,y:number,z:number)=>mesh(new THREE.BoxGeometry(w,h,d),c,x,y,z);
     const ball=(r:number,c:number,x:number,y:number,z:number)=>mesh(new THREE.SphereGeometry(r,16,12),c,x,y,z);
+    if(type==="coast"){
+      mesh(new THREE.PlaneGeometry(60,60),0xdac799,0,-.025,0).rotation.x=-Math.PI/2;
+      box(60,.02,22,0x55aabd,0,-.005,-22);
+      for(const x of [-7,7]){
+        mesh(new THREE.CylinderGeometry(.10,.18,3.1,8),0x99734c,x,1.55,-3);
+        for(let i=0;i<6;i++){
+          const angle=i*Math.PI/3;
+          const leaf=ball(.32,0x527a3c,x+Math.cos(angle)*.65,3.0,-3+Math.sin(angle)*.65);
+          leaf.scale.set(3,.22,.9);leaf.rotation.y=-angle;
+        }
+      }
+    }
+    if(type==="relief"){
+      const geometry=new THREE.PlaneGeometry(60,60);
+      const positions=geometry.attributes.position;
+      for(let i=0;i<positions.count;i++)positions.setZ(i,.07*positions.getX(i)-.04*positions.getY(i)-.025);
+      geometry.computeVertexNormals();
+      mesh(geometry,0x889d60,0,0,0).rotation.x=-Math.PI/2;
+    }
+    if(type==="sport"){
+      box(4.5,.035,3.1,0x487a91,0,.02,0);
+      for(const z of [-1.4,1.4])box(4.2,.012,.035,0xffffff,0,.045,z);
+      for(const x of [-2.1,0,2.1])box(.035,.012,2.8,0xffffff,x,.045,0);
+      const circle=mesh(new THREE.TorusGeometry(.45,.012,6,40),0xffffff,0,.055,0);circle.rotation.x=-Math.PI/2;
+      for(const x of [-2.3,2.3]){
+        box(.055,1.8,.055,0xe5e8e9,x,.9,0);
+        box(.055,.48,.8,0xffffff,x,1.75,0);
+        const hoop=mesh(new THREE.TorusGeometry(.2,.025,8,20),0xff5500,x+(x<0?.2:-.2),1.6,0);hoop.rotation.x=-Math.PI/2;
+      }
+    }
+    function farmAnimal(kind: Application, offsetX=0,offsetZ=0) {
+      const isCattle=kind==="cattle",isSheep=kind==="sheep",isGoat=kind==="goat",isPig=kind==="pig";
+      const color=isPig?0xe1aaa1:isCattle?0x8f5c36:isSheep?0xe5dfcc:isGoat?0xb99c79:kind==="whiteLippedPeccary"?0x50483f:0x6b5540;
+      const size=isCattle?1.25:1;
+      const start=scenery.children.length;
+      ball(.4,color,0,.85,0).scale.set(1.7,1, .8);
+      ball(.25,color,.64,1.02,0).scale.set(1,1.2,.85);
+      ball(.16,kind==="whiteLippedPeccary"?0xd3c5b1:color,.84,.92,0).scale.set(1.4,.8,1);
+      for(const x of [-.4,.4])for(const z of [-.22,.22])box(.1,.6,.1,isSheep?0x544639:color,x,.3,z);
+      for(const z of [-.2,.2]){
+        ball(.08,0x27231f,.76,1.1,z);
+        const ear=ball(.10,color,.55,1.25,z);ear.scale.set(.6,1.2,.45);
+        if(isCattle||isGoat){const horn=mesh(new THREE.ConeGeometry(.055,.3,7),0xd9cfaa,.55,1.42,z);horn.rotation.z=.4;}
+      }
+      if(isPig){ball(.035,0x704f4e,1.03,.96,-.055);ball(.035,0x704f4e,1.03,.96,.055);}
+      if(isSheep)for(let i=0;i<8;i++)ball(.21,0xeee8d8,-.45+(i%4)*.28,1.02, i<4?-.20:.20);
+      for(const object of scenery.children.slice(start)){object.position.multiplyScalar(size);object.position.x+=offsetX;object.position.z+=offsetZ;object.scale.multiplyScalar(size);}
+    }
+    if(["sheep","goat","cattle","boar","peccary","whiteLippedPeccary","pig"].includes(type))farmAnimal(type);
+    if(type==="rural"){farmAnimal("sheep",-1,0);farmAnimal("cattle",1,-1);}
+    if(type==="crops"){
+      for(let x=-1.8;x<=1.8;x+=.6)for(let z=-1.4;z<=1.4;z+=.55){
+        mesh(new THREE.CylinderGeometry(.025,.035,.65,6),0x678944,x,.325,z);
+        const leaf=ball(.15,0x4d8039,x,.5,z);leaf.scale.set(1.8,.3,.7);leaf.rotation.z=.45;
+      }
+      farmAnimal("boar",2,1);
+    }
     if(type==="house"){
       box(3,1.8,2.4,0xf1dfbd,0,.9,0);const roof=mesh(new THREE.ConeGeometry(2.22,1.05,4),0xa94c32,0,2.32,0);roof.rotation.y=Math.PI/4;roof.scale.z=.8;
       box(.55,1.15,.035,0x755037,.55,.575,1.22);box(.65,.65,.04,0x91bfce,-.7,1.05,1.23);box(.7,.04,.08,0xffffff,-.7,1.05,1.27);box(.04,.7,.08,0xffffff,-.7,1.05,1.27);box(.35,.8,.35,0x947a64,.8,2.35,-.45);
@@ -80,9 +143,10 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
     }
   }
   function render(){renderer.render(scene,camera);}
-  function update(next: SimulatorState){const previous=state;state=next;if(previous.width!==next.width||previous.depth!==next.depth||previous.height!==next.height)buildFence();if(previous.application!==next.application)buildScenery(next.application);
+  function update(next: SimulatorState){const previous=state;state=next;if(previous.width!==next.width||previous.depth!==next.depth||previous.height!==next.height||previous.spacing!==next.spacing||(previous.application==="relief")!==(next.application==="relief"))buildFence();if(previous.application!==next.application)buildScenery(next.application);
     root.rotation.y=THREE.MathUtils.degToRad(next.rotation);root.scale.setScalar(next.zoom);
-    scenery.scale.setScalar(Math.max(.25,Math.min(1,(next.width-1)/4.8,(next.depth-1)/4)));
+    field.visible=next.application!=="relief"&&next.application!=="coast";
+    scenery.scale.setScalar((next.application==="relief"||next.application==="coast")?1:Math.max(.25,Math.min(1,(next.width-1)/4.8,(next.depth-1)/4)));
     const angle=THREE.MathUtils.degToRad(next.angle);camera.position.set(0,Math.sin(angle)*23,Math.cos(angle)*23);camera.lookAt(0,.5,0);render();
   }
   function resize(){if(!host.clientWidth||!host.clientHeight)return;renderer.setSize(host.clientWidth,host.clientHeight);camera.aspect=host.clientWidth/host.clientHeight;camera.updateProjectionMatrix();render();}
@@ -92,7 +156,7 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
   const down=(event:PointerEvent)=>{drag={x:event.clientX,y:event.clientY,px:root.position.x,py:root.position.y};canvas.setPointerCapture(event.pointerId);};
   const move=(event:PointerEvent)=>{if(!drag)return;const units=2*23*Math.tan(THREE.MathUtils.degToRad(19))/host.clientHeight;root.position.x=drag.px+(event.clientX-drag.x)*units;root.position.y=drag.py-(event.clientY-drag.y)*units;render();};
   const up=()=>{drag=null;};
-  const wheel=(event:WheelEvent)=>{event.preventDefault();onZoom(Math.max(.4,Math.min(1.8,state.zoom-event.deltaY*.001)));};
+  const wheel=(event:WheelEvent)=>{event.preventDefault();onZoom(Math.max(.4,Math.min(3,state.zoom-event.deltaY*.001)));};
   canvas.addEventListener("pointerdown",down);canvas.addEventListener("pointermove",move);canvas.addEventListener("pointerup",up);canvas.addEventListener("pointercancel",up);canvas.addEventListener("wheel",wheel,{passive:false});
   buildFence();buildScenery(state.application);update(state);resize();
   return {update,center(){root.position.set(0,0,0);render();},canvas,

@@ -26,8 +26,10 @@ export interface CercaProntaTranslation {
 
 export function localizeCerca(
   cerca: CercaProntaInfo,
-  tr: CercaProntaTranslation,
+  tr?: CercaProntaTranslation,
 ): CercaProntaInfo {
+  // Portuguese content comes directly from data.ts; only other locales override it.
+  if (!tr) return cerca;
   return {
     ...cerca,
     title: tr.title,

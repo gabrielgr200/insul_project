@@ -1159,10 +1159,37 @@ const es: Dictionary = {
   },
 
   cercasProntas: {
+    "campeira-java": {
+      "title": "Cerca prefabricada (rural)",
+      "paragraph": "Alambre de 2,50 mm, Nudo en X (Stiff Stay), Malla de 20x15 cm arriba y 10x15 cm en la base",
+      "shortDescription": "Cercamientos rurales, contención de ovinos, caprinos, perros y bovinos y protección de cultivos contra jabalíes, híbridos de jabalí y cerdo, pecaríes de collar y pecaríes de labios blancos.",
+      "paragraphs": [
+      "La Campeira Java Insul está indicada para cercamientos rurales, cercas para ovinos, caprinos, perros y bovinos y protección de cultivos contra jabalíes, híbridos de jabalí y cerdo, pecaríes de collar y pecaríes de labios blancos.",
+      "Con alambre de 2,50 mm y nudo en X (Stiff Stay), tiene malla de 20 × 15 cm arriba y 10 × 15 cm en la base. Las alturas disponibles son 1,20 m, 1,40 m, 1,80 m y 2,00 m, en rollos de 50 y 100 m. La distancia entre postes es de 8 a 10 m."
+],
+      "animals": [
+      "Bovinos",
+      "Carpinchos",
+      "Perros",
+      "Caprinos",
+      "Avestruces",
+      "Ovinos",
+      "Cerdos",
+      "Jabalíes",
+      "Gallinas",
+      "Gansos"
+],
+      "hotspot": {
+            "title": "Cerca Campeira Java Insul",
+            "description": "Conozca los detalles y las aplicaciones de Campeira Java."
+      },
+      "features": [],
+      "videoCards": [],
+      "gallery": []
+},
     fenix: {
       title: "Cerca Prefabricada (rural)",
-      paragraph:
-        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla bifásica, Nudo en X (stiff stay)",
+      paragraph: "Alambre de 2,50 mm, Acero galvanizado en caliente, Malla de 10x20 cm arriba y 10x10 cm en la base, Nudo en X (stiff stay)",
       shortDescription:
         "Malla de simple torsión en acero de alto carbono, con instalación hasta 6 veces más rápida y hasta un 50% menos de postes. Seguridad y durabilidad para cualquier propiedad.",
       paragraphs: [
@@ -1256,8 +1283,7 @@ const es: Dictionary = {
     },
     "campeira-maxx": {
       title: "Cerca Prefabricada (rural)",
-      paragraph:
-        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla bifásica, Nudo en X (stiff stay)",
+      paragraph: "Alambre de 2,50 mm, Acero galvanizado en caliente, Malla de 20x22 cm arriba y 10x22 cm en la base, Nudo en X (stiff stay)",
       shortDescription:
         "Nudo en X exclusivo de Insul, hecho para contener bovinos y equinos y proteger los cultivos contra animales grandes. Ruptura de hasta 700 kgf y 5 años de garantía.",
       paragraphs: [
@@ -1375,8 +1401,7 @@ const es: Dictionary = {
     },
     campeira: {
       title: "Cerca Prefabricada (rural)",
-      paragraph:
-        "Alambre 2,30 mm, Acero galvanizado en caliente, Malla bifásica, Nudo tradicional",
+      paragraph: "Alambre de 2,50 mm, Acero galvanizado en caliente, Malla de 20x30 cm arriba y 10x30 cm en la base, Nudo tradicional",
       shortDescription:
         "Modelo tradicional y consagrado de Insul, ideal para la contención de ovinos, caprinos y cerdos. Alambre galvanizado en caliente con 5 años de garantía.",
       paragraphs: [
@@ -1460,8 +1485,7 @@ const es: Dictionary = {
     },
     "campeira-boi": {
       title: "Cerca Prefabricada (rural)",
-      paragraph:
-        "Alambre 2,50 mm, Acero galvanizado en caliente, Malla 30 cm x 20 cm, Nudo en X (stiff stay)",
+      paragraph: "Alambre de 2,50 mm, Acero galvanizado en caliente, Malla de 20x30 cm, Nudo en X (stiff stay)",
       shortDescription:
         "Nudo en X exclusivo y malla de 30x20 cm para la contención de bovinos y animales de gran porte, con ruptura de hasta 700 kgf incluso en terrenos irregulares.",
       paragraphs: [

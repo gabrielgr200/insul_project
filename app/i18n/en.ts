@@ -1145,10 +1145,37 @@ const en: Dictionary = {
   },
 
   cercasProntas: {
+    "campeira-java": {
+      "title": "Ready-made Fence (rural)",
+      "paragraph": "2.50 mm wire, X knot (Stiff Stay), 20x15 cm mesh at the top and 10x15 cm at the base",
+      "shortDescription": "General rural fencing, enclosures for sheep, goats, dogs and cattle, and crop protection against wild boars, wild pig hybrids, collared peccaries and white-lipped peccaries.",
+      "paragraphs": [
+      "Campeira Java Insul is intended for general rural fencing, enclosures for sheep, goats, dogs and cattle, and crop protection against wild boars, wild pig hybrids, collared peccaries and white-lipped peccaries.",
+      "With 2.50 mm wire and X knots (Stiff Stay), it has 20 × 15 cm mesh at the top and 10 × 15 cm at the base. Available heights are 1.20 m, 1.40 m, 1.80 m and 2.00 m, in 50 and 100 m rolls. Post spacing is 8 to 10 m."
+],
+      "animals": [
+      "Cattle",
+      "Capybaras",
+      "Dogs",
+      "Goats",
+      "Ostriches",
+      "Sheep",
+      "Pigs",
+      "Wild boars",
+      "Chickens",
+      "Geese"
+],
+      "hotspot": {
+            "title": "Cerca Campeira Java Insul",
+            "description": "Explore the details and applications of Campeira Java."
+      },
+      "features": [],
+      "videoCards": [],
+      "gallery": []
+},
     fenix: {
       title: "Ready-made Fence (rural)",
-      paragraph:
-        "2.50 mm wire, Hot-dip galvanized steel, Two-stage mesh, X-Knot (stiff stay)",
+      paragraph: "2.50 mm wire, Hot-dip galvanized steel, 10x20 cm mesh at the top and 10x10 cm at the base, X knot (stiff stay)",
       shortDescription:
         "Single-twist mesh in high-carbon steel, with installation up to 6x faster and up to 50% fewer posts. Security and durability for any property.",
       paragraphs: [
@@ -1242,8 +1269,7 @@ const en: Dictionary = {
     },
     "campeira-maxx": {
       title: "Ready-made Fence (rural)",
-      paragraph:
-        "2.50 mm wire, Hot-dip galvanized steel, Two-stage mesh, X-Knot (stiff stay)",
+      paragraph: "2.50 mm wire, Hot-dip galvanized steel, 20x22 cm mesh at the top and 10x22 cm at the base, X knot (stiff stay)",
       shortDescription:
         "Insul's exclusive X-Knot, built to contain cattle and horses and protect crops from large animals. Breaking load of up to 700 kgf and a 5-year warranty.",
       paragraphs: [
@@ -1361,8 +1387,7 @@ const en: Dictionary = {
     },
     campeira: {
       title: "Ready-made Fence (rural)",
-      paragraph:
-        "2.30 mm wire, Hot-dip galvanized steel, Two-stage mesh, Traditional knot",
+      paragraph: "2.50 mm wire, Hot-dip galvanized steel, 20x30 cm mesh at the top and 10x30 cm at the base, Traditional knot",
       shortDescription:
         "Insul's traditional, time-tested model, ideal for containing sheep, goats and pigs. Hot-dip galvanized wire with a 5-year warranty.",
       paragraphs: [
@@ -1446,8 +1471,7 @@ const en: Dictionary = {
     },
     "campeira-boi": {
       title: "Ready-made Fence (rural)",
-      paragraph:
-        "2.50 mm wire, Hot-dip galvanized steel, 30 cm x 20 cm mesh, X-Knot (stiff stay)",
+      paragraph: "2.50 mm wire, Hot-dip galvanized steel, 20x30 cm mesh, X knot (stiff stay)",
       shortDescription:
         "Exclusive X-Knot and 30x20cm mesh for containing cattle and large animals, with a breaking load of up to 700 kgf even on uneven terrain.",
       paragraphs: [
