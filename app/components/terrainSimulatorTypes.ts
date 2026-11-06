@@ -16,6 +16,19 @@ export interface SimulatorSpec {
   color: string;
   gradil: boolean;
   morada: boolean;
+  moradaOpen: boolean;
+  moradaLeve: boolean;
+  multyUso: boolean;
+  multyMaxx: boolean;
+  brava: boolean;
+  bravaLeve: boolean;
+  mangueirao16: boolean;
+  mangueirao18: boolean;
+  galinheiro: boolean;
+  g4: boolean;
+  g5: boolean;
+  g12: boolean;
+  titan: boolean;
   java: boolean;
   fenix: boolean;
   maxx: boolean;
@@ -27,8 +40,9 @@ export interface SimulatorSpec {
   lowerMeshLimit?: number;
   summary: string;
 }
-export type Application = "terrain" | "house" | "company" | "park" | "dog" | "rural" | "sheep" | "goat" | "cattle" | "boar" | "peccary" | "whiteLippedPeccary" | "crops" | "pig" | "relief" | "sport" | "coast";
+export type Application = "terrain" | "house" | "company" | "park" | "dog" | "rural" | "sheep" | "goat" | "cattle" | "boar" | "peccary" | "whiteLippedPeccary" | "crops" | "pig" | "relief" | "sport" | "coast" | "metalwork" | "eps" | "garden" | "rabbit" | "cat" | "chicken" | "bird" | "padel" | "construction" | "cistern" | "machinery";
 export interface SimulatorState {
+  color?: string;
   width: number; depth: number; height: number; rotation: number;
   angle: number; zoom: number; application: Application; spacing: number;
 }
@@ -49,6 +63,19 @@ export function bimodalMeshLevels(spec: SimulatorSpec, height: number): number[]
 export function simulatorSpec(product: SimulatorProduct, meshWidth?: string, meshHeight?: string): SimulatorSpec {
   const raw = product.paragraph ?? "";
   const name = product.name;
+  const titan = product.slug === "tela-titan";
+  const g12 = product.slug === "g12";
+  const g5 = product.slug === "g5";
+  const g4 = product.slug === "g4";
+  const galinheiro = product.slug === "tela-galinheiro-18";
+  const mangueirao18 = product.slug === "tela-mangueirao-18";
+  const mangueirao16 = product.slug === "tela-mangueirao-16";
+  const bravaLeve = product.slug === "tela-brava-leve";
+  const brava = product.slug === "tela-brava";
+  const multyMaxx = product.slug === "tela-multymax";
+  const multyUso = product.slug === "tela-multi-uso";
+  const moradaLeve = product.slug === "tela-morada-leve";
+  const moradaOpen = product.slug === "tela-morada-open";
   const morada = product.slug === "tela-morada";
   const java = product.slug === "campeira-java";
   const fenix = product.slug === "fenix";
@@ -65,16 +92,16 @@ export function simulatorSpec(product: SimulatorProduct, meshWidth?: string, mes
   const spacing = product.postSpacing?.match(/[\d]+(?:[.,]\d+)?/);
   const heights = (product.heights ?? []).map(number).filter(h => h > 0 && h <= 6);
   return {
-    name, morada, java, fenix, maxx, boi, campeira, torcao, torcaoPvc,
+    name, morada, moradaOpen, moradaLeve, multyUso, multyMaxx, brava, bravaLeve, mangueirao16, mangueirao18, galinheiro, g4, g5, g12, titan, java, fenix, maxx, boi, campeira, torcao, torcaoPvc,
     lowerMeshHeight: java || fenix || maxx || campeira ? .10 : undefined,
     lowerMeshLimit: java ? .60 : undefined,
     kind: /hexagonal|mangueirão|galinheiro|pinteiro|viveiro/i.test(name+raw) ? "hex" : /torção/i.test(name) ? "diamond" : "rect",
-    meshWidth: torcao ? .076 : boi || campeira ? .30 : maxx ? .22 : fenix ? .10 : java ? .15 : morada ? .05 : cm(meshWidth) || (pair ? number(pair[1]) / 100 : single ? number(single[1]) / 100 : .10),
-    meshHeight: torcao ? .076 : java || fenix || maxx || boi || campeira ? .20 : morada ? .15 : cm(meshHeight) || (pair ? number(pair[2]) / 100 : single ? number(single[1]) / 100 : .15),
+    meshWidth: g12 ? .025 : g4 || g5 ? .05 : galinheiro ? .05 : mangueirao18 ? .076 : mangueirao16 ? .075 : bravaLeve ? .05 : multyMaxx ? .05 : multyUso ? .05 : moradaLeve ? .05 : moradaOpen ? .065 : titan ? .05 : brava ? .05 : torcao ? .076 : boi || campeira ? .30 : maxx ? .22 : fenix ? .10 : java ? .15 : morada ? .05 : cm(meshWidth) || (pair ? number(pair[1]) / 100 : single ? number(single[1]) / 100 : .10),
+    meshHeight: g4 || g5 || g12 ? .20 : galinheiro ? .05 : mangueirao18 ? .076 : mangueirao16 ? .075 : bravaLeve ? .05 : multyMaxx ? .05 : multyUso ? .05 : moradaLeve ? .10 : moradaOpen ? .15 : titan ? .15 : brava ? .10 : torcao ? .076 : java || fenix || maxx || boi || campeira ? .20 : morada ? .15 : cm(meshHeight) || (pair ? number(pair[2]) / 100 : single ? number(single[1]) / 100 : .15),
     wire: morada ? .0023 : wire ? number(wire[1]) / 1000 : .0025,
     spacing: morada ? 3 : spacing ? Math.max(.5, number(spacing[0])) : 2.5,
     heights: morada ? [1,1.2,1.5,1.8,2] : heights.length ? heights : [1,1.5,1.8,2],
-    color: /azul/i.test(name) ? "#22588a" : /pvc|gradil/i.test(name+raw) ? "#29563d" : "#b6c2c5",
+    color: g12 ? "#d5bd13" : /azul/i.test(name) ? "#22588a" : /pvc|gradil/i.test(name+raw) ? "#29563d" : "#b6c2c5",
     gradil: /gradil/i.test(name), summary: raw,
   };
 }

@@ -17,7 +17,6 @@ const avatarFiles: Record<string, string> = {
   "tela-viveiro-24": "viveiro.png",
   "tela-torcao-simples-galvanizada": "torção-galvanizado.png",
   "tela-torcao-simples-pvc-verde": "torção-pvc(verde).png",
-  "tela-torcao-simples-pvc-azul": "torção-pvc(azul).png",
   "campeira-java": "java.png",
   fenix: "fenix.png",
   "campeira-maxx": "maxx.png",
@@ -48,6 +47,7 @@ const avatarFiles: Record<string, string> = {
 };
 
 export function getProductAvatar(key: string): string {
+  if (key === "Poste ClipFence") return "/images/imgs_cards_acessorios/poste_u.png";
   const file = avatarFiles[key];
   return file ? `/images/img-produtos-avatar/${file}` : "/images/accessory-placeholder.svg";
 }

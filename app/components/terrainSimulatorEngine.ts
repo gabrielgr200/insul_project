@@ -41,9 +41,23 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
         if(!spec.lowerMeshHeight&&!spec.boi)segments.push([at(0,h),at(length,h)]);
       }else if(spec.kind==="hex"){
         const cw=Math.max(.04,spec.meshWidth),ch=Math.max(.04,spec.meshHeight);
+        if(spec.mangueirao16||spec.mangueirao18||spec.galinheiro){
+          const seen=new Set<string>();
+          for(let col=0;col*cw*.75<=length+cw;col++)for(let cy=(col%2?ch/2:0);cy<=h+ch/2;cy+=ch){
+            const cx=col*cw*.75;
+            const vertices=[[cx+cw/2,cy],[cx+cw/4,cy+ch/2],[cx-cw/4,cy+ch/2],[cx-cw/2,cy],[cx-cw/4,cy-ch/2],[cx+cw/4,cy-ch/2]];
+            for(let k=0;k<6;k++){
+              const [x1,y1]=vertices[k],[x2,y2]=vertices[(k+1)%6];
+              if(Math.min(x1,x2)<0||Math.max(x1,x2)>length||Math.min(y1,y2)<0||Math.max(y1,y2)>h)continue;
+              const key=[`${x1.toFixed(5)},${y1.toFixed(5)}`,`${x2.toFixed(5)},${y2.toFixed(5)}`].sort().join("|");
+              if(!seen.has(key)){seen.add(key);segments.push([at(x1,y1),at(x2,y2)]);}
+            }
+          }
+        }else{
         for(let y=ch/2,row=0;y<h;y+=ch*.866,row++)for(let x=0;x<length;x+=cw*1.5){
           const cx=x+(row%2?cw*.75:0);
           for(let k=0;k<6;k++){const a=k*Math.PI/3,b=(k+1)*Math.PI/3,x1=cx+Math.cos(a)*cw/2,x2=cx+Math.cos(b)*cw/2,y1=y+Math.sin(a)*ch/2,y2=y+Math.sin(b)*ch/2;if(x1>=0&&x2>=0&&x1<=length&&x2<=length&&y1>=.025&&y2>=.025&&y1<=h&&y2<=h)segments.push([at(x1,y1),at(x2,y2)]);}
+        }
         }
       }else{
         const step=Math.max(.04,spec.meshWidth),rise=spec.meshHeight/step;
@@ -82,6 +96,17 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
       for(let i=0;i<positions.count;i++)positions.setZ(i,.07*positions.getX(i)-.04*positions.getY(i)-.025);
       geometry.computeVertexNormals();
       mesh(geometry,0x889d60,0,0,0).rotation.x=-Math.PI/2;
+    }
+    if(type==="padel"){
+      box(4.5,.035,2.8,0x3f819b,0,.02,0);
+      for(const z of [-1.3,1.3])box(4.2,.012,.035,0xffffff,0,.045,z);
+      for(const x of [-2.1,2.1])box(.035,.012,2.6,0xffffff,x,.045,0);
+      for(const x of [-1,1])box(.035,.012,2.6,0xffffff,x,.045,0);
+      box(2,.012,.035,0xffffff,0,.045,0);
+      for(const z of [-1.4,1.4])box(.05,.85,.05,0x59666a,0,.425,z);
+      for(let y=.15;y<=.8;y+=.1)box(.012,.012,2.8,0xe0e4e5,0,y,0);
+      for(let z=-1.4;z<=1.4;z+=.1)box(.012,.65,.012,0xe0e4e5,0,.475,z);
+      box(.035,.04,2.8,0xffffff,0,.82,0);
     }
     if(type==="sport"){
       box(4.5,.035,3.1,0x487a91,0,.02,0);
@@ -129,6 +154,77 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
       box(4,2.3,2.5,0xc1cad1,0,1.15,0);box(4.2,.18,2.7,0x082d49,0,2.39,0);box(1.4,1.7,.04,0x87939b,.7,.85,1.28);
       for(let i=0;i<4;i++)box(1.4,.035,.05,0xb7c1c8,.7,.3+i*.4,1.31);box(.8,.7,.04,0x7eb0c6,-1,1.35,1.28);box(3.4,.28,.06,0xff5500,0,2.05,1.29);
     }
+    if(type==="rabbit"||type==="cat"){
+      const color=type==="rabbit"?0xd0c2ad:0xb59067;
+      ball(.32,color,0,.4,0).scale.set(1.5,1,.8);
+      ball(.24,color,.4,.66,0);
+      for(const z of [-.13,.13]){
+        if(type==="rabbit")ball(.1,color,.4,.98,z).scale.set(.8,2.8,.7);
+        else mesh(new THREE.ConeGeometry(.12,.23,3),color,.4,.9,z);
+        ball(.025,0x252525,.58,.72,z);
+      }
+      for(const x of [-.25,.3])for(const z of [-.18,.18])box(.1,.25,.1,color,x,.15,z);
+      ball(.12,color,-.48,.5,0).scale.set(type==="cat"?3:1,1,1);
+    }
+    if(type==="chicken"||type==="bird"){
+      const color=type==="chicken"?0xeee5cf:0x73967d;
+      ball(.35,color,0,.6,0).scale.set(1.3,1,.8);
+      ball(.2,color,.3,.98,0);
+      const beak=mesh(new THREE.ConeGeometry(.09,.24,4),0xdba64a,.54,.98,0);beak.rotation.z=-Math.PI/2;
+      for(const z of [-.15,.15]){box(.035,.35,.035,0xc7954c,0,.2,z);box(.2,.035,.035,0xc7954c,.06,.035,z);ball(.025,0x222222,.4,1.04,z);}
+      if(type==="chicken")ball(.1,0xb64336,.3,1.18,0).scale.set(1,1,.5);
+      ball(.22,color,-.4,.83,0).scale.set(.7,1.8,.6);
+    }
+    if(type==="machinery"){
+      box(2.8,.18,1.8,0x59616a,0,.09,0);
+      box(1.3,1.5,1.15,0x7a8e95,-.55,.93,0);
+      box(.7,1.1,1,0xd1a536,.65,.73,0);
+      box(.06,.4,.5,0x2a3c46,.12,1.1,.15);
+      mesh(new THREE.CylinderGeometry(.25,.25,.65,16),0xaab3b7,.45,1.48,0).rotation.z=Math.PI/2;
+      box(.35,.1,.4,0x313c43,-.55,1.74,0);
+      ball(.055,0xc44b35,-.2,1.35,.59);
+      ball(.055,0x4a9a68,-.4,1.35,.59);
+    }
+    if(type==="cistern"){
+      mesh(new THREE.CylinderGeometry(1.25,1.25,1.4,40,1,true),0xb8b7af,0,.7,0);
+      const rim=mesh(new THREE.TorusGeometry(1.25,.06,8,40),0xd0cfc6,0,1.4,0);rim.rotation.x=-Math.PI/2;
+      mesh(new THREE.CylinderGeometry(1.18,1.18,.025,40),0x629faf,0,.45,0);
+      box(.09,1.6,.09,0x849297,1.4,.8,0);
+      box(.4,.09,.09,0x849297,1.25,1.55,0);
+    }
+    if(type==="construction"){
+      box(3,.12,2.4,0xb4b3ac,0,.06,0);
+      for(const x of [-1.3,1.3])for(const z of [-1,1])box(.15,1.8,.15,0x9b9d98,x,.96,z);
+      box(2.75,.18,.18,0x9b9d98,0,1.82,-1);
+      for(let row=0;row<3;row++)for(let col=0;col<4-row;col++)box(.35,.18,.22,0xb67b51,-.65+col*.37,.21+row*.18,.6);
+    }
+    if(type==="garden"){
+      for(const z of [-.9,.65]){
+        box(2.8,.14,.85,0x775338,0,.07,z);
+        for(const x of [-1.1,-.55,0,.55,1.1]){
+          ball(.18,0x4f863d,x,.25,z-.15);
+          ball(.2,0x6c9a47,x,.27,z+.15);
+        }
+      }
+      for(const x of [-1.75,1.75]){
+        mesh(new THREE.CylinderGeometry(.22,.16,.3,12),0xba7959,x,.15,0);
+        ball(.3,0x518648,x,.5,0);
+      }
+    }
+    if(type==="metalwork"){
+      box(2.8,.16,1.3,0x92704e,0,.95,0);
+      for(const x of [-1.15,1.15])for(const z of [-.45,.45])box(.12,.9,.12,0x56616a,x,.45,z);
+      for(const x of [-.9,.9])box(.06,1.1,.06,0x87949b,x,1.58,0);
+      for(const y of [1.05,2.1])box(1.86,.06,.06,0x87949b,0,y,0);
+      for(let x=-.75;x<=.75;x+=.15)box(.025,1.05,.025,0xb6c2c5,x,1.58,0);
+    }
+    if(type==="eps"){
+      box(2.8,.12,2,0xb7b8b5,0,.06,0);
+      box(2.5,1.8,.18,0xf1f0e9,0,1,-.6);
+      box(.18,1.8,1.4,0xf1f0e9,-1.16,1,0);
+      for(let x=-1.2;x<=1.2;x+=.1)box(.012,1.8,.012,0x8c989d,x,1,-.495);
+      for(let y=.1;y<=1.9;y+=.15)box(2.5,.012,.012,0x8c989d,0,y,-.495);
+    }
     if(type==="park"){
       box(1.4,.1,.5,0xa37143,-.7,.5,.4);box(1.4,.45,.08,0xa37143,-.7,.8,.15);for(const x of [-1.2,-.2])box(.08,.5,.4,0x45545a,x,.25,.4);
       for(const [x,z] of [[1.6,-1.2],[-1.7,-1.1]]){mesh(new THREE.CylinderGeometry(.1,.14,1.5,8),0x85603e,x,.75,z);ball(.7,0x578448,x,1.9,z);ball(.5,0x65954f,x+.3,2.2,z);}
@@ -144,6 +240,7 @@ export function createTerrainSimulator(host: HTMLElement, spec: SimulatorSpec, i
   }
   function render(){renderer.render(scene,camera);}
   function update(next: SimulatorState){const previous=state;state=next;if(previous.width!==next.width||previous.depth!==next.depth||previous.height!==next.height||previous.spacing!==next.spacing||(previous.application==="relief")!==(next.application==="relief"))buildFence();if(previous.application!==next.application)buildScenery(next.application);
+    if(spec.gradil){steel.color.set(next.color??spec.color);concrete.color.set(next.color??spec.color);}
     root.rotation.y=THREE.MathUtils.degToRad(next.rotation);root.scale.setScalar(next.zoom);
     field.visible=next.application!=="relief"&&next.application!=="coast";
     scenery.scale.setScalar((next.application==="relief"||next.application==="coast")?1:Math.max(.25,Math.min(1,(next.width-1)/4.8,(next.depth-1)/4)));

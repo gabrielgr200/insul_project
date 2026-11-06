@@ -47,8 +47,6 @@ const CUTOUT_IMAGES: Record<string, string> = {
     "/images/tela-torcao-simples/torcao-card/galvanizado.png",
   "tela-torcao-simples-pvc-verde":
     "/images/tela-torcao-simples/torcao-card/pvc-verde.png",
-  "tela-torcao-simples-pvc-azul":
-    "/images/tela-torcao-simples/torcao-card/pvc-azul.png",
 };
 
 const BACKGROUND_IMAGES: Record<string, string> = {
@@ -77,8 +75,6 @@ const BACKGROUND_IMAGES: Record<string, string> = {
   "tela-torcao-simples-galvanizada":
     "/images/img-similares/galvanizado-similar.jpg",
   "tela-torcao-simples-pvc-verde":
-    "/images/img-similares/pvcazul-similar.jpg",
-  "tela-torcao-simples-pvc-azul":
     "/images/img-similares/pvcverde-similar.jpg",
 };
 

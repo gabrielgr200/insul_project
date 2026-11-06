@@ -9,7 +9,6 @@ import { useContentTranslation } from "./LanguageProvider";
 const finishes = [
   { name: "Galvanizada", file: "torção-galvanizado.png", color: "bg-[#bac3ca]" },
   { name: "PVC Verde", file: "torção-PVC-verde.png", color: "bg-[#278348]" },
-  { name: "PVC Azul", file: "torção-PVC-azul.png", color: "bg-[#267bcc]" },
 ];
 
 export default function SimplesTorcaoShowcase() {

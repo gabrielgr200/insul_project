@@ -109,9 +109,6 @@ const torcaoGalvanizadaOpenMesh = { src: "/images/hero-telas/torção/tela-abert
 const torcaoGalvanizadaIndication = { src: "/images/imagens-teste/torção/tela-indicacao-torcao.png" };
 const torcaoGalvanizadaIndicationBackground = { src: "/images/imagens-teste/torção/showcase-indicacao-torcao.png" };
 const torcaoGalvanizadaMesh = { src: "/images/imagens-teste/torção/malha-torcao.png" };
-const torcaoPvcAzulSky = "/images/hero-telas/torção-pvc/PVC-azul/ceu-pvc-azul.png";
-const torcaoPvcAzulHouse = "/images/hero-telas/torção-pvc/PVC-azul/casa-pvcazul.png";
-const torcaoPvcAzulMesh = "/images/hero-telas/torção-pvc/PVC-azul/tela-pvcazul-aberta.png";
 
 export interface ProductCardData {
   src: string;
@@ -278,7 +275,7 @@ export interface CercaShowcaseOption {
   | "image";
   widthLabel?: string;
   heightLabel?: string;
-  meshOutline?: { x: number; y: number; width: number; height: number; shape?: "hexagon" | "diamond" };
+  meshOutline?: { x: number; y: number; width: number; height: number; shape?: "hexagon" | "diamond"; points?: string };
   detailImage?: string;
   detailImageScale?: number;
   knotTarget?: { x: number; y: number };
@@ -346,6 +343,16 @@ export const accessoriesCards: ProductCardData[] = [
     postSpacing: "8-8 até 10-10 m",
     animals: [],
   },//poste T
+  {
+    src: "/images/imgs_cards_acessorios/poste_u.png",
+    title: "Categoria do acessório",
+    name: "Poste ClipFence",
+    paragraph: "Aço estrutural de 1,50mm e 2,00mm, alturas de 1,90 - 2,20 - 2,80m, diâmetro 5,5x4,0cm",
+    shortDescription: "O poste em formato 'U' de aço galvanizado a fogo ClipFence desenvolvido pela Insul - Casa das Cercas é uma solução robusta, prática e inteligente para quem está buscando uma alternativa aos mourões de concreto e madeira.",
+    description: "O poste em formato \"U\" de aço galvanizado a fogo ClipFence desenvolvido pela Insul - Casa das Cercas é uma solução robusta, prática e inteligente para quem está buscando uma alternativa aos mourões de concreto e madeira. Pode ser utilizado em qualquer instalação de telas alambrados e cercas de arame.\n\nSeu formato enrijecido pelo processo de perfilação garante uma excelente resistência mecânica, somada a uma estética diferenciada para aplicação urbana. É fabricado em aço estrutural galvanizado com 275g de zinco. Por esse motivo, sua vida útil aproximada é de 25 anos.\n\nAlturas disponíveis do Poste ClipFence.\n\nAtualmente os postes comercializados pela Casa das Cercas possuem alturas de:\n\n1,90m (para telas e cercas até 1,20m de altura)\n\n2,20m (para telas e cercas até 1,50m de altura)\n\n2,80m (para telas e cercas até 2,00m de altura)",
+    postSpacing: "De acordo com o padrão recomendado de cada tela",
+    animals: [],
+  },//poste clipfence
   {
     src: "/images/imgs_cards_acessorios/batedor.png",
     title: "Categoria do acessório",
@@ -1450,29 +1457,10 @@ const torcaoPvcShowcase: CercaShowcaseData = {
     "Veja os detalhes e escolha o acabamento ideal para o seu cercamento.",
   options: [
     {
-      title: "Cores",
-      description:
-        "Escolha entre o acabamento verde, discreto em áreas arborizadas, e o azul, para um visual marcante.",
-      image: "/images/imagens-teste/torcao-pvc/cores-torcaopvcverde.png",
-      kind: "colors",
-      colorOptions: [
-        {
-          title: "PVC Verde",
-          color: "#278348",
-          image: "/images/imagens-teste/torcao-pvc/cores-torcaopvcverde.png",
-        },
-        {
-          title: "PVC Azul",
-          color: "#267bcc",
-          image: "/images/imagens-teste/torcao-pvc/cores-torcaopvcazul.png",
-        },
-      ],
-    },
-    {
       title: "Indicação",
       description:
         "Indicada para cercamentos residenciais, comerciais e esportivos, em áreas externas e litorâneas.",
-      image: "/images/imagens-teste/torcao-pvc/tela-indicacao-torcaopvc.png",
+      image: "/images/imagens-teste/torcao-pvc/tela-aberta-indicacao.png",
       background:
         "/images/imagens-teste/torcao-pvc/showcase-indicacao-torcaopvc.png",
       kind: "indication",
@@ -1483,7 +1471,7 @@ const torcaoPvcShowcase: CercaShowcaseData = {
             "O revestimento em PVC oferece proteção adicional para áreas externas.",
           x: 39,
           y: 46,
-          targetX: 48,
+          targetX: 46,
           targetY: 46,
         },
       ],
@@ -1496,10 +1484,10 @@ const torcaoPvcShowcase: CercaShowcaseData = {
       kind: "upperMesh",
       widthLabel: '3" (7,6 cm)',
       meshOutline: {
-        x: 48,
-        y: 57,
-        width: 10,
-        height: 13,
+        x: 44.3,
+        y: 39.2,
+        width: 5.55,
+        height: 7.2,
         shape: "diamond",
       },
     },
@@ -1599,8 +1587,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "/images/telas-soldada/brava.png",
     paragraph:
       "Fio 2,50 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha 5 cm x 10 cm",
-    postSpacing: "3m",
-    heights: ["1,00 m", "1,50 m", "1,80 m", "2,00 m"],
+    postSpacing: "3-3m",
+    heights: ["1,00 m", "1,50 m", "1,80 m"],
+    lengths: ["25m", "50m"],
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
@@ -1721,8 +1710,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     src: "/images/telas-soldada/titan.png",
     paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
-    postSpacing: "até 3m",
-    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    postSpacing: "3-3m",
+    heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["25m", "50m"],
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
@@ -1871,8 +1861,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     src: "/images/telas-soldada/morada.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 5 cm x 15 cm",
-    postSpacing: "até 3m",
+    postSpacing: "3-3m",
     heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
@@ -2006,8 +1997,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     src: "/images/telas-soldada/morada-open.png",
     paragraph: "Fio 2,30 mm, Aço galvanizado a fogo, Malha 6,5 cm x 15 cm",
-    postSpacing: "até 3m",
+    postSpacing: "3-3m",
     heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cercamento de casas, condomínios e terrenos",
@@ -2160,8 +2152,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     src: "/images/telas-soldada/morada-leve.png",
     paragraph: "Fio 1,90 mm, Aço galvanizado a fogo, Malha 5 cm x 10 cm",
-    postSpacing: "até 3m",
+    postSpacing: "3-3m",
     heights: ["1,00 m", "1,20 m", "1,50 m", "1,80 m", "2,00 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
@@ -2314,8 +2307,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     },
     src: "/images/telas-soldada/MultyUso.png",
-    paragraph: "Fio 1,65 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
-    postSpacing: "até 4m",
+    paragraph: "Fio 1,90 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
+    postSpacing: "3-3m",
+    heights: ["1,00 m", "1,20 m", "1,50 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cercamento para casas e condomínio",
@@ -2333,7 +2328,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     shortDescription:
       "A Tela Multy Uso Insul oferece versatilidade, resistência e excelente custo-benefício para diferentes tipos de cercamentos. Desenvolvida com materiais de qualidade, proporciona segurança, praticidade na instalação e durabilidade em diversas aplicações rurais e residenciais.",
     description:
-      "A Tela Multy Uso Insul foi desenvolvida para atender diferentes necessidades de cercamento com uma estrutura resistente e versátil. Fabricada com fio de aço galvanizado a fogo de 1,65 mm, possui malha soldada de 5 × 5 cm que ajuda a proteger os espaços sem comprometer a visibilidade.\n\nA galvanização a fogo oferece proteção ao aço contra a corrosão e contribui para a durabilidade da tela em áreas externas. Sua malha regular cria uma barreira firme e de visual discreto, adequada tanto para ambientes residenciais quanto para espaços de uso cotidiano.\n\nA Tela Multy Uso Insul é indicada para cercar casas, condomínios, canis para cães de pequeno e médio porte, hortas e jardins. Essa variedade de aplicações permite delimitar áreas, proteger plantas e organizar espaços com uma única solução de cercamento.\n\nAliando resistência, instalação prática e bom custo-benefício, a Tela Multy Uso Insul é uma escolha funcional para projetos que precisam de proteção e boa integração visual com o ambiente.",
+      "A Tela Multy Uso Insul foi desenvolvida para atender diferentes necessidades de cercamento com uma estrutura resistente e versátil. Fabricada com fio de aço galvanizado a fogo de 1,90 mm, possui malha soldada de 5 × 5 cm que ajuda a proteger os espaços sem comprometer a visibilidade.\n\nA galvanização a fogo oferece proteção ao aço contra a corrosão e contribui para a durabilidade da tela em áreas externas. Sua malha regular cria uma barreira firme e de visual discreto, adequada tanto para ambientes residenciais quanto para espaços de uso cotidiano.\n\nA Tela Multy Uso Insul é indicada para cercar casas, condomínios, canis para cães de pequeno e médio porte, hortas e jardins. Essa variedade de aplicações permite delimitar áreas, proteger plantas e organizar espaços com uma única solução de cercamento.\n\nAliando resistência, instalação prática e bom custo-benefício, a Tela Multy Uso Insul é uma escolha funcional para projetos que precisam de proteção e boa integração visual com o ambiente.",
     gallery: [
       {
         src: "/images/imgs-gallery/multyuso/img-gallery-multyuso1.JPG",
@@ -2548,7 +2543,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     },
     src: "/images/telas-soldada/MultyUso-max.png",
     paragraph: "Fio 2,50 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
-    postSpacing: "até 3m",
+    postSpacing: "3-3m",
+    heights: ["1,00 m", "1,50 m", "2,00 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Confecção de grades e portões",
@@ -2777,7 +2774,9 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     src: "/images/telas-soldada/brava-leve.png",
     paragraph:
       "Fio 2,10 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha 5 cm x 5 cm",
-    postSpacing: "até 3m",
+    postSpacing: "3-3m",
+    heights: ["1,50 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cercamento para casas, condomínios e áresas verdes",
@@ -2895,8 +2894,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     },
     src: "/images/telas-hexagonais/mangueirao-16.png",
-    paragraph: 'Fio 1,65 mm, Aço galvanizado a fogo, Malha 3" - 7,6 cm',
-    postSpacing: "até 4m",
+    paragraph: "Fio 1,65 mm, Aço galvanizado a fogo, Malha 7,5 cm x 7,5 cm",
+    postSpacing: "3-3m",
+    heights: ["0,80 m", "1,00 m", "1,20 m", "1,50 m", "1,80 m"],
+    lengths: ["25m"],
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
@@ -3037,8 +3038,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     },
     src: "/images/telas-hexagonais/mangueirao-18.png",
-    paragraph: 'Fio 1,24 mm, Aço galvanizado a fogo, Malha 3" - 7,6 cm',
-    postSpacing: "até 4m",
+    paragraph: "Fio 1,65 mm, Aço galvanizado a fogo, Malha 7,6 cm x 7,6 cm",
+    postSpacing: "3-3m",
+    heights: ["0,80 m", "1,00 m", "1,20 m", "1,50 m", "1,80 m"],
+    lengths: ["50m"],
     indicatedFor: [
       {
         name: "Cerca para propriedades rurais e residências",
@@ -3164,8 +3167,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       ],
     },
     src: "/images/telas-hexagonais/galinheiro.png",
-    paragraph: 'Fio 1,24 mm, Aço galvanizado a fogo, Malha 2" - 5,0 cm',
-    postSpacing: "até 4m",
+    paragraph: "Fio 1,24 mm, Aço galvanizado a fogo, Malha 5 cm x 5 cm",
+    postSpacing: "3-3m",
+    heights: ["1,20 m", "1,50 m", "1,80 m"],
+    lengths: ["50m"],
     indicatedFor: [
       {
         name: "Delimitação de áreas rurais e sítios",
@@ -3511,10 +3516,10 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
               title: "Aplicações",
               description:
                 "Uma solução versátil para cercar áreas urbanas, esportivas e rurais.",
-              x: 37.5,
-              y: 45,
-              targetX: 47,
-              targetY: 45,
+              x: 37,
+              y: 46,
+              targetX: 46.5,
+              targetY: 46,
             },
           ],
         },
@@ -3524,6 +3529,15 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
             "Malha em losango de 3 polegadas (7,6 cm), fabricada em aço galvanizado a fogo.",
           image: torcaoGalvanizadaMesh.src,
           kind: "upperMesh",
+          widthLabel: '3" (7,6 cm)',
+          meshOutline: {
+            x: 35.56,
+            y: 31.44,
+            width: 8.52,
+            height: 10.67,
+            shape: "diamond",
+            points: "50.7,0 76,26 100,52.5 76,76 51.6,100 25,76 0,52.5 25,26",
+          },
         },
       ],
     },
@@ -3637,7 +3651,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
     color: "#278348",
     galleryIntro: {
       badge: "Revestida em PVC, feita para durar.",
-      text: "Acabamento discreto nas cores verde e azul, para combinar com qualquer ambiente.",
+      text: "Acabamento discreto na cor verde, para combinar com qualquer ambiente.",
     },
     hero: {
       // title: "Torção Simples",
@@ -3742,92 +3756,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
   }, //torção-simples-pvc-verde
-  {
-    slug: "tela-torcao-simples-pvc-azul",
-    name: "Simples Torção (PVC azul)",
-    category: "Torção Simples",
-    color: "#267bcc",
-    galleryIntro: {
-      badge: "Proteção com acabamento azul",
-      text: "Explore os detalhes da Torção Simples PVC Azul, uma opção resistente para cercamentos residenciais, comerciais e esportivos.",
-    },
-    hero: {
-      // title: "Torção Simples PVC Azul",
-      // description:
-      //   "Resistência e proteção com acabamento azul para cercamentos residenciais, comerciais e esportivos.",
-      title: "",
-      description:
-        "",
-      titleColor: "#ffffff",
-      descriptionColor: "#ffffff",
-      textAlign: "right",
-      textClassName: "absolute inset-x-0 top-[24%]",
-      background: torcaoPvcAzulSky,
-      sectionClassName: "aspect-video",
-      layers: [
-        {
-          src: torcaoPvcAzulMesh,
-          alt: "Tela de torção PVC azul aberta",
-          className: "z-50",
-          imageClassName: "object-cover",
-        },
-        {
-          src: torcaoPvcAzulHouse,
-          alt: "Casa com cercamento em tela de torção PVC azul",
-          className: "z-40",
-          imageClassName: "object-cover",
-        },
-      ],
-    },
-    showcase: torcaoPvcShowcase,
-    src: "/images/tela-torcao-simples/torcao-card/pvc-azul.png",
-    paragraph: "Fio 2,80 mm, Aço galvanizado a fogo, Revestimento de PVC, Malha em losango 7,6x7,6 cm",
-    postSpacing: "3-3m",
-    heights: ["1,20 m", "1,50 m", "1,80 m", "2,00 m"],
-    lengths: ["20m"],
-    indicatedFor: [
-      {
-        name: "Cercamento em áreas verdes e litorâneas",
-        src: "/images/ico-pvc/ico-onda.png",
-      },
-      {
-        name: "Quadras e terreno com relevo",
-        src: "/images/multymaxx/bola.png",
-      },
-      {
-        name: "Cercamento de animais como suínos e aves",
-        src: "/images/ico-mangueirao/porco.png",
-      },
-    ],
-    shortDescription:
-      "Tela torção simples PVC azul da Insul: resistente, durável e com acabamento diferenciado para cercamentos residenciais, comerciais, industriais e esportivos. O revestimento em PVC azul ajuda a proteger contra corrosão, aumenta a vida útil da tela e traz um visual mais moderno e personalizado ao ambiente.",
-    description:
-      "A tela Simples Torção + PVC Insul é a solução ideal para quem busca um cercamento durável, estético e resistente às condições climáticas mais desafiadoras. Produzida com fio de aço galvanizado de alta qualidade Gerdau e revestida com PVC de alta resistência e proteção ultravioleta (UV), ela oferece uma camada extra de proteção contra a corrosão, sendo especialmente indicada para regiões litorâneas e ambientes expostos a condições adversas.\n\nCom malhas que variam de 1,1/2” a 3”, e disponível em espessuras de 2,30 mm a 3,80 mm, esse produto é a escolha perfeita para quem precisa de um cercamento robusto e de longa duração. Além de sua resistência, a tela Simples Torção + PVC Insul se adapta com facilidade aos mais variados terrenos, garantindo um fechamento seguro e eficiente em projetos de cercamento de quadras esportivas, rodovias, aeroportos e fechamentos industriais.\n\nCom alturas que variam de 1,00 m a 4,00 m e rolos de 20 metros, sua instalação é facilitada, tornando-a uma opção prática e econômica para diferentes tipos de obra. Sua garantia de 5 anos reforça a confiança no produto e a durabilidade da sua estrutura.\n\nPara revendedores e varejistas: A tela Simples Torção + PVC Insul representa uma oportunidade estratégica de oferecer aos clientes um produto de alta qualidade e resistência, especialmente para projetos em regiões litorâneas e de grande porte. A inovação e confiabilidade da Insul fazem dessa tela uma escolha indispensável para o mix de produtos, garantindo não apenas satisfação dos clientes, mas também um diferencial competitivo no mercado.",
-    gallery: [
-      {
-        src: "/images/tela-torcao-simples/torção-PVC-azul.png",
-        alt: "Torção Simples PVC Azul (imagem provisória)",
-      },
-    ],
-    features: [
-      // {
-      //   title: "",
-      //   description: "",
-      //   start: 0,
-      //   end: 0,
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    videoSrc: "", // colar o link do vídeo aqui
-    videoCards: [
-      // {
-      //   src: "",
-      //   category: "",
-      //   title: "",
-      //   description: "",
-      // },
-    ], // trocar pelas informações reais (ver exemplo em tela-brava)
-    video3D: "", // colar o link do vídeo 3D aqui
-  }, //torção-simples-pvc-azul
+  
 ];
 
 
@@ -4029,27 +3958,27 @@ const soldadasHexagonaisReels: ShowcaseReel[] = [
 
 const roomDetails: RoomDetail[] = [
   {
-    src: "/images/img-products/cercas-prontas.jpg",
+    src: "/images/img-products/CDC Site Cercas Prontas.png",
     name: "Cercas Prontas(rurais)",
     to: "/cercas-prontas",
   },
   {
-    src: "/images/img-products/gradil.jpg",
+    src: "/images/img-products/CDC-Site-Gradil.png",
     name: "Gradil",
     to: "/gradil",
   },
   {
-    src: "/images/img-products/telas.jpg",
+    src: "/images/img-products/CDC-Site-Soldadas.png",
     name: "Telas e Alambrados",
     to: "/soldadas-hexagonais",
   },
   {
-    src: "/images/img-products/acessorios.jpg",
+    src: "/images/img-products/CDC-Site-Acessorios.png",
     name: "Acessórios",
     to: "/acessorios",
   },
   {
-    src: "/images/img-products/arames.jpg",
+    src: "/images/img-products/CDC-Site-Arames.png",
     name: "Arames",
     to: "/arames",
   },
@@ -4067,6 +3996,8 @@ export interface Gradil3DShowcaseItem {
 }
 
 export interface GradilModelInfo {
+  heights?: string[];
+  lengths?: string[];
   slug: string;
   name: string;
   color: string;
@@ -4162,8 +4093,10 @@ const gradilModels: GradilModelInfo[] = [
     tagline:
       "Uma solução prática, acessível e inteligente para fechamentos que necessitem de maior segurança e estética.",
     paragraph:
-      "Bitola 4,0 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
-    postSpacing: "2,5 m",
+      "Bitola 2,30 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+    postSpacing: "2,5-2,5m",
+    heights: ["1,03 m", "1,53 m", "2,03 m", "2,43 m"],
+    lengths: ["2,50m"],
     indicatedFor: [
       {
         name: "Residências",
@@ -4270,8 +4203,10 @@ const gradilModels: GradilModelInfo[] = [
     tagline:
       "Gradil G5 combina resistência, estética e praticidade, atendendo às mais variadas necessidades.",
     paragraph:
-      "Bitola 4,8 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
-    postSpacing: "2,5 m",
+      "Bitola 4,52 mm, Malha 5 cm x 20 cm, Aço soldado, Galvanizado + pintura",
+    postSpacing: "2,5-2,5m",
+    heights: ["1,53 m", "2,03 m", "2,43 m"],
+    lengths: ["2,50m"],
     indicatedFor: [
       {
         name: "Residências",
@@ -4385,8 +4320,10 @@ const gradilModels: GradilModelInfo[] = [
     tagline:
       "Garante segurança dos processos, das pessoas e das máquinas e é muito prático de instalar.",
     paragraph:
-      "Bitola 4,8 mm, Malha 2,5 cm x 20 cm, Aço soldado reforçado, Alta resistência",
-    postSpacing: "2,5 m",
+      "Bitola 4,00 mm, Malha 2,5 cm x 20 cm, Aço soldado reforçado, Alta resistência",
+    postSpacing: "2,5-2,5m",
+    heights: ["1,53 m", "2,03 m"],
+    lengths: ["2,50m"],
     indicatedFor: [
       {
         name: "Indústrias",
@@ -4494,7 +4431,6 @@ const productCategories: ProductCategory[] = [
     items: [
       "Torção Simples Galvanizada",
       "Torção Simples PVC Verde",
-      "Torção Simples PVC Azul",
     ],
   },
   {
@@ -4520,6 +4456,7 @@ const productCategories: ProductCategory[] = [
       "Chave balancim",
       "Alicate para emendar arame",
       "Poste T",
+      "Poste ClipFence",
       "Batedor de poste T",
       "Tubo para Gradil",
       "Fixador para Gradil",

@@ -11,6 +11,7 @@ import ProductDetailHero from "../components/ProductDetailHero";
 import ImgCarousel from "../components/ImgCarousel";
 import BlurRevealText from "../components/BlurRevealText";
 import VideoCard3D from "../components/VideoCard3DLazy";
+import VideoCardCarousel from "../components/VideoCardCarousel";
 import SimilarProducts from "../components/SimilarProducts";
 import ScrollReveal from "../components/ScrollReveal";
 import RatchetComparison from "../components/RatchetComparison";
@@ -19,6 +20,7 @@ import { accessorySlug } from "../utils/accessorySlug";
 import { useContentTranslation } from "../components/LanguageProvider";
 
 const accessoryGalleryFiles: Record<string, string[]> = {
+  "poste-clipfence": [1, 2, 3, 4, 5].map(index => `posteU/img-posteU_${index}.${index <= 2 ? "png" : "webp"}`),
   "poste-t": [1, 2, 3, 4, 5, 6, 7].map(index => `posteT/img-posteT-${index}.webp`),
   "catraca-micro": [1, 2, 3].map(index => `catracaMicro/img-catraca-micro-${index}.jpg`),
   "catraca-t7": [1, 2, 3, 4].map(index => `catracaT7/img-catraca-T7_${index}.${index === 4 ? "webp" : "jpg"}`),
@@ -82,7 +84,7 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
   const isOriginalRatchetPage = isRatchet || isStretcher;
   const relatedNames = isOriginalRatchetPage
     ? ["Catraca Micro", "Catraca T7", "Esticador(caixa)", "Chave balancim"]
-    : ["poste-t", "batedor-manual"].includes(slug)
+    : ["poste-t", "poste-clipfence", "batedor-manual"].includes(slug)
       ? ["Poste T", "Batedor Manual", "Catraca Micro", "Alicate para emendar arame"]
       : ["chave-balancim", "alicate-para-emendar-arame"].includes(slug)
         ? ["Catraca Micro", "Catraca T7", "Chave balancim", "Alicate para emendar arame"]
@@ -110,7 +112,8 @@ export default function AccessoryProductPage({ slug }: { slug: string }) {
                 <BlurRevealText text={product.description.split("\n\n")} className="poppins mx-auto max-w-[1300px] px-4 text-left text-xl font-light leading-relaxed text-[#002d4d] dark:text-white sm:px-8" />
               </section>
               {isRatchet && <RatchetComparison />}
-              {[
+              {slug === "poste-clipfence" && <VideoCardCarousel fenceName={product.name} cards={[{ src: "/videos/videos-reels-clipfence/video-reel-1.mp4", category: "CLIPFENCE", title: "Conheça o Poste ClipFence", description: "Poste em U de aço galvanizado a fogo para telas, alambrados e cercas de arame." }]} />}
+              {slug !== "poste-clipfence" && [
                 { src: isMicro ? "/videos/videos-catraca-micro/video-3d-1.mp4" : "", title: `${product.name} em detalhes`, description: isMicro ? "Uma solução prática para manter os arames firmes e esticados na instalação de telas e cercas prontas." : isStretcher ? "Esticador em aço carbono galvanizado, para fios de até 3 mm. Peso: 178 g." : isRatchet ? "Aço carbono galvanizado de 3,00 mm, para fios de até 4 mm. Peso: 284 g." : product.paragraph },
                 { src: isMicro ? "/videos/videos-catraca-micro/video-3d-2.mp4" : "", title: isMicro ? "Praticidade para tensionar e emendar" : isStretcher ? "Conheça o Esticador" : isRatchet ? "Resistência para trabalhos pesados" : "Aplicação e instalação", description: isMicro ? "A Catraca Micro permite ajustar a tensão e emendar arames em diferentes pontos do cercamento." : isStretcher ? "Texto placeholder para os detalhes de aplicação e instalação do Esticador." : isRatchet ? "A Catraca T7 é uma opção reforçada para trabalhos com arames farpados ou lisos de maior espessura." : `Texto placeholder para os detalhes de aplicação e instalação: ${product.name}.` },
               ].map((video, index) => (

@@ -226,6 +226,7 @@ const Header = () => {
         "Catraca T7": "/acessorios/catraca-t7",
         "Catraca Caixa": "/acessorios/esticador-caixa",
         "Poste T": "/acessorios/poste-t",
+        "Poste ClipFence": "/acessorios/poste-clipfence",
         "Batedor de poste T": "/acessorios/batedor-manual",
         "Tubo para Gradil": "/acessorios/tubos-pintados",
         "Fixador para Gradil": "/acessorios/fixador-de-gradil",
