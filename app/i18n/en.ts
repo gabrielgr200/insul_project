@@ -770,6 +770,13 @@ const en: Dictionary = {
     ],
   },
   book: {
+    responsiveBadge: "Digital catalog",
+    responsiveTitle: "Fully responsive on mobile.",
+    responsiveSubtitle: "Every detail, right in your hand.",
+    mobileIntro: "Explore our range of mesh, fence panels, fencing and accessories.",
+    mobileDetails: "Find dimensions, applications and product details in one place.",
+    mobileAccess: "Your next fence starts with the right choice.",
+    mobileChoice: "Browse the catalog on your phone and compare options for your project, wherever you are.",
     label: "Meshes and accessories",
     tituloLinha1: "PRODUCT",
     tituloLinha2: "CATALOG",
@@ -1548,3 +1555,5 @@ const en: Dictionary = {
 };
 
 export default en;
+
+

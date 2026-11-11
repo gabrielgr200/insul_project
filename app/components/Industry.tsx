@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { useRef } from "react";
+import { useScrollTextReveal } from "./useScrollTextReveal";
 import ScrollTimeline from "./Timeline";
 import { useTranslation } from "./LanguageProvider";
 
@@ -9,28 +9,7 @@ export const IndustryHeader = () => {
   const { t } = useTranslation();
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power1.out" },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      tl.from(".INDUSTRY-LABEL", { y: 20, opacity: 0, duration: 0.5 })
-        .from(
-          ".INDUSTRY-TITLE",
-          { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.2",
-        )
-        .from(".INDUSTRY-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3");
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  useScrollTextReveal(sectionRef, ".INDUSTRY-LABEL, .INDUSTRY-TITLE, .INDUSTRY-TEXT");
 
   return (
     <section
@@ -62,3 +41,4 @@ export const IndustryTimeline = () => {
     </section>
   );
 };
+

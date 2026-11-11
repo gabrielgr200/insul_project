@@ -1,0 +1,26 @@
+.navigation{position:relative;width:100%;max-width:460px;margin-top:40px;border:1px solid rgba(0,45,77,.08);border-radius:20px;background:#fff;color:#002d4d;overflow:hidden;box-shadow:0 6px 18px rgba(0,45,77,.04);font-family:var(--font-poppins),Poppins,sans-serif}
+.trigger{display:flex;align-items:center;width:100%;min-height:82px;padding:20px;text-align:left;cursor:pointer;background:transparent;border:0;color:inherit}
+.cover{display:flex;flex-shrink:0;overflow:hidden;align-items:center;justify-content:center}
+.cover img{object-fit:contain}
+.heading{display:flex;flex:1;flex-direction:column;gap:4px;font-size:16px;font-weight:600}
+.subtitle{overflow:hidden;font-size:13px;font-weight:400;color:#78909e}
+.chevron{margin-left:16px;color:#9cabb5;font-size:22px}
+.menu{overflow:hidden;border-top:1px solid rgba(0,45,77,.07)}
+.category{display:flex;width:100%;align-items:center;gap:14px;padding:14px 20px;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;transition:background .25s ease}
+.category:hover{background:#f5f7f8}
+.avatar{position:relative;width:44px;height:44px;flex-shrink:0;background:#f5f5f5;border-radius:10px;overflow:hidden}
+.avatar img,.productImage img{object-fit:contain;padding:5px}
+.categoryName{flex:1;font-size:15px;font-weight:500}
+.active .categoryName{color:#ff5500}
+.plus{font-size:22px;font-weight:300;color:#8294a0}
+.products{overflow:hidden;background:#f8fafb}
+.product{display:flex;align-items:center;gap:10px;padding:9px 20px 9px 35px;color:inherit;text-decoration:none;font-size:13px;transition:background .2s ease,color .2s ease}
+.product:hover{color:#ff5500;background:#edf2f5}
+.productImage{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;background:white}
+.arrow{margin-left:auto;color:#91a2ad}
+.trigger:focus-visible,.category:focus-visible,.product:focus-visible{outline:2px solid #ff5500;outline-offset:-3px}
+:global(.dark) .navigation{background:#142b3c;color:#fff;border-color:#ffffff12;box-shadow:none}
+:global(.dark) .menu{border-color:#ffffff12}
+:global(.dark) .category:hover,:global(.dark) .product:hover{background:#ffffff0a}
+:global(.dark) .products{background:#0c2232}
+@media(max-width:767px){.navigation{max-width:none;margin-top:28px}.trigger{min-height:76px;padding:16px}.category{padding:12px 16px}}

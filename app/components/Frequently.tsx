@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useScrollTextReveal } from "./useScrollTextReveal";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "./LanguageProvider";
@@ -70,11 +71,13 @@ const FaqItem = ({ index, question, answer, isOpen, onToggle }: FaqItemProps) =>
 
 const Frequently = () => {
   const { t, dict } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+  useScrollTextReveal(sectionRef, ".faq-heading, .faq-description");
   const faqs = dict.faq.items;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="duvidas" className="bg-[#002d4d] text-white py-20 px-4 sm:px-8">
+    <section ref={sectionRef} id="duvidas" className="bg-[#002d4d] text-white py-20 px-4 sm:px-8">
       <div className="faq-wide home-wide-section max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <div>
@@ -112,3 +115,4 @@ const Frequently = () => {
 };
 
 export default Frequently;
+

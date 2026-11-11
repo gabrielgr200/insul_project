@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight } from "lucide-react";
+import animation from "./FillButton.module.css";
 import { useContentTranslation } from "./LanguageProvider";
 
 const EASE = "ease-[cubic-bezier(0.16,1,0.3,1)]";
@@ -21,7 +22,7 @@ const TextArrowCTA = ({
     <button
       type="button"
       onClick={onClick}
-      className={`group flex flex-col gap-2 cursor-pointer select-none ${className}`}
+      className={`${animation.button} group flex flex-col gap-2 cursor-pointer select-none ${className}`}
     >
       <span className="flex items-center">
         <span

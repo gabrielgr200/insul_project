@@ -1,0 +1,11 @@
+.button{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}
+.label{display:block;position:relative;overflow:hidden}
+.text{display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.copy{position:absolute;inset:0;transform:translateY(140%)}
+.button:is(:hover,:focus-visible) .text{transform:translateY(-140%)}
+.button:is(:hover,:focus-visible) .copy{transform:translateY(0)}
+.text svg{transition:translate .65s cubic-bezier(.22,1,.36,1)!important;rotate:0deg!important;transform:none!important}
+.button:is(:hover,:focus-visible) .text:not(.copy) svg{translate:24px -24px}
+.copy svg{translate:-24px 24px}
+.button:is(:hover,:focus-visible) .copy svg{translate:0 0}
+@media(prefers-reduced-motion:reduce){.text,.text svg{transition:none!important}}

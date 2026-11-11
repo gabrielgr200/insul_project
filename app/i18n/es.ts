@@ -770,6 +770,13 @@ const es: Dictionary = {
     ],
   },
   book: {
+    responsiveBadge: "Catálogo digital",
+    responsiveTitle: "Totalmente adaptable a celulares.",
+    responsiveSubtitle: "Todos los detalles, en la palma de su mano.",
+    mobileIntro: "Conozca nuestra línea de mallas, paneles, cercas y accesorios.",
+    mobileDetails: "Encuentre medidas, aplicaciones y detalles de cada producto en un solo lugar.",
+    mobileAccess: "Su próximo cercado comienza con la elección correcta.",
+    mobileChoice: "Consulte el catálogo desde el celular y compare las opciones para su proyecto, donde esté.",
     label: "Mallas y accesorios",
     tituloLinha1: "CATÁLOGO DE",
     tituloLinha2: "PRODUCTOS",
@@ -1562,3 +1569,5 @@ const es: Dictionary = {
 };
 
 export default es;
+
+

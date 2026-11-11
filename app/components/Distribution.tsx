@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { gsap } from "gsap";
+import { useScrollTextReveal } from "./useScrollTextReveal";
 import BrazilMap from "./BrazilMap";
 import GuilhermeChatbot from "./GuilhermeChatbot";
 import { useTranslation } from "./LanguageProvider";
@@ -13,6 +14,8 @@ const Distribution = () => {
   const { t, dict } = useTranslation();
   const distributionCenters = dict.distribution.centers;
   const sectionRef = useRef(null);
+
+  useScrollTextReveal(sectionRef, ".DISTRIBUTION-LABEL, .DISTRIBUTION-TITLE, .DISTRIBUTION-TEXT");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -25,14 +28,7 @@ const Distribution = () => {
         },
       });
 
-      tl.from(".DISTRIBUTION-LABEL", { y: 20, opacity: 0, duration: 0.5 })
-        .from(
-          ".DISTRIBUTION-TITLE",
-          { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.2",
-        )
-        .from(".DISTRIBUTION-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.5")
-        .from(
+      tl.from(
           ".DISTRIBUTION-CARD",
           {
             y: 12,
@@ -54,7 +50,7 @@ const Distribution = () => {
     <section
       ref={sectionRef}
       id="distribuicao"
-      className="home-wide-section bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="home-wide-section bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 !pt-0 mt-[clamp(64px,8vw,80px)] lg:mt-[clamp(120px,8vw,200px)] mb-20"
     >
       <h3 className="DISTRIBUTION-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         {t("distribution.label")}
@@ -111,3 +107,4 @@ const Distribution = () => {
 };
 
 export default Distribution;
+

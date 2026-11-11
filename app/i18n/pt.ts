@@ -770,6 +770,13 @@ const pt = {
     ],
   },
   book: {
+    responsiveBadge: "Catálogo digital",
+    responsiveTitle: "Totalmente responsivo para celulares.",
+    responsiveSubtitle: "Todos os detalhes, na palma da sua mão.",
+    mobileIntro: "Conheça nossa linha de telas, gradis, cercas e acessórios.",
+    mobileDetails: "Encontre medidas, aplicações e detalhes\nde cada produto em um só lugar.",
+    mobileAccess: "Seu próximo cercamento começa com a escolha certa.",
+    mobileChoice: "Consulte o catálogo pelo celular e compare as opções para o seu projeto, onde estiver.",
     label: "Telas e acessórios",
     tituloLinha1: "CATÁLOGO DE",
     tituloLinha2: "PRODUTOS",
@@ -1558,3 +1565,5 @@ const pt = {
 
 export default pt;
 export type Dictionary = typeof pt;
+
+

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap } from "gsap";
+import { useScrollTextReveal } from "./useScrollTextReveal";
 import { useGSAP } from "@gsap/react";
 import { roomDetails } from "../assets/data";
 import ProductsLink from "./ProductsLink";
@@ -15,6 +16,7 @@ const Products = () => {
   const translateText = useContentTranslation();
   const { t, dict } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
+  useScrollTextReveal(sectionRef, ".PRODUCTS-TITLE, .DISTRIBUTION-TEXT");
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(true);
@@ -67,8 +69,7 @@ const Products = () => {
       },
     });
 
-    tl.from(".PRODUCTS-TITLE", { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" })
-      .from(
+    tl.from(
         ".PRODUCTS-LIST > *",
         { y: 20, opacity: 0, duration: 0.5, stagger: 0.08 },
         "-=0.3",
@@ -114,7 +115,7 @@ const Products = () => {
                   alt={dict.products.rooms[room.name] ?? room.name}
                   fill
                   sizes="(min-width: 1920px) 30vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-500 hover:scale-105 rounded-[16px]"
                 />
               </Link>
               <div className="flex min-w-0 flex-1 flex-col justify-center px-4 py-6 sm:px-5 lg:pl-10 lg:pr-6">
@@ -139,3 +140,4 @@ const Products = () => {
 };
 
 export default Products;
+

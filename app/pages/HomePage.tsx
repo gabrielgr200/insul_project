@@ -110,11 +110,11 @@ const HomePage = () => {
           </section>
           <TextReveal />
           <IndustryTimeline />
-          <hr className="text-zinc-100" />
+          {/* <hr className="text-zinc-100" /> */}
           <Products />
-          <hr className="text-zinc-100" />
+          {/* <hr className="text-zinc-100" /> */}
           <Book />
-          <hr className="text-zinc-100" />
+          {/* <hr className="text-zinc-100" /> */}
           <Distribution />
           <Frequently />
           <Footer />

@@ -31,6 +31,15 @@
     font-family: "impact01", sans-serif !important;
 }
 
+.scroll-reveal-word {
+    font-family: inherit !important;
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+}
+
 /* .new-black {
     font-family: var(--font-new-black), sans-serif;
 }

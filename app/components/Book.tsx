@@ -1,11 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import mobileMockup from "../../public/images/Mockup-catalogo/mockup-androids-4.png";
+import CatalogPhoneCarousel from "./CatalogPhoneCarousel";
+import CatalogWheelNav from "./CatalogWheelNav";
+
+import notebookMockup from "../../public/images/Mockup-catalogo/mockup-mac-1.png";
+import styles from "./Book.module.css";
+
 import HTMLFlipBook from "react-pageflip";
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Plus, LayoutGrid } from "lucide-react";
 import { gsap } from "gsap";
+import { useScrollTextReveal } from "./useScrollTextReveal";
 import TextArrowCTA from "./TextArrowCTA";
 import { productCategories } from "../assets/data";
 import type { ProductCategory } from "../assets/data";
@@ -164,10 +172,18 @@ interface FlipBookHandle {
 }
 
 const Book = () => {
+  const [catalogPage, setCatalogPage] = useState(0);
+  const [catalogMenuOpen, setCatalogMenuOpen] = useState(false);
+  const handleCatalogPageChange = useCallback((page: number) => {
+    setCatalogPage(page);
+    setCatalogMenuOpen(false);
+  }, []);
   const translateText = useContentTranslation();
   const { t } = useTranslation();
   const bookRef = useRef<FlipBookHandle>(null);
   const sectionRef = useRef<HTMLElement>(null);
+
+  useScrollTextReveal(sectionRef, ".BOOK-LABEL, .BOOK-TITLE > span, .BOOK-TEXT > p, [data-catalog-description]");
 
   const playFlipSound = () => {
     const audio = new Audio("/sounds/page-flip.mp3");
@@ -186,14 +202,7 @@ const Book = () => {
         },
       });
 
-      tl.from(".BOOK-LABEL", { y: 20, opacity: 0, duration: 0.5 })
-        .from(
-          ".BOOK-TITLE",
-          { x: -80, opacity: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.2",
-        )
-        .from(".BOOK-TEXT", { y: 20, opacity: 0, duration: 0.5 }, "-=0.5")
-        .from(".BOOK-CONTENT", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.3");
+      tl.from(".BOOK-CONTENT", { scale: 0.9, opacity: 0, duration: 0.8 });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -203,23 +212,76 @@ const Book = () => {
     <section
       ref={sectionRef}
       id="catalogo"
-      className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 mt-20 mb-20"
+      className="home-wide-section relative max-w-7xl mx-auto p-4 sm:p-8 !pb-0 mt-20 mb-0"
     >
-      <h3 className="BOOK-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
-        {t("book.label")}
-      </h3>
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-10 gap-4">
-        <h2 className="BOOK-TITLE heading-2 impact text-[#ff5500] text-center sm:text-left">
-          {t("book.tituloLinha1")} <br /> {t("book.tituloLinha2")}
+      <div className={styles.header}>
+        <h3 className={`BOOK-LABEL poppins font-semibold text-2xl text-[#002d4d] dark:text-white ${styles.label}`}>
+          {t("book.label")}
+        </h3>
+        <h2 className={`BOOK-TITLE heading-2 poppins text-5xl ${styles.title}`}>
+          <span>{t("book.tituloLinha1")}</span>
+          <span>{t("book.tituloLinha2")}</span>
         </h2>
-        <div className="BOOK-TEXT flex flex-col items-center w-full lg:w-auto lg:max-w-[400px] lg:mr-14">
-          <p className="text-base lg:text-[22px] text-[#002d4d] dark:text-white text-center sm:text-left lg:whitespace-pre-line">
-            {t("book.texto")}
-          </p>
+        <div className={`BOOK-TEXT text-[#002d4d] dark:text-white ${styles.description}`}>
+          <p className="poppins">{t("book.texto")}</p>
+        </div>
+        <div className={styles.notebook}>
+          <Image
+            src={notebookMockup}
+            alt={translateText("Catálogo digital de produtos Insul no notebook")}
+            fill
+            sizes="(min-width: 1920px) 1200px, (min-width: 1024px) 850px, 100vw"
+            className="object-contain"
+          />
+        </div>
+        <div className={styles.cards} aria-label={translateText("Conheça nosso catálogo")}>
+          <div className={`${styles.statCard} ${styles.statCardLight} poppins`}>
+            <div className={styles.statTop}>
+              <span className={styles.statBadge}><span />{translateText("Produtos")}</span>
+              <span>01</span>
+            </div>
+            <p className={styles.statValue}>25+</p>
+            <p className={styles.statTitle}>{translateText("Modelos de cercamento")}</p>
+            <p className={styles.statDescription}>{translateText("Telas, gradis, cercas e acessórios para o seu projeto.")}</p>
+          </div>
+          <div className={`${styles.statCard} ${styles.statCardAccent} poppins`}>
+            <div className={styles.statTop}>
+              <span className={styles.statBadge}><span />{translateText("Catálogo")}</span>
+              <span>02</span>
+            </div>
+            <p className={styles.statValue}>{translateText("Digital")}</p>
+            <p className={styles.statTitle}>{translateText("Tudo em um só lugar")}</p>
+            <p className={styles.statDescription}>{translateText("Explore os produtos e consulte medidas e aplicações.")}</p>
+          </div>
         </div>
       </div>
-      <div className="BOOK-CONTENT mt-20 lg:mt-0 flex flex-col items-center gap-6 lg:gap-20 lg:flex-row lg:justify-between">
-        <TextArrowCTA
+      <div className={`${styles.responsiveCatalog} text-[#002d4d] dark:text-white`}>
+        <div className={styles.abstractBackground} aria-hidden="true">
+        </div>
+        <p data-catalog-description className={`poppins ${styles.responsiveBadge}`}>{t("book.responsiveBadge")}</p>
+        <h3 data-catalog-description className={`poppins ${styles.responsiveTitle}`}>{t("book.responsiveTitle")}</h3>
+        <p data-catalog-description className={`poppins ${styles.responsiveSubtitle}`}>{t("book.responsiveSubtitle")}</p>
+        <div className={styles.responsiveImage}>
+          <Image src={mobileMockup} alt={translateText("Catálogo Insul responsivo em celulares")} sizes="(min-width: 1920px) 2100px, 180vw" className={styles.responsiveMockup} />
+        </div>
+      </div>
+      <div className={styles.features}>
+        <div className={styles.feature}>
+          <div className={`${styles.mobileCopy} text-[#002d4d] dark:text-white`}>
+            <div className={styles.mobileEyebrow}>
+              <LayoutGrid size={19} className="shrink-0 text-[#ff5500]" aria-hidden="true" />
+              <p data-catalog-description className="poppins">{t("book.mobileIntro")}</p>
+            </div>
+            <p data-catalog-description className={`poppins whitespace-pre-line ${styles.featureText}`}>
+              {t("book.mobileDetails")}
+            </p>
+            <CatalogWheelNav page={catalogPage} onOpenChange={setCatalogMenuOpen} />
+          </div>
+          <CatalogPhoneCarousel onPageChange={handleCatalogPageChange} menuOpen={catalogMenuOpen} />
+        </div>
+      </div>
+      <div className="BOOK-CONTENT empty:hidden mt-20 lg:mt-0 flex flex-col items-center gap-6 lg:gap-20 lg:flex-row lg:justify-between">
+        {/* <TextArrowCTA
           onClick={() => bookRef.current?.pageFlip().flipNext()}
           className="lg:mr-6"
         />
@@ -308,10 +370,23 @@ const Book = () => {
               </div>
             ))}
           </HTMLFlipBook>
-        </div>
+        </div> */}
       </div>
     </section>
   );
 };
 
 export default Book;
+
+
+
+
+
+
+
+
+
+
+
+
+
