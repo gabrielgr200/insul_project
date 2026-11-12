@@ -218,7 +218,7 @@ const Book = () => {
         <h3 className={`BOOK-LABEL poppins font-semibold text-2xl text-[#002d4d] dark:text-white ${styles.label}`}>
           {t("book.label")}
         </h3>
-        <h2 className={`BOOK-TITLE heading-2 poppins text-5xl ${styles.title}`}>
+        <h2 className={`BOOK-TITLE heading-2 impact text-5xl ${styles.title}`}>
           <span>{t("book.tituloLinha1")}</span>
           <span>{t("book.tituloLinha2")}</span>
         </h2>

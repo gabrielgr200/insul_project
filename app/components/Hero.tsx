@@ -138,13 +138,13 @@ const Hero = ({ ready = true }) => {
                 onClick={() => scrollToSection("produtos")}
                 className={`HERO-CTA group bg-[#ff5500] text-white font-semibold
                 rounded-full border border-[#FF6A1A] ease-in lg:absolute
-                lg:text-lg lg:py-5 lg:px-10 lg:bottom-10 lg:right-10 hover:animate-wiggle cursor-pointer z-20 ${styles.heroButton}`}
+                lg:text-lg lg:py-5 lg:px-10 lg:bottom-10 lg:right-10 cursor-pointer z-20 ${styles.heroButton}`}
                 overlayClassName="bg-white dark:bg-background text-[#ff5500]"
               >
                 <span>{t("hero.cta")}</span>
                 <ArrowRight
                   size={20}
-                  className="group-hover:rotate-360 -routae-35 transition-all duration-500 ease-in"
+                  className="shrink-0"
                 />
               </FillButton>
             </div>

@@ -1,0 +1,13 @@
+.wrapper{position:relative;width:100%;color:#002d4d}
+.globe{position:relative;width:100%;aspect-ratio:1;min-height:360px;max-height:900px}
+.globe canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.globe canvas:active{cursor:grabbing}
+.locations{display:flex;justify-content:center;gap:clamp(12px,2vw,28px);flex-wrap:wrap;margin-top:-20px;position:relative;z-index:1}
+.locations button{display:flex;align-items:center;gap:9px;padding:8px 0;background:none;border:0;color:inherit;font:inherit;font-size:13px;cursor:pointer;opacity:.55;transition:opacity .3s,color .3s}
+.locations button:hover,.locations button[aria-pressed=true]{opacity:1;color:#ff5500}
+.locations button:focus-visible{outline:2px solid #ff5500;outline-offset:5px;border-radius:4px}
+.locations i{height:1px;width:18px;background:currentColor}
+.number{font-size:9px;font-variant-numeric:tabular-nums}
+:global(.dark) .wrapper{color:#e2ebf0}
+@media(min-width:1920px){.locations button{font-size:16px}}
+@media(max-width:639px){.globe{min-height:300px}.locations{gap:8px 16px;margin-top:-5px}.locations button{font-size:12px}}

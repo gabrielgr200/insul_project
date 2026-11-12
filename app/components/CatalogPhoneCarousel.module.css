@@ -3,7 +3,7 @@
   justify-self: end;
   min-width: 0;
   color: #002d4d;
-  --phone-width: clamp(180px, 16vw, 320px);
+  --phone-width: clamp(162px, 14.4vw, 288px);
 }
 :global(.dark) .carousel { color: #f3f6f8; }
 .devices {
@@ -80,7 +80,7 @@
 .dots button[aria-current] { opacity: 1; background: #ff5500; }
 .carousel button:focus-visible, .stage:focus-visible { outline: 2px solid #ff5500; outline-offset: 4px; }
 @media (max-width: 767px) {
-  .carousel { --phone-width: clamp(170px, 44vw, 250px); }
+  .carousel { --phone-width: clamp(153px, 39.6vw, 225px); }
 }
 .catalogLink { display: flex; align-items: center; justify-content: center; gap: 12px; width: fit-content; margin: 24px auto 0; padding: 12px 24px; border-radius: 999px; background: #ff5500; color: #fff; font-size: 14px; text-decoration: none; transition: background .25s ease, transform .25s ease; }
 .catalogLink:hover { background: #e64d00; transform: translateY(-2px); }

@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import styles from "./SimilarProducts.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+
+
 import { ArrowUpRight } from "lucide-react";
 import type { ProductCardData } from "../assets/data";
 import { useTranslation } from "./LanguageProvider";
@@ -28,65 +28,27 @@ export const SimilarProductCard = ({
 }: SimilarCardProps) => {
   const translateText = useContentTranslation();
   const { dict } = useTranslation();
-  const imgRef = useRef<HTMLImageElement>(null);
-  const badgeRef = useRef<HTMLSpanElement>(null);
-
-  useGSAP(() => {
-    gsap.set(imgRef.current, { opacity: 1, scale: 1 });
-    gsap.set(badgeRef.current, { scale: 0, opacity: 0 });
-  }, []);
-
-  const handleEnter = () => {
-    gsap.to(imgRef.current, {
-      opacity: 0,
-      scale: 1.05,
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-    gsap.to(badgeRef.current, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.35,
-      ease: "back.out(2)",
-    });
-  };
-
-  const handleLeave = () => {
-    gsap.to(imgRef.current, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.6,
-      ease: "power2.out",
-    });
-    gsap.to(badgeRef.current, {
-      scale: 0,
-      opacity: 0,
-      duration: 0.25,
-      ease: "power2.in",
-    });
-  };
-
   return (
     <Link
       href={to || "#"}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+
+
       style={{ backgroundColor: color }}
-      className="group relative flex aspect-[3/4] w-full flex-col justify-between overflow-hidden rounded-2xl p-5 shadow-lg shadow-black/10"
+      className={`${styles.card} relative flex aspect-[3/4] w-full flex-col justify-between overflow-hidden rounded-2xl p-5 shadow-lg shadow-black/10`}
     >
       <Image
-        ref={imgRef}
+
         src={src}
         alt={translateText(name)}
         fill
         quality={90}
         sizes="(min-width: 1024px) 33vw, 50vw"
-        className="object-cover"
+        className={`${styles.image} ${cutout ? styles.withCutout : ""} object-cover`}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-black/10" />
 
       {cutout && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[95%] opacity-0 translate-y-4 scale-[0.92] transition-[opacity,transform] duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:scale-100">
+        <div className={`${styles.cutout} pointer-events-none absolute inset-x-0 bottom-0 h-[95%]`}>
           <Image
             src={cutout}
             alt=""
@@ -105,10 +67,10 @@ export const SimilarProductCard = ({
         </span>
         <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
           <span
-            ref={badgeRef}
-            className="absolute inset-0 rounded-full bg-white/20 backdrop-blur-sm"
+
+            className={`${styles.badge} absolute inset-0 rounded-full bg-white/20 backdrop-blur-sm`}
           />
-          <ArrowUpRight className="relative h-4 w-4 text-white" />
+          <ArrowUpRight className={`${styles.arrow} relative h-4 w-4 text-white`} />
         </span>
       </div>
 

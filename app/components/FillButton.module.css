@@ -1,4 +1,4 @@
-.button{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}
+.button{isolation:isolate;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}
 .label{display:block;position:relative;overflow:hidden}
 .text{display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .65s cubic-bezier(.22,1,.36,1)}
 .copy{position:absolute;inset:0;transform:translateY(140%)}

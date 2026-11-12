@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { gsap } from "gsap";
 import { useScrollTextReveal } from "./useScrollTextReveal";
-import BrazilMap from "./BrazilMap";
+// import BrazilMap from "./BrazilMap"; // Mapa anterior preservado para reutilização.
+import DistributionGlobe from "./DistributionGlobe";
 import GuilhermeChatbot from "./GuilhermeChatbot";
 import { useTranslation } from "./LanguageProvider";
 import { useContentTranslation } from "./LanguageProvider";
@@ -95,7 +96,8 @@ const Distribution = () => {
         </div>
 
         <div className="DISTRIBUTION-MAP mt-10 lg:mt-0 min-w-0 lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2">
-          <BrazilMap />
+          {/* <BrazilMap /> */}
+          <DistributionGlobe />
         </div>
 
         <div className="lg:col-start-1 lg:row-start-2">

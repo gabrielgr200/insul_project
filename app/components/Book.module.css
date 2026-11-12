@@ -8,8 +8,9 @@
 .responsiveCatalog {
   position: relative;
   isolation: isolate;
-  margin-top: clamp(64px, 7vw, 160px);
-  padding-top: clamp(104px, 9vw, 180px);
+  width: 90%;
+  margin: clamp(64px, 7vw, 160px) auto 0;
+  padding-top: clamp(72px, 6.5vw, 130px);
   border-radius: 12px;
   overflow: hidden;
   text-align: center;
@@ -112,7 +113,7 @@
   text-align: center;
   text-wrap: balance;
   padding-inline: 20px;
-  font-size: clamp(28px, 3.6vw, 72px);
+  font-size: clamp(26px, 3vw, 60px);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -.045em;
@@ -123,7 +124,7 @@
   margin: 12px auto 0;
   padding-inline: 20px;
   text-align: center;
-  font-size: clamp(14px, 1.3vw, 26px);
+  font-size: clamp(14px, 1.1vw, 22px);
   font-weight: 500;
 }
 
@@ -166,7 +167,8 @@
   gap: clamp(64px, 8vw, 180px);
   margin-top: clamp(32px, 4vw, 64px);
   position: relative;
-  width: 100%;
+  width: 90%;
+  margin-inline: auto;
   padding: 0;
 }
 
@@ -280,6 +282,7 @@
 
 .title > span {
   display: block;
+  white-space: nowrap;
   font-family: "impact01", Impact, sans-serif;
   /* font-family: var(--font-poppins), "Poppins", sans-serif; */
   font-weight: bold;
@@ -323,7 +326,7 @@
 }
 
 .cards>div:first-child {
-  top: 18%;
+  top: 23%;
   right: 5%;
   rotate: 10deg;
 }
@@ -331,7 +334,7 @@
 .cards>div:last-child {
   scale: .68;
   transform-origin: center;
-  top: 52%;
+  top: 8%;
   left: 48%;
   rotate: -12deg;
 }
@@ -455,7 +458,8 @@
   }
 
   .notebook {
-    width: 100%;
+    width: 90%;
+  margin-inline: auto;
     height: 65%;
     bottom: 3%;
     right: 0;
@@ -472,12 +476,12 @@
   }
 
   .cards>div:first-child {
-    top: 38%;
+    top: 43%;
     right: 5%;
   }
 
   .cards>div:last-child {
-    top: 55%;
+    top: 28%;
     left: 14%;
     right: auto;
   }
@@ -504,11 +508,11 @@
   }
 
   .cards>div:first-child {
-    top: 34%;
+    top: 39%;
   }
 
   .cards>div:last-child {
-    top: 46%;
+    top: 26%;
     right: auto;
     left: 7%;
   }
