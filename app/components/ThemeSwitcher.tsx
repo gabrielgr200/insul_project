@@ -50,7 +50,7 @@ const ThemeSwitcher = () => {
 
   if (!mounted) {
     return (
-      <button
+      <button data-liquid-glass
         type="button"
         aria-hidden
         tabIndex={-1}
@@ -65,7 +65,7 @@ const ThemeSwitcher = () => {
 
   return (
     <div className="relative" ref={ref}>
-      <button
+      <button data-liquid-glass
         type="button"
         onClick={toggleOpen}
         aria-label={t("aria.tema")}

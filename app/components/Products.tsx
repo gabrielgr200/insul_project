@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { gsap } from "gsap";
+
 import { useScrollTextReveal } from "./useScrollTextReveal";
-import { useGSAP } from "@gsap/react";
+
 import { roomDetails } from "../assets/data";
 import ProductsLink from "./ProductsLink";
 import { useTranslation } from "./LanguageProvider";
@@ -59,22 +59,7 @@ const Products = () => {
     });
   };
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      defaults: { ease: "power1.out" },
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        toggleActions: "play reverse play reverse",
-      },
-    });
 
-    tl.from(
-        ".PRODUCTS-LIST > *",
-        { y: 20, opacity: 0, duration: 0.5, stagger: 0.08 },
-        "-=0.3",
-      );
-  }, { scope: sectionRef });
 
   return (
     <section

@@ -284,7 +284,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
           </div>
 
           <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 border-t border-white/10 bg-black/70 px-3 py-2.5 backdrop-blur-sm">
-            <button
+            <button data-liquid-glass
               type="button"
               onClick={togglePlay}
               aria-label={translateText(isPlaying ? "Pausar" : "Reproduzir")}
@@ -292,7 +292,7 @@ const VideoCard3D = ({ videoSrc }: { videoSrc: string }) => {
             >
               {translateText(isPlaying ? <Pause size={12} /> : <Play size={12} />)}
             </button>
-            <button
+            <button data-liquid-glass
               type="button"
               onClick={toggleMute}
               aria-label={translateText(isMuted ? "Ativar som" : "Silenciar")}

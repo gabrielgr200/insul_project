@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform, usePresence } from "framer-motion";
+import gsap from "gsap";
 import { useTranslation } from "./LanguageProvider";
 
 const TYPE_SPEED = 90;
@@ -68,10 +69,48 @@ const ROTATE_DURATION = 3.4;
 const NEEDLE_START_ANGLE = -44.15;
 
 const Loader = ({ brandName = "INSUL", duration = 3, onComplete }: LoaderProps) => {
+  const [isPresent, safeToRemove] = usePresence();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const pixelsRef = useRef<HTMLDivElement>(null);
+  const [grid, setGrid] = useState({ rows: 0, cols: 25 });
   const [progress, setProgress] = useState(0);
   const rotate = useMotionValue(0);
   const ringPathLength = useTransform(rotate, (r) => r / 360);
   const rotateControls = useRef<ReturnType<typeof animate> | null>(null);
+
+  useEffect(() => {
+    const resize = () => {
+      let size = window.innerWidth * 0.04;
+      let cols = Math.ceil(window.innerWidth / size);
+      let rows = Math.ceil(window.innerHeight / size);
+      if (cols * rows > 1500) {
+        size *= Math.sqrt(cols * rows / 1500);
+        cols = Math.ceil(window.innerWidth / size);
+        rows = Math.ceil(window.innerHeight / size);
+      }
+      setGrid({ rows, cols });
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  useEffect(() => {
+    if (isPresent || !rootRef.current || !pixelsRef.current || !grid.rows) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const context = gsap.context(() => {
+      const content = Array.from(rootRef.current!.children).filter(child => child !== pixelsRef.current);
+      const timeline = gsap.timeline({ onComplete: () => safeToRemove?.() });
+      timeline.to(content, { opacity: 0, duration: reduced ? 0.15 : 0.3 }, 0);
+      timeline.to(pixelsRef.current!.children, {
+        opacity: 0, scale: reduced ? 1 : 0,
+        duration: reduced ? 0.15 : 1.2,
+        ease: "power4.inOut",
+        stagger: reduced ? 0 : { amount: 1.5, grid: [grid.rows, grid.cols], from: "center", ease: "sine.inOut" },
+      }, 0);
+    }, rootRef);
+    return () => context.revert();
+  }, [isPresent, safeToRemove, grid]);
 
   useEffect(() => {
     rotateControls.current = animate(rotate, 360, {
@@ -112,12 +151,16 @@ const Loader = ({ brandName = "INSUL", duration = 3, onComplete }: LoaderProps) 
   }, [duration, onComplete]);
 
   return (
-    <motion.div
-      initial={{ y: 0 }}
-      exit={{ y: "-100%" }}
-      transition={{ duration: 0.9, ease: [0.83, 0.05, 0.25, 0.98] }}
-      className="fixed inset-0 z-[999] flex flex-col justify-between bg-background p-8 md:p-16"
+    <div
+      ref={rootRef}
+      className="fixed inset-0 z-[999] isolate flex flex-col justify-between p-8 md:p-16"
     >
+      <div ref={pixelsRef} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 grid overflow-hidden"
+        style={{ gridTemplateColumns: `repeat(${grid.cols}, 1fr)`, gridTemplateRows: grid.rows ? `repeat(${grid.rows}, calc(100vw / ${grid.cols}))` : "1fr" }}>
+        {Array.from({ length: grid.rows * grid.cols || 25 }, (_, index) => (
+          <div key={index} className="bg-background outline outline-1 outline-background" />
+        ))}
+      </div>
       <motion.div
         initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
         animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
@@ -235,7 +278,7 @@ const Loader = ({ brandName = "INSUL", duration = 3, onComplete }: LoaderProps) 
       <div className="flex items-end">
         <TypewriterWord />
       </div>
-    </motion.div>
+    </div>
   );
 };
 

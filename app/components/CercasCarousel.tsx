@@ -1082,7 +1082,7 @@ const CercasCarousel = ({
             {index + 1}/{translateText(slides.length)}
           </p>
 
-          <button
+          <button data-liquid-glass
             type="button"
             onClick={() => setIsPlaying((v) => !v)}
             aria-label={translateText(isPlaying ? "Pausar slide" : "Reproduzir slide")}

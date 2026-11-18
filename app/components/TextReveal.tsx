@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import { SplitText } from "gsap/SplitText";
 import { useTranslation } from "./LanguageProvider";
 import { useContentTranslation } from "./LanguageProvider";
+import HoverGridBackground from "./HoverGridBackground";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -86,8 +87,9 @@ const TextReveal = () => {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 h-screen overflow-hidden bg-white dark:bg-background px-4 sm:px-8"
+      className="relative isolate z-10 h-screen overflow-hidden bg-white dark:bg-background px-4 sm:px-8"
     >
+      <HoverGridBackground />
       <div className="relative mx-auto h-full max-w-5xl">
         {PARAGRAPHS.map((text, i) => (
           <div

@@ -103,14 +103,14 @@ export default function AccessoryInstallationVideos() {
           </div>
         ))}
         <div className="absolute inset-x-6 bottom-5 z-30 flex items-center justify-center gap-3">
-          <button type="button" onClick={togglePlay} aria-label={translateText(playing ? "Pausar vídeo" : "Reproduzir vídeo")} className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow focus-visible:outline-2 focus-visible:outline-[#ff5500]">
+          <button data-liquid-glass type="button" onClick={togglePlay} aria-label={translateText(playing ? "Pausar vídeo" : "Reproduzir vídeo")} className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow focus-visible:outline-2 focus-visible:outline-[#ff5500]">
             {translateText(playing ? <Pause size={15} fill="black" /> : <Play size={15} fill="black" className="ml-0.5" />)}
           </button>
           <span className="min-w-[80px] text-center text-xs tabular-nums text-[#082d49]" aria-live="off">{formatTime(times[active].current)} / {formatTime(times[active].duration)}</span>
           <button type="button" onClick={() => selectVideo((active + 1) % videos.length)} aria-label={translateText(`Mudar para ${videos[(active + 1) % videos.length].title}`)} className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow focus-visible:outline-2 focus-visible:outline-[#ff5500]">
             <SkipForward size={15} />
           </button>
-          <button type="button" onClick={() => setMuted((previous) => !previous)} aria-label={translateText(muted ? "Ativar som" : "Silenciar vídeo")} aria-pressed={!muted} className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow focus-visible:outline-2 focus-visible:outline-[#ff5500]">
+          <button data-liquid-glass type="button" onClick={() => setMuted((previous) => !previous)} aria-label={translateText(muted ? "Ativar som" : "Silenciar vídeo")} aria-pressed={!muted} className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-black shadow focus-visible:outline-2 focus-visible:outline-[#ff5500]">
             {translateText(muted ? <VolumeX size={15} /> : <Volume2 size={15} />)}
           </button>
         </div>

@@ -258,10 +258,10 @@ const Book = () => {
       <div className={`${styles.responsiveCatalog} text-[#002d4d] dark:text-white`}>
         <div className={styles.abstractBackground} aria-hidden="true">
         </div>
-        <p data-catalog-description className={`poppins ${styles.responsiveBadge}`}>{t("book.responsiveBadge")}</p>
+        <p className={`poppins ${styles.responsiveBadge}`}>{t("book.responsiveBadge")}</p>
         <h3 data-catalog-description className={`poppins ${styles.responsiveTitle}`}>{t("book.responsiveTitle")}</h3>
         <p data-catalog-description className={`poppins ${styles.responsiveSubtitle}`}>{t("book.responsiveSubtitle")}</p>
-        <div className={styles.responsiveImage}>
+        <div data-home-entrance className={styles.responsiveImage}>
           <Image src={mobileMockup} alt={translateText("Catálogo Insul responsivo em celulares")} sizes="(min-width: 1920px) 2100px, 180vw" className={styles.responsiveMockup} />
         </div>
       </div>

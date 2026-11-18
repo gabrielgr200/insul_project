@@ -54,7 +54,7 @@ export default function CatalogPhoneCarousel({ onPageChange, menuOpen = false }:
   }, [paused, menuOpen, visible, reducedMotion, active]);
 
   return (
-    <div ref={root} className={styles.carousel} role="region" aria-label={labels.name}
+    <div data-home-entrance ref={root} className={styles.carousel} role="region" aria-label={labels.name}
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
       <div className={styles.devices} role="group" aria-label="Android / iOS">

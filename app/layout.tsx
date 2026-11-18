@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import RouteTransition from "./components/RouteTransition";
 import ThemeProvider from "./components/ThemeProvider";
 import LanguageProvider from "./components/LanguageProvider";
+import HoverGridBackground from "./components/HoverGridBackground";
 import "./globals.css";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -86,8 +87,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${newBlack.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col isolate">
         <ThemeProvider>
+          <HoverGridBackground global />
           <LanguageProvider>
             <RouteTransition>{children}</RouteTransition>
           </LanguageProvider>

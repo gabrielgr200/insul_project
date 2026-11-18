@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useScrollTextReveal } from "./useScrollTextReveal";
 import ScrollTimeline from "./Timeline";
+import HoverGridBackground from "./HoverGridBackground";
 import { useTranslation } from "./LanguageProvider";
 
 export const IndustryHeader = () => {
@@ -37,6 +38,7 @@ export const IndustryTimeline = () => {
   const { dict } = useTranslation();
   return (
     <section className="relative isolate z-0 min-h-[200vh] bg-white dark:bg-background">
+      <HoverGridBackground />
       <ScrollTimeline items={dict.industry.timeline} />
     </section>
   );

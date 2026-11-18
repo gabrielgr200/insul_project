@@ -86,8 +86,19 @@ export default function DistributionGlobe() {
             : geometry.coordinates as number[][][];
           return rings.map(ring => ring.map(([lon,lat]) => vector(lat,lon)));
         });
-        stateLines = lines(data.states); countryLines = lines(data.countries);
+        countryLines = lines(data.countries);
       }).catch(error => { if (error.name !== "AbortError") console.error(error); });
+    // Official IBGE UF polygons retain the state borders and the Federal District.
+    fetch("/maps/brazil-states.geojson", { signal: controller.signal }).then(response => {
+      if (!response.ok) throw new Error("Brazilian state geography unavailable");
+      return response.json() as Promise<GeoLand>;
+    }).then(data => {
+      if (disposed) return;
+      const polygons = data.features.flatMap(feature => feature.geometry.type === "Polygon"
+        ? [feature.geometry.coordinates as number[][][]]
+        : feature.geometry.coordinates as number[][][][]);
+      stateLines = polygons.flatMap(polygon => polygon.map(ring => ring.map(([lon, lat]) => vector(lat, lon))));
+    }).catch(error => { if (error.name !== "AbortError") console.error(error); });
     fetch("/maps/land-110m.geojson", { signal: controller.signal }).then(response => {
       if (!response.ok) throw new Error("Globe geography unavailable");
       return response.json() as Promise<GeoLand>;
@@ -153,7 +164,7 @@ export default function DistributionGlobe() {
       };
       domestic.forEach(([lat, lon], index) => route(hubs[index % 2], { name: "", lat, lon }, index, false));
       countries.slice(1).forEach((country, index) => { const anchor = countryLabels.find(label => label.name === country.name)!; route(hubs[1], { ...anchor, lat: anchor.lat - 2 }, index, true); });
-      // Labels use a halo and collision detection to stay legible at notebook sizes.
+      // Country names may be culled; UF abbreviations must remain visible at their coordinates.
       const occupied: {x:number;y:number;w:number;h:number}[] = [];
       const label = (place: Location, country: boolean) => {
         const p = project(vector(place.lat,place.lon));
@@ -162,7 +173,7 @@ export default function DistributionGlobe() {
         ctx.font = `${country ? 600 : 400} ${size}px Poppins, sans-serif`;
         const name = place.name, w = ctx.measureText(name).width + 8;
         const box = {x:p.x-w/2,y:p.y-size/2,w,h:size+(country ? 24 : 5)};
-        if (occupied.some(b => box.x < b.x+b.w && box.x+box.w > b.x && box.y < b.y+b.h && box.y+box.h > b.y)) return;
+        if (country && occupied.some(b => box.x < b.x+b.w && box.x+box.w > b.x && box.y < b.y+b.h && box.y+box.h > b.y)) return;
         occupied.push(box);
         ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.lineWidth = 4;
         ctx.strokeStyle = dark ? "#071722" : "#edf4f8"; ctx.strokeText(name,p.x,p.y);

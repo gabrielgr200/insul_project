@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { useScrollTextReveal } from "./useScrollTextReveal";
 // import BrazilMap from "./BrazilMap"; // Mapa anterior preservado para reutilização.
 import DistributionGlobe from "./DistributionGlobe";
+import HoverGridBackground from "./HoverGridBackground";
 import GuilhermeChatbot from "./GuilhermeChatbot";
 import { useTranslation } from "./LanguageProvider";
 import { useContentTranslation } from "./LanguageProvider";
@@ -29,19 +30,7 @@ const Distribution = () => {
         },
       });
 
-      tl.from(
-          ".DISTRIBUTION-CARD",
-          {
-            y: 12,
-            opacity: 0,
-            duration: 0.9,
-            stagger: 0.18,
-            ease: "power3.out",
-            clearProps: "transform",
-          },
-          "-=0.3",
-        )
-        .from(".DISTRIBUTION-MAP", { scale: 0.9, opacity: 0, duration: 0.9 }, "-=0.6");
+      tl.from(".DISTRIBUTION-MAP", { scale: 0.9, opacity: 0, duration: 0.9 });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -51,8 +40,9 @@ const Distribution = () => {
     <section
       ref={sectionRef}
       id="distribuicao"
-      className="home-wide-section bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 !pt-0 mt-[clamp(64px,8vw,80px)] lg:mt-[clamp(120px,8vw,200px)] mb-20"
+      className="home-wide-section relative isolate bg-white dark:bg-background max-w-7xl mx-auto p-4 sm:p-8 !pt-0 mt-[clamp(64px,8vw,80px)] lg:mt-[clamp(120px,8vw,200px)] mb-20"
     >
+      <HoverGridBackground />
       <h3 className="DISTRIBUTION-LABEL text-center sm:text-left text-[#002d4d] dark:text-white font-semibold text-2xl poppins py-3">
         {t("distribution.label")}
       </h3>
@@ -73,6 +63,7 @@ const Distribution = () => {
             {distributionCenters.map((center) => (
               <div
                 key={center.state}
+                data-home-entrance="left"
                 className="DISTRIBUTION-CARD flex items-center gap-3 sm:gap-2 bg-white dark:bg-white/5 dark:backdrop-blur-md border border-zinc-200 dark:border-white/10 rounded-2xl shadow-sm p-3 sm:p-2 w-full max-w-sm lg:max-w-xs
                 transition-[transform,box-shadow,border-color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1 hover:shadow-xl hover:border-zinc-300 dark:hover:border-white/20 cursor-pointer"
               >

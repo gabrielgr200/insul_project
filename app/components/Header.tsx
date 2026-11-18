@@ -238,7 +238,7 @@ const Header = () => {
     } else {
       products = category.items.map((name) => {
         const product = wireProducts.find(item => item.menuLabel === name);
-        return { label: name, href: product ? `/arames/${product.slug}` : "/arames", imageSrc: getProductAvatar(name) };
+        return { label: name, href: product ? `/arames/${product.slug}` : "/arames", imageSrc: product?.family === "eletrica" ? (product.heroImage ?? product.src) : getProductAvatar(name) };
       });
     }
 

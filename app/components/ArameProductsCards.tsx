@@ -2,8 +2,7 @@
 
 import ProductCard from "./ProductCard";
 import ScrollReveal from "./ScrollReveal";
-import { arameCards } from "../assets/data";
-import { wireProductHref } from "../assets/wireProducts";
+import { wireProducts } from "../assets/wireProducts";
 import { useContentTranslation } from "./LanguageProvider";
 
 const ArameProductsCards = () => {
@@ -17,11 +16,11 @@ const ArameProductsCards = () => {
           {translateText("Do BWG 10 ao BWG 18, cada rolo é galvanizado para resistir ao tempo e se adaptar ao seu projeto.")}</p>
       </ScrollReveal>
       <ScrollReveal className="cercas-cards-wide grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
-        {arameCards.map((card) => (
+        {wireProducts.filter(product => product.family === "galvanizado" || product.family === "eletrica").map((card) => (
           <ProductCard
             key={card.name}
             {...card}
-            to={wireProductHref(card.name)}
+            to={`/arames/${card.slug}`}
             imageClassName={`${card.imageClassName ?? "object-contain"} min-[1920px]:scale-110 min-[2560px]:scale-[1.15]`}
           />
         ))}

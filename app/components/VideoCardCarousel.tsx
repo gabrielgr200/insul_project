@@ -161,7 +161,7 @@ const VideoCardCarousel = ({
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-              <button
+              <button data-liquid-glass
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -176,7 +176,7 @@ const VideoCardCarousel = ({
               </button>
 
               {translateText(isActive ? (
-                <button
+                <button data-liquid-glass
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();

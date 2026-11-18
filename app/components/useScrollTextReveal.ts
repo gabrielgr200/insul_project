@@ -36,10 +36,10 @@ export function useScrollTextReveal(ref: RefObject<HTMLElement | null>, selector
           });
           splits.push(split);
           gsap.fromTo(split.words,
-            { opacity: 0, y: 10, filter: "blur(10px)" },
+            { opacity: 0, y: 28, filter: "blur(6px)" },
             {
               opacity: 1, y: 0, filter: "blur(0px)",
-              duration: 0.7, ease: "power2.out",
+              duration: 0.85, ease: "power3.out",
               stagger: Math.min(0.065, 0.8 / Math.max(1, split.words.length)),
               scrollTrigger: { trigger: element, start: "top 90%", once: true },
               onComplete: () => { gsap.set(split.words, { clearProps: "transform,filter,opacity" }); },

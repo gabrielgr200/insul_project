@@ -17,6 +17,8 @@ import TextReveal from "../components/TextReveal";
 import Distribution from "../components/Distribution";
 import Frequently from "../components/Frequently";
 import Footer from "../components/Footer";
+import { useScrollTextReveal } from "../components/useScrollTextReveal";
+import { useHomeEntrance } from "../components/useHomeEntrance";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -33,12 +35,15 @@ const Book = dynamic(() => import("../components/Book"), {
 
 const HomePage = () => {
   const [loading, setLoading] = useState(() => !hasSiteLoaded());
+  const [entranceReady, setEntranceReady] = useState(() => hasSiteLoaded());
   const handleComplete = useCallback(() => {
     markSiteLoaded();
     setLoading(false);
   }, []);
   const contentRef = useRef(null);
   const { t } = useTranslation();
+  useScrollTextReveal(contentRef, ".home-numbers-title, [data-home-statistics] p");
+  useHomeEntrance(contentRef, entranceReady);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -81,7 +86,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen overflow-clip">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={() => setEntranceReady(true)}>
         {loading && (
           <Loader
             key="loader"
@@ -91,15 +96,15 @@ const HomePage = () => {
           />
         )}
       </AnimatePresence>
-      <Header />
+      <div style={{ visibility: entranceReady ? "visible" : "hidden" }}><Header /></div>
       <div id="smooth-wrapper">
         <main id="smooth-content" ref={contentRef} className="pt-px">
           <hr className="text-zinc-800 -mt-2" />
-          <Hero ready={!loading} />
-          <h3 className="text-center text-[#002d4d] dark:text-white font-bold text-2xl poppins py-20">
+          <Hero ready={entranceReady} />
+          <h3 className="home-numbers-title text-center text-[#002d4d] dark:text-white font-bold text-2xl poppins py-20">
             {t("home.numerosTitulo")}
           </h3>
-          <Partners />
+          <div data-home-statistics><Partners /></div>
           <PartnersLogos />
           <section className="py-20 sm:py-28">
             <SearchBarShowcase />
@@ -108,8 +113,8 @@ const HomePage = () => {
           <section className="py-20 sm:py-28">
             <IndustryHeader />
           </section>
-          <TextReveal />
-          <IndustryTimeline />
+          <div data-home-reveal-preserved><TextReveal /></div>
+          <div data-home-reveal-preserved><IndustryTimeline /></div>
           {/* <hr className="text-zinc-100" /> */}
           <Products />
           {/* <hr className="text-zinc-100" /> */}

@@ -112,6 +112,7 @@ const torcaoGalvanizadaMesh = { src: "/images/imagens-teste/torção/malha-torca
 
 export interface ProductCardData {
   src: string;
+  heroImage?: string;
   title: string;
   name: string;
   paragraph: string;
@@ -434,7 +435,7 @@ const cercasProntas: CercaProntaInfo[] = [
     "paragraphs": [
       "A Campeira Java Insul é indicada para cercamentos rurais em geral, cercas para ovinos, caprinos, cães e bovinos e proteção de lavouras contra javalis, javaporcos, catetos e queixadas.",
       "Com fio de 2,50 mm e nó em X (Stiff Stay), possui malha de 20 × 15 cm no topo e de 10 × 15 cm na base. As alturas disponíveis são 1,20 m, 1,40 m, 1,80 m e 2,00 m, em rolos de 50 e 100 m. O distanciamento entre mourões é de 8 a 10 m."
-],
+    ],
     "postSpacing": "8-8 até 10-10m",
     "lengths": ["50m", "100m"],
     "heights": ["1,20 m", "1,40 m", "1,80 m", "2,00 m"],
@@ -3756,7 +3757,7 @@ const soldadasHexagonais: SoldadaHexagonalInfo[] = [
       },
     ],
   }, //torção-simples-pvc-verde
-  
+
 ];
 
 
@@ -3865,6 +3866,18 @@ export const arameCards: ProductCardData[] = [
     description:
       "Página de exemplo para o Arame Galvanizado BWG 18. A descrição completa e as especificações técnicas reais serão adicionadas em breve.",
   }, //BWG18
+  {
+    src: "/images/arames/cercaeletrica/img-cercaeletrica-card.png",
+    heroImage: "/images/arames/cercaeletrica/img-cercaeletrica.png",
+    title: "Arame Galvanizado",
+    name: "Arame Cerca Elétrica",
+    to: "/arames/arame-cerca-eletrica",
+    paragraph: "Fio 2,10mm, Galvanizado a fogo, 500Kgf",
+    shortDescription: "O Arame Cerca Elétrica Energy 2,10mm é um arame desenvolvido especialmente para a construção de cercas elétricas rurais. Aqui você encontra esse arame para cerca elétrica em rolos de 1000m.",
+    description: "Texto placeholder para a descrição do arame para cerca elétrica. Substituir pelas informações do produto.",
+    postSpacing: "",
+    animals: [],
+  }, //Cerca elétrica
 ];
 
 export const arameCardsPvc: ProductCardData[] = [

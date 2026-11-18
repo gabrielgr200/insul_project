@@ -10,7 +10,7 @@ export default function WireProductHero({ product }: { product: WireProduct }) {
       name={name}
       category="Arames"
       description={product.shortDescription}
-      image={product.src}
+      image={product.heroImage ?? product.src}
       specifications={product.paragraph}
       circularOrbit
       imageScale={1.2}

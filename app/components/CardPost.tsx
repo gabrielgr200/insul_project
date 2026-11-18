@@ -118,7 +118,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
               onPause={() => setPlaying((p) => setAt(p, i, false))}
             />
 
-            <button
+            <button data-liquid-glass
               type="button"
               onClick={() => togglePlay(i)}
               aria-label={translateText(playing[i] ? "Pausar vídeo" : "Reproduzir vídeo")}
@@ -150,7 +150,7 @@ const CardPost = ({ badge = "Vídeos", title, description, reels }: CardPostProp
               </button>
             </div>
 
-            <button
+            <button data-liquid-glass
               type="button"
               onClick={() => toggleMute(i)}
               aria-label={translateText(muted[i] ? "Ativar som" : "Silenciar vídeo")}

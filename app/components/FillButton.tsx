@@ -15,7 +15,7 @@ type FillButtonProps = {
 const FillButton = React.forwardRef<HTMLElement, FillButtonProps>(
   ({ href, onClick, className, target, rel, children }, ref) => {
     const Comp = (href ? "a" : "button") as React.ElementType;
-    return <Comp ref={ref} href={href} type={href ? undefined : "button"} target={target} rel={rel} onClick={onClick} className={cn(styles.button, className)}>
+    return <Comp data-home-button ref={ref} href={href} type={href ? undefined : "button"} target={target} rel={rel} onClick={onClick} className={cn(styles.button, className)}>
       <span className={styles.label}><span className={styles.text}>{children}</span><span className={`${styles.text} ${styles.copy}`} aria-hidden="true">{children}</span></span>
     </Comp>;
   }
