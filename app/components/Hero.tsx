@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import HeroImages from "./HeroImages";
 import { scrollToSection } from "../utils/ScrollToSection";
 import { gsap } from "gsap";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import FillButton from "./FillButton";
 import { useTranslation } from "./LanguageProvider";
 import styles from "./Hero.module.css";
@@ -14,7 +14,7 @@ const Hero = ({ ready = true }) => {
   const { t } = useTranslation();
   const rootRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ready) return;
 
     const ctx = gsap.context(() => {

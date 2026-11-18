@@ -177,7 +177,7 @@ const Header = () => {
     if (isHome) {
       scrollToSection("inicio");
     } else {
-      beginPageTransition();
+      beginPageTransition("/");
       router.push("/");
     }
   };
@@ -186,7 +186,7 @@ const Header = () => {
     if (isHome) {
       scrollToSection(id);
     } else {
-      beginPageTransition();
+      beginPageTransition("/");
       router.push(`/#${id}`, { scroll: false });
     }
   };
@@ -196,7 +196,7 @@ const Header = () => {
   };
 
   const navigateToProduct = (href: string) => {
-    beginPageTransition();
+    beginPageTransition(href);
     router.push(href);
     closeMobile();
   };

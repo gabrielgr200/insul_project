@@ -1,17 +1,28 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useLayoutEffect, type RefObject } from "react";
 import gsap from "gsap";
 
 /** Observe individual elements, including content mounted after the initial render. */
 export function useHomeEntrance(ref: RefObject<HTMLElement | null>, ready: boolean) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = ref.current;
     if (!root || !ready) return;
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const seen = new WeakSet<Element>();
       const context = gsap.context(() => {}, root);
+      const navbarElements = Array.from(document.querySelectorAll<HTMLElement>(
+        "header > div > a, header > div > nav > *, header > div > div:not([aria-hidden]) > *",
+      )).filter(element => element.getClientRects().length > 0);
+      if (navbarElements.length) context.add(() => {
+        // CSS transition-all must not trail the transform/opacity updated by GSAP.
+        gsap.set(navbarElements, { transition: "none" });
+        gsap.from(navbarElements, {
+          y: 24, autoAlpha: 0, duration: 0.65, stagger: 0.1,
+          ease: "power3.out", clearProps: "opacity,visibility,transform,transition",
+        });
+      });
       let cardsEntrance: gsap.core.Timeline;
       context.add(() => { cardsEntrance = gsap.timeline(); });
       const observer = new IntersectionObserver(entries => {
@@ -47,15 +58,6 @@ export function useHomeEntrance(ref: RefObject<HTMLElement | null>, ready: boole
       collect();
       const mutations = new MutationObserver(collect);
       mutations.observe(root, { childList: true, subtree: true });
-      const navbarElements = Array.from(document.querySelectorAll<HTMLElement>(
-        "header > div > a, header > div > nav > *, header > div > div:not([aria-hidden]) > *",
-      )).filter(element => element.getClientRects().length > 0);
-      if (navbarElements.length) context.add(() => {
-        gsap.from(navbarElements, {
-          y: 24, autoAlpha: 0, duration: 0.75, stagger: 0.14,
-          ease: "power3.out", clearProps: "opacity,visibility,transform",
-        });
-      });
       return () => { observer.disconnect(); mutations.disconnect(); context.revert(); };
     });
     return () => media.revert();

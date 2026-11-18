@@ -10,14 +10,12 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import TransitionOverlay, {
-  BAND_COUNT,
-  BAND_DURATION,
-  BAND_STAGGER,
-} from "./TransitionOverlay";
+import TransitionOverlay, { SPLIT_DURATION } from "./TransitionOverlay";
+import { transitionPageName } from "../utils/transitionPageName";
+import PageEntrance from "./PageEntrance";
 
-const HOLD = 0.12;
-const SWEEP_DURATION = BAND_DURATION + BAND_STAGGER * (BAND_COUNT - 1);
+const HOLD = 0.15;
+const SWEEP_DURATION = SPLIT_DURATION;
 const MIN_COVER_MS = (SWEEP_DURATION + HOLD) * 1000;
 const MAX_COVER_MS = 8000;
 
@@ -43,13 +41,15 @@ const isInternalNavClick = (e: MouseEvent) => {
 
 type Phase = "idle" | "covering" | "revealing";
 
-const BeginTransitionContext = createContext<() => void>(() => {});
+const BeginTransitionContext = createContext<(href?: string) => void>(() => {});
 
 export const useBeginPageTransition = () => useContext(BeginTransitionContext);
 
 const RouteTransition = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [phase, setPhase] = useState<Phase>("idle");
+  const [destination, setDestination] = useState(pathname);
+  const [sourcePath, setSourcePath] = useState(pathname);
   const phaseRef = useRef<Phase>("idle");
   const coverStartPathname = useRef(pathname);
   const minElapsedRef = useRef(false);
@@ -77,9 +77,11 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const beginTransition = useCallback(() => {
+  const beginTransition = useCallback((href?: string) => {
     if (phaseRef.current !== "idle" || isReducedMotion()) return;
-
+    setSourcePath(pathname);
+    setDestination(href ?? window.location.pathname);
+    phaseRef.current = "covering";
     minElapsedRef.current = false;
     navigatedRef.current = false;
     setPhase("covering");
@@ -96,12 +98,13 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
       navigatedRef.current = true;
       maybeReveal();
     }, MAX_COVER_MS);
-  }, [maybeReveal]);
+  }, [maybeReveal, pathname]);
 
   useEffect(() => {
     if (phase === "idle") {
       coverStartPathname.current = pathname;
     } else if (phase === "covering" && pathname !== coverStartPathname.current) {
+      setDestination(pathname);
       navigatedRef.current = true;
       maybeReveal();
     }
@@ -116,7 +119,10 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (isInternalNavClick(e)) beginTransition();
+      if (isInternalNavClick(e)) {
+        const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[href]");
+        if (anchor) beginTransition(new URL(anchor.href).pathname);
+      }
     };
     const handlePopState = () => beginTransition();
 
@@ -137,9 +143,13 @@ const RouteTransition = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <BeginTransitionContext.Provider value={beginTransition}>
-      {children}
+      {pathname === "/" ? children : (
+        <PageEntrance key={pathname} ready={phase === "idle" || pathname === sourcePath}>
+          {children}
+        </PageEntrance>
+      )}
       {phase !== "idle" && (
-        <TransitionOverlay covering={phase === "covering"} />
+        <TransitionOverlay covering={phase === "covering"} label={transitionPageName(destination)} />
       )}
     </BeginTransitionContext.Provider>
   );

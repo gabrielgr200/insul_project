@@ -861,7 +861,7 @@ const en: Dictionary = {
     consultor: "Insul Consultant",
     inicial:
       "Hi, I'm Guilherme! 👋 I'm part of the Insul team and I can help you with questions about our fences, deliveries and distribution. Ask away!",
-    placeholder: "Write your question...",
+    placeholder: "Type a message",
     enviarAria: "Send message",
     pills: [
       "Mesh for kennels",

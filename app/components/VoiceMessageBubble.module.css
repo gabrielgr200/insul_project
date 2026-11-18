@@ -1,0 +1,30 @@
+.player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 12px;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+.player .playButton {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  color: #000;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+.player .playButton:hover { background: #f5f5f5; color: #000; }
+.player .playButton svg { width: 16px; height: 16px; }
+.waveform { position: relative; flex: 1; min-width: 0; height: 24px; cursor: pointer; }
+.bars { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding-inline: 2px; pointer-events: none; }
+.bar { flex-shrink: 0; width: 2px; border-radius: 6px; }
+.duration { flex-shrink: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; line-height: 20px; font-weight: 400; }

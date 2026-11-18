@@ -1,6 +1,9 @@
+import { findPriceMatches, resolvePriceQuery } from "./priceCatalog";
+import { requestOpenAI } from "./openai";
+import { apiError, readApiJson } from "../_lib/security";
 import { cercasProntas, soldadasHexagonais, gradilModels } from "../../assets/data";
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+const MODEL = process.env.OPENAI_MODEL || "gpt-4.1-mini";
 const MAX_HISTORY = 12;
 const MAX_MESSAGE_LENGTH = 1000;
 const STORE_ORIGIN = "https://www.casadascercas.com.br";
@@ -78,80 +81,18 @@ Regras de resposta:
 - Nunca use markdown, listas numeradas ou muitos emojis — texto corrido, no máximo 1 emoji ocasional.
 - Responda sempre no mesmo idioma em que o usuário escreveu a mensagem.`;
 
-const geminiUrl = (key: string) =>
-  `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`;
-
-interface GeminiContentPart {
+interface ChatContent {
   role: string;
   parts: { text: string }[];
 }
 
-type GeminiCallResult = { reply: string } | { error: string };
-
-// Sem timeout/retry, uma falha passageira do Gemini (rede, 5xx, resposta
-// truncada) derruba a conversa pro fallback local — que é um matcher de
-// palavra-chave burro (ex.: "bom dia" no início de uma pergunta longa ganha
-// de qualquer assunto real). Reduzir a chance de cair nesse fallback é mais
-// importante do que só deixar o fallback mais esperto.
-const callGemini = async (
-  apiKey: string,
-  contents: GeminiContentPart[],
-  systemInstructionText: string,
-): Promise<GeminiCallResult> => {
-  const body = JSON.stringify({
-    contents,
-    systemInstruction: { parts: [{ text: systemInstructionText }] },
-    generationConfig: {
-      maxOutputTokens: 1024,
-      temperature: 0.7,
-      thinkingConfig: { thinkingLevel: "low" },
-    },
-  });
-
-  let lastError = "Falha desconhecida.";
-  const attemptTimeoutMs = 15000;
-
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      const res = await fetchWithTimeout(
-        geminiUrl(apiKey),
-        { "Content-Type": "application/json" },
-        attemptTimeoutMs,
-        { method: "POST", body },
-      );
-
-      if (!res.ok) {
-        const errText = await res.text().catch(() => "");
-        lastError = `HTTP ${res.status}: ${errText}`;
-        // Erro de cliente (chave inválida, payload ruim) não melhora numa
-        // segunda tentativa imediata. 429 (cota excedida) também não — a
-        // API pede um cooldown de vários segundos, então tentar de novo na
-        // hora só gasta outra requisição da cota já estourada e falha de
-        // novo; só vale re-tentar em erro transiente de infraestrutura (5xx).
-        if (res.status < 500) break;
-        continue;
-      }
-
-      const data = await res.json();
-      const reply: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (reply) return { reply };
-      lastError = "A IA não retornou texto na resposta.";
-    } catch (err) {
-      lastError = err instanceof Error ? err.message : String(err);
-      // Se o Gemini simplesmente não respondeu dentro do timeout, ele não
-      // "falhou rápido" — está travado. Tentar de novo com outro timeout
-      // igual só dobra a espera do usuário sem motivo (foi assim que uma
-      // resposta acabou demorando 41s: 2 tentativas de 20s cada). Erro de
-      // rede genuíno (ex.: DNS, conexão recusada) falha na hora, então esse
-      // sim vale re-tentar.
-      const isTimeout = err instanceof Error && err.name === "AbortError";
-      if (isTimeout) break;
-    }
-  }
-
-  return { error: lastError };
-};
-
+const callOpenAI = (apiKey: string, contents: ChatContent[], systemInstructionText: string) =>
+  requestOpenAI(apiKey, MODEL, JSON.stringify({
+    input: contents.map(item => ({ role: item.role === "model" ? "assistant" : "user", content: item.parts.map(part => part.text).join("\n") })),
+    instructions: systemInstructionText,
+    max_output_tokens: 1024,
+    temperature: 0.7,
+  }));
 // ============================================================================
 // Preços ao vivo — casadascercas.com.br
 // Buscamos direto na API interna da loja (a mesma que o front-end Vue usa)
@@ -160,54 +101,6 @@ const callGemini = async (
 // HTML/JSON-LD estático só mostra o preço da altura padrão selecionada.
 // ============================================================================
 const PRICE_API_BASE = `${STORE_ORIGIN}/api/v2/front`;
-
-interface PriceCatalogEntry {
-  keywords: string[];
-  slug: string;
-  label: string;
-}
-
-const PRICE_CATALOG: PriceCatalogEntry[] = [
-  { keywords: ["fenix", "fênix"], slug: "alambrado-de-aco-fenix-50m-fios-de-aco-250mm-malha-10x10cm-50m", label: "Cerca Fênix" },
-  { keywords: ["campeira maxx"], slug: "cerca-de-aco-campeira-maxx-700kgf-50m-fio-250mm", label: "Cerca Campeira Maxx" },
-  { keywords: ["campeira boi"], slug: "cerca-campeira-boi-fios-de-aco-250mm-malha-20x30cm-50m", label: "Cerca Campeira Boi" },
-  { keywords: ["campeira"], slug: "tela-campeira-insul", label: "Cerca Campeira" },
-  { keywords: ["tela titan", "titan"], slug: "tela-de-protecao-residencial-titan-fio-2.50mm", label: "Tela Titan" },
-  { keywords: ["morada open"], slug: "tela-alambrado-soldada-morada-open-fio-230mm-malha-65x15cm-rolo-25m", label: "Tela Morada Open" },
-  { keywords: ["morada leve"], slug: "tela-galvanizada-morada-leve-fio-1.90", label: "Tela Morada Leve" },
-  { keywords: ["tela morada", "morada"], slug: "tela-alambrado-soldada-fio-230mm-malha-5x15cm", label: "Tela Morada" },
-  { keywords: ["tela brava", "brava"], slug: "tela-soldada-revestida-com-pvc-verde-brava-fio-250mm-malha-5x10cm-rolo-25m", label: "Tela Brava" },
-  { keywords: ["mangueirão 16", "mangueirao 16"], slug: "tela-hexagonal-mangueirao-fio-16", label: "Tela Mangueirão 16" },
-  { keywords: ["mangueirão 18", "mangueirao 18"], slug: "tela-hexagonal-mangueirao-3-x-fio-18-124mm-rolo-50m", label: "Tela Mangueirão 18" },
-  { keywords: ["galinheiro"], slug: "tela-para-galinheiro", label: "Tela Galinheiro" },
-  { keywords: ["pinteiro"], slug: "tela-pinteiro", label: "Tela Pinteiro" },
-  { keywords: ["viveiro"], slug: "tela-viveiro", label: "Tela Viveiro" },
-  { keywords: ["gradil g4", "g4"], slug: "gradil-insul-g4", label: "Gradil G4" },
-  { keywords: ["gradil g5", "g5"], slug: "gradil-insul-g5-galvanizado-452mm-malha-5x20cm", label: "Gradil G5" },
-  { keywords: ["gradil g12", "g12"], slug: "gradil-insul-g12-pintado-380mm-malha-25x20cm", label: "Gradil G12" },
-];
-
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-const matchesPhrase = (input: string, phrase: string) => {
-  const pattern = new RegExp(
-    `(?<![\\p{L}\\p{N}])${escapeRegExp(phrase)}(?![\\p{L}\\p{N}])`,
-    "iu",
-  );
-  return pattern.test(input);
-};
-
-const findPriceMatches = (message: string) => {
-  const matches = PRICE_CATALOG.filter((entry) =>
-    entry.keywords.some((k) => matchesPhrase(message, k)),
-  );
-  matches.sort(
-    (a, b) =>
-      Math.max(...b.keywords.map((k) => k.length)) -
-      Math.max(...a.keywords.map((k) => k.length)),
-  );
-  return matches.slice(0, 2);
-};
 
 interface HeightVariant {
   /** Rótulo exatamente como a loja exibe, ex.: "1,50m". */
@@ -421,7 +314,7 @@ const buildPriceContext = async (message: string): Promise<string> => {
   const lines = matches
     .map((m, i) => {
       const result = results[i];
-      if (result === null) return null;
+      if (result === null) return `- ${m.label}: produto cadastrado, mas o preço está temporariamente indisponível nesta consulta à loja. Não diga que o produto não existe ou está fora do catálogo; não invente valores. Link direto: ${STORE_ORIGIN}/${m.slug}`;
       const { price, cashPrice, heightVariants, source } = result;
 
       if (heightVariants.length === 0) {
@@ -458,25 +351,28 @@ const buildPriceContext = async (message: string): Promise<string> => {
 };
 
 export async function POST(request: Request) {
-  let body: { message?: string; history?: ChatMessage[]; locale?: string };
-  try {
-    body = await request.json();
-  } catch {
-    return Response.json({ error: "Corpo da requisição inválido." }, { status: 400 });
-  }
+  const parsed = await readApiJson(request, { scope: "chat", maxBytes: 64 * 1024, limit: 30, windowMs: 60000 });
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
+  if (typeof body.message !== "string" || body.message.length > MAX_MESSAGE_LENGTH) return apiError("Envie uma mensagem de até 1000 caracteres.", 400);
+  if (body.locale !== undefined && (typeof body.locale !== "string" || !["pt", "en", "es"].includes(body.locale))) return apiError("Idioma inválido.", 400);
+  if (body.history !== undefined && (!Array.isArray(body.history) || body.history.length > MAX_HISTORY || body.history.some(item =>
+    !item || typeof item !== "object" || !["user", "bot"].includes(item.role) || typeof item.text !== "string" || item.text.length > MAX_MESSAGE_LENGTH,
+  ))) return apiError("Histórico de conversa inválido.", 400);
 
-  const message = (body.message ?? "").trim().slice(0, MAX_MESSAGE_LENGTH);
+  const message = typeof body?.message === "string" ? body.message.trim().slice(0, MAX_MESSAGE_LENGTH) : "";
   if (!message) {
     return Response.json({ error: "Mensagem vazia." }, { status: 400 });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error("GEMINI_API_KEY não configurada — chat com IA indisponível.");
+  const apiKey = process.env.OPENAI_API_KEY;
+  const usesPuter = process.env.CHAT_PROVIDER === "puter";
+  if (!usesPuter && !apiKey) {
+    console.error("OPENAI_API_KEY não configurada — chat com IA indisponível.");
     return Response.json({ error: "Chat com IA ainda não configurado." }, { status: 503 });
   }
 
-  const history = Array.isArray(body.history) ? body.history.slice(-MAX_HISTORY) : [];
+  const history: ChatMessage[] = Array.isArray(body.history) ? body.history : [];
   const contents = [
     ...history
       .filter((m) => m && typeof m.text === "string" && m.text.trim())
@@ -487,14 +383,25 @@ export async function POST(request: Request) {
     { role: "user", parts: [{ text: message }] },
   ];
 
-  const priceContext = await buildPriceContext(message);
+  const priceContext = await buildPriceContext(resolvePriceQuery(message, history));
   const systemInstructionText = SYSTEM_INSTRUCTION_BASE + priceContext;
 
-  const geminiResult = await callGemini(apiKey, contents, systemInstructionText);
-  if ("error" in geminiResult) {
-    console.error("Gemini API error:", geminiResult.error);
-    return Response.json({ error: "Não foi possível falar com a IA agora." }, { status: 502 });
+  if (usesPuter) {
+    return Response.json({
+      provider: "puter",
+      model: process.env.PUTER_MODEL || "gpt-4.1-mini",
+      messages: [
+        { role: "system", content: systemInstructionText },
+        ...contents.map(item => ({ role: item.role === "model" ? "assistant" : "user", content: item.parts.map(part => part.text).join("\n") })),
+      ],
+    }, { headers: { "Cache-Control": "no-store" } });
   }
 
-  return Response.json({ reply: geminiResult.reply.trim() });
+  const result = await callOpenAI(apiKey!, contents, systemInstructionText);
+  if ("error" in result) {
+    console.error("OpenAI indisponível:", { status: result.status, attempts: result.attempts });
+    return Response.json({ error: "Nosso assistente está temporariamente indisponível. Tente novamente em instantes ou fale com nossa equipe pelo WhatsApp (51) 99509-8453.", code: "AI_UNAVAILABLE" }, { status: 503, headers: { "Retry-After": "10" } });
+  }
+
+  return Response.json({ reply: result.reply.trim() });
 }

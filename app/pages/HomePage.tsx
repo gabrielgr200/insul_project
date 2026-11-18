@@ -10,7 +10,7 @@ import Products from "../components/Products";
 import Loader from "../components/Loader";
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useCallback } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import VideoShowcase from "../components/VideoShowcase";
 import TextReveal from "../components/TextReveal";
@@ -34,6 +34,7 @@ const Book = dynamic(() => import("../components/Book"), {
 });
 
 const HomePage = () => {
+  const reducedMotion = useReducedMotion();
   const [loading, setLoading] = useState(() => !hasSiteLoaded());
   const [entranceReady, setEntranceReady] = useState(() => hasSiteLoaded());
   const handleComplete = useCallback(() => {
@@ -96,8 +97,24 @@ const HomePage = () => {
           />
         )}
       </AnimatePresence>
-      <div style={{ visibility: entranceReady ? "visible" : "hidden" }}><Header /></div>
-      <div id="smooth-wrapper">
+      <motion.div
+        className="relative z-[150]"
+        inert={!entranceReady}
+        aria-hidden={!entranceReady}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: entranceReady ? 1 : 0 }}
+        transition={{ duration: reducedMotion ? 0 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+        style={{ visibility: entranceReady ? "visible" : "hidden" }}
+      ><Header /></motion.div>
+      <motion.div
+        id="smooth-wrapper"
+        inert={!entranceReady}
+        aria-hidden={!entranceReady}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: entranceReady ? 1 : 0 }}
+        transition={{ duration: reducedMotion ? 0 : 0.95, ease: [0.22, 1, 0.36, 1] }}
+        style={{ visibility: entranceReady ? "visible" : "hidden" }}
+      >
         <main id="smooth-content" ref={contentRef} className="pt-px">
           <hr className="text-zinc-800 -mt-2" />
           <Hero ready={entranceReady} />
@@ -124,7 +141,7 @@ const HomePage = () => {
           <Frequently />
           <Footer />
         </main>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -867,7 +867,7 @@ const es: Dictionary = {
     consultor: "Consultor Insul",
     inicial:
       "¡Hola, soy Guilherme! 👋 Formo parte del equipo Insul y puedo ayudarte a resolver dudas sobre nuestras cercas, entregas y distribución. ¡Pregúntame!",
-    placeholder: "Escribe tu pregunta...",
+    placeholder: "Escribe un mensaje",
     enviarAria: "Enviar mensaje",
     pills: [
       "Malla para perreras",

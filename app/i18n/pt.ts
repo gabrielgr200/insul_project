@@ -867,7 +867,7 @@ const pt = {
     consultor: "Consultor Insul",
     inicial:
       "Oi, eu sou o Guilherme! 👋 Faço parte do time Insul e posso te ajudar a tirar dúvidas sobre nossas cercas, entregas e distribuição. Pergunta aí!",
-    placeholder: "Escreva sua pergunta...",
+    placeholder: "Digite uma mensagem",
     enviarAria: "Enviar mensagem",
     pills: [
       "Tela para canil",

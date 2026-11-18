@@ -3,10 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
+import ChatComposer, { type ChatAttachment } from "./ChatComposer";
+import VoiceMessageBubble from "./VoiceMessageBubble";
+import messageStyles from "./ChatMessages.module.css";
+import { useChatScroll } from "./useChatScroll";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
+  Check,
   Mail,
   MessageCircle,
   Move,
@@ -17,6 +23,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "./LanguageProvider";
 import type { Dictionary } from "../i18n";
+import { loadPuter, authenticatePuter, askPuter, transcribePuter } from "../utils/puterChat";
 import { useContentTranslation } from "./LanguageProvider";
 
 type NewsletterStatus = "idle" | "submitting" | "success" | "error";
@@ -70,7 +77,12 @@ interface Message {
   id: number;
   from: "bot" | "user";
   text: string;
+  createdAt?: number;
+  attachment?: { kind: "image" | "audio"; url: string; name: string };
+  transcript?: string;
 }
+
+const messageTimestamp = () => Date.now();
 
 const useIntroFreeze = (
   videoRef: RefObject<HTMLVideoElement | null>,
@@ -187,17 +199,31 @@ const findReply = (input: string, chatbot: Dictionary["chatbot"]) => {
 
 const MIN_TYPING_DELAY = 450;
 
-const fetchGeminiReply = async (
+const fetchAIReply = async (
   message: string,
   history: { role: "bot" | "user"; text: string }[],
   locale: string,
+  attachment?: ChatAttachment,
+  onTranscript?: (text: string) => void,
 ): Promise<string> => {
+  const usesPuter = process.env.NEXT_PUBLIC_CHAT_PROVIDER === "puter";
+  const authentication = usesPuter ? authenticatePuter() : Promise.resolve();
+  // Authenticate before transcription and upload; signIn starts in the original click.
+  await authentication;
+  let prompt = message;
+  if (attachment?.kind === "audio") {
+    const transcript = await transcribePuter(attachment.file, locale);
+    onTranscript?.(transcript);
+    prompt = [message, transcript].filter(Boolean).join("\n");
+  }
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, history, locale }),
+    body: JSON.stringify({ message: prompt.slice(0, 1000), history: history.slice(-12).map(item => ({ ...item, text: item.text.slice(0, 1000) })), locale }),
+    signal: AbortSignal.timeout(55000),
   });
   const data = await res.json().catch(() => ({}));
+  if (res.ok && data.provider === "puter" && usesPuter) return askPuter(data.messages, data.model, attachment?.kind === "image" ? attachment.file : undefined);
   if (!res.ok || !data.reply) throw new Error(data.error || "chat_failed");
   return data.reply as string;
 };
@@ -208,19 +234,26 @@ const GuilhermeChatbot = () => {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    if ((isOpen || isModalOpen) && process.env.NEXT_PUBLIC_CHAT_PROVIDER === "puter") void loadPuter().catch(() => {});
+  }, [isOpen, isModalOpen]);
   const [modalPart, setModalPart] = useState(0);
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
   const [phoneShape, setPhoneShape] = useState<PhoneShape>("celular");
   const [messages, setMessages] = useState<Message[]>(() => [
     { id: 0, from: "bot", text: dict.chatbot.inicial },
   ]);
-  const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const chatFrameRef = useRef<HTMLDivElement | null>(null);
+  const chatScroll = useChatScroll(chatFrameRef, scrollRef, isOpen);
   const nextId = useRef(1);
   const avatarVideoRef = useRef<HTMLVideoElement | null>(null);
   const headerVideoRef = useRef<HTMLVideoElement | null>(null);
   const hasSentMessageRef = useRef(false);
+  const attachmentUrls = useRef<string[]>([]);
+  const sendingRef = useRef(false);
+  useEffect(() => () => { attachmentUrls.current.forEach(url => URL.revokeObjectURL(url)); }, []);
   const phoneDragControls = useDragControls();
 
   const pillsRef = useRef<HTMLDivElement | null>(null);
@@ -310,9 +343,10 @@ const GuilhermeChatbot = () => {
     }
   }, [locale, dict.chatbot.inicial]);
 
-  const sendMessage = async (presetText?: string) => {
-    const trimmed = (presetText ?? input).trim();
-    if (!trimmed || isTyping) return;
+  const sendMessage = async (text = "", attachment?: ChatAttachment) => {
+    const trimmed = text.trim();
+    if ((!trimmed && !attachment) || sendingRef.current) return;
+    sendingRef.current = true;
 
     if (!hasSentMessageRef.current) {
       hasSentMessageRef.current = true;
@@ -323,30 +357,53 @@ const GuilhermeChatbot = () => {
       }
     }
 
-    const history = messages.map((m) => ({ role: m.from, text: m.text }));
-    const userMessage: Message = { id: nextId.current++, from: "user", text: trimmed };
+    const history = messages.map((m) => ({ role: m.from, text: [m.text, m.transcript].filter(Boolean).join("\n") }));
+    const url = attachment ? URL.createObjectURL(attachment.file) : undefined;
+    if (url) attachmentUrls.current.push(url);
+    const userMessage: Message = { id: nextId.current++, from: "user", text: trimmed, createdAt: messageTimestamp(),
+      attachment: attachment && url ? { kind: attachment.kind, url, name: attachment.file.name } : undefined };
     setMessages((prev) => [...prev, userMessage]);
-    if (presetText === undefined) setInput("");
     setIsTyping(true);
 
+    let audioTranscribed = false;
     const minDelay = new Promise((resolve) => setTimeout(resolve, MIN_TYPING_DELAY));
     const [reply] = await Promise.all([
-      fetchGeminiReply(trimmed, history, locale).catch(() =>
-        findReply(trimmed, dict.chatbot),
-      ),
+      fetchAIReply(trimmed || (attachment?.kind === "image" ? "Analise esta imagem e me ajude com os produtos da Insul." : ""), history, locale, attachment,
+        transcript => {
+          audioTranscribed = true;
+          setMessages(previous => previous.map(item => item.id === userMessage.id ? { ...item, transcript } : item));
+        },
+      ).catch((error: unknown) => {
+        const authError = error as { error?: string; code?: string } | null;
+        const code = authError?.error ?? authError?.code;
+        if (code === "popup_blocked" || code === "auth_window_closed") {
+          return locale === "en"
+            ? "To test this assistant, allow the Puter sign-in window and complete sign-in, then send your question again."
+            : locale === "es"
+              ? "Para probar este asistente, permite la ventana de acceso de Puter y completa el acceso. Después, envía tu pregunta de nuevo."
+              : "Para testar este assistente, permita a janela de acesso do Puter e conclua o login. Depois, envie sua pergunta novamente.";
+        }
+        if (attachment?.kind === "audio" && !audioTranscribed) {
+          return locale === "en" ? "I couldn't transcribe this audio. Please record it again or type your question."
+            : locale === "es" ? "No pude transcribir este audio. Grábalo de nuevo o escribe tu pregunta."
+              : "Não consegui transcrever esse áudio. Tente gravar novamente ou escreva sua pergunta.";
+        }
+        const notice = locale === "en"
+          ? "My AI service is temporarily unavailable. You can try again shortly or contact our team on WhatsApp: (51) 99509-8453. Here is some general information that may help:"
+          : locale === "es"
+            ? "Mi servicio de IA no está disponible temporalmente. Puedes intentar de nuevo en unos instantes o hablar con nuestro equipo por WhatsApp: (51) 99509-8453. Esta información general puede ayudarte:"
+            : "Minha consulta com IA está temporariamente indisponível. Você pode tentar novamente em instantes ou falar com nossa equipe pelo WhatsApp: (51) 99509-8453. Estas informações gerais podem ajudar:";
+        return `${notice}\n\n${findReply(trimmed, dict.chatbot)}`;
+      }),
       minDelay,
     ]);
 
     setMessages((prev) => [
       ...prev,
-      { id: nextId.current++, from: "bot", text: reply },
+      { id: nextId.current++, from: "bot", text: reply, createdAt: messageTimestamp() },
     ]);
     setIsTyping(false);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    sendMessage();
+    sendingRef.current = false;
   };
 
   const closeChat = () => {
@@ -504,6 +561,8 @@ const GuilhermeChatbot = () => {
         {view === "chat" && (
           <motion.div
             key="phone"
+            ref={chatFrameRef}
+            {...chatScroll}
             drag
             dragControls={phoneDragControls}
             dragListener={false}
@@ -513,10 +572,10 @@ const GuilhermeChatbot = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            className="relative z-20 max-w-[95vw] rounded-[2.5rem] bg-[#111] p-2.5 shadow-2xl"
+            className="relative z-20 min-h-0 max-w-[95vw] rounded-[2.5rem] bg-[#111] p-2.5 shadow-2xl"
             style={{
               width: SHAPE_SIZES[phoneShape].width,
-              aspectRatio: `${SHAPE_SIZES[phoneShape].width} / ${SHAPE_SIZES[phoneShape].height}`,
+              height: `min(${SHAPE_SIZES[phoneShape].height}px, calc(100dvh - 48px))`,
             }}
           >
             {phoneShape === "celular" && (
@@ -532,10 +591,10 @@ const GuilhermeChatbot = () => {
               <X size={15} />
             </button>
 
-            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-white dark:bg-background">
+            <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] bg-white dark:bg-background">
               <div
                 onPointerDown={(e) => phoneDragControls.start(e)}
-                className="flex touch-none items-center gap-2.5 bg-[#002d4d] px-4 pb-3 pt-6 cursor-grab active:cursor-grabbing"
+                className="flex shrink-0 touch-none items-center gap-2.5 bg-[#002d4d] px-4 pb-3 pt-6 cursor-grab active:cursor-grabbing"
               >
                 <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30">
                   <video
@@ -583,7 +642,7 @@ const GuilhermeChatbot = () => {
 
               <div
                 ref={scrollRef}
-                className="flex flex-1 flex-col gap-3 overflow-y-auto p-4"
+                className={`${messageStyles.scrollArea} flex min-h-0 flex-1 flex-col gap-3 overflow-x-hidden overflow-y-auto bg-[#efeae2] p-4 dark:bg-[#0b171e]`}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {translateText(newsletterOpen ? (
@@ -633,16 +692,16 @@ const GuilhermeChatbot = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="flex flex-col gap-3"
+                      className="flex shrink-0 flex-col gap-3"
                     >
                       {messages.map((message) => (
                         <div
                           key={message.id}
-                          className={`max-w-[85%] min-w-0 break-words rounded-2xl px-3.5 py-2 text-sm leading-snug ${message.from === "bot"
-                            ? "self-start bg-[#002d4d]/5 text-[#002d4d] dark:bg-white/10 dark:text-white"
-                            : "self-end bg-[#ff5500] text-white"
-                            }`}
+                          className={`${messageStyles.bubble} ${message.from === "bot" ? messageStyles.bot : messageStyles.user} ${message.attachment?.kind === "audio" ? messageStyles.audio : ""}`}
                         >
+                          {message.attachment?.kind === "image" && <a href={message.attachment.url} target="_blank" rel="noopener noreferrer" aria-label="Abrir imagem enviada"><Image src={message.attachment.url} alt={message.attachment.name} width={280} height={220} unoptimized className="mb-1 max-h-44 w-full rounded-md object-contain" /></a>}
+                          {message.attachment?.kind === "audio" && <VoiceMessageBubble audioSrc={message.attachment.url} locale={locale} bubbleColor={message.from === "user" ? "#000" : "#fff"} waveColor={message.from === "user" ? "#fff" : "#000"} />}
+                          <div className={messageStyles.text}>
                           {linkifyMessage(message.text).map((seg) =>
                             seg.href ? (
                               <a
@@ -652,7 +711,7 @@ const GuilhermeChatbot = () => {
                                 rel="noopener noreferrer"
                                 className={`break-all font-semibold underline underline-offset-2 hover:opacity-80 ${message.from === "bot"
                                   ? "text-[#ff5500]"
-                                  : "text-white"
+                                  : "text-[#075e54] dark:text-white"
                                   }`}
                               >
                                 {translateText(seg.content)}
@@ -661,6 +720,9 @@ const GuilhermeChatbot = () => {
                               <span key={seg.key}>{translateText(seg.content)}</span>
                             ),
                           )}
+                          </div>
+                          {message.transcript && <details className="mt-1 text-[10px] opacity-75"><summary className="cursor-pointer">{locale === "en" ? "Transcription" : locale === "es" ? "Transcripción" : "Transcrição"}</summary><p className="whitespace-pre-wrap">{message.transcript}</p></details>}
+                          {message.createdAt && <div className={messageStyles.meta}><time dateTime={new Date(message.createdAt).toISOString()}>{new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit" }).format(message.createdAt)}</time>{message.from === "user" && <Check size={12} aria-label={locale === "en" ? "Sent" : locale === "es" ? "Enviado" : "Enviada"} />}</div>}
                         </div>
                       ))}
 
@@ -680,7 +742,11 @@ const GuilhermeChatbot = () => {
                 </AnimatePresence>
               </div>
 
-              <div className={`px-3 ${newsletterOpen ? "pb-2.5" : "py-2.5"}`}>
+              <AnimatePresence initial={false}>
+              {newsletterOpen && <motion.div
+                initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className={`shrink-0 overflow-hidden px-3 ${newsletterOpen ? "max-h-[35%] overflow-y-auto pb-2.5" : "py-2.5"}`}>
                 <AnimatePresence mode="wait" initial={false}>
                   {translateText(newsletterStatus === "success" ? (
                     <motion.p
@@ -783,29 +849,17 @@ const GuilhermeChatbot = () => {
                     </motion.form>
                   ))}
                 </AnimatePresence>
-              </div>
+              </motion.div>}
+              </AnimatePresence>
 
-              <form
-                onSubmit={handleSubmit}
-                className="flex items-center gap-2 border-t border-zinc-200 p-3 dark:border-white/10"
-              >
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder={t("chatbot.placeholder")}
-                  autoFocus
-                  className="min-w-0 flex-1 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm text-[#002d4d] outline-none focus:border-[#ff5500] dark:border-white/10 dark:bg-white/5 dark:text-white"
-                />
-                <button
-                  type="submit"
-                  disabled={!input.trim() || isTyping}
-                  aria-label={t("chatbot.enviarAria")}
-                  className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#ff5500] text-white transition-opacity disabled:cursor-default disabled:opacity-40"
-                >
-                  <Send size={16} />
-                </button>
-              </form>
+              {process.env.NEXT_PUBLIC_CHAT_PROVIDER === "puter" && (
+                <p className="shrink-0 bg-white px-3 py-1 text-center text-[10px] leading-snug text-[#002d4d]/70 dark:bg-[#0b171e] dark:text-white/70">
+                  {locale === "en" ? "Messages and attachments are processed by Puter AI. Avoid sensitive personal data."
+                    : locale === "es" ? "Puter AI procesa los mensajes y archivos adjuntos. Evita datos personales sensibles."
+                    : "Mensagens e anexos são processados pelo Puter AI. Evite dados pessoais sensíveis."}
+                </p>
+              )}
+              <ChatComposer busy={isTyping} onSend={sendMessage} placeholder={t("chatbot.placeholder")} locale={locale} />
             </div>
           </motion.div>
         )}
